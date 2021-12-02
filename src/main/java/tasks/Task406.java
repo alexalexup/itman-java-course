@@ -1,6 +1,6 @@
 package tasks;
 
-public class task406 {
+public class Task406 {
     //Напишите функцию, которая принимает массив из целых чисел.
     //Возвращает второй по максимальности элемент.
     public static int findSecondMax (int[] a ) {
