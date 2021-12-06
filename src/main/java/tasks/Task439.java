@@ -5,6 +5,9 @@ public class Task439 {
     public static entities.Event findLast(entities.Event[] events) {
         int index = 0;
         int maxYear = -1;
+        if (events.length < 1) {
+            return null;
+        }
        for (int i = 0; i < events.length; i++ ) {
            if (events[i].year > maxYear) {
                maxYear = events[i].year;

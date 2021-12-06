@@ -115,4 +115,11 @@ class Task439Test {
         Assertions.assertEquals(events[0].day, expectedEvents[0].day);
         Assertions.assertEquals(events[0].name, expectedEvents[0].name);
     }
+    @Test
+    public void findLastwhenEventWithoutElement() {
+        entities.Event[] events = new entities.Event[] {};
+        Event actual = Task439.findLast(events);
+        Assertions.assertEquals(actual, null);
+
+    }
 }
