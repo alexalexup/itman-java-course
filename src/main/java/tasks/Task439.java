@@ -13,21 +13,18 @@ public class Task439 {
                maxYear = events[i].year;
                index = i;
            } else if (events[i].year == maxYear) {
-               if (events[i].month > events[i-1].month) {
+               if (events[i].month > events[index].month) {
                    index =i;
-               } else if (events[i].month < events[i-1].month) {
-                   index = i-1;
-               } else if (events[i].month == events[i-1].month) {
-                   if (events[i].day > events[i-1].day) {
+               } else if (events[i].month == events[index].month) {
+                   if (events[i].day > events[index].day) {
                        index = i;
-                   } else if (events[i].day < events[i-1].day) {
-                       index = i-1;
-                   } else if (events[i].day == events[i-1].day) {
+                   } else if (events[i].day == events[index].day) {
                        index = i;
                    }
                }
            }
        }
+       System.out.println("!!!!!!" + index);
         return events[index];
     }
 }

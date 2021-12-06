@@ -122,4 +122,37 @@ class Task439Test {
         Assertions.assertEquals(actual, null);
 
     }
+
+    @Test
+    public void findLastWhenEventHaveTreeSameYears() {
+        entities.Event[] events = new entities.Event[] {
+                new entities.Event(2010, 8, 21, "birthday"),
+                new entities.Event(2012, 12, 20, "jobOffer"),
+                new entities.Event(2012, 9, 25, "christmas"),
+                new entities.Event(2012, 11, 25 , "startHolidays")
+        };
+        entities.Event[] expectedEvents = new entities.Event[] {
+                new entities.Event(2010, 8, 21, "birthday"),
+                new entities.Event(2012, 12, 20, "jobOffer"),
+                new entities.Event(2012, 9, 25, "christmas"),
+                new entities.Event(2012, 11, 25 , "startHolidays")
+        };
+        entities.Event[] expectedEventsLinks = new entities.Event[] {
+                events[0],
+                events[1],
+                events[2],
+                events[3]
+        };
+
+        Event expected = events[1];
+        Event actual = Task439.findLast(events);
+        Assertions.assertSame(expected, actual);
+        Assertions.assertArrayEquals(expectedEventsLinks, events);
+        for (int i = 0; i < events.length; i++) {
+            Assertions.assertEquals(events[i].year, expectedEvents[i].year);
+            Assertions.assertEquals(events[i].month, expectedEvents[i].month);
+            Assertions.assertEquals(events[i].day, expectedEvents[i].day);
+            Assertions.assertEquals(events[i].name, expectedEvents[i].name);
+        }
+    }
 }
