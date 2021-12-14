@@ -3,13 +3,11 @@ package tasks;
 public class Task432 {
     public static long[] calcPrimeNumbers( long x) {
         long b = x;
-        long p =x;
         int max = 0;
         int max2 = 0;
         int j = 0;
         if (x < 2) {
-            long[] actual = new long[] {1};
-            return actual;
+            return null;
         }
         for (int i = 2; i < (long)Math.sqrt(b) + 1; i++) {
             if (b % i == 0) {
