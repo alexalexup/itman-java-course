@@ -19,7 +19,7 @@ class Task432Test {
     public void calcPrimeNumbersWhenNumberIsMinValue () {
         long x = 1L;
         long[] actual = Task432.calcPrimeNumbers(x);
-        long[] expected = null;
+        long[] expected = new long[] {};;
         Assertions.assertArrayEquals(expected, actual);
 
     }

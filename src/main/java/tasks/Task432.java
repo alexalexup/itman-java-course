@@ -7,7 +7,8 @@ public class Task432 {
         int max2 = 0;
         int j = 0;
         if (x < 2) {
-            return null;
+            long[] actual = new long[] {};
+            return actual;
         }
         for (int i = 2; i < (long)Math.sqrt(b) + 1; i++) {
             if (b % i == 0) {
