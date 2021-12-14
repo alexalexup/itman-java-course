@@ -24,10 +24,11 @@ public class Task432 {
         if (max >= b) {
             int index = 0;
             long[] actual = new long[j];
-            for (int i =2; i < (long)Math.sqrt(b) + 1; i++ ) {
+            for (int i =2; i < (long)Math.sqrt(x) + 1; i++ ) {
+
                 if (x % i == 0) {
                     x = x / i;
-                    if (i > max2 && index < j) {
+                    if (i > max2 ) {
                         max2 = i;
                         actual[index] = i;
                         index++;
@@ -40,10 +41,10 @@ public class Task432 {
         if (max < b) {
             int index = 0;
             long[] actual = new long[j+1];
-            for (int i =2; i < (long)Math.sqrt(b) + 1; i++ ) {
+            for (int i =2; i < (long)Math.sqrt(x) + 1; i++ ) {
                 if (x % i == 0) {
                     x = x / i;
-                    if (i > max2 && index < j+1) {
+                    if (i > max2) {
                         max2 = i;
                         actual[index] = i;
                         index++;
