@@ -39,10 +39,4 @@ class Task406Test {
         int[] a = new int[]{-5};
         Assertions.assertEquals(-5, Task406.findSecondMax(a));
     }
-
-
-
-
-
-
 }

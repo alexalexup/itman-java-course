@@ -1,7 +1,12 @@
 package tasks;
 
 public class Task407 {
-    // Нужно отсортировать строки в порядке убывания суммы элементов строк.
+    /**
+     * Sorting array rows in decreasing order of the sum of row elements
+     * @ram O(matrix.length)
+     * @cpu O(matrix.length^2)
+     * @param matrix array with numbers
+     */
     public static void sortMatrixRowsDesc(int[][] matrix) {
        int [] key = new int [matrix.length];
        for (int i = 0; i < matrix.length; i++) {

@@ -3,6 +3,12 @@ package tasks;
 import entities.Event;
 
 public class Task408 {
+    /**
+     * Sort events in increasing order of date
+     * @ram O(1);
+     * @cpu O(event.length^2);
+     * @param events array
+     */
     public static void  sort(entities.Event[] events) {
         if (events.length < 1) {
            return;

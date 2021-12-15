@@ -1,8 +1,14 @@
 package tasks;
 
 public class Task406 {
-    //Напишите функцию, которая принимает массив из целых чисел.
-    //Возвращает второй по максимальности элемент.
+    /**
+     * find second max element from array
+     * @ram O(1)
+     * @cpu O(a.length)
+     * @param a array with numbers
+     * @return second max element from a array
+     */
+
     public static int findSecondMax (int[] a ) {
         int max = Integer.MIN_VALUE;
         int max2 = Integer.MIN_VALUE;
@@ -11,7 +17,7 @@ public class Task406 {
         }
         for (int i = 0; i < a.length; i++) {
             if ( max <= a[i]) {
-                max2 =max;
+                max2 = max;
                 max = a[i];
             } else if (max2 < a[i]) {
                 max2 = a[i];
@@ -19,6 +25,4 @@ public class Task406 {
         }
         return max2;
     }
-
-
 }

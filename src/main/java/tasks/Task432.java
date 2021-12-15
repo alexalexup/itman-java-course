@@ -1,6 +1,13 @@
 package tasks;
 
 public class Task432 {
+    /**
+     * Calculation unique prime numbers
+     * @ram O(actual.length)
+     * @cpu 0(sqrt(b))
+     * @param x argument
+     * @return actual array with unique  prime numbers
+     */
     public static long[] calcPrimeNumbers( long x) {
         long b = x;
         int max = 0;

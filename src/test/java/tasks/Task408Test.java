@@ -155,16 +155,6 @@ class Task408Test {
         }
     }
 
-
-    /*@Test
-    public void sortWhenEmptyArray() {
-        entities.Event[] events = new entities.Event[] {};
-        Task408.sort(events);
-       Assertions.assertNull(events);
-
-    }
-     */
-
     @Test
     public void sortWhenOneEvent() {
         entities.Event[] events = new entities.Event[]{new entities.Event(2018, 8, 25, "jodOffer")};

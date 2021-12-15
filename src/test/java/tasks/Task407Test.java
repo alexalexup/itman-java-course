@@ -28,7 +28,6 @@ class Task407Test {
         }
    }
 
-
     @Test
     public void sortMatrixRowsDescWhenThreeSameSumRows() {
         int [][] matrix = new int [][]{
@@ -52,6 +51,7 @@ class Task407Test {
             }
         }
     }
+
     @Test
     public void sortMatrixRowsDescWhenOneRow() {
         int [][] matrix = new int [][]{{1, 2, 3, 4}};

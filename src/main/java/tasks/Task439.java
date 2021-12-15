@@ -1,7 +1,13 @@
 package tasks;
 
 public class Task439 {
-    // Надо написать функцию, которая принимает массив событий (0 <= N <= 10^6) и возвращает событие случившиеся позже всего.
+    /**
+     * Find latest event from array events
+     * @ram O(1)
+     * cpu O(events.length)
+     * @param events array
+     * @return latest event from events array
+     */
     public static entities.Event findLast(entities.Event[] events) {
         int index = 0;
         int maxYear = -1;
