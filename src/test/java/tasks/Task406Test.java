@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 class Task406Test {
 
     @Test
-     public void findSecondMaxShouldReturnFirstElementOfArrayWhenSecondMaxisFirst() {
+     public void findSecondMaxShouldReturnFirstElementOfArrayWhenSecondMaxIsFirst() {
         int[] a = new int[]{2, 10, 1};
         Assertions.assertEquals(2, Task406.findSecondMax(a));
     }
 
     @Test
-    public void findSecondMaxShouldReturnLastElementOfArrayWhenSecondMaxisLast() {
+    public void findSecondMaxShouldReturnLastElementOfArrayWhenSecondMaxIsLast() {
         int[] a = new int[]{5, 2, 4};
         Assertions.assertEquals(4, Task406.findSecondMax(a));
         Assertions.assertArrayEquals(new int[]{5, 2, 4}, a);
