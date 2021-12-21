@@ -4,33 +4,24 @@ public class Task439 {
     /**
      * Find latest event from array events
      * @ram O(1)
-     * cpu O(events.length)
+     * cpu O(n)
      * @param events array
      * @return latest event from events array
      */
     public static entities.Event findLast(entities.Event[] events) {
-        int index = 0;
-        int maxYear = -1;
-        if (events.length < 1) {
+        int index = 1;
+        int n = events.length;
+        if (n < 1) {
             return null;
         }
-       for (int i = 0; i < events.length; i++ ) {
-           if (events[i].year > maxYear) {
-               maxYear = events[i].year;
+        if (n == 1) {
+            return events[0];
+        }
+       for (int i = 0; i < n; i++ ) {
+           if (events[i].year > events[index].year || (events[i].month > events[index].month && events[i].year == events[index].year) || (events[i].day > events[index].day && events[i].month == events[index].month) ) {
                index = i;
-           } else if (events[i].year == maxYear) {
-               if (events[i].month > events[index].month) {
-                   index =i;
-               } else if (events[i].month == events[index].month) {
-                   if (events[i].day > events[index].day) {
-                       index = i;
-                   } else if (events[i].day == events[index].day) {
-                       index = i;
-                   }
-               }
            }
        }
-       System.out.println("!!!!!!" + index);
         return events[index];
     }
 }

@@ -8,47 +8,58 @@ import static org.junit.jupiter.api.Assertions.*;
 class Task433Test {
 
     @Test
-    public void gcdWhenBothElementIsEqual() {
+    public void gcdShouldReturnBWhenBothElementsAreEqual() {
         long a = 4928340l;
         long b = 4928340l;
         long result = Task433.gcd(a, b);
         Assertions.assertEquals(b, result);
-
     }
 
     @Test
-    public void gcdWhenFirstElementBiggerThanSecondAndModIsZero() {
+    public void gcdShouldReturnBWhenBIsGcd() {
         long a = 6456465l;
         long b = 5l;
         long result = Task433.gcd(a, b);
         Assertions.assertEquals(b, result);
-
     }
 
     @Test
-    public void gcdWhenSecondElementBiggerThanFirstAndModIsZero() {
-        long a = 27l;
-        long b = 243l;
+    public void gcdShouldReturnAWhenAIsGcd() {
+        long a = 167l;
+        long b = 1169l;
         long result = Task433.gcd(a, b);
         Assertions.assertEquals(a, result);
-
     }
 
     @Test
-    public void gcdWhenSecondElementBiggerThanFirst() {
-        long a = 9999999999999996l;
-        long b = 99999999999996l;
+    public void gcdShouldReturnMinValueWhenAHaveMaxValueAndBIsNotGcd() {
+        long a = 10000000000000000l;
+        long b = 3l;
         long result = Task433.gcd(a, b);
-        Assertions.assertEquals(12, result);
-
+        Assertions.assertEquals(1, result);
     }
+
     @Test
-    public void gcdWhenBothElementAreEqualAndMin() {
+    public void gcdShouldReturnMaxValueWhenElementsHaveMaxValues() {
+        long a = 10000000000000000l;
+        long b = 10000000000000000l;
+        long result = Task433.gcd(a, b);
+        Assertions.assertEquals(10000000000000000l, result);
+    }
+
+    @Test
+    public void gcdShouldReturnMinValueWhenElementsHaveMinValues() {
         long a = 1l;
         long b = 1l;
         long result = Task433.gcd(a, b);
-        Assertions.assertEquals(1, result);
-
+        Assertions.assertEquals(1l, result);
     }
 
+    @Test
+    public void gcdShouldReturnMinValueWhenElementsArePrimeNumbers() {
+        long a = 863l;
+        long b = 617l;
+        long result = Task433.gcd(a, b);
+        Assertions.assertEquals(1l, result);
+    }
 }

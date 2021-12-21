@@ -3,64 +3,47 @@ package tasks;
 public class Task432 {
     /**
      * Calculation unique prime numbers
-     * @ram O(actual.length)
-     * @cpu 0(sqrt(b))
+     * @ram O(sqrt(x))
+     * @cpu 0(sqrt(x))
      * @param x argument
      * @return actual array with unique  prime numbers
      */
     public static long[] calcPrimeNumbers( long x) {
-        long b = x;
-        int max = 0;
-        int max2 = 0;
-        int j = 0;
+        int maxCountPrimeNumbers = (int)Math.sqrt(x) + 1; // максимальное количество простых делителей
+        int maxValuePrimeNumber = 0; // максимальное значение простого делителя
+        int lastIndexActualPrimeNumbers = 0; //последний индекс + 1 массива PrimeNumbers который не равен 0
+        long [] PrimeNumbers = new long [maxCountPrimeNumbers];
         if (x < 2) {
-            long[] actual = new long[] {};
-            return actual;
+            long [] ActualPrimeNumbers = new long [] {};
+            return ActualPrimeNumbers;
         }
-        for (int i = 2; i < (long)Math.sqrt(b) + 1; i++) {
-            if (b % i == 0) {
-                b = b/ i;
-                if (i > max) {
-                    max =i;
-                    j++;
+        for (int i = 2; i < maxCountPrimeNumbers; i++) {
+            if (x % i == 0) {
+                x = x / i;
+                maxCountPrimeNumbers = (int)Math.sqrt(x) + 1;
+                if (i > maxValuePrimeNumber) {
+                    maxValuePrimeNumber = i;
+                    PrimeNumbers[lastIndexActualPrimeNumbers] = i;
+                    lastIndexActualPrimeNumbers++;
                 }
                 i = 1;
             }
         }
-        if (max >= b) {
-            int index = 0;
-            long[] actual = new long[j];
-            for (int i =2; i < (long)Math.sqrt(x) + 1; i++ ) {
-
-                if (x % i == 0) {
-                    x = x / i;
-                    if (i > max2 ) {
-                        max2 = i;
-                        actual[index] = i;
-                        index++;
-                    }
-                    i = 1;
-                }
+        if (lastIndexActualPrimeNumbers == 0) {
+            long [] ActualPrimeNumbers = new long [] {x};
+            return ActualPrimeNumbers;
+        } else {
+            if (PrimeNumbers[lastIndexActualPrimeNumbers -1] < x) {
+                PrimeNumbers[lastIndexActualPrimeNumbers] = x;
+            } else {
+                lastIndexActualPrimeNumbers--;
             }
-            return actual;
         }
-        if (max < b) {
-            int index = 0;
-            long[] actual = new long[j+1];
-            for (int i =2; i < (long)Math.sqrt(x) + 1; i++ ) {
-                if (x % i == 0) {
-                    x = x / i;
-                    if (i > max2) {
-                        max2 = i;
-                        actual[index] = i;
-                        index++;
-                    }
-                    i = 1;
-                }
-            }
-            actual[j] =b;
-            return actual;
+        int n = lastIndexActualPrimeNumbers + 1;
+        long [] ActualPrimeNumbers = new long [n];
+        for (int i = 0; i < n; i++) {
+            ActualPrimeNumbers[i] = PrimeNumbers[i];
         }
-        return null;
+        return ActualPrimeNumbers;
     }
 }

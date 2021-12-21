@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class Task408Test {
+
     @Test
     public void sortWhenDifferentYears() {
         entities.Event[] events = new entities.Event[]{

@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 class Task406Test {
 
     @Test
-     public void findSecondMaxWhenMaxInFirst() {
+     public void findSecondMaxShouldReturnFirstElementOfArrayWhenSecondMaxisFirst() {
         int[] a = new int[]{2, 10, 1};
         Assertions.assertEquals(2, Task406.findSecondMax(a));
     }
 
     @Test
-    public void findSecondMaxWhenMaxInLast() {
+    public void findSecondMaxShouldReturnLastElementOfArrayWhenSecondMaxisLast() {
         int[] a = new int[]{5, 2, 4};
         Assertions.assertEquals(4, Task406.findSecondMax(a));
         Assertions.assertArrayEquals(new int[]{5, 2, 4}, a);
@@ -20,14 +20,14 @@ class Task406Test {
     }
 
     @Test
-    public void findSecondMaxWhenMaxInMiddle() {
+    public void findSecondMaxShouldReturnMiddleElementOfArrayWhenSecondMaxInMiddle() {
         int[] a = new int[]{8, 7, 2};
         Assertions.assertEquals(7, Task406.findSecondMax(a));
         Assertions.assertArrayEquals(new int[]{8, 7, 2}, a);
     }
 
     @Test
-    public void findSecondMaxWhenArrayContainsFewSecondMaxElements() {
+    public void findSecondMaxShouldReturnThirdElementOfArrayWhenArrayHaveTwoSameSecondMaxElements() {
         int[] a = new int[]{6, 0, 7, 8, 7};
         Assertions.assertEquals(7, Task406.findSecondMax(a));
         Assertions.assertArrayEquals(new int[]{6, 0, 7, 8, 7}, a);
@@ -35,7 +35,7 @@ class Task406Test {
     }
 
     @Test
-    public void findSecondMaxWhenArrayContainsSingleElements() {
+    public void findSecondShouldReturnFirstElementOfArrayWhenArrayContainOneElement() {
         int[] a = new int[]{-5};
         Assertions.assertEquals(-5, Task406.findSecondMax(a));
     }
