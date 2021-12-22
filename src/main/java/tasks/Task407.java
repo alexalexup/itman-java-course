@@ -3,8 +3,8 @@ package tasks;
 public class Task407 {
     /**
      * Sorting array rows in decreasing order of the sum of row elements
+     * @cpu O(n*m + n^2), n - matrix.length, m - matrix[0].length
      * @ram O(n)
-     * @cpu O(n*m + n^2)
      * @param matrix array with numbers
      */
     public static void sortMatrixRowsDesc(int[][] matrix) {

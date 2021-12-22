@@ -3,8 +3,8 @@ package tasks;
 public class Task406 {
     /**
      * find second max element from array
+     * @cpu O(n), n - a.length
      * @ram O(1)
-     * @cpu O(n)
      * @param a array with numbers
      * @return second max element from a array
      */

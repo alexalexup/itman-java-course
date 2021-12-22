@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class Task408Test {
 
-    public void sortShouldNotChangeValuesOfEventsWhenMethodWasCalled(Event[] events, Event[] expectedEvents) {
+    public void checkEqualsValues(Event[] events, Event[] expectedEvents) {
         for (int i = 0; i < events.length; i++) {
             Assertions.assertEquals(events[i].year, expectedEvents[i].year);
             Assertions.assertEquals(events[i].month, expectedEvents[i].month);
@@ -25,8 +25,8 @@ class Task408Test {
         };
         entities.Event[] expectedEvents = events;
         entities.Event[] expectedLinks = new entities.Event[] {
-                events[1],
                 events[2],
+                events[1],
                 events[0],
                 events[3]
         };
@@ -51,7 +51,7 @@ class Task408Test {
         };
 
         Task408.sort(events);
-        sortShouldNotChangeValuesOfEventsWhenMethodWasCalled(events, expectedValues);
+        checkEqualsValues(events, expectedValues);
     }
 
     @Test
@@ -69,7 +69,7 @@ class Task408Test {
                 new entities.Event(2018, 7, 8, "jodOffer")
         };
         Task408.sort(events);
-        sortShouldNotChangeValuesOfEventsWhenMethodWasCalled(events, expectedValues);
+        checkEqualsValues(events, expectedValues);
     }
 
     @Test
@@ -87,7 +87,7 @@ class Task408Test {
                 new entities.Event(2018, 8, 25, "wedding")
         };
         Task408.sort(events);
-        sortShouldNotChangeValuesOfEventsWhenMethodWasCalled(events, expectedValues);
+        checkEqualsValues(events, expectedValues);
     }
 
     @Test
@@ -105,7 +105,7 @@ class Task408Test {
                 new entities.Event(2018, 8, 25, "holidays")
         };
         Task408.sort(events);
-        sortShouldNotChangeValuesOfEventsWhenMethodWasCalled(events, expectedValues);
+        checkEqualsValues(events, expectedValues);
     }
 
     @Test
@@ -123,7 +123,7 @@ class Task408Test {
                 new entities.Event(2018, 8, 25, "holidays")
         };
         Task408.sort(events);
-        sortShouldNotChangeValuesOfEventsWhenMethodWasCalled(events, expectedValues);
+        checkEqualsValues(events, expectedValues);
     }
 
     @Test
@@ -131,7 +131,7 @@ class Task408Test {
         entities.Event[] events = new entities.Event[]{new entities.Event(2018, 8, 25, "jodOffer")};
         entities.Event[] expectedValues = new entities.Event[]{new entities.Event(2018, 8, 25, "jodOffer")};
         Task408.sort(events);
-        sortShouldNotChangeValuesOfEventsWhenMethodWasCalled(events, expectedValues);
+        checkEqualsValues(events, expectedValues);
     }
 
     @Test
@@ -139,7 +139,27 @@ class Task408Test {
         entities.Event[] events = new entities.Event[]{};
         entities.Event[] expectedValues = new entities.Event[]{};
         Task408.sort(events);
-        sortShouldNotChangeValuesOfEventsWhenMethodWasCalled(events, expectedValues);
+        checkEqualsValues(events, expectedValues);
+    }
+
+    @Test
+    public void sortShouldSortEventsWhenEventsHaveSameMonthAndDifferenceYearsAndDays() {
+        entities.Event[] events = new entities.Event[]{
+                new entities.Event(2014, 6, 5, "jodOffer"),
+                new entities.Event(2010, 6, 1, "birthday"),
+                new entities.Event(2016, 6, 6, "wedding"),
+                new entities.Event(2009, 6, 24, "holidays"),
+                new entities.Event(2008, 6, 25, "meeting")
+        };
+        entities.Event[] expectedValues = new entities.Event[]{
+                new entities.Event(2008, 6, 25, "meeting"),
+                new entities.Event(2009, 6, 24, "holidays"),
+                new entities.Event(2010, 6, 1, "birthday"),
+                new entities.Event(2014, 6, 5, "jodOffer"),
+                new entities.Event(2016, 6, 6, "wedding")
+        };
+        Task408.sort(events);
+        checkEqualsValues(events, expectedValues);
     }
 
 }

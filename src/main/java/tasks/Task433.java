@@ -3,8 +3,8 @@ package tasks;
 public class Task433 {
     /**
      * Calculation gcd from two arguments
-     * @ram O(1)
      * @cpu O(log(a) + log(b))
+     * @ram O(1)
      * @param a argument
      * @param b argument
      * @return gcd from a and b arguments

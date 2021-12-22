@@ -3,19 +3,19 @@ package tasks;
 public class Task432 {
     /**
      * Calculation unique prime numbers
-     * @ram O(sqrt(x))
      * @cpu 0(sqrt(x))
+     * @ram O(sqrt(x))
      * @param x argument
      * @return actual array with unique  prime numbers
      */
     public static long[] calcPrimeNumbers( long x) {
-        int maxCountPrimeNumbers = (int)Math.sqrt(x) + 1; // максимальное количество простых делителей
-        int maxValuePrimeNumber = 0; // максимальное значение простого делителя
-        int lastIndexActualPrimeNumbers = 0; //последний индекс + 1 массива PrimeNumbers который не равен 0
+        int maxCountPrimeNumbers = (int)Math.sqrt(x) + 1;
+        int maxValuePrimeNumber = 0;
+        int lastIndexActualPrimeNumbers = 0;
         long [] PrimeNumbers = new long [maxCountPrimeNumbers];
         if (x < 2) {
-            long [] ActualPrimeNumbers = new long [] {};
-            return ActualPrimeNumbers;
+            long [] actualPrimeNumbers = new long [] {};
+            return actualPrimeNumbers;
         }
         for (int i = 2; i < maxCountPrimeNumbers; i++) {
             if (x % i == 0) {
@@ -30,8 +30,8 @@ public class Task432 {
             }
         }
         if (lastIndexActualPrimeNumbers == 0) {
-            long [] ActualPrimeNumbers = new long [] {x};
-            return ActualPrimeNumbers;
+            long [] actualPrimeNumbers = new long [] {x};
+            return actualPrimeNumbers;
         } else {
             if (PrimeNumbers[lastIndexActualPrimeNumbers -1] < x) {
                 PrimeNumbers[lastIndexActualPrimeNumbers] = x;

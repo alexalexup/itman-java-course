@@ -16,36 +16,36 @@ class Task432Test {
     }
 
     @Test
-    public void calcShouldReturnLongTypeWhenXIsIntType() {
+    public void calcShouldWorkWhenInputValueHaveIntType() {
         long x = 99854562;
         long[] actual = Task432.calcPrimeNumbers(x);
-        long[] expected = new long[] {2l, 3l, 173l, 96199l};
+        long[] expected = new long[] {2L, 3L, 173L, 96199L};
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void calcShouldReturnResultInAcceptableTimeWhenPrimeNumberIsMax() {
-        long x = 999999999999998l;
+        long x = 999999999999998L;
         long[] actual = Task432.calcPrimeNumbers(x);
-        long[] expected = new long[] {2l, 499999999999999l};
+        long[] expected = new long[] {2L, 499999999999999L};
          Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void calcShouldReturnResultInAcceptableTimeWhenXIsMax() {
-        long x = 1000000000000000l;
+        long x = 1000000000000000L;
         Task432.calcPrimeNumbers(x);
         long[] actual = Task432.calcPrimeNumbers(x);
-        long[] expected = new long[] {2l, 5l};
+        long[] expected = new long[] {2L, 5L};
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void calcShouldReturnXWhenXIsPrimeNumber() {
-        long x = 997l;
+        long x = 997L;
         Task432.calcPrimeNumbers(x);
         long[] actual = Task432.calcPrimeNumbers(x);
-        long[] expected = new long[] {997l};
+        long[] expected = new long[] {997L};
         Assertions.assertArrayEquals(expected, actual);
     }
 }
