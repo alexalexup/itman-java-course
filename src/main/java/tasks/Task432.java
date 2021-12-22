@@ -4,42 +4,37 @@ public class Task432 {
     /**
      * Calculation unique prime numbers
      * @cpu 0(sqrt(x))
-     * @ram O(sqrt(x))
+     * @ram O(1)
      * @param x argument
      * @return actual array with unique  prime numbers
      */
     public static long[] calcPrimeNumbers( long x) {
-        int maxCountPrimeNumbers = (int)Math.sqrt(x) + 1;
-        int maxValuePrimeNumber = 0;
-        int lastIndexActualPrimeNumbers = 0;
-        long [] PrimeNumbers = new long [maxCountPrimeNumbers];
+        long [] PrimeNumbers = new long [13];
+        int IndexActualPrimeNumbers = 0;
         if (x < 2) {
             long [] actualPrimeNumbers = new long [] {};
             return actualPrimeNumbers;
         }
-        for (int i = 2; i < maxCountPrimeNumbers; i++) {
+        for (int i = 2; i < (int)Math.sqrt(x) ; i++) {
             if (x % i == 0) {
-                x = x / i;
-                maxCountPrimeNumbers = (int)Math.sqrt(x) + 1;
-                if (i > maxValuePrimeNumber) {
-                    maxValuePrimeNumber = i;
-                    PrimeNumbers[lastIndexActualPrimeNumbers] = i;
-                    lastIndexActualPrimeNumbers++;
-                }
-                i = 1;
+                do {
+                    x = x / i;
+                } while (x % i == 0);
+                PrimeNumbers [IndexActualPrimeNumbers] = i;
+                IndexActualPrimeNumbers++;
             }
         }
-        if (lastIndexActualPrimeNumbers == 0) {
+        if (IndexActualPrimeNumbers == 0) {
             long [] actualPrimeNumbers = new long [] {x};
             return actualPrimeNumbers;
         } else {
-            if (PrimeNumbers[lastIndexActualPrimeNumbers -1] < x) {
-                PrimeNumbers[lastIndexActualPrimeNumbers] = x;
+            if (PrimeNumbers[IndexActualPrimeNumbers-1] < x) {
+                PrimeNumbers[IndexActualPrimeNumbers] = x;
             } else {
-                lastIndexActualPrimeNumbers--;
+                IndexActualPrimeNumbers--;
             }
         }
-        int n = lastIndexActualPrimeNumbers + 1;
+        int n = IndexActualPrimeNumbers + 1;
         long [] ActualPrimeNumbers = new long [n];
         for (int i = 0; i < n; i++) {
             ActualPrimeNumbers[i] = PrimeNumbers[i];
