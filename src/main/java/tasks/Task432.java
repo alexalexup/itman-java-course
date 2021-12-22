@@ -9,8 +9,8 @@ public class Task432 {
      * @return actual array with unique  prime numbers
      */
     public static long[] calcPrimeNumbers( long x) {
-        long [] PrimeNumbers = new long [13];
-        int IndexActualPrimeNumbers = 0;
+        long [] primeNumbers = new long [13];
+        int indexActualPrimeNumbers = 0;
         if (x < 2) {
             long [] actualPrimeNumbers = new long [] {};
             return actualPrimeNumbers;
@@ -20,25 +20,25 @@ public class Task432 {
                 do {
                     x = x / i;
                 } while (x % i == 0);
-                PrimeNumbers [IndexActualPrimeNumbers] = i;
-                IndexActualPrimeNumbers++;
+                primeNumbers [indexActualPrimeNumbers] = i;
+                indexActualPrimeNumbers++;
             }
         }
-        if (IndexActualPrimeNumbers == 0) {
+        if (indexActualPrimeNumbers == 0) {
             long [] actualPrimeNumbers = new long [] {x};
             return actualPrimeNumbers;
         } else {
-            if (PrimeNumbers[IndexActualPrimeNumbers-1] < x) {
-                PrimeNumbers[IndexActualPrimeNumbers] = x;
+            if (primeNumbers[indexActualPrimeNumbers-1] < x) {
+                primeNumbers[indexActualPrimeNumbers] = x;
             } else {
-                IndexActualPrimeNumbers--;
+                indexActualPrimeNumbers--;
             }
         }
-        int n = IndexActualPrimeNumbers + 1;
-        long [] ActualPrimeNumbers = new long [n];
+        int n = indexActualPrimeNumbers + 1;
+        long [] actualPrimeNumbers = new long [n];
         for (int i = 0; i < n; i++) {
-            ActualPrimeNumbers[i] = PrimeNumbers[i];
+            actualPrimeNumbers[i] = primeNumbers[i];
         }
-        return ActualPrimeNumbers;
+        return actualPrimeNumbers;
     }
 }

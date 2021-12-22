@@ -49,7 +49,6 @@ class Task408Test {
                 new entities.Event(2010, 4, 8, "jodOffer"),
                 new entities.Event(2012, 3, 12, "birthday")
         };
-
         Task408.sort(events);
         checkEqualsValues(events, expectedValues);
     }
@@ -161,5 +160,4 @@ class Task408Test {
         Task408.sort(events);
         checkEqualsValues(events, expectedValues);
     }
-
 }

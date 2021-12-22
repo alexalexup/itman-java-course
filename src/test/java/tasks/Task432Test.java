@@ -48,6 +48,7 @@ class Task432Test {
         long[] expected = new long[] {997L};
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void calcShouldReturnResultInAcceptableTimeWhenXHaveMaxCountPrimeNumbers() {
         long x = 304250263527210L;

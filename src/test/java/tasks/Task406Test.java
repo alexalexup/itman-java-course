@@ -16,7 +16,6 @@ class Task406Test {
         int[] a = new int[]{5, 2, 4};
         Assertions.assertEquals(4, Task406.findSecondMax(a));
         Assertions.assertArrayEquals(new int[]{5, 2, 4}, a);
-
     }
 
     @Test

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class Task439Test {
 
-    public void findShouldNotChangeValuesOfEventsWhenMethodWasCalled(Event[] events, Event[] expectedEvents) {
+    public void checkEqualsValues(Event[] events, Event[] expectedEvents) {
         for (int i = 0; i < events.length; i++) {
             Assertions.assertEquals(events[i].year, expectedEvents[i].year);
             Assertions.assertEquals(events[i].month, expectedEvents[i].month);
@@ -32,7 +32,7 @@ class Task439Test {
         Event expected = events[0];
         Event actual = Task439.findLast(events);
         Assertions.assertSame(expected, actual);
-        findShouldNotChangeValuesOfEventsWhenMethodWasCalled(events,expectedEvents);
+        checkEqualsValues(events,expectedEvents);
     }
 
     @Test
@@ -49,7 +49,7 @@ class Task439Test {
                 events[2],
                 events[3]
         };
-        Event actual = Task439.findLast(events);
+        Task439.findLast(events);
         Assertions.assertArrayEquals(expectedEventsLinks, events);
     }
 
@@ -71,7 +71,7 @@ class Task439Test {
         Event expected = events[2];
         Event actual = Task439.findLast(events);
         Assertions.assertSame(expected, actual);
-        findShouldNotChangeValuesOfEventsWhenMethodWasCalled(events,expectedEvents);
+        checkEqualsValues(events,expectedEvents);
     }
 
     @Test
@@ -88,12 +88,10 @@ class Task439Test {
                 new entities.Event(2010, 12, 25, "christmas"),
                 new entities.Event(2012, 12, 25 , "startHolidays")
         };
-
         Event expected = events[3];
         Event actual = Task439.findLast(events);
         Assertions.assertSame(expected, actual);
-        findShouldNotChangeValuesOfEventsWhenMethodWasCalled(events,expectedEvents);
-
+        checkEqualsValues(events,expectedEvents);
     }
 
     @Test
@@ -101,7 +99,7 @@ class Task439Test {
         entities.Event[] events = new entities.Event[] {new entities.Event(1999, 4, 18, "wedding")};
         entities.Event[] expectedEvents = new entities.Event[] {(events[0])};
         Event actual = Task439.findLast(events);
-        findShouldNotChangeValuesOfEventsWhenMethodWasCalled(events,expectedEvents);
+        checkEqualsValues(events,expectedEvents);
     }
 
     @Test
@@ -129,6 +127,28 @@ class Task439Test {
         Event expected = events[1];
         Event actual = Task439.findLast(events);
         Assertions.assertSame(expected, actual);
-        findShouldNotChangeValuesOfEventsWhenMethodWasCalled(events,expectedEvents);
+        checkEqualsValues(events,expectedEvents);
+    }
+
+    @Test
+    public void findShouldReturnLastEventWhenEventsHaveSameMonthAndHaveDifferenceYearsAndDays() {
+        entities.Event[] events = new entities.Event[]{
+                new entities.Event(2014, 6, 3, "jodOffer"),
+                new entities.Event(2010, 6, 25, "birthday"),
+                new entities.Event(2016, 6, 2, "wedding"),
+                new entities.Event(2009, 6, 24, "holidays"),
+                new entities.Event(2008, 6, 23, "meeting")
+        };
+        entities.Event[] expectedValues = new entities.Event[]{
+                new entities.Event(2014, 6, 3, "jodOffer"),
+                new entities.Event(2010, 6, 25, "birthday"),
+                new entities.Event(2016, 6, 2, "wedding"),
+                new entities.Event(2009, 6, 24, "holidays"),
+                new entities.Event(2008, 6, 23, "meeting")
+        };
+        Event expected = events[2];
+        Event actual = Task439.findLast(events);
+        Assertions.assertSame(expected, actual);
+        checkEqualsValues(events, expectedValues);
     }
 }

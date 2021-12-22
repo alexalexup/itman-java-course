@@ -19,7 +19,6 @@ class Task407Test {
         for (int i = 0; i < matrix.length; i++) {
             Assertions.assertSame(expectedlinks[i], matrix[i]);
         }
-
     }
 
     @Test
@@ -38,7 +37,6 @@ class Task407Test {
         };
         Task407.sortMatrixRowsDesc(matrix);
         Assertions.assertArrayEquals(expectedValues, matrix);
-
    }
 
     @Test
@@ -57,7 +55,6 @@ class Task407Test {
         };
         Task407.sortMatrixRowsDesc(matrix);
         Assertions.assertArrayEquals(expectedValues, matrix);
-
     }
 
     @Test
@@ -69,7 +66,6 @@ class Task407Test {
         Assertions.assertSame(expectedlinks[0], matrix[0]);
         for (int i = 0; i < matrix.length; i++) {
                 Assertions.assertEquals(expectedValues[0][i], matrix[0][i]);
-
         }
     }
 
