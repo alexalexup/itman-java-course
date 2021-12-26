@@ -18,7 +18,9 @@ public class Task439 {
            if (events[i].year > events[index].year
                    || (events[i].month > events[index].month && events[i].year == events[index].year)
                    || (events[i].day > events[index].day && events[i].month == events[index].month
-                   && events[i].year == events[index].year)) {
+                   && events[i].year == events[index].year)
+                   || events[i].day == events[index].day && events[i].month == events[index].month
+                   && events[i].year == events[index].year) {
                index = i;
            }
        }

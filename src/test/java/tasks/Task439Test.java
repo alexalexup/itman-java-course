@@ -151,4 +151,26 @@ class Task439Test {
         Assertions.assertSame(expected, actual);
         checkEqualsValues(events, expectedValues);
     }
+
+    @Test
+    public void findShouldReturnLastEventWhenEventsHaveSameEventsWithEqualElements() {
+        entities.Event[] events = new entities.Event[]{
+                new entities.Event(2020, 10, 25, "A"),
+                new entities.Event(2020, 5, 20, "B"),
+                new entities.Event(2020, 7, 15, "C"),
+                new entities.Event(2021, 1, 1, "D"),
+                new entities.Event(2021, 1, 1, "E")
+        };
+        entities.Event[] expectedValues = new entities.Event[]{
+                new entities.Event(2020, 10, 25, "A"),
+                new entities.Event(2020, 5, 20, "B"),
+                new entities.Event(2020, 7, 15, "C"),
+                new entities.Event(2021, 1, 1, "D"),
+                new entities.Event(2021, 1, 1, "E")
+        };
+        Event expected = events[4];
+        Event actual = Task439.findLast(events);
+        Assertions.assertSame(expected, actual);
+        checkEqualsValues(events, expectedValues);
+    }
 }
