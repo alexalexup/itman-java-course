@@ -160,4 +160,24 @@ class Task408Test {
         Task408.sort(events);
         checkEqualsValues(events, expectedValues);
     }
+
+    @Test
+    public void sortShouldSortEventsWhenEventsHaveTwoSameEvents() {
+        entities.Event[] events = new entities.Event[]{
+                new entities.Event(2020, 10, 25, "A"),
+                new entities.Event(2020, 5, 20, "B"),
+                new entities.Event(2020, 7, 15, "C"),
+                new entities.Event(2021, 1, 1, "D"),
+                new entities.Event(2020, 7, 15, "E")
+        };
+        entities.Event[] expectedValues = new entities.Event[]{
+                new entities.Event(2020, 5, 20, "B"),
+                new entities.Event(2020, 7, 15, "C"),
+                new entities.Event(2020, 7, 15, "E"),
+                new entities.Event(2020, 10, 25, "A"),
+                new entities.Event(2021, 1, 1, "D")
+        };
+        Task408.sort(events);
+        checkEqualsValues(events, expectedValues);
+    }
 }

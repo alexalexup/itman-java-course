@@ -19,9 +19,7 @@ public class Task408 {
                 if (events[j - 1].year > events[j].year
                         || (events[j - 1].month > events[j].month && events[j - 1].year == events[j].year)
                         || (events[j - 1].day > events[j].day && events[j - 1].year == events[j].year
-                        && events[j - 1].year == events[j].year )
-                        || (events[j - 1].day == events[j].day && events[j - 1].year == events[j].year
-                        && events[j - 1].year == events[j].year )) {
+                        && events[j - 1].month == events[j].month)) {
                     entities.Event t = events[j - 1];
                     events[j - 1] = events[j];
                     events[j] = t;
