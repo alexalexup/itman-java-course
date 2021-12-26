@@ -12,10 +12,10 @@ public class Cuboid {
     }
 
     public long calcSurfaceArea() {
-        return  2 * ((long)(a * b) + (long)(b * c) + (long)( a * c));
+        return  2 * ((long)a * (long)b + (long)b * (long)c + (long)a * (long)c);
     }
 
     public long calcVolume() {
-        return (long)(a * b) * (long)(c);
+        return (long)a * (long)b * (long)c;
     }
 }
