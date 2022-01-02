@@ -7,7 +7,6 @@ public class Event {
     public String name;
 
     public Event () {
-
     }
 
     public Event (int year, int month, int day, String name) {
@@ -21,7 +20,7 @@ public class Event {
         String year = "year=" + this.year;
         String month= ", month=" + this.month;
         String day = ", day=" + this.day;
-        String name = ", name=" + this.name;
+        String name = ", name='" + this.name + "'";
         if (this.year == 0 || this.month == 0 || this.day == 0 || this.name == null) {
             String info = "";
             return info;
