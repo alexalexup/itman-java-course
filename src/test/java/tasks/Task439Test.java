@@ -6,13 +6,15 @@ import org.junit.jupiter.api.Test;
 
 class Task439Test {
 
-    public void checkEqualsValues(Event[] events, Event[] expectedEvents) {
+    public Boolean checkEqualsValues(Event[] events, Event[] expectedEvents) {
+        Boolean result = true;
         for (int i = 0; i < events.length; i++) {
-            Assertions.assertEquals(events[i].year, expectedEvents[i].year);
-            Assertions.assertEquals(events[i].month, expectedEvents[i].month);
-            Assertions.assertEquals(events[i].day, expectedEvents[i].day);
-            Assertions.assertEquals(events[i].name, expectedEvents[i].name);
+           if (events[i].equals(expectedEvents[i])) {
+           } else {
+               result = false;
+           }
         }
+        return result;
     }
 
     @Test
@@ -32,7 +34,8 @@ class Task439Test {
         Event expected = events[0];
         Event actual = Task439.findLast(events);
         Assertions.assertSame(expected, actual);
-        checkEqualsValues(events,expectedEvents);
+        Boolean equal = checkEqualsValues(events, expectedEvents);
+        Assertions.assertTrue(equal);
     }
 
     @Test
@@ -71,7 +74,8 @@ class Task439Test {
         Event expected = events[2];
         Event actual = Task439.findLast(events);
         Assertions.assertSame(expected, actual);
-        checkEqualsValues(events,expectedEvents);
+        Boolean equal = checkEqualsValues(events, expectedEvents);
+        Assertions.assertTrue(equal);
     }
 
     @Test
@@ -91,7 +95,8 @@ class Task439Test {
         Event expected = events[3];
         Event actual = Task439.findLast(events);
         Assertions.assertSame(expected, actual);
-        checkEqualsValues(events,expectedEvents);
+        Boolean equal = checkEqualsValues(events, expectedEvents);
+        Assertions.assertTrue(equal);
     }
 
     @Test
@@ -99,7 +104,8 @@ class Task439Test {
         entities.Event[] events = new entities.Event[] {new entities.Event(1999, 4, 18, "wedding")};
         entities.Event[] expectedEvents = new entities.Event[] {(events[0])};
         Event actual = Task439.findLast(events);
-        checkEqualsValues(events,expectedEvents);
+        Boolean equal = checkEqualsValues(events, expectedEvents);
+        Assertions.assertTrue(equal);
     }
 
     @Test
@@ -127,7 +133,8 @@ class Task439Test {
         Event expected = events[1];
         Event actual = Task439.findLast(events);
         Assertions.assertSame(expected, actual);
-        checkEqualsValues(events,expectedEvents);
+        Boolean equal = checkEqualsValues(events, expectedEvents);
+        Assertions.assertTrue(equal);
     }
 
     @Test
@@ -149,7 +156,8 @@ class Task439Test {
         Event expected = events[2];
         Event actual = Task439.findLast(events);
         Assertions.assertSame(expected, actual);
-        checkEqualsValues(events, expectedValues);
+        Boolean equal = checkEqualsValues(events, expectedValues);
+        Assertions.assertTrue(equal);
     }
 
     @Test
@@ -171,6 +179,7 @@ class Task439Test {
         Event expected = events[4];
         Event actual = Task439.findLast(events);
         Assertions.assertSame(expected, actual);
-        checkEqualsValues(events, expectedValues);
+        Boolean equal = checkEqualsValues(events, expectedValues);
+        Assertions.assertTrue(equal);
     }
 }

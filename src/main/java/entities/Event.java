@@ -28,6 +28,25 @@ public class Event {
         String info = "Event{" + year + month + day + name +"}";
         return info;
     }
+
+    public Boolean equals(Event that) {
+        if (this.year == that.year && this.month == that.month && this.day == that.day) {
+            if (this.name == null && that.name == null) {
+                return true;
+            } else if (this.name == null && that.name != null) {
+                return false;
+            } else if (this.name != null && that.name == null) {
+                return false;
+            } else if (this.name != null && that.name != null) {
+                if (this.name.equals(that.name)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
 }
 
 

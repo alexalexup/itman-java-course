@@ -42,4 +42,86 @@ class EventTest {
         event.toString();
         Assertions.assertEquals(expectedValues.name, event.name);
     }
+
+    @Test
+    public void equalsShouldReturnTrueWhenEventsHaveSameValues() {
+        Event first = new Event(1954, 24, 12, "creation new department");
+        Event second = new Event(1954, 24, 12, "creation new department");
+        Boolean result = first.equals(second);
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenEventsHaveDifferentDays() {
+        Event first = new Event(1954, 24, 12, "creation new department");
+        Event second = new Event(1954, 24, 10, "creation new department");
+        Boolean result = first.equals(second);
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenEventsHaveDifferentMonth() {
+        Event first = new Event(1954, 24, 12, "creation new department");
+        Event second = new Event(1954, 21, 12, "creation new department");
+        Boolean result = first.equals(second);
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenEventsHaveDifferentYears() {
+        Event first = new Event(1954, 7, 12, "creation new department");
+        Event second = new Event(2954, 7, 12, "creation new department");
+        Boolean result = first.equals(second);
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenEventsHaveDifferentNames() {
+        Event first = new Event(1954, 8, 12, "Creation new department");
+        Event second = new Event(2954, 8, 12, "creation new department");
+        Boolean result = first.equals(second);
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void equalsShouldReturnTrueWhenEventsHaveSameValuesAndNamesAreNull() {
+        Event first = new Event(1954, 4, 12, "null");
+        Event second = new Event(1954, 4, 12, "null");
+        Boolean result = first.equals(second);
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenAllElementsHaveDifferentValues() {
+        Event first = new Event(2005, 3, 3, "Happy day");
+        Event second = new Event(2001, 4, 28, "Blackout");
+        Boolean result = first.equals(second);
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void equalsShouldNotChangeEventsWhenMethodWasCalled() {
+        Event first = new Event(2002, 5, 23, "Fishing with friends");
+        Event second = new Event(1989, 9, 28, "Win jackpot");
+        Event firstExpected = first;
+        Event secondExpected = second;
+        Event firstExpectedValues = new Event(first.year, first.month, first.day, first.name);
+        Event secondExpectedValues = new Event(second.year, second.month, second.day, second.name);
+        first.equals(second);
+        Assertions.assertSame(firstExpected, first);
+        Assertions.assertSame(secondExpected, second);
+        Boolean firstResult = first.equals(firstExpectedValues);
+        Boolean secondResult = second.equals(secondExpectedValues);
+        Assertions.assertTrue(firstResult);
+        Assertions.assertTrue(secondResult);
+    }
+
+    @Test
+    public void equalsShouldReturnTrueWhenEventsHaveNotData() {
+        Event first = new Event();
+        Event second = new Event();
+        Boolean result = first.equals(second);
+        Assertions.assertTrue(result);
+    }
+
 }
