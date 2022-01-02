@@ -16,10 +16,7 @@ public class Task408 {
         }
         for (int i = n; i > 1; i--) {
             for (int j = 1; j < i; j++) {
-                if (events[j - 1].year > events[j].year
-                        || (events[j - 1].month > events[j].month && events[j - 1].year == events[j].year)
-                        || (events[j - 1].day > events[j].day && events[j - 1].year == events[j].year
-                        && events[j - 1].month == events[j].month)) {
+                if (events[j-1].compareTo(events[j]) == 1) {
                     entities.Event t = events[j - 1];
                     events[j - 1] = events[j];
                     events[j] = t;

@@ -50,6 +50,17 @@ public class Event {
         }
         return false;
     }
+
+    public int compareTo (Event that) {
+        if (this.year == that.year && this.month == that.month && this.day == that.day){
+            return 0;
+        }
+        if ((this.year > that.year) || (this.month > that.month && this.year == that.year)
+        || (this.day > that.day && this.year == that.year && this.month == that.month)) {
+            return 1;
+        }
+        return -1;
+    }
 }
 
 

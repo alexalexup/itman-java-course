@@ -132,4 +132,57 @@ class EventTest {
         Assertions.assertFalse(result);
     }
 
+    @Test
+    public void compareToShouldReturnPlusValueWhenFistEventLatestThanSecondEvent() {
+        Event first = new Event (2018, 4 , 24, "Wedding");
+        Event second = new Event (2018, 2, 20, "Super party");
+        int actual = first.compareTo(second);
+        int expected = 1;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void compareToShouldReturnMinusValueWhenSecondEventLatestThanFirstEvent() {
+        Event first = new Event (2018, 4 , 2, "Wedding");
+        Event second = new Event (2018, 4, 20, "Super party");
+        int actual = first.compareTo(second);
+        int expected = -1;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void compareToShouldReturnZeroWhenFirstAndSecondEventsHaveSameDates() {
+        Event first = new Event (2022, 7 , 24, "New record bitcoin value");
+        Event second = new Event (2022, 7, 24, "Blackout");
+        int actual = first.compareTo(second);
+        int expected = 0;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void compareToShouldReturnMinusWhenSecondEventLatestThanFirstEventAndAllValuesAreDifferent() {
+        Event first = new Event (2017, 4 , 12, "Create new company");
+        Event second = new Event (2019, 8, 18, "Wedding");
+        int actual = first.compareTo(second);
+        int expected = -1;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void compareToShouldNotChangeEventsWhenMethodWasCalled() {
+        Event first = new Event(2002, 5, 23, "Fishing with friends");
+        Event second = new Event(1989, 9, 28, "Win jackpot");
+        Event firstExpected = first;
+        Event secondExpected = second;
+        Event firstExpectedValues = new Event(first.year, first.month, first.day, first.name);
+        Event secondExpectedValues = new Event(second.year, second.month, second.day, second.name);
+        first.compareTo(second);
+        Assertions.assertSame(firstExpected, first);
+        Assertions.assertSame(secondExpected, second);
+        boolean firstResult = first.equals(firstExpectedValues);
+        boolean secondResult = second.equals(secondExpectedValues);
+        Assertions.assertTrue(firstResult);
+        Assertions.assertTrue(secondResult);
+    }
+
 }
