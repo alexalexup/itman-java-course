@@ -29,7 +29,7 @@ public class Event {
         return info;
     }
 
-    public Boolean equals(Event that) {
+    public boolean equals(Event that) {
         if (this.year == that.year && this.month == that.month && this.day == that.day) {
             if (this.name == null && that.name == null) {
                 return true;
