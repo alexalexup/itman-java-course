@@ -30,6 +30,9 @@ public class Event {
     }
 
     public boolean equals(Event that) {
+        if (that == null) {
+            return false;
+        }
         if (this.year == that.year && this.month == that.month && this.day == that.day) {
             if (this.name == null && that.name == null) {
                 return true;

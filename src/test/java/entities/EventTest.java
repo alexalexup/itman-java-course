@@ -123,4 +123,13 @@ class EventTest {
         boolean result = first.equals(second);
         Assertions.assertTrue(result);
     }
+
+    @Test
+    public void equalsShouldReturnFalseWhenOneEventIsNull() {
+        Event first = new Event(2005, 3, 3, "Happy day");
+        Event second = null;
+        boolean result = first.equals(second);
+        Assertions.assertFalse(result);
+    }
+
 }
