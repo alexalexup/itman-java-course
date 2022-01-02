@@ -21,7 +21,7 @@ public class Event {
         String month= ", month=" + this.month;
         String day = ", day=" + this.day;
         String name = ", name='" + this.name + "'";
-        if (this.year == 0 || this.month == 0 || this.day == 0 || this.name == null) {
+        if (this.year == 0 || this.month == 0 || this.day == 0) {
             String info = "";
             return info;
         }

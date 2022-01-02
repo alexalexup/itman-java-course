@@ -34,4 +34,12 @@ class EventTest {
         String inform = event.toString();
         Assertions.assertEquals(inform, "");
     }
+
+    @Test
+    public void toStringShouldReturnNullForNameArgumentWhenNameIsNull() {
+        Event event = new Event(1952,12, 1, "null");
+        Event expectedValues = new Event(event.year, event.month, event.day, event.name);
+        event.toString();
+        Assertions.assertEquals(expectedValues.name, event.name);
+    }
 }
