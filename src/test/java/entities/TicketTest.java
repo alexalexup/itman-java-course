@@ -11,7 +11,7 @@ class TicketTest {
     public void toStringShouldReturnInfoWhenMethodWasCalled() {
         Ticket one = new Ticket(1, "Bank");
         String actual = one.toString();
-        String expected = "Ticket{number = 1, place = 'Bank'}";
+        String expected = "Ticket{number=1, place='Bank'}";
         Assertions.assertEquals(expected, actual);
     }
 
@@ -38,7 +38,7 @@ class TicketTest {
     public void toStringShouldReturnDataWhenPlaceIsNull() {
         Ticket one = new Ticket(32, null);
         String actual =one.toString();
-        String expected = "Ticket{number = 32, place = 'null'}";
+        String expected = "Ticket{number=32, place='null'}";
         Assertions.assertEquals(expected, actual);
     }
 

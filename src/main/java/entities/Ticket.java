@@ -17,7 +17,7 @@ public class Ticket {
             String info = "";
             return info;
         } else {
-            String info = "Ticket{number = "  + this.number + ", " + "place = '" + this.place +"'}";
+            String info = "Ticket{number="  + this.number + ", " + "place='" + this.place +"'}";
             return info;
         }
     }
