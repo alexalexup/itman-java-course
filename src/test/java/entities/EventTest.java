@@ -37,7 +37,7 @@ class EventTest {
 
     @Test
     public void toStringShouldReturnNullForNameArgumentWhenNameIsNull() {
-        Event event = new Event(1952,12, 1, "null");
+        Event event = new Event(1952,12, 1, null);
         Event expectedValues = new Event(event.year, event.month, event.day, event.name);
         event.toString();
         Assertions.assertEquals(expectedValues.name, event.name);
@@ -85,10 +85,18 @@ class EventTest {
 
     @Test
     public void equalsShouldReturnTrueWhenEventsHaveSameValuesAndNamesAreNull() {
-        Event first = new Event(1954, 4, 12, "null");
-        Event second = new Event(1954, 4, 12, "null");
+        Event first = new Event(1954, 4, 12,null);
+        Event second = new Event(1954, 4, 12, null);
         boolean result = first.equals(second);
         Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenEventsHaveSameValuesAndOneNameFieldIsNull() {
+        Event first = new Event(1954, 4, 12,"Cool party");
+        Event second = new Event(1954, 4, 12, null);
+        boolean result = first.equals(second);
+        Assertions.assertFalse(result);
     }
 
     @Test
