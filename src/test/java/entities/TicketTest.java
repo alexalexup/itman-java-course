@@ -90,4 +90,12 @@ class TicketTest {
         Assertions.assertFalse(result);
     }
 
+    @Test
+    public void equalsShouldReturnFalseWhenOneObjectIsNull() {
+        Ticket one = new Ticket(54, "Pharmacy");
+        Ticket two = null;
+        boolean result = one.equals(two);
+        Assertions.assertFalse(result);
+    }
+
 }

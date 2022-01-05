@@ -22,6 +22,9 @@ public class Ticket {
         }
     }
     public boolean equals(Ticket that) {
+        if ( that == null) {
+            return false;
+        }
         if (this.number == that.number) {
             if (this.place == null && that.place == null) {
                 return true;
