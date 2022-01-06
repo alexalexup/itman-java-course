@@ -19,4 +19,6 @@ public class QueueManagementSystem {
     public int getTotalTickets() {
         return totalTickets;
     }
+
+
 }
