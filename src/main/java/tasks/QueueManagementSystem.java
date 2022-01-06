@@ -14,7 +14,6 @@ public class QueueManagementSystem {
         totalTickets++;
         entities.Ticket newTicket = new entities.Ticket(totalTickets, place);
         return newTicket;
-
     }
 
     public int getTotalTickets() {
