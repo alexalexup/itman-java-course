@@ -9,9 +9,8 @@ class QueueManagementSystemUtilsTest {
 
     public entities.Ticket callGetNextTicket(QueueManagementSystem that, int count) {
         entities.Ticket newTicket = new entities.Ticket();
-        for (int i = 0; i < count; i++ ) {
-            newTicket = that.getNextTicket();
-        }
+        that.totalTickets = count - 1;
+        newTicket = that.getNextTicket();
         return newTicket;
     }
 
