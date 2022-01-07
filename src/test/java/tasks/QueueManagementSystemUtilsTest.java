@@ -8,9 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class QueueManagementSystemUtilsTest {
 
     public entities.Ticket callGetNextTicket(QueueManagementSystem that, int count) {
-        entities.Ticket newTicket = new entities.Ticket();
-        that.totalTickets = count - 1;
-        newTicket = that.getNextTicket();
+        that.totalTickets = that.totalTickets + count - 1;
+        entities.Ticket newTicket = that.getNextTicket();
         return newTicket;
     }
 
@@ -22,7 +21,7 @@ class QueueManagementSystemUtilsTest {
                new QueueManagementSystem("Pharmacy"),
                new QueueManagementSystem("Administration")
        };
-       int countBank = 2147483647;
+       int countBank = Integer.MAX_VALUE;
        int countSchool = 10;
        int  countPharmacy = 25;
        int  countAdministration = 340;
@@ -73,7 +72,7 @@ class QueueManagementSystemUtilsTest {
     }
 
     @Test
-    public void calcTotalVisitsShouldReturnWhenMethodCallGetNextTicketWasNotCalled() {
+    public void calcTotalVisitsShouldReturnZeroWhenMethodCallGetNextTicketWasNotCalled() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
                 new QueueManagementSystem("Pharmacy"),
                 new QueueManagementSystem("School")
@@ -102,5 +101,60 @@ class QueueManagementSystemUtilsTest {
         Assertions.assertEquals(expectedPlacePharmacy, systems[0].place);
         Assertions.assertEquals(expectedPlaceSchool, systems[1].place);
         Assertions.assertEquals(expectedPlaceAdministration , systems[2].place);
+    }
+
+    @Test
+    public void calcAverageVisitsShouldReturnSystemTotalTicketsWhenSystemsLengthIsOne() {
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{new QueueManagementSystem("Pharmacy")};
+        double expectedResult = 8;
+        callGetNextTicket(systems[0], (int)expectedResult);
+        double actualResult = QueueManagementSystemUtils.calcAverageVisits(systems);
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void calcAverageVisitsShouldReturnResultWhenSomeTotalTicketsHaveMaxValues() {
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{
+                new QueueManagementSystem("Administration"),
+                new QueueManagementSystem("Pharmacy"),
+                new QueueManagementSystem("ConcertHall"),
+                new QueueManagementSystem("School")
+        };
+        int countAdministration = 3;
+        int countPharmacy = Integer.MAX_VALUE;
+        int countConcertHall = 4;
+        int countSchool = Integer.MAX_VALUE;
+        callGetNextTicket(systems[0], countAdministration);
+        callGetNextTicket(systems[1], countPharmacy);
+        callGetNextTicket(systems[2], countConcertHall);
+        callGetNextTicket(systems[3], countSchool);
+        double expectedResult = ((double)countAdministration + (double)countPharmacy
+                + (double)countConcertHall + (double)countSchool) / 4;
+        double actualResult = QueueManagementSystemUtils.calcAverageVisits(systems);
+        Assertions.assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    public void calcAverageVisitsShouldReturnZeroWhenSystemsHaveNotElements() {
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{};
+        double expectedResult = 0;
+        double actualResult = QueueManagementSystemUtils.calcAverageVisits(systems);
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void calcAverageVisitsShouldNotChangePlaceInSystemsWhenMethodWasCalled() {
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{
+                new QueueManagementSystem("Administration"),
+                new QueueManagementSystem("Pharmacy"),
+                new QueueManagementSystem("ConcertHall")
+        };
+        String expectedAdministration = systems[0].place;
+        String expectedPharmacy = systems[1].place;
+        String expectedConcertHall= systems[2].place;
+        QueueManagementSystemUtils.calcAverageVisits(systems);
+        Assertions.assertEquals(expectedAdministration, systems[0].place);
+        Assertions.assertEquals(expectedPharmacy, systems[1].place);
+        Assertions.assertEquals(expectedConcertHall, systems[2].place);
     }
 }

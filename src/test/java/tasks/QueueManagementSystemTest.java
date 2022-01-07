@@ -8,10 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class QueueManagementSystemTest {
 
     public entities.Ticket callGetNextTicket(QueueManagementSystem that, int count) {
-        entities.Ticket newTicket = new entities.Ticket();
-        for (int i = 0; i < count; i++ ) {
-             newTicket = that.getNextTicket();
-        }
+        that.totalTickets = that.totalTickets + count - 1;
+        entities.Ticket newTicket = that.getNextTicket();
         return newTicket;
     }
 
