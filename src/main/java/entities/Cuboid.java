@@ -1,14 +1,28 @@
 package entities;
 
 public class Cuboid {
-    public int a;
-    public int b;
-    public int c;
+    private int a;
+    private int b;
+    private int c;
 
     public Cuboid (int a, int b, int c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
+        if ( a >= 0 && b >= 0 && c >= 0) {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+        }
+    }
+
+    public int getA() {
+        return a;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public int getC() {
+        return c;
     }
 
     public long calcSurfaceArea() {
