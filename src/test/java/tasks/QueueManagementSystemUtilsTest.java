@@ -203,5 +203,11 @@ class QueueManagementSystemUtilsTest {
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
-
+    @Test
+    public void calcMedianVisitsShouldReturnZeroWhenSystemsHaveNotElements() {
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{};
+        double expectedResult = 0;
+        double actualResult = QueueManagementSystemUtils.calcMedianVisits(systems);
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
 }

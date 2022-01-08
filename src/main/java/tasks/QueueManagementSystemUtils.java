@@ -27,6 +27,9 @@ public class QueueManagementSystemUtils {
 
     public static double calcMedianVisits(QueueManagementSystem[] systems) {
         int n = systems.length;
+        if (n == 0) {
+            return 0;
+        }
         int[] sortTotalTickets = new int[n];
         for (int i = 0; i < n; i++) {
             sortTotalTickets[i] = systems[i].totalTickets;
