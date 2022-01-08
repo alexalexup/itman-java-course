@@ -157,4 +157,51 @@ class QueueManagementSystemUtilsTest {
         Assertions.assertEquals(expectedPharmacy, systems[1].place);
         Assertions.assertEquals(expectedConcertHall, systems[2].place);
     }
+
+    @Test
+    public void calcMedianVisitsShouldReturnResultWhenLengthOfSystemsIsOdd() {
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{
+                new QueueManagementSystem("Administration"),
+                new QueueManagementSystem("Pharmacy"),
+                new QueueManagementSystem("ConcertHall"),
+                new QueueManagementSystem("School"),
+                new QueueManagementSystem("CandyShop")
+        };
+        int countAdministration = 42;
+        int countPharmacy = 24;
+        int countConcertHall = 13;
+        int countSchool = 31;
+        int contCandyShop = 22;
+        callGetNextTicket(systems[0],countAdministration);
+        callGetNextTicket(systems[1],countPharmacy);
+        callGetNextTicket(systems[2],countConcertHall);
+        callGetNextTicket(systems[3],countSchool);
+        callGetNextTicket(systems[4],contCandyShop);
+        double expectedResult = (double)countPharmacy;
+        double actualResult = QueueManagementSystemUtils.calcMedianVisits(systems);
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void calcMedianVisitsShouldReturnResultWhenLengthOfSystemsIsEven() {
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{
+                new QueueManagementSystem("Administration"),
+                new QueueManagementSystem("Pharmacy"),
+                new QueueManagementSystem("ConcertHall"),
+                new QueueManagementSystem("School")
+        };
+        int countAdministration = 8;
+        int countPharmacy = 14;
+        int countConcertHall = 9;
+        int countSchool = 6;
+        callGetNextTicket(systems[0],countAdministration);
+        callGetNextTicket(systems[1],countPharmacy);
+        callGetNextTicket(systems[2],countConcertHall);
+        callGetNextTicket(systems[3],countSchool);
+        double expectedResult = (double)(countAdministration + countConcertHall) / 2;
+        double actualResult = QueueManagementSystemUtils.calcMedianVisits(systems);
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+
 }
