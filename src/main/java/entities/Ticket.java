@@ -17,10 +17,6 @@ public class Ticket {
         return place;
     }
 
-    public int setNumber(int number) {
-        return this.number = number;
-    }
-
     public Ticket () {
     }
 
