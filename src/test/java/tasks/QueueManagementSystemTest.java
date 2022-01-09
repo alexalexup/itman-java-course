@@ -8,9 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class QueueManagementSystemTest {
 
     public entities.Ticket callGetNextTicket(QueueManagementSystem that, int count) {
-        count = that.getTotalTickets() + count -1;
-        that.setTotalTickets(count);
-        entities.Ticket newTicket = that.getNextTicket();
+        entities.Ticket newTicket = new entities.Ticket();
+        for (int i = 0; i < count; i++) {
+            newTicket = that.getNextTicket();
+        }
         return newTicket;
     }
 
@@ -67,6 +68,7 @@ class QueueManagementSystemTest {
         entities.Ticket actualPharmacy = callGetNextTicket(pharmacy,expectedPharmacy);
         Assertions.assertEquals(expectedAdministration, actualAdministration.getNumber());
         Assertions.assertEquals(expectedPharmacy, actualPharmacy.getNumber());
+        Assertions.assertEquals(expectedBank, actualBank.getNumber());
     }
 
     @Test

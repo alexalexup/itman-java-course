@@ -14,14 +14,6 @@ public class QueueManagementSystem {
         return totalTickets;
     }
 
-    public String getPlace() {
-        return place;
-    }
-
-    public int setTotalTickets(int totalTickets) {
-        return this.totalTickets = totalTickets;
-    }
-
     public entities.Ticket getNextTicket() {
         totalTickets++;
         entities.Ticket newTicket = new entities.Ticket(totalTickets, place);
