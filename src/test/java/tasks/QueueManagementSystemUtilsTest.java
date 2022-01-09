@@ -8,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class QueueManagementSystemUtilsTest {
 
     public entities.Ticket callGetNextTicket(QueueManagementSystem that, int count) {
-        that.totalTickets = that.totalTickets + count - 1;
+        count = that.getTotalTickets() + count -1;
+        that.setTotalTickets(count);
         entities.Ticket newTicket = that.getNextTicket();
         return newTicket;
     }
@@ -91,16 +92,16 @@ class QueueManagementSystemUtilsTest {
         int expectedNumberPharmacy = 15;
         int expectedNumberSchool= 8;
         int expectedNumberAdministration = 7;
-        String expectedPlacePharmacy = systems[0].place;
-        String expectedPlaceSchool = systems[1].place;
-        String expectedPlaceAdministration = systems[2].place;
+        String expectedPlacePharmacy = systems[0].getPlace();
+        String expectedPlaceSchool = systems[1].getPlace();
+        String expectedPlaceAdministration = systems[2].getPlace();
         callGetNextTicket(systems[0], expectedNumberPharmacy);
         callGetNextTicket(systems[1], expectedNumberSchool );
         callGetNextTicket(systems[2], expectedNumberAdministration);
         QueueManagementSystemUtils.calcTotalVisits(systems);
-        Assertions.assertEquals(expectedPlacePharmacy, systems[0].place);
-        Assertions.assertEquals(expectedPlaceSchool, systems[1].place);
-        Assertions.assertEquals(expectedPlaceAdministration , systems[2].place);
+        Assertions.assertEquals(expectedPlacePharmacy, systems[0].getPlace());
+        Assertions.assertEquals(expectedPlaceSchool, systems[1].getPlace());
+        Assertions.assertEquals(expectedPlaceAdministration , systems[2].getPlace());
     }
 
     @Test
@@ -149,13 +150,13 @@ class QueueManagementSystemUtilsTest {
                 new QueueManagementSystem("Pharmacy"),
                 new QueueManagementSystem("ConcertHall")
         };
-        String expectedAdministration = systems[0].place;
-        String expectedPharmacy = systems[1].place;
-        String expectedConcertHall= systems[2].place;
+        String expectedAdministration = systems[0].getPlace();
+        String expectedPharmacy = systems[1].getPlace();
+        String expectedConcertHall= systems[2].getPlace();
         QueueManagementSystemUtils.calcAverageVisits(systems);
-        Assertions.assertEquals(expectedAdministration, systems[0].place);
-        Assertions.assertEquals(expectedPharmacy, systems[1].place);
-        Assertions.assertEquals(expectedConcertHall, systems[2].place);
+        Assertions.assertEquals(expectedAdministration, systems[0].getPlace());
+        Assertions.assertEquals(expectedPharmacy, systems[1].getPlace());
+        Assertions.assertEquals(expectedConcertHall, systems[2].getPlace());
     }
 
     @Test

@@ -8,10 +8,10 @@ class Task408Test {
 
     public void checkEqualsValues(Event[] events, Event[] expectedEvents) {
         for (int i = 0; i < events.length; i++) {
-            Assertions.assertEquals(events[i].year, expectedEvents[i].year);
-            Assertions.assertEquals(events[i].month, expectedEvents[i].month);
-            Assertions.assertEquals(events[i].day, expectedEvents[i].day);
-            Assertions.assertEquals(events[i].name, expectedEvents[i].name);
+            Assertions.assertEquals(events[i].getYear(), expectedEvents[i].getYear());
+            Assertions.assertEquals(events[i].getMonth(), expectedEvents[i].getMonth());
+            Assertions.assertEquals(events[i].getDay(), expectedEvents[i].getDay());
+            Assertions.assertEquals(events[i].getName(), expectedEvents[i].getName());
         }
     }
 

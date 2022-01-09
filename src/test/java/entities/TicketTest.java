@@ -27,11 +27,11 @@ class TicketTest {
     public void toStringShouldNotChangeTicketWhenMethodWasCalled() {
         Ticket one = new Ticket(32, "Pharmacy");
         Ticket expected = one;
-        Ticket expectedValues =new Ticket(one.number, one.place);
+        Ticket expectedValues =new Ticket(one.getNumber(), one.getPlace());
         one.toString();
         Assertions.assertSame(expected, one);
-        Assertions.assertEquals(expectedValues.number, one.number);
-        Assertions.assertEquals(expectedValues.place, one.place);
+        Assertions.assertEquals(expectedValues.getNumber(), one.getNumber());
+        Assertions.assertEquals(expectedValues.getPlace(), one.getPlace());
     }
 
     @Test

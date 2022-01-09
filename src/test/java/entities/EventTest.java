@@ -19,13 +19,13 @@ class EventTest {
     public void toStringShouldNotChangeEventWhenMethodWasCalled() {
         Event event = new Event(2028,8, 24, "Birthday");
         Event expected = event;
-        Event expectedValues = new Event(event.year, event.month, event.day, event.name);
+        Event expectedValues = new Event(event.getYear(), event.getMonth(), event.getDay(), event.getName());
         event.toString();
         Assertions.assertSame(expected, event);
-        Assertions.assertEquals(expectedValues.year, event.year);
-        Assertions.assertEquals(expectedValues.month, event.month);
-        Assertions.assertEquals(expectedValues.day, event.day);
-        Assertions.assertEquals(expectedValues.name, event.name);
+        Assertions.assertEquals(expectedValues.getYear(), event.getYear());
+        Assertions.assertEquals(expectedValues.getMonth(), event.getMonth());
+        Assertions.assertEquals(expectedValues.getDay(), event.getDay());
+        Assertions.assertEquals(expectedValues.getName(), event.getName());
     }
 
     @Test
@@ -38,9 +38,9 @@ class EventTest {
     @Test
     public void toStringShouldReturnNullForNameArgumentWhenNameIsNull() {
         Event event = new Event(1952,12, 1, null);
-        Event expectedValues = new Event(event.year, event.month, event.day, event.name);
+        Event expectedValues = new Event(event.getYear(), event.getMonth(), event.getDay(), event.getName());
         event.toString();
-        Assertions.assertEquals(expectedValues.name, event.name);
+        Assertions.assertEquals(expectedValues.getName(), event.getName());
     }
 
     @Test
@@ -109,12 +109,12 @@ class EventTest {
 
     @Test
     public void equalsShouldNotChangeEventsWhenMethodWasCalled() {
-        Event first = new Event(2002, 5, 23, "Fishing with friends");
+        Event first = new Event(2002, 5, 23, null);
         Event second = new Event(1989, 9, 28, "Win jackpot");
         Event firstExpected = first;
         Event secondExpected = second;
-        Event firstExpectedValues = new Event(first.year, first.month, first.day, first.name);
-        Event secondExpectedValues = new Event(second.year, second.month, second.day, second.name);
+        Event firstExpectedValues = new Event(first.getYear(), first.getMonth(),first.getDay(), null);
+        Event secondExpectedValues = new Event(second.getYear(), second.getMonth(), second.getDay(),second.getName());
         first.equals(second);
         Assertions.assertSame(firstExpected, first);
         Assertions.assertSame(secondExpected, second);
@@ -168,7 +168,7 @@ class EventTest {
     }
 
     @Test
-    public void compareToShouldReturnMinusWhenSecondEventLatestThanFirstEventAndAllValuesAreDifferent() {
+    public void compareToShouldReturnNegativeNumberWhenSecondEventLatestThanFirstEventAndAllValuesAreDifferent() {
         Event first = new Event (2017, 4 , 12, "Create new company");
         Event second = new Event (2019, 8, 18, "Wedding");
         int actual = first.compareTo(second);
@@ -182,15 +182,14 @@ class EventTest {
         Event second = new Event(1989, 9, 28, "Win jackpot");
         Event firstExpected = first;
         Event secondExpected = second;
-        Event firstExpectedValues = new Event(first.year, first.month, first.day, first.name);
-        Event secondExpectedValues = new Event(second.year, second.month, second.day, second.name);
+        Event firstExpectedValues = new Event(first.getYear(), first.getMonth(), first.getDay(), first.getName());
+        Event secondExpectedValues = new Event(second.getYear(), second.getMonth(), second.getDay(), second.getName());
         first.compareTo(second);
         Assertions.assertSame(firstExpected, first);
         Assertions.assertSame(secondExpected, second);
-        boolean firstResult = first.equals(firstExpectedValues);
-        boolean secondResult = second.equals(secondExpectedValues);
-        Assertions.assertTrue(firstResult);
-        Assertions.assertTrue(secondResult);
+        boolean expectedFirst = first.equals(firstExpectedValues);
+        boolean expectedSecond = second.equals(secondExpectedValues);
+        Assertions.assertTrue(expectedFirst);
+        Assertions.assertTrue(expectedSecond);
     }
-
 }

@@ -8,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class QueueManagementSystemTest {
 
     public entities.Ticket callGetNextTicket(QueueManagementSystem that, int count) {
-        that.totalTickets = that.totalTickets + count - 1;
+        count = that.getTotalTickets() + count -1;
+        that.setTotalTickets(count);
         entities.Ticket newTicket = that.getNextTicket();
         return newTicket;
     }
@@ -42,7 +43,7 @@ class QueueManagementSystemTest {
         QueueManagementSystem bank = new  QueueManagementSystem("Bank");
         entities.Ticket actual = bank.getNextTicket();
         entities.Ticket expected = new entities.Ticket(1, "Bank");
-        Assertions.assertEquals(expected.number, actual.number);
+        Assertions.assertEquals(expected.getNumber(), actual.getNumber());
     }
 
     @Test
@@ -50,7 +51,7 @@ class QueueManagementSystemTest {
         QueueManagementSystem administration = new  QueueManagementSystem("Administration");
         entities.Ticket actual = administration.getNextTicket();
         String expected = "Administration";
-        Assertions.assertEquals(expected, actual.place);
+        Assertions.assertEquals(expected, actual.getPlace());
     }
 
     @Test
@@ -64,9 +65,8 @@ class QueueManagementSystemTest {
         entities.Ticket actualAdministration = callGetNextTicket(administration,expectedAdministration);
         entities.Ticket actualBank  = callGetNextTicket(bank,expectedBank);
         entities.Ticket actualPharmacy = callGetNextTicket(pharmacy,expectedPharmacy);
-        Assertions.assertEquals(expectedAdministration, actualAdministration.number);
-        Assertions.assertEquals(expectedBank, actualBank.number);
-        Assertions.assertEquals(expectedPharmacy, actualPharmacy.number);
+        Assertions.assertEquals(expectedAdministration, actualAdministration.getNumber());
+        Assertions.assertEquals(expectedPharmacy, actualPharmacy.getNumber());
     }
 
     @Test
@@ -74,11 +74,7 @@ class QueueManagementSystemTest {
         QueueManagementSystem administration = new  QueueManagementSystem(null);
         entities.Ticket actual = callGetNextTicket(administration, 15);
         entities.Ticket expected = new entities.Ticket(15,null);
-        Assertions.assertEquals(expected.number, actual.number);
-        Assertions.assertEquals(null, actual.place);
+        Assertions.assertEquals(expected.getNumber(), actual.getNumber());
+        Assertions.assertEquals(null, actual.getPlace());
     }
-
-
-
-
 }

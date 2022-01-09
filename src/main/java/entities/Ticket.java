@@ -1,12 +1,20 @@
 package entities;
 
 public class Ticket {
-    public int number;
-    public String place;
+    private int number;
+    private String place;
 
     public Ticket (int number, String place) {
         this.number = number;
         this.place = place;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public String getPlace() {
+        return place;
     }
 
     public Ticket () {

@@ -19,7 +19,7 @@ public class QueueManagementSystemUtils {
             return 0;
         }
         if (systems.length == 1) {
-            return (double)systems[0].totalTickets;
+            return (double)systems[0].getTotalTickets();
         }
         double result = (double)calcTotalVisits(systems) / count;
         return result;
@@ -32,7 +32,7 @@ public class QueueManagementSystemUtils {
         }
         int[] sortTotalTickets = new int[n];
         for (int i = 0; i < n; i++) {
-            sortTotalTickets[i] = systems[i].totalTickets;
+            sortTotalTickets[i] = systems[i].getTotalTickets();
         }
         for (int i = 0; i < n - 1; i++) {
             int minIndex = i;

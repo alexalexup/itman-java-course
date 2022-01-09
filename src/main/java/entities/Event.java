@@ -1,10 +1,10 @@
 package entities;
 
 public class Event {
-    public int year;
-    public int month;
-    public int day;
-    public String name;
+    private  int year;
+    private  int month;
+    private  int day;
+    private  String name;
 
     public Event () {
     }
@@ -15,6 +15,22 @@ public class Event {
         this.day = day;
         this.name = name;
    }
+
+   public int getYear() {
+        return year;
+   }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public String getName() {
+        return this.name;
+    }
 
     public String toString() {
         String year = "year=" + this.year;
