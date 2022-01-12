@@ -24,7 +24,7 @@ public class MyString {
         return result;
     }
 
-    public char charArt(int index) {
+    public char charAt(int index) {
         char result = smb[index];
         return result;
     }

@@ -60,7 +60,7 @@ class MyStringTest {
         MyString a = new MyString(new char[]{'f', '2', '!', 'g'});
         int index = 0;
         char expectedResult ='f';
-        char actualResult = a.charArt(index);
+        char actualResult = a.charAt(index);
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
@@ -69,7 +69,7 @@ class MyStringTest {
         MyString a = new MyString(new char[]{'f', '2', '!', 'g', 't', 'H'});
         int index = 5;
         char expectedResult ='H';
-        char actualResult = a.charArt(index);
+        char actualResult = a.charAt(index);
         Assertions.assertEquals(expectedResult, actualResult);
     }
 }
