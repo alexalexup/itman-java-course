@@ -4,7 +4,12 @@ public class MyString {
     private char[] smb;
 
     public MyString(char[] smb) {
+        if (smb != null) {
+            this.smb = new char[smb.length];
+            System.arraycopy(smb, 0, this.smb, 0, smb.length);
+        }
         this.smb = smb;
+
     }
 
     public String toString() {
