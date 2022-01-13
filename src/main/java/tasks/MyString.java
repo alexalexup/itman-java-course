@@ -12,6 +12,19 @@ public class MyString {
         }
     }
 
+    public MyString plus(MyString that) {
+        if(smb.length == 0 && that.smb.length == 0) {
+            MyString resultString = new MyString(new char[]{});
+            return resultString;
+        }
+        int resultLength = smb.length + that.smb.length;
+        char[] result = new char[resultLength];
+        System.arraycopy(smb, 0, result, 0, smb.length);
+        System.arraycopy(that.smb, 0, result, smb.length, that.smb.length);
+        MyString resultString = new MyString(result);
+        return resultString;
+    }
+
     public static MyString plus(MyString a, MyString b) {
         if (a.smb.length == 0 && b.smb.length == 0) {
             MyString resultString = new MyString(new char[]{});

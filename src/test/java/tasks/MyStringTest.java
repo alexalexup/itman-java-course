@@ -146,10 +146,13 @@ class MyStringTest {
         MyString firstString = new MyString(new char[]{'I', ' ', 'l', 'i', 'k', 'e'});
         MyString secondString = new MyString(new char[]{'f', 'i', 's', 'h', 'i', 'n', 'g'});
         MyString actualString = MyString.plus(firstString, secondString);
+        MyString actualString2 = firstString.plus(secondString);
         MyString expectedString = new MyString(new char[]{'I', ' ', 'l', 'i', 'k', 'e',
                 'f', 'i', 's', 'h', 'i', 'n', 'g'});
         boolean actualResult = actualString.equals(expectedString);
+        boolean actualResult2 =actualString2.equals(expectedString);
         Assertions.assertTrue(actualResult);
+        Assertions.assertTrue(actualResult2);
     }
 
     @Test
@@ -157,9 +160,12 @@ class MyStringTest {
         MyString firstString = new MyString(new char[]{});
         MyString secondString = new MyString(new char[]{'f', 'i', 's', 'h', 'i', 'n', 'g'});
         MyString actualString = MyString.plus(firstString, secondString);
+        MyString actualString2 = firstString.plus(secondString);
         MyString expectedString = new MyString(new char[]{'f', 'i', 's', 'h', 'i', 'n', 'g'});
         boolean actualResult = actualString.equals(expectedString);
+        boolean actualResult2 = actualString2.equals(expectedString);
         Assertions.assertTrue(actualResult);
+        Assertions.assertTrue(actualResult2);
     }
 
     @Test
@@ -167,9 +173,12 @@ class MyStringTest {
         MyString firstString = new MyString(new char[]{'h', 'e', 'l', 'l', 'l', 'o'});
         MyString secondString = new MyString(new char[]{});
         MyString actualString = MyString.plus(firstString, secondString);
+        MyString actualString2 = firstString.plus(secondString);
         MyString expectedString = new MyString(new char[]{'h', 'e', 'l', 'l', 'l', 'o'});
         boolean actualResult = actualString.equals(expectedString);
+        boolean actualResult2 = actualString2.equals(expectedString);
         Assertions.assertTrue(actualResult);
+        Assertions.assertTrue(actualResult2);
     }
 
     @Test
@@ -177,9 +186,12 @@ class MyStringTest {
         MyString firstString = new MyString(new char[]{});
         MyString secondString = new MyString(new char[]{});
         MyString actualString = MyString.plus(firstString, secondString);
+        MyString actualString2 = firstString.plus(secondString);
         MyString expectedString = new MyString(new char[]{});
         boolean actualResult = actualString.equals(expectedString);
+        boolean actualResult2 = actualString2.equals(expectedString);
         Assertions.assertTrue(actualResult);
+        Assertions.assertTrue(actualResult2);
     }
 
     @Test
@@ -187,10 +199,16 @@ class MyStringTest {
         MyString firstString = new MyString(new char[]{'r'});
         MyString secondString = new MyString(new char[]{'t'});
         MyString actualString = MyString.plus(firstString, secondString);
+        MyString actualString2 = firstString.plus(secondString);
         MyString expectedString = new MyString(new char[]{'r','t'});
         boolean actualResult = actualString.equals(expectedString);
+        boolean actualResult2 = actualString2.equals(expectedString);
         Assertions.assertTrue(actualResult);
+        Assertions.assertTrue(actualResult2);
     }
+
+
+
 
 
 
