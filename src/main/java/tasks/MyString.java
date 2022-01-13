@@ -12,6 +12,23 @@ public class MyString {
         }
     }
 
+    public static MyString plus(MyString a, MyString b) {
+        if (a.smb.length == 0 && b.smb.length == 0) {
+            MyString resultString = new MyString(new char[]{});
+            return resultString;
+        }
+        int resultLength = a.smb.length + b.smb.length;
+        char[] result = new char[resultLength];
+        for (int i = 0; i < a.smb.length; i++) {
+            result[i] = a.smb[i];
+        }
+        for (int i = 0; i < b.smb.length; i++) {
+            result[i + a.smb.length] = b.smb[i];
+        }
+        MyString resultString = new MyString(result);
+        return resultString;
+    }
+
     public String toString() {
         if ( smb == null) {
             return null;

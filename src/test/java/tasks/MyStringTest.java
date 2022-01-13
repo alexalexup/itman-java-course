@@ -141,4 +141,57 @@ class MyStringTest {
         Assertions.assertFalse(actualResult);
     }
 
+    @Test
+    public void plusShouldReturnConcatenationBothStringWhenFirstStringIsLessThanSecond() {
+        MyString firstString = new MyString(new char[]{'I', ' ', 'l', 'i', 'k', 'e'});
+        MyString secondString = new MyString(new char[]{'f', 'i', 's', 'h', 'i', 'n', 'g'});
+        MyString actualString = MyString.plus(firstString, secondString);
+        MyString expectedString = new MyString(new char[]{'I', ' ', 'l', 'i', 'k', 'e',
+                'f', 'i', 's', 'h', 'i', 'n', 'g'});
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void plusShouldReturnSecondStringWhenFirstStringIsEmpty() {
+        MyString firstString = new MyString(new char[]{});
+        MyString secondString = new MyString(new char[]{'f', 'i', 's', 'h', 'i', 'n', 'g'});
+        MyString actualString = MyString.plus(firstString, secondString);
+        MyString expectedString = new MyString(new char[]{'f', 'i', 's', 'h', 'i', 'n', 'g'});
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void plusShouldReturnFirstStringWhenSecondStringIsEmpty() {
+        MyString firstString = new MyString(new char[]{'h', 'e', 'l', 'l', 'l', 'o'});
+        MyString secondString = new MyString(new char[]{});
+        MyString actualString = MyString.plus(firstString, secondString);
+        MyString expectedString = new MyString(new char[]{'h', 'e', 'l', 'l', 'l', 'o'});
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void plusShouldReturnEmptyStringWhenBothStringAreEmpty() {
+        MyString firstString = new MyString(new char[]{});
+        MyString secondString = new MyString(new char[]{});
+        MyString actualString = MyString.plus(firstString, secondString);
+        MyString expectedString = new MyString(new char[]{});
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void plusShouldReturnStringWhenEachStringHaveOneSymbol() {
+        MyString firstString = new MyString(new char[]{'r'});
+        MyString secondString = new MyString(new char[]{'t'});
+        MyString actualString = MyString.plus(firstString, secondString);
+        MyString expectedString = new MyString(new char[]{'r','t'});
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+
+
 }
