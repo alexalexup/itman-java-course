@@ -7,8 +7,9 @@ public class MyString {
         if (smb != null) {
             this.smb = new char[smb.length];
             System.arraycopy(smb, 0, this.smb, 0, smb.length);
+        } else if (smb == null) {
+            this.smb = null;
         }
-        this.smb = smb;
 
     }
 
