@@ -72,4 +72,65 @@ class MyStringTest {
         char actualResult = a.charAt(index);
         Assertions.assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void compareToShouldReturnNegativeNumberWhenFirstStringLessThanSecondAndLengthBothArraysAreSame(){
+        MyString firstString = new MyString(new char[]{'c','o','m','p','a'});
+        MyString secondString = new MyString(new char[]{'c','o','m','p','o'});
+        int actualResult = firstString.compareTo(secondString);
+        int expectedResult = -1;
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void compareToShouldReturnPositiveNumberWhenFirstStringBiggerThanSecondAndFirstArrayLengthIsBigger() {
+        MyString firstString = new MyString(new char[]{'c', 'o', 'm', 'p', 'p', 'z', 'a'});
+        MyString secondString = new MyString(new char[]{'c', 'o', 'm', 'p', 'p', 'a'});
+        int actualResult = firstString.compareTo(secondString);
+        int expectedResult = 1;
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void compareToShouldReturnZeroWhenBothStringsHaveSameSymbolsAndLength() {
+        MyString firstString = new MyString(new char[]{'c', 'o', 'm', 'p', 'p', 'a', 't'});
+        MyString secondString = new MyString(new char[]{'c', 'o', 'm', 'p', 'p', 'a', 't'});
+        int actualResult = firstString.compareTo(secondString);
+        int expectedResult = 0;
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void compareToShouldReturnNegativeNumberWhenFirstStringLessThanSecond() {
+        MyString firstString = new MyString(new char[]{'c', 'o', 'm', 'p', 'p', 'a', 't'});
+        MyString secondString = new MyString(new char[]{'c', 'o', 'm', 'p', 'p', 'a', 't','f','f'});
+        int actualResult = firstString.compareTo(secondString);
+        int expectedResult = -1;
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void equalsShouldReturnTrueWhenStringAreSame() {
+        MyString firstString = new MyString(new char[]{'f', 'i', 's', 'h'});
+        MyString secondString = new MyString(new char[]{'f', 'i', 's', 'h'});
+        boolean actualResult = firstString.equals(secondString);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenStringHaveDifferentLength() {
+        MyString firstString = new MyString(new char[]{'f', 'i', 's', 'h'});
+        MyString secondString = new MyString(new char[]{'f', 'i', 's', 'h', 'h', 'h'});
+        boolean actualResult = firstString.equals(secondString);
+        Assertions.assertFalse(actualResult);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenStringHaveSameLengthAndDifferentSymbols() {
+        MyString firstString = new MyString(new char[]{'f', 'i', 't', 'h'});
+        MyString secondString = new MyString(new char[]{'f', 'i', 's', 'h'});
+        boolean actualResult = firstString.equals(secondString);
+        Assertions.assertFalse(actualResult);
+    }
+
 }

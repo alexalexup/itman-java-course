@@ -10,7 +10,6 @@ public class MyString {
         } else if (smb == null) {
             this.smb = null;
         }
-
     }
 
     public String toString() {
@@ -35,4 +34,33 @@ public class MyString {
         return result;
     }
 
+    public int compareTo(MyString that) {
+        int result = 0;
+        for (int i = 0; i < smb.length && i < that.smb.length; i ++) {
+            if (smb[i] < that.smb[i]) {
+                result = -1;
+                return result;
+            }
+            if (smb[i] > that.smb[i]) {
+                result = 1;
+                return result;
+            }
+        }
+        if (smb.length < that.smb.length ) {
+            result = -1;
+            return result;
+        }
+        if (smb.length > that.smb.length ) {
+            result = 1;
+            return result;
+        }
+        return result;
+    }
+
+    public boolean equals(MyString that) {
+        if (compareTo(that) == 0) {
+            return true;
+        }
+        return false;
+    }
 }
