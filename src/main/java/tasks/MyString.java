@@ -58,6 +58,9 @@ public class MyString {
     }
 
     public boolean equals(MyString that) {
+        if (that == null) {
+            return false;
+        }
         if (compareTo(that) == 0) {
             return true;
         }

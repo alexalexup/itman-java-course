@@ -133,4 +133,12 @@ class MyStringTest {
         Assertions.assertFalse(actualResult);
     }
 
+    @Test
+    public void equalsShouldReturnFalseWhenSecondStringIsNull() {
+        MyString firstString = new MyString(new char[]{'f', 'i', 't', 'h'});
+        MyString secondString = null;
+        boolean actualResult = firstString.equals(secondString);
+        Assertions.assertFalse(actualResult);
+    }
+
 }
