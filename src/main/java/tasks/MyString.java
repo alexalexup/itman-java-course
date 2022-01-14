@@ -96,4 +96,24 @@ public class MyString {
         }
         return false;
     }
+
+    public MyString replace(char target, char replacement){
+        if( smb == null) {
+            MyString result = new MyString(null);
+            return result;
+        }
+        if (smb.length == 0) {
+            MyString result = new MyString(new char[]{});
+            return result;
+        }
+        char[] res = new char[smb.length];
+        System.arraycopy(smb,0, res,0,smb.length);
+        for (int i = 0; i < res.length; i++) {
+            if (res[i] == target){
+                res[i] = replacement;
+            }
+        }
+        MyString result = new MyString(res);
+        return result;
+    }
 }

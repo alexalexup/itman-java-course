@@ -207,6 +207,50 @@ class MyStringTest {
         Assertions.assertTrue(actualResult2);
     }
 
+    @Test
+    public void replaceShouldReturnResultWhenReplaceOneSymbol() {
+        MyString firsString = new MyString(new char[]{'g', 'o', 'o', 'd', 'l', 'u', 'c', 'k'});
+        MyString actualString = firsString.replace('k', 'i');
+        MyString expectedString = new MyString(new char[]{'g', 'o', 'o', 'd', 'l', 'u', 'c', 'i'});
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void replaceShouldReturnResultWhenReplaceAllSymbols() {
+        MyString firsString = new MyString(new char[]{'g', 'g', 'g', 'g'});
+        MyString actualString = firsString.replace('g', 'T');
+        MyString expectedString = new MyString(new char[]{'T', 'T', 'T', 'T'});
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void replaceShouldNotReplaceSymbolsWhenObjectHaveNotSymbolForReplace() {
+        MyString firsString = new MyString(new char[]{'u', 'h', 'g', 'd'});
+        MyString actualString = firsString.replace('j', 'u');
+        MyString expectedString = new MyString(new char[]{'u', 'h', 'g', 'd'});
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void replaceShouldReturnResultWhenFieldSmbIsNull() {
+        MyString firsString = new MyString(null);
+        String actualString = firsString.replace('j', 'u').toString();
+        Assertions.assertEquals(null, actualString);
+    }
+
+    @Test
+    public void replaceShouldReturnResultWhenFieldSmbIsEmpty() {
+        MyString firsString = new MyString(new char[]{});
+        MyString actualString = firsString.replace('j', 'u');
+        MyString expectedString = new MyString(new char[]{});
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+
 
 
 
