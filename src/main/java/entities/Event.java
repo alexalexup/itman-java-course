@@ -52,7 +52,7 @@ public class Event {
         if (this.year == that.year && this.month == that.month && this.day == that.day) {
             if (this.name == null && that.name == null) {
                 return true;
-            } else if (this.name == null && that.name != null || this.name != null && that.name == null ) {
+            } else if ((this.name == null && that.name != null) || (this.name != null && that.name == null)) {
                 return false;
             } else if (this.name != null && that.name != null) {
                 if (this.name.equals(that.name)) {
@@ -66,11 +66,11 @@ public class Event {
     }
 
     public int compareTo (Event that) {
-        if (this.year == that.year && this.month == that.month && this.day == that.day){
+        if ((this.year == that.year) && (this.month == that.month) && (this.day == that.day)){
             return 0;
         }
-        if ((this.year > that.year) || (this.month > that.month && this.year == that.year)
-        || (this.day > that.day && this.year == that.year && this.month == that.month)) {
+        if ((this.year > that.year) || ((this.month > that.month) && (this.year == that.year))
+        || ((this.day > that.day) && ((this.year == that.year) && (this.month == that.month)))) {
             return 1;
         }
         return -1;

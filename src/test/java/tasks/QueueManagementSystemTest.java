@@ -40,7 +40,7 @@ class QueueManagementSystemTest {
     }
 
     @Test
-    public void getNextTicketShouldReturnTicketWhereNumberIsOneWhenMethodWasCalledFirstTime(){
+    public void getNextTicketShouldReturnTicketWhereFieldNumberIsOneWhenMethodWasCalledFirstTime(){
         QueueManagementSystem bank = new  QueueManagementSystem("Bank");
         entities.Ticket actual = bank.getNextTicket();
         entities.Ticket expected = new entities.Ticket(1, "Bank");

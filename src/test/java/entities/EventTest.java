@@ -36,11 +36,11 @@ class EventTest {
     }
 
     @Test
-    public void toStringShouldReturnNullForNameArgumentWhenNameIsNull() {
+    public void toStringShouldReturnResultWhenNameIsNull() {
         Event event = new Event(1952,12, 1, null);
-        Event expectedValues = new Event(event.getYear(), event.getMonth(), event.getDay(), event.getName());
-        event.toString();
-        Assertions.assertEquals(expectedValues.getName(), event.getName());
+        String expected = event + "";
+        String actual = event.toString();
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -159,7 +159,7 @@ class EventTest {
     }
 
     @Test
-    public void compareToShouldReturnZeroWhenFirstAndSecondEventsHaveSameDates() {
+    public void compareToShouldReturnZeroWhenFirstAndSecondEventsHaveSameDatesAndDifferentNames() {
         Event first = new Event (2022, 7 , 24, "New record bitcoin value");
         Event second = new Event (2022, 7, 24, "Blackout");
         int actual = first.compareTo(second);

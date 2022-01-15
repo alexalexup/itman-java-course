@@ -11,7 +11,13 @@ public class MyString {
             this.smb = null;
         }
     }
-
+    /**
+     * concatenation two objects by MyString class
+     * @cpu O(n + m), n - smb.length, m - that.smb.length
+     * @ram O(m), m - resultLength
+     * @param that Object by MyString class
+     * @return concatenation two strings
+     */
     public MyString plus(MyString that) {
         if(smb.length == 0 && that.smb.length == 0) {
             MyString resultString = new MyString(new char[]{});
@@ -24,7 +30,14 @@ public class MyString {
         MyString resultString = new MyString(result);
         return resultString;
     }
-
+    /**
+     * concatenation two objects by MyString class
+     * @cpu O(n + m), n - a.smb.length, m - b.smb.length
+     * @ram O(m), m - resultLength
+     * @param a Object by MyString class
+     * @param b Object by MyString class
+     * @return concatenation two strings
+     */
     public static MyString plus(MyString a, MyString b) {
         if (a.smb.length == 0 && b.smb.length == 0) {
             MyString resultString = new MyString(new char[]{});
@@ -41,7 +54,12 @@ public class MyString {
         MyString resultString = new MyString(result);
         return resultString;
     }
-
+    /**
+     * convert field smb to String
+     * @cpu O(1)
+     * @ram O(1)
+     * @return String with symbols from smb field
+     */
     public String toString() {
         if ( smb == null) {
             return null;
@@ -49,7 +67,12 @@ public class MyString {
         String result = new String(smb);
         return result;
     }
-
+    /**
+     * determining length array smb
+     * @cpu O(1)
+     * @ram O(1)
+     * @return length of array smb
+     */
     public int length() {
         if ( smb == null) {
             int result = 0;
@@ -58,12 +81,24 @@ public class MyString {
         int result = smb.length;
         return result;
     }
-
+    /**
+     * find symbol from smb array by index
+     * @cpu O(1)
+     * @ram O(1)
+     * @param index argument
+     * @return symbol from smb array
+     */
     public char charAt(int index) {
         char result = smb[index];
         return result;
     }
-
+    /**
+     * compares two field smb
+     * @cpu O(n), n - smb.length
+     * @ram O(1)
+     * @param that Object from class MyString
+     * @return negative number if this < that, positive number if this > that, zero if this == that
+     */
     public int compareTo(MyString that) {
         int result = 0;
         for (int i = 0; i < smb.length && i < that.smb.length; i ++) {
@@ -86,7 +121,13 @@ public class MyString {
         }
         return result;
     }
-
+    /**
+     * compares two strings
+     * @cpu O(n), n - smb.length
+     * @ram O(1)
+     * @param that Object from class MyString
+     * @return true if both strings are equal, false if two strings aren't equal
+     */
     public boolean equals(MyString that) {
         if (that == null) {
             return false;
@@ -96,7 +137,14 @@ public class MyString {
         }
         return false;
     }
-
+    /**
+     * find and replace target symbol on replacement
+     * @cpu O(n), n - smb.length
+     * @ram O(n), n - smb.length
+     * @param target argument
+     * @param replacement argument
+     * @return concatenation two strings
+     */
     public MyString replace(char target, char replacement){
         if( smb == null) {
             MyString result = new MyString(null);

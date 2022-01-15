@@ -16,7 +16,7 @@ class TicketTest {
     }
 
     @Test
-    public void toStringShouldNotShowInfoWhenTicketHaveNotData() {
+    public void toStringShouldNotShowInformationWhenTicketHaveNotData() {
         Ticket one = new Ticket();
         String actual = one.toString();
         String expected = "";

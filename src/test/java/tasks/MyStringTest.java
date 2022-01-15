@@ -56,6 +56,15 @@ class MyStringTest {
     }
 
     @Test
+    public void lengthShouldReturnResultWhenFieldSmbHaveSomeSymbols() {
+        MyString a = new MyString(new char[]{'d', 's', 's', 'f', 'd'});
+        int expectedResult = 5;
+        int actualResult = a.length();
+        Assertions.assertEquals(expectedResult, actualResult);
+
+    }
+
+    @Test
     public void charArtShouldReturnResultWhenIndexIsFirst() {
         MyString a = new MyString(new char[]{'f', '2', '!', 'g'});
         int index = 0;
