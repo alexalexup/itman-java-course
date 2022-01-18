@@ -9,7 +9,7 @@ class EventTest {
 
     @Test
     public void toStringShouldReturnEqualStringArgumentThatIsEvent() {
-        Event event = new Event(2028,8, 24, "Birthday");
+        Event event = new Event(2028,8, 24, "Birth day");
         String expected = event.toString();
         String actual = event + "";
         Assertions.assertEquals(expected, actual);
@@ -31,8 +31,9 @@ class EventTest {
     @Test
     public void toStringShouldNotReturnDataWhenEventHaveNotData() {
         Event event = new Event();
-        String inform = event.toString();
-        Assertions.assertEquals(inform, "");
+        String actual = event.toString();
+        String expected = event + "";
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -84,14 +85,6 @@ class EventTest {
     }
 
     @Test
-    public void equalsShouldReturnTrueWhenEventsHaveSameValuesAndNamesAreNull() {
-        Event first = new Event(1954, 4, 12,null);
-        Event second = new Event(1954, 4, 12, null);
-        boolean result = first.equals(second);
-        Assertions.assertTrue(result);
-    }
-
-    @Test
     public void equalsShouldReturnFalseWhenEventsHaveSameValuesAndOneNameFieldIsNull() {
         Event first = new Event(1954, 4, 12,"Cool party");
         Event second = new Event(1954, 4, 12, null);
@@ -109,11 +102,11 @@ class EventTest {
 
     @Test
     public void equalsShouldNotChangeEventsWhenMethodWasCalled() {
-        Event first = new Event(2002, 5, 23, null);
+        Event first = new Event(2002, 5, 23, "Birthday");
         Event second = new Event(1989, 9, 28, "Win jackpot");
         Event firstExpected = first;
         Event secondExpected = second;
-        Event firstExpectedValues = new Event(first.getYear(), first.getMonth(),first.getDay(), null);
+        Event firstExpectedValues = new Event(first.getYear(), first.getMonth(),first.getDay(), "Birthday");
         Event secondExpectedValues = new Event(second.getYear(), second.getMonth(), second.getDay(),second.getName());
         first.equals(second);
         Assertions.assertSame(firstExpected, first);
@@ -125,28 +118,12 @@ class EventTest {
     }
 
     @Test
-    public void equalsShouldReturnTrueWhenEventsHaveNotData() {
-        Event first = new Event();
-        Event second = new Event();
-        boolean result = first.equals(second);
-        Assertions.assertTrue(result);
-    }
-
-    @Test
-    public void equalsShouldReturnFalseWhenOneEventIsNull() {
-        Event first = new Event(2005, 3, 3, "Happy day");
-        Event second = null;
-        boolean result = first.equals(second);
-        Assertions.assertFalse(result);
-    }
-
-    @Test
     public void compareToShouldReturnPlusValueWhenFistEventLatestThanSecondEvent() {
         Event first = new Event (2018, 4 , 24, "Wedding");
         Event second = new Event (2018, 2, 20, "Super party");
         int actual = first.compareTo(second);
-        int expected = 1;
-        Assertions.assertEquals(expected, actual);
+        boolean expected = actual > 0;
+        Assertions.assertTrue(expected);
     }
 
     @Test
@@ -154,8 +131,8 @@ class EventTest {
         Event first = new Event (2018, 4 , 2, "Wedding");
         Event second = new Event (2018, 4, 20, "Super party");
         int actual = first.compareTo(second);
-        int expected = -1;
-        Assertions.assertEquals(expected, actual);
+        boolean expected = actual < 0;
+        Assertions.assertTrue(expected);
     }
 
     @Test
@@ -172,8 +149,8 @@ class EventTest {
         Event first = new Event (2017, 4 , 12, "Create new company");
         Event second = new Event (2019, 8, 18, "Wedding");
         int actual = first.compareTo(second);
-        int expected = -1;
-        Assertions.assertEquals(expected, actual);
+        boolean expected = actual < 0;
+        Assertions.assertTrue(expected);
     }
 
     @Test

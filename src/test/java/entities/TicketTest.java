@@ -16,10 +16,10 @@ class TicketTest {
     }
 
     @Test
-    public void toStringShouldNotShowInformationWhenTicketHaveNotData() {
+    public void toStringShouldReturnResultWhenTicketHaveNotData() {
         Ticket one = new Ticket();
         String actual = one.toString();
-        String expected = "";
+        String expected = "Ticket{number=0, place='null'}";
         Assertions.assertEquals(expected, actual);
     }
 
@@ -51,22 +51,6 @@ class TicketTest {
     }
 
     @Test
-    public void equalsShouldReturnTrueWheBothObjectsHaveSameFieldsAndFieldPlaceIsNull() {
-        Ticket one = new Ticket(74, null);
-        Ticket two = new Ticket(74, null);
-        boolean result = one.equals(two);
-        Assertions.assertTrue(result);
-    }
-
-    @Test
-    public void equalsShouldReturnFalseWhenOnePlaceHaveDataAndSecondPlaceIsNull() {
-        Ticket one = new Ticket(74, null);
-        Ticket two = new Ticket(74, "School");
-        boolean result = one.equals(two);
-        Assertions.assertFalse(result);
-    }
-
-    @Test
     public void equalsShouldReturnFalseWhenObjectsHaveDifferentNumbersAndSameNames() {
         Ticket one = new Ticket(54, "Administration");
         Ticket two = new Ticket(24, "Administration");
@@ -89,13 +73,4 @@ class TicketTest {
         boolean result = one.equals(two);
         Assertions.assertFalse(result);
     }
-
-    @Test
-    public void equalsShouldReturnFalseWhenOneObjectIsNull() {
-        Ticket one = new Ticket(54, "Pharmacy");
-        Ticket two = null;
-        boolean result = one.equals(two);
-        Assertions.assertFalse(result);
-    }
-
 }

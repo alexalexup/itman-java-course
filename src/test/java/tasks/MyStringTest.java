@@ -24,14 +24,6 @@ class MyStringTest {
     }
 
     @Test
-    public void toStringShouldReturnNullWhenFieldSmbIsNull() {
-        MyString a = new MyString(null);
-        String expectedResult = null;
-        String actualResult = a.toString();
-        Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     public void toStringShouldReturnResultWhenFieldSmbHaveCharAndDecInOneArray() {
         MyString a = new MyString(new char[] {'H', 101, 108, 108, 111, '!'});
         String expectedResult = "Hello!";
@@ -42,14 +34,6 @@ class MyStringTest {
     @Test
     public void lengthShouldReturnZeroWhenFieldSmbHaveNotSymbols() {
         MyString a = new MyString(new char[]{});
-        int expectedResult = 0;
-        int actualResult = a.length();
-        Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void lengthShouldReturnNullWhenFieldSmbIsNull() {
-        MyString a = new MyString(null);
         int expectedResult = 0;
         int actualResult = a.length();
         Assertions.assertEquals(expectedResult, actualResult);
@@ -241,13 +225,6 @@ class MyStringTest {
         MyString expectedString = new MyString(new char[]{'u', 'h', 'g', 'd'});
         boolean actualResult = actualString.equals(expectedString);
         Assertions.assertTrue(actualResult);
-    }
-
-    @Test
-    public void replaceShouldReturnResultWhenFieldSmbIsNull() {
-        MyString firsString = new MyString(null);
-        String actualString = firsString.replace('j', 'u').toString();
-        Assertions.assertEquals(null, actualString);
     }
 
     @Test

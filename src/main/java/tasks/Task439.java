@@ -1,5 +1,7 @@
 package tasks;
 
+import entities.Event;
+
 public class Task439 {
     /**
      * Find latest event from array events
@@ -8,14 +10,14 @@ public class Task439 {
      * @param events array
      * @return latest event from events array
      */
-    public static entities.Event findLast(entities.Event[] events) {
+    public static Event findLast(Event[] events) {
         int index = 0;
         int n = events.length;
         if (n < 1) {
             return null;
         }
         for (int i = 0; i < n; i++) {
-            if( events[i].compareTo(events[index]) == 1 || events[i].compareTo(events[index]) == 0) {
+            if( events[i].compareTo(events[index]) > -1) {
                 index = i;
             }
         }

@@ -25,10 +25,22 @@ public class Cuboid {
         return c;
     }
 
+    /**
+     * Calculate the surface area of a cuboid
+     * @cpu O(1)
+     * @ram O(1)
+     * @return surface area of the cuboid
+     */
     public long calcSurfaceArea() {
         return  2 * ((long)a * (long)b + (long)b * (long)c + (long)a * (long)c);
     }
 
+    /**
+     * Calculate the volume of a cuboid
+     * @cpu O(1)
+     * @ram O(1)
+     * @return volume of the cuboid
+     */
     public long calcVolume() {
         return (long)a * (long)b * (long)c;
     }

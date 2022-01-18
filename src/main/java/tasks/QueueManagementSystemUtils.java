@@ -19,7 +19,7 @@ public class QueueManagementSystemUtils {
     }
     /**
      * calculate value of average tickets from all queues
-     * @cpu O(1)
+     * @cpu O(n), n - systems.length;
      * @ram O(1)
      * @param systems array with queues
      * @return value of average tickets from queues

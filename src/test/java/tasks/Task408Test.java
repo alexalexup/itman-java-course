@@ -6,12 +6,10 @@ import org.junit.jupiter.api.Test;
 
 class Task408Test {
 
-    public void checkEqualsValues(Event[] events, Event[] expectedEvents) {
+    public void checkEqualsValues(Event[] events, Event[] expectedValues) {
         for (int i = 0; i < events.length; i++) {
-            Assertions.assertEquals(events[i].getYear(), expectedEvents[i].getYear());
-            Assertions.assertEquals(events[i].getMonth(), expectedEvents[i].getMonth());
-            Assertions.assertEquals(events[i].getDay(), expectedEvents[i].getDay());
-            Assertions.assertEquals(events[i].getName(), expectedEvents[i].getName());
+            boolean expectedResult = events[i].equals(expectedValues[i]);
+            Assertions.assertTrue(expectedResult);
         }
     }
 

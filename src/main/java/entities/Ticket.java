@@ -20,32 +20,26 @@ public class Ticket {
     public Ticket () {
     }
 
+    /**
+     * Takes data from all fields from Object and returns it as a String value
+     * @cpu O(1)
+     * @ram O(1)
+     * @return String value with data from all fields an Object
+     */
     public String toString() {
-        if (this.number == 0) {
-            String info = "";
-            return info;
-        } else {
-            String info = "Ticket{number="  + this.number + ", " + "place='" + this.place +"'}";
-            return info;
-        }
+        String info = "Ticket{number="  + this.number + ", " + "place='" + this.place +"'}";
+        return info;
     }
+
+    /**
+     * Determines whether the tickets are equivalent or not.
+     * @cpu O(1)
+     * @ram O(1)
+     * @param that Object by class Ticket
+     * @return true if all fields from Objects are equal, false if are not.
+     */
     public boolean equals(Ticket that) {
-        if ( that == null) {
-            return false;
-        }
-        if (this.number == that.number) {
-            if (this.place == null && that.place == null) {
-                return true;
-            } else if (this.place != null && that.place == null && this.place == null && that.place != null) {
-                return false;
-            } else if (this.place != null && that.place != null) {
-                if (this.place.equals(that.place)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        return false;
+        boolean result = this.number == that.number && this.place.equals(that.place);
+        return result;
     }
 }

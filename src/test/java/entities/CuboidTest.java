@@ -11,8 +11,8 @@ class CuboidTest {
     public void calcSurfaceAreaShouldReturnResultWhenResultIsMoreThanMaxIntRange() {
         entities.Cuboid a = new entities.Cuboid(10541, 10541, 10541);
         long actual = a.calcSurfaceArea();
-        long expected = 2 * ((long)a.getA() * (long)a.getB() + (long)a.getB() * (long)a.getC()
-                + (long)a.getA() * (long)a.getC());
+        long expected = 2 * ((long)10541 * (long)10541 + (long)10541 * (long)10541
+                + (long)10541 * (long)10541);
         Assertions.assertEquals(expected, actual);
     }
 
@@ -20,7 +20,7 @@ class CuboidTest {
     public void calcSurfaceAreaShouldReturnResultWhenArgumentsHaveMinValues() {
         entities.Cuboid a = new entities.Cuboid(1, 1, 1);
         long actual = a.calcSurfaceArea();
-        long expected = 2 * (a.getA() * a.getB() + a.getB() * a.getC() + a.getA() * a.getC());
+        long expected = 6;
         Assertions.assertEquals(expected, actual);
     }
 
@@ -28,7 +28,7 @@ class CuboidTest {
     public void calcVolumeShouldReturnResultWhenResultIsMoreThanMaxIntRange() {
         entities.Cuboid a = new entities.Cuboid(1000000, 1000000, 1000000);
         long actual = a.calcVolume();
-        long expected = (long)a.getA() * (long)a.getB() * (long)a.getC();
+        long expected = (long)1000000 * (long)1000000 * (long)1000000;
         Assertions.assertEquals(expected, actual);
     }
 
@@ -36,7 +36,7 @@ class CuboidTest {
     public void calcVolumeShouldReturnResultWhenArgumentsHaveMinValues() {
         entities.Cuboid a = new entities.Cuboid(1, 1, 1);
         long actual = a.calcVolume();
-        long expected = a.getA() * a.getB() * a.getC();
+        long expected = 1;
         Assertions.assertEquals(expected, actual);
     }
 }

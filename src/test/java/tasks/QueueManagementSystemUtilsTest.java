@@ -7,84 +7,43 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class QueueManagementSystemUtilsTest {
 
-    public entities.Ticket callGetNextTicket(QueueManagementSystem that, int count) {
-        entities.Ticket newTicket = new entities.Ticket();
+    public QueueManagementSystem callSomeTickets(int count, String place) {
+        QueueManagementSystem result = new QueueManagementSystem (place);
         for (int i = 0; i < count; i++) {
-            newTicket = that.getNextTicket();
+            result.getNextTicket();
         }
-        return newTicket;
+        return result;
     }
-
-    /*
-    @Test
-    public void calcTotalVisitsShouldReturnResultWhenResultHaveValueMoreThanIntegerMaxValue() {
-       QueueManagementSystem[] systems = new QueueManagementSystem[] {
-               new QueueManagementSystem("Bank"),
-               new QueueManagementSystem("School"),
-               new QueueManagementSystem("Pharmacy"),
-               new QueueManagementSystem("Administration")
-       };
-       int countBank = Integer.MAX_VALUE;
-       int countSchool = 10;
-       int  countPharmacy = 25;
-       int  countAdministration = 340;
-       callGetNextTicket(systems[0],countBank);
-       callGetNextTicket(systems[1],countSchool);
-       callGetNextTicket(systems[2], countPharmacy);
-       callGetNextTicket(systems[3], countAdministration);
-       long expectedResult = (long)countBank + (long)countSchool + (long)countPharmacy + (long)countAdministration;
-       long actualResult = QueueManagementSystemUtils.calcTotalVisits(systems);
-       Assertions.assertEquals(expectedResult, actualResult);
-    }
-     */
 
     @Test
     public void calcTotalVisitsShouldReturnResultWhenSomePlacesAreNull() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                new QueueManagementSystem(null),
-                new QueueManagementSystem("Pharmacy"),
-                new QueueManagementSystem(null),
-                new QueueManagementSystem("School")
+                callSomeTickets(3,null),
+                callSomeTickets(2,"Pharmacy"),
+                callSomeTickets(4,null),
+                callSomeTickets(5,"School")
         };
-        int countNullFirst = 3;
-        int countPharmacy = 2;
-        int countNullSecond = 4;
-        int countSchool = 5;
-        callGetNextTicket(systems[0], countNullFirst);
-        callGetNextTicket(systems[1], countPharmacy );
-        callGetNextTicket(systems[2], countNullSecond);
-        callGetNextTicket(systems[3], countSchool);
         long actualResult = QueueManagementSystemUtils.calcTotalVisits(systems);
-        long expectedResult = countNullFirst + countPharmacy + countNullSecond + countSchool;
-        Assertions.assertEquals(expectedResult, actualResult);
+        Assertions.assertEquals(14, actualResult);
     }
 
     @Test
     public void calcTotalVisitsShouldReturnResultWhenHaveSomeQueuesAndAllFieldHaveData() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                new QueueManagementSystem("CandyShop"),
-                new QueueManagementSystem("Pharmacy"),
-                new QueueManagementSystem("Gym"),
-                new QueueManagementSystem("School")
+                callSomeTickets(9,"CandyShop"),
+                callSomeTickets(4,"Pharmacy"),
+                callSomeTickets(3,"Gym"),
+                callSomeTickets(6,"School")
         };
-        int countNullFirst = 9;
-        int countPharmacy = 4;
-        int countNullSecond = 3;
-        int countSchool = 6;
-        callGetNextTicket(systems[0], countNullFirst);
-        callGetNextTicket(systems[1], countPharmacy );
-        callGetNextTicket(systems[2], countNullSecond);
-        callGetNextTicket(systems[3], countSchool);
         long actualResult = QueueManagementSystemUtils.calcTotalVisits(systems);
-        long expectedResult = countNullFirst + countPharmacy + countNullSecond + countSchool;
-        Assertions.assertEquals(expectedResult, actualResult);
+        Assertions.assertEquals(22, actualResult);
     }
 
     @Test
     public void calcTotalVisitsShouldReturnZeroWhenThereAreNotTickets() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                new QueueManagementSystem("Pharmacy"),
-                new QueueManagementSystem("School")
+                callSomeTickets(0,"Pharmacy"),
+                callSomeTickets(0,"School")
         };
         long actualResult = QueueManagementSystemUtils.calcTotalVisits(systems);
         Assertions.assertEquals(0, actualResult);
@@ -92,63 +51,27 @@ class QueueManagementSystemUtilsTest {
 
     @Test
     public void calcAverageVisitsShouldReturnResultWhenSystemsLengthIsOne() {
-        QueueManagementSystem[] systems = new QueueManagementSystem[]{new QueueManagementSystem("Pharmacy")};
-        double expectedResult = 8;
-        callGetNextTicket(systems[0], (int)expectedResult);
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{callSomeTickets(8,"Pharmacy")};
         double actualResult = QueueManagementSystemUtils.calcAverageVisits(systems);
-        Assertions.assertEquals(expectedResult, actualResult);
+        Assertions.assertEquals(8, actualResult);
     }
-
-/*
-    @Test
-    public void calcAverageVisitsShouldReturnResultWhenSomeTotalTicketsHaveMaxValues() {
-        QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                new QueueManagementSystem("Administration"),
-                new QueueManagementSystem("Pharmacy"),
-                new QueueManagementSystem("ConcertHall"),
-                new QueueManagementSystem("School")
-        };
-        int countAdministration = 3;
-        int countPharmacy = Integer.MAX_VALUE;
-        int countConcertHall = 4;
-        int countSchool = Integer.MAX_VALUE;
-        callGetNextTicket(systems[0], countAdministration);
-        callGetNextTicket(systems[1], countPharmacy);
-        callGetNextTicket(systems[2], countConcertHall);
-        callGetNextTicket(systems[3], countSchool);
-        double expectedResult = ((double)countAdministration + (double)countPharmacy
-                + (double)countConcertHall + (double)countSchool) / 4;
-        double actualResult = QueueManagementSystemUtils.calcAverageVisits(systems);
-        Assertions.assertEquals(expectedResult,actualResult);
-    }
- */
 
     @Test
     public void calcAverageVisitsShouldReturnZeroWhenSystemsHaveNotElements() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{};
-        double expectedResult = 0;
         double actualResult = QueueManagementSystemUtils.calcAverageVisits(systems);
-        Assertions.assertEquals(expectedResult, actualResult);
+        Assertions.assertEquals(0, actualResult);
     }
 
     @Test
     public void calcAverageVisitsShouldReturnResultWhenHaveSomeQueuesAndAllFieldHaveData() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                new QueueManagementSystem("Administration"),
-                new QueueManagementSystem("Pharmacy"),
-                new QueueManagementSystem("ConcertHall"),
-                new QueueManagementSystem("School")
+                callSomeTickets(3,"Administration"),
+                callSomeTickets(12,"Pharmacy"),
+                callSomeTickets(4,"ConcertHall"),
+                callSomeTickets(15,"School")
         };
-        int countAdministration = 3;
-        int countPharmacy = 12;
-        int countConcertHall = 4;
-        int countSchool = 15;
-        callGetNextTicket(systems[0], countAdministration);
-        callGetNextTicket(systems[1], countPharmacy);
-        callGetNextTicket(systems[2], countConcertHall);
-        callGetNextTicket(systems[3], countSchool);
-        double expectedResult = ((double)countAdministration + (double)countPharmacy
-                + (double)countConcertHall + (double)countSchool) / 4;
+        double expectedResult = (3.00 +12.00 + 4.00 + 15.00) / 4.00;
         double actualResult = QueueManagementSystemUtils.calcAverageVisits(systems);
         Assertions.assertEquals(expectedResult,actualResult);
     }
@@ -156,23 +79,13 @@ class QueueManagementSystemUtilsTest {
     @Test
     public void calcMedianVisitsShouldReturnResultWhenLengthOfSystemsIsOdd() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                new QueueManagementSystem("Administration"),
-                new QueueManagementSystem("Pharmacy"),
-                new QueueManagementSystem("ConcertHall"),
-                new QueueManagementSystem("School"),
-                new QueueManagementSystem("CandyShop")
+                callSomeTickets(42,"Administration"),
+                callSomeTickets(24,"Pharmacy"),
+                callSomeTickets(13,"ConcertHall"),
+                callSomeTickets(31,"School"),
+                callSomeTickets(22,"CandyShop")
         };
-        int countAdministration = 42;
-        int countPharmacy = 24;
-        int countConcertHall = 13;
-        int countSchool = 31;
-        int contCandyShop = 22;
-        callGetNextTicket(systems[0],countAdministration);
-        callGetNextTicket(systems[1],countPharmacy);
-        callGetNextTicket(systems[2],countConcertHall);
-        callGetNextTicket(systems[3],countSchool);
-        callGetNextTicket(systems[4],contCandyShop);
-        double expectedResult = (double)countPharmacy;
+        double expectedResult = 24.00;
         double actualResult = QueueManagementSystemUtils.calcMedianVisits(systems);
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -180,20 +93,12 @@ class QueueManagementSystemUtilsTest {
     @Test
     public void calcMedianVisitsShouldReturnResultWhenLengthOfSystemsIsEven() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                new QueueManagementSystem("Administration"),
-                new QueueManagementSystem("Pharmacy"),
-                new QueueManagementSystem("ConcertHall"),
-                new QueueManagementSystem("School")
+                callSomeTickets(8,"Administration"),
+                callSomeTickets(14,"Pharmacy"),
+                callSomeTickets(9,"ConcertHall"),
+                callSomeTickets(6,"School")
         };
-        int countAdministration = 8;
-        int countPharmacy = 14;
-        int countConcertHall = 9;
-        int countSchool = 6;
-        callGetNextTicket(systems[0],countAdministration);
-        callGetNextTicket(systems[1],countPharmacy);
-        callGetNextTicket(systems[2],countConcertHall);
-        callGetNextTicket(systems[3],countSchool);
-        double expectedResult = (double)(countAdministration + countConcertHall) / 2;
+        double expectedResult = (8.00 + 9.00) / 2;
         double actualResult = QueueManagementSystemUtils.calcMedianVisits(systems);
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -209,25 +114,18 @@ class QueueManagementSystemUtilsTest {
     @Test
     public void calcMedianVisitsShouldNotSortArrayOfQueuesWhenMethodWasCalled() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                new QueueManagementSystem("Administration"),
-                new QueueManagementSystem("Pharmacy"),
-                new QueueManagementSystem("ConcertHall"),
-                new QueueManagementSystem("School")
+                callSomeTickets(25,"Administration"),
+                callSomeTickets(24,"Pharmacy"),
+                callSomeTickets(22,"ConcertHall"),
+                callSomeTickets(18,"School")
         };
         QueueManagementSystem[] expectedSystems = new QueueManagementSystem[] {
                 systems[0], systems[1], systems[2], systems[3]
         };
-        int countAdministration = 25;
-        int countPharmacy = 24;
-        int countConcertHall = 22;
-        int countSchool = 18;
-        callGetNextTicket(systems[0],countAdministration);
-        callGetNextTicket(systems[1],countPharmacy);
-        callGetNextTicket(systems[2],countConcertHall);
-        callGetNextTicket(systems[3],countSchool);
         QueueManagementSystemUtils.calcMedianVisits(systems);
         for (int i = 0; i < systems.length; i++) {
             Assertions.assertEquals(expectedSystems[i], systems[i]);
         }
     }
+
 }

@@ -32,45 +32,48 @@ public class Event {
         return this.name;
     }
 
+    /**
+     * Takes data from all fields from Object and returns it as a String value
+     * @cpu O(1)
+     * @ram O(1)
+     * @return String value with data from all fields an Object
+     */
     public String toString() {
         String year = "year=" + this.year;
         String month= ", month=" + this.month;
         String day = ", day=" + this.day;
         String name = ", name='" + this.name + "'";
-        if (this.year == 0 || this.month == 0 || this.day == 0) {
-            String info = "";
-            return info;
-        }
         String info = "Event{" + year + month + day + name +"}";
         return info;
     }
 
+    /**
+     * Determines whether the events are equivalent or not.
+     * @cpu O(1)
+     * @ram O(1)
+     * @param that Object by class Event
+     * @return true if all fields from Objects are equal, false if are not.
+     */
     public boolean equals(Event that) {
-        if (that == null) {
-            return false;
-        }
-        if (this.year == that.year && this.month == that.month && this.day == that.day) {
-            if (this.name == null && that.name == null) {
-                return true;
-            } else if ((this.name == null && that.name != null) || (this.name != null && that.name == null)) {
-                return false;
-            } else if (this.name != null && that.name != null) {
-                if (this.name.equals(that.name)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        return false;
+        int resultCompareTo = this.compareTo(that);
+        boolean result = (resultCompareTo == 0) && (this.name.equals(that.name));
+        return result;
     }
 
-    public int compareTo (Event that) {
+    /**
+     * Compares the dates of two events
+     * @cpu O(1)
+     * @ram O(1)
+     * @param that Object by class Event
+     * @return zero if events are equal, positive number if that event is less, negative number if that event is bigger
+     */
+    public int compareTo(Event that) {
         if ((this.year == that.year) && (this.month == that.month) && (this.day == that.day)){
             return 0;
         }
-        if ((this.year > that.year) || ((this.month > that.month) && (this.year == that.year))
-        || ((this.day > that.day) && ((this.year == that.year) && (this.month == that.month)))) {
+        if ((this.year > that.year) ||
+                (this.year == that.year && this.month > that.month) ||
+                (this.year == that.year && this.month == that.month && this.day > that.day)) {
             return 1;
         }
         return -1;
