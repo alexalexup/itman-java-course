@@ -73,4 +73,28 @@ class TicketTest {
         boolean result = one.equals(two);
         Assertions.assertFalse(result);
     }
+
+    @Test
+    public void equalsShouldReturnFalseWhenSecondTicketIsNull() {
+        Ticket one = new Ticket(54, "Pharmacy");
+        Ticket two = null;
+        boolean result = one.equals(two);
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenOneFieldPlaceIsNullAndSecondFiledPlaceHaveData() {
+        Ticket one = new Ticket(54, null);
+        Ticket two = new Ticket(24, "Administration");
+        boolean result = one.equals(two);
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void equalsShouldReturnTrueWhenObjectsHaveSameDataAndFieldsPlaceAreNull() {
+        Ticket one = new Ticket(24, null);
+        Ticket two = new Ticket(24, null);
+        boolean result = one.equals(two);
+        Assertions.assertTrue(result);
+    }
 }

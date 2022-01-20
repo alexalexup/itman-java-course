@@ -9,7 +9,7 @@ class EventTest {
 
     @Test
     public void toStringShouldReturnEqualStringArgumentThatIsEvent() {
-        Event event = new Event(2028,8, 24, "Birth day");
+        Event event = new Event(2020,12, 24, "ABCDabcd");
         String expected = event.toString();
         String actual = event + "";
         Assertions.assertEquals(expected, actual);
@@ -85,7 +85,15 @@ class EventTest {
     }
 
     @Test
-    public void equalsShouldReturnFalseWhenEventsHaveSameValuesAndOneNameFieldIsNull() {
+    public void equalsShouldReturnFalseWhenEventsHaveSameValuesAndSecondNameFieldIsNull() {
+        Event first = new Event(2020, 01, 01,null);
+        Event second = new Event(2020, 01,01, "A");
+        boolean result = first.equals(second);
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenEventsHaveSameValuesAndFirstNameFieldIsNull() {
         Event first = new Event(1954, 4, 12,"Cool party");
         Event second = new Event(1954, 4, 12, null);
         boolean result = first.equals(second);
@@ -93,9 +101,25 @@ class EventTest {
     }
 
     @Test
+    public void equalsShouldReturnTrueWhenEventsHaveSameValuesAndFieldsNameAreNull() {
+        Event first = new Event(1954, 4, 12,null);
+        Event second = new Event(1954, 4, 12, null);
+        boolean result = first.equals(second);
+        Assertions.assertTrue(result);
+    }
+
+    @Test
     public void equalsShouldReturnFalseWhenAllElementsHaveDifferentValues() {
         Event first = new Event(2005, 3, 3, "Happy day");
         Event second = new Event(2001, 4, 28, "Blackout");
+        boolean result = first.equals(second);
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenSecondEventIsNull() {
+        Event first = new Event(2005, 3, 3, "Happy day");
+        Event second = null;
         boolean result = first.equals(second);
         Assertions.assertFalse(result);
     }

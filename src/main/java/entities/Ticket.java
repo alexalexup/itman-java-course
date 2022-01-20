@@ -22,8 +22,8 @@ public class Ticket {
 
     /**
      * Takes data from all fields from Object and returns it as a String value
-     * @cpu O(1)
-     * @ram O(1)
+     * @cpu O(n + m), n - this.number, m - this.place
+     * @ram O(n + m), n - this.number, m - this.place
      * @return String value with data from all fields an Object
      */
     public String toString() {
@@ -33,13 +33,15 @@ public class Ticket {
 
     /**
      * Determines whether the tickets are equivalent or not.
-     * @cpu O(1)
+     * @cpu O(n), n - place.length;
      * @ram O(1)
      * @param that Object by class Ticket
      * @return true if all fields from Objects are equal, false if are not.
      */
     public boolean equals(Ticket that) {
-        boolean result = this.number == that.number && this.place.equals(that.place);
-        return result;
+        return that != null
+                && (this.place == null ? that.place == null :  this.place.equals(that.place))
+                && (this.number ==that.number);
+
     }
 }

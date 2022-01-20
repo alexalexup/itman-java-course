@@ -1,10 +1,10 @@
 package entities;
 
 public class Event {
-    private  int year;
-    private  int month;
-    private  int day;
-    private  String name;
+    private   int year;
+    private   int month;
+    private   int day;
+    private   String name;
 
     public Event () {
     }
@@ -34,8 +34,8 @@ public class Event {
 
     /**
      * Takes data from all fields from Object and returns it as a String value
-     * @cpu O(1)
-     * @ram O(1)
+     * @cpu O(n), n - name.length
+     * @ram O(n), n - name.length
      * @return String value with data from all fields an Object
      */
     public String toString() {
@@ -49,15 +49,15 @@ public class Event {
 
     /**
      * Determines whether the events are equivalent or not.
-     * @cpu O(1)
+     * @cpu O(n) , n - name.length
      * @ram O(1)
      * @param that Object by class Event
      * @return true if all fields from Objects are equal, false if are not.
      */
     public boolean equals(Event that) {
-        int resultCompareTo = this.compareTo(that);
-        boolean result = (resultCompareTo == 0) && (this.name.equals(that.name));
-        return result;
+        return that != null
+                && (this.name == null ? that.name == null : this.name.equals(that.name))
+                && (this.compareTo(that) == 0);
     }
 
     /**

@@ -17,7 +17,7 @@ public class Task439 {
             return null;
         }
         for (int i = 0; i < n; i++) {
-            if( events[i].compareTo(events[index]) > -1) {
+            if( events[i].compareTo(events[index]) >= 0) {
                 index = i;
             }
         }
