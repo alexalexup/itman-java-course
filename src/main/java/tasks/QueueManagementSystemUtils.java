@@ -3,6 +3,7 @@ package tasks;
 import tasks.QueueManagementSystem;
 
 public class QueueManagementSystemUtils {
+
     /**
      * calculate value of total tickets from all queues
      * @cpu O(n), n - systems.length
@@ -17,6 +18,7 @@ public class QueueManagementSystemUtils {
        }
         return result;
     }
+
     /**
      * calculate value of average tickets from all queues
      * @cpu O(n), n - systems.length;
@@ -35,6 +37,7 @@ public class QueueManagementSystemUtils {
         double result = (double)calcTotalVisits(systems) / count;
         return result;
     }
+
     /**
      * calculate value of median tickets from all queues
      * @cpu O(n^2), n - systems.length

@@ -127,5 +127,4 @@ class QueueManagementSystemUtilsTest {
             Assertions.assertEquals(expectedSystems[i], systems[i]);
         }
     }
-
 }

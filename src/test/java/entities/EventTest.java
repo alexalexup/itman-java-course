@@ -11,7 +11,7 @@ class EventTest {
     public void toStringShouldReturnEqualStringArgumentThatIsEvent() {
         Event event = new Event(2020,12, 24, "ABCDabcd");
         String expected = event.toString();
-        String actual = event + "";
+        String actual = "Event{year=2020, month=12, day=24, name='ABCDabcd'}";
         Assertions.assertEquals(expected, actual);
     }
 
@@ -29,17 +29,17 @@ class EventTest {
     }
 
     @Test
-    public void toStringShouldNotReturnDataWhenEventHaveNotData() {
+    public void toStringShouldReturnDefaultDataWhenEventHaveNotData() {
         Event event = new Event();
         String actual = event.toString();
-        String expected = event + "";
+        String expected = "Event{year=0, month=0, day=0, name='null'}";
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
     public void toStringShouldReturnResultWhenNameIsNull() {
         Event event = new Event(1952,12, 1, null);
-        String expected = event + "";
+        String expected = "Event{year=1952, month=12, day=1, name='null'}";
         String actual = event.toString();
         Assertions.assertEquals(expected, actual);
     }

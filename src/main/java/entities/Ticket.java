@@ -22,8 +22,8 @@ public class Ticket {
 
     /**
      * Takes data from all fields from Object and returns it as a String value
-     * @cpu O(n + m), n - this.number, m - this.place
-     * @ram O(n + m), n - this.number, m - this.place
+     * @cpu O(n), n - this.place
+     * @ram O(n), n - this.place
      * @return String value with data from all fields an Object
      */
     public String toString() {

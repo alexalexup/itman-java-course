@@ -71,8 +71,8 @@ class MyStringTest {
         MyString firstString = new MyString(new char[]{'c','o','m','p','a'});
         MyString secondString = new MyString(new char[]{'c','o','m','p','o'});
         int actualResult = firstString.compareTo(secondString);
-        int expectedResult = -1;
-        Assertions.assertEquals(expectedResult, actualResult);
+        boolean expectedResult = actualResult < 0;
+        Assertions.assertTrue(expectedResult);
     }
 
     @Test
@@ -80,8 +80,8 @@ class MyStringTest {
         MyString firstString = new MyString(new char[]{'c', 'o', 'm', 'p', 'p', 'z', 'a'});
         MyString secondString = new MyString(new char[]{'c', 'o', 'm', 'p', 'p', 'a'});
         int actualResult = firstString.compareTo(secondString);
-        int expectedResult = 1;
-        Assertions.assertEquals(expectedResult, actualResult);
+        boolean expectedResult = actualResult > 0;
+        Assertions.assertTrue(expectedResult);
     }
 
     @Test
@@ -98,8 +98,8 @@ class MyStringTest {
         MyString firstString = new MyString(new char[]{'c', 'o', 'm', 'p', 'p', 'a', 't'});
         MyString secondString = new MyString(new char[]{'c', 'o', 'm', 'p', 'p', 'a', 't','f','f'});
         int actualResult = firstString.compareTo(secondString);
-        int expectedResult = -1;
-        Assertions.assertEquals(expectedResult, actualResult);
+        boolean expectedResult = actualResult < 0;
+        Assertions.assertTrue(expectedResult);
     }
 
     @Test
@@ -235,11 +235,4 @@ class MyStringTest {
         boolean actualResult = actualString.equals(expectedString);
         Assertions.assertTrue(actualResult);
     }
-
-
-
-
-
-
-
 }

@@ -1,10 +1,10 @@
 package entities;
 
 public class Event {
-    private   int year;
-    private   int month;
-    private   int day;
-    private   String name;
+    private int year;
+    private int month;
+    private int day;
+    private String name;
 
     public Event () {
     }
@@ -20,17 +20,17 @@ public class Event {
         return year;
    }
 
-    public int getMonth() {
+   public int getMonth() {
         return month;
-    }
+   }
 
-    public int getDay() {
+   public int getDay() {
         return day;
-    }
+   }
 
-    public String getName() {
+   public String getName() {
         return this.name;
-    }
+   }
 
     /**
      * Takes data from all fields from Object and returns it as a String value
@@ -79,5 +79,7 @@ public class Event {
         return -1;
     }
 }
+
+
 
 
