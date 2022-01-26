@@ -6,12 +6,10 @@ import org.junit.jupiter.api.Test;
 
 class Task408Test {
 
-    public void checkEqualsValues(Event[] events, Event[] expectedEvents) {
+    public void checkEqualsValues(Event[] events, Event[] expectedValues) {
         for (int i = 0; i < events.length; i++) {
-            Assertions.assertEquals(events[i].year, expectedEvents[i].year);
-            Assertions.assertEquals(events[i].month, expectedEvents[i].month);
-            Assertions.assertEquals(events[i].day, expectedEvents[i].day);
-            Assertions.assertEquals(events[i].name, expectedEvents[i].name);
+            boolean expectedResult = events[i].equals(expectedValues[i]);
+            Assertions.assertTrue(expectedResult);
         }
     }
 
@@ -156,6 +154,26 @@ class Task408Test {
                 new entities.Event(2010, 6, 1, "birthday"),
                 new entities.Event(2014, 6, 5, "jodOffer"),
                 new entities.Event(2016, 6, 6, "wedding")
+        };
+        Task408.sort(events);
+        checkEqualsValues(events, expectedValues);
+    }
+
+    @Test
+    public void sortShouldSortEventsWhenEventsHaveTwoSameEvents() {
+        entities.Event[] events = new entities.Event[]{
+                new entities.Event(2020, 10, 25, "A"),
+                new entities.Event(2020, 5, 20, "B"),
+                new entities.Event(2020, 7, 15, "C"),
+                new entities.Event(2021, 1, 1, "D"),
+                new entities.Event(2020, 7, 15, "E")
+        };
+        entities.Event[] expectedValues = new entities.Event[]{
+                new entities.Event(2020, 5, 20, "B"),
+                new entities.Event(2020, 7, 15, "C"),
+                new entities.Event(2020, 7, 15, "E"),
+                new entities.Event(2020, 10, 25, "A"),
+                new entities.Event(2021, 1, 1, "D")
         };
         Task408.sort(events);
         checkEqualsValues(events, expectedValues);

@@ -3,14 +3,17 @@ package example;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ExampleTests {
+import static org.junit.jupiter.api.Assertions.*;
+
+class ExampleTest {
+
     @Test
-    public void sumPositiveValues() {
+    public void sumShouldReturnPositiveValueWhenAllArgumentsArePositive() {
         Assertions.assertEquals(15, Example.sum(5, 10));
     }
 
     @Test
-    public void sumNegativeValues() {
+    public void sumShouldReturnNegativeValueWhenAllArgumentsAreNegative() {
         Assertions.assertEquals(-10, Example.sum(-7, -3));
     }
 }

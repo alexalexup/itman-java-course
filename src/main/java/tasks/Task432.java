@@ -8,7 +8,7 @@ public class Task432 {
      * @param x argument
      * @return actual array with unique  prime numbers
      */
-    public static long[] calcPrimeNumbers( long x) {
+    public static long[] calcPrimeNumbers(long x) {
         long [] primeNumbers = new long [13];
         int indexActualPrimeNumbers = 0;
         if (x < 2) {
