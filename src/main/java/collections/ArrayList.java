@@ -21,13 +21,23 @@ public class ArrayList {
     }
 
     public void add(int element) {
-        this.size++;
+
         if (this.size >= this.numbers.length) {
             int[] newNumbers = new int[numbers.length * 2];
             System.arraycopy(this.numbers, 0, newNumbers, 0, this.numbers.length);
-            newNumbers[size -1] = element;
             this.numbers = newNumbers;
         }
-        this.numbers[size -1] = element;
+        this.size++;
+        this.numbers[this.size -1] = element;
+    }
+
+    public int[] toArray(){
+        if (this.numbers.length == this.size) {
+            return this.numbers;
+        }
+        int[] logicalNumbers = new int[this.size];
+        System.arraycopy(this.numbers,0,logicalNumbers,0,this.size);
+        this.numbers =logicalNumbers;
+        return this.numbers;
     }
 }

@@ -64,15 +64,37 @@ class ArrayListTest {
     @Test
     public void addShouldAddElementAndChangeSizeOfArrayWhenIndexOfElementBiggerThanSizeOfArray() {
         ArrayList a = new ArrayList(2);
-        int expectedSize = 5;
-        ArrayList expectedResult = new ArrayList(expectedSize);
-        for (int i = 0; i < expectedSize; i++) {
+        int expectedLength = 5;
+        ArrayList expectedResult = new ArrayList(expectedLength);
+        for (int i = 0; i < expectedLength; i++) {
             a.add(i+1);
             expectedResult.set(i, i+1);
         }
-        Assertions.assertEquals(expectedSize, a.size());
-        for (int i = 0; i < expectedSize; i++) {
+        Assertions.assertEquals(expectedLength, a.size());
+        for (int i = 0; i < expectedLength; i++) {
             Assertions.assertEquals(expectedResult.get(i), a.get(i));
         }
+    }
+
+    @Test
+    public void toArrayShouldReturnResultWhenLogicalAndPhysicalArraysHaveDifferentLength() {
+        ArrayList a = new ArrayList(4);
+        a.add(5);
+        int[] actualResult = a.toArray();
+        int[] expectedResult = new int[]{5};
+        Assertions.assertArrayEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void toArrayShouldReturnResultWhenArrayChangeSizeSeveralTimes() {
+        ArrayList a = new ArrayList(2);
+        int expectedLength = 22;
+        int[] expectedResult = new int[expectedLength];
+        for (int i = 0; i < expectedLength; i++) {
+            expectedResult[i] = i;
+            a.add(i);
+        }
+        int[] actualResult = a.toArray();
+        Assertions.assertArrayEquals(expectedResult, actualResult);
     }
 }
