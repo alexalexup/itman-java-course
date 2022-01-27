@@ -55,16 +55,24 @@ class ArrayListTest {
     @Test
     public void sizeShouldReturnOneWhenArrayListHaveOneElement() {
         ArrayList a = new ArrayList(1);
+        a.add(3);
         int actualResult = a.size();
         int expectedResult = 1;
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void sizeShouldReturnResultWhenArrayListHaveSomeElements() {
-        ArrayList a = new ArrayList(156);
-        int actualResult = a.size();
-        int expectedResult = 156;
-        Assertions.assertEquals(expectedResult, actualResult);
+    public void addShouldAddElementAndChangeSizeOfArrayWhenIndexOfElementBiggerThanSizeOfArray() {
+        ArrayList a = new ArrayList(2);
+        int expectedSize = 5;
+        ArrayList expectedResult = new ArrayList(expectedSize);
+        for (int i = 0; i < expectedSize; i++) {
+            a.add(i+1);
+            expectedResult.set(i, i+1);
+        }
+        Assertions.assertEquals(expectedSize, a.size());
+        for (int i = 0; i < expectedSize; i++) {
+            Assertions.assertEquals(expectedResult.get(i), a.get(i));
+        }
     }
 }
