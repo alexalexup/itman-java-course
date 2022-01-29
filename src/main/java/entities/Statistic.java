@@ -15,23 +15,23 @@ public class Statistic {
         this.median = median;
     }
 
-    public int getMin(int min) {
+    public int getMin() {
         return this.min = min;
     }
 
-    public int getMax(int max) {
+    public int getMax() {
         return this.max = max;
     }
 
-    public long getCount(int count) {
+    public long getCount() {
         return this.count = count;
     }
 
-    public double getAverage(double average) {
+    public double getAverage() {
         return this.average = average;
     }
 
-    public double getMedian(double median) {
+    public double getMedian() {
         return this.median = median;
     }
 
