@@ -154,4 +154,63 @@ class ArrayListTest {
         int expectedValue = 1;
         Assertions.assertEquals(expectedValue, actualValue);
     }
+
+    @Test
+    public void equalsShouldReturnTrueWhenBothArraysAreEqual() {
+        ArrayList firstArray = new ArrayList(1);
+        ArrayList secondArray = new ArrayList(1);
+        for (int i = 1; i < 8; i++) {
+            firstArray.add(i);
+            secondArray.add(i);
+        }
+        boolean actualResult = firstArray.equals(secondArray);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenSecondObjectIsNull() {
+        ArrayList firstArray = new ArrayList(1);
+        ArrayList secondArray = null;
+        for (int i = 1; i < 4; i++) {
+            firstArray.add(i);
+        }
+        boolean actualResult = firstArray.equals(secondArray);
+        Assertions.assertFalse(actualResult);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenArraysHaveSameLengthAndOneDifferentElement() {
+        ArrayList firstArray = new ArrayList(1);
+        ArrayList secondArray = new ArrayList(1);
+        for (int i = 1; i < 4; i++) {
+            firstArray.add(i);
+            secondArray.add(i);
+        }
+        firstArray.add(5);
+        secondArray.add(9);
+        boolean actualResult = firstArray.equals(secondArray);
+        Assertions.assertFalse(actualResult);
+    }
+
+    @Test
+    public void equalsShouldReturnFalseWhenArraysHaveDifferentLengthAndEqualsElements() {
+        ArrayList firstArray = new ArrayList(1);
+        ArrayList secondArray = new ArrayList(1);
+        for (int i = 1; i < 4; i++) {
+            firstArray.add(i);
+            secondArray.add(i);
+        }
+        secondArray.add(1);
+        boolean actualResult = firstArray.equals(secondArray);
+        Assertions.assertFalse(actualResult);
+    }
+    @Test
+    public void equalsShouldReturnFalseWhenLengthOfBothArraysIsOneAndElementsAreDifferent() {
+        ArrayList firstArray = new ArrayList(1);
+        ArrayList secondArray = new ArrayList(1);
+        firstArray.add(1);
+        secondArray.add(2);
+        boolean actualResult = firstArray.equals(secondArray);
+        Assertions.assertFalse(actualResult);
+    }
 }
