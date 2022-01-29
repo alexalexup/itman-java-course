@@ -265,6 +265,7 @@ class ArrayListTest {
         boolean expectedResult = actualArray.equals(expectedArray);
         Assertions.assertTrue(expectedResult);
     }
+
     @Test
     public void ArrayListShouldCreateObjectsWithElementsFromTheReceivedObjectWhenReceivedObjectHaveOneElement() {
         ArrayList expectedArray = new ArrayList(1);
@@ -273,4 +274,44 @@ class ArrayListTest {
         boolean expectedResult = actualArray.equals(expectedArray);
         Assertions.assertTrue(expectedResult);
     }
+
+    @Test
+    public void ofShouldReturnArrayListWithElementsFromArgumentWhenArgumentIsNumbers() {
+        ArrayList actualArray = ArrayList.of(1, 2, 3, 4, 5);
+        ArrayList expectedArray = new ArrayList(1);
+        for (int i = 1; i < 6; i++) {
+            expectedArray.add(i);
+        }
+        boolean expectedResult = actualArray.equals(expectedArray);
+        Assertions.assertTrue(expectedResult);
+    }
+
+    @Test
+    public void ofShouldReturnArrayListWithElementsFromArgumentWhenArgumentIsArray() {
+        ArrayList actualArray = ArrayList.of(new int[]{1, 2, 3, 4, 5});
+        ArrayList expectedArray = new ArrayList(1);
+        for (int i = 1; i < 6; i++) {
+            expectedArray.add(i);
+        }
+        boolean expectedResult = actualArray.equals(expectedArray);
+        Assertions.assertTrue(expectedResult);
+    }
+
+    @Test
+    public void ofShouldReturnArrayListWithElementFromArgumentWhenArgumentIsOne() {
+        ArrayList actualArray = ArrayList.of(6);
+        ArrayList expectedArray = new ArrayList(1);
+        expectedArray.add(6);
+        boolean expectedResult = actualArray.equals(expectedArray);
+        Assertions.assertTrue(expectedResult);
+    }
+
+    @Test
+    public void ofShouldReturnArrayWithoutElementWhenHaveNotArguments() {
+        ArrayList actualArray = ArrayList.of();
+        ArrayList expectedArray = new ArrayList();
+        boolean expectedResult = actualArray.equals(expectedArray);
+        Assertions.assertTrue(expectedResult);
+    }
+
 }

@@ -120,4 +120,15 @@ public class ArrayList {
             this.numbers[minIndex] = buffer;
         }
     }
+
+    public static ArrayList of(int... elements) {
+        ArrayList result = new ArrayList();
+        if (elements.length < 1) {
+            return result;
+        }
+        for (int i = 0; i < elements.length; i++) {
+            result.add(elements[i]);
+        }
+        return result;
+    }
 }
