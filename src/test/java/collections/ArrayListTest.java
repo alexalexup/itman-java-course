@@ -97,4 +97,61 @@ class ArrayListTest {
         int[] actualResult = a.toArray();
         Assertions.assertArrayEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void removeShouldReturnResultWhenIndexIsFirst() {
+        ArrayList a = new ArrayList(1);
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.add(4);
+        a.add(5);
+        int actualValue = a.remove(0);
+        int expectedValue = 1;
+        int[] actualArray = a.toArray();
+        int[] expectedArray = new int[] {2,3,4,5};
+        Assertions.assertEquals(expectedValue, actualValue);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void removeShouldReturnResultWhenIndexIsLast() {
+        ArrayList a = new ArrayList(1);
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.add(4);
+        a.add(5);
+        int actualValue = a.remove(4);
+        int expectedValue = 5;
+        int[] actualArray = a.toArray();
+        int[] expectedArray = new int[] {1,2,3,4};
+        Assertions.assertEquals(expectedValue, actualValue);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void removeShouldReturnResultWhenIndexInMiddle() {
+        ArrayList a = new ArrayList(1);
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.add(4);
+        a.add(5);
+        int actualValue = a.remove(2);
+        int expectedValue = 3;
+        int[] actualArray = a.toArray();
+        int[] expectedArray = new int[] {1,2,4,5};
+        Assertions.assertEquals(expectedValue, actualValue);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void removeShouldReturnResultWhenLengthOfArrayIsOne() {
+        ArrayList a = new ArrayList(1);
+        a.add(1);
+        int actualValue = a.remove(0);
+        int expectedValue = 1;
+        Assertions.assertEquals(expectedValue, actualValue);
+    }
 }

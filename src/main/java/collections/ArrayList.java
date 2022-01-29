@@ -21,7 +21,6 @@ public class ArrayList {
     }
 
     public void add(int element) {
-
         if (this.size >= this.numbers.length) {
             int[] newNumbers = new int[numbers.length * 2];
             System.arraycopy(this.numbers, 0, newNumbers, 0, this.numbers.length);
@@ -40,4 +39,30 @@ public class ArrayList {
         this.numbers =logicalNumbers;
         return this.numbers;
     }
+
+    public int remove(int index) {
+        int result = this.numbers[index];
+        if (this.size == 1) {
+            this.numbers = new int[]{0};
+            this.size--;
+            return result;
+        }
+        this.size--;
+        int[] logicalNumbers = new int[size];
+        if (index == 0) {
+            System.arraycopy(this.numbers,index + 1,logicalNumbers,0,logicalNumbers.length);
+            this.numbers = logicalNumbers;
+            return result;
+        }
+        if (index == this.size) {
+            System.arraycopy(this.numbers,0,logicalNumbers,0,logicalNumbers.length);
+            this.numbers = logicalNumbers;
+            return result;
+        }
+        System.arraycopy(this.numbers,0,logicalNumbers,0,index);
+        System.arraycopy(this.numbers,index + 1,logicalNumbers,index,logicalNumbers.length - index);
+        this.numbers = logicalNumbers;
+        return result;
+    }
+
 }
