@@ -148,9 +148,9 @@ class ArrayListTest {
 
     @Test
     public void removeShouldReturnResultWhenLengthOfArrayIsOne() {
-        ArrayList a = new ArrayList(1);
-        a.add(1);
-        int actualValue = a.remove(0);
+        ArrayList actualArray = new ArrayList(1);
+        actualArray.add(1);
+        int actualValue = actualArray.remove(0);
         int expectedValue = 1;
         Assertions.assertEquals(expectedValue, actualValue);
     }
@@ -204,6 +204,7 @@ class ArrayListTest {
         boolean actualResult = firstArray.equals(secondArray);
         Assertions.assertFalse(actualResult);
     }
+
     @Test
     public void equalsShouldReturnFalseWhenLengthOfBothArraysIsOneAndElementsAreDifferent() {
         ArrayList firstArray = new ArrayList(1);
@@ -212,5 +213,45 @@ class ArrayListTest {
         secondArray.add(2);
         boolean actualResult = firstArray.equals(secondArray);
         Assertions.assertFalse(actualResult);
+    }
+
+    @Test
+    public void sortShouldSortArrayWhenElementsAreNotSorted() {
+        ArrayList actualArray = new ArrayList(1);
+        ArrayList expectedArray = new ArrayList(1);
+        actualArray.add(4);
+        actualArray.add(2);
+        actualArray.add(3);
+        actualArray.add(1);
+        for (int i = 1; i < 5; i++) {
+            expectedArray.add(i);
+        }
+        actualArray.sort();
+        boolean expectedResult = actualArray.equals(expectedArray);
+        Assertions.assertTrue(expectedResult);
+    }
+
+    @Test
+    public void sortShouldWorkWhenArrayHaveOneElement() {
+        ArrayList actualArray = new ArrayList(1);
+        ArrayList expectedArray = new ArrayList(1);
+        actualArray.add(4);
+        expectedArray.add(4);
+        actualArray.sort();
+        boolean expectedResult = actualArray.equals(expectedArray);
+        Assertions.assertTrue(expectedResult);
+    }
+
+    @Test
+    public void sortShouldWorkWhenArrayAreSorted() {
+        ArrayList actualArray = new ArrayList(1);
+        ArrayList expectedArray = new ArrayList(1);
+        for (int i = 1; i < 5; i++) {
+            actualArray.add(i);
+            expectedArray.add(i);
+        }
+        actualArray.sort();
+        boolean expectedResult = actualArray.equals(expectedArray);
+        Assertions.assertTrue(expectedResult);
     }
 }
