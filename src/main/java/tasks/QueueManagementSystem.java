@@ -26,7 +26,11 @@ public class QueueManagementSystem {
      * @return value of the totalTickets field
      */
     public int getTotalTickets() {
-        return totalTickets;
+        int result = 0;
+        for (int i = 0; i < days.size(); i++) {
+            result = result + days.get(i);
+        }
+        return result;
     }
 
     /**

@@ -41,6 +41,19 @@ class QueueManagementSystemTest {
     }
 
     @Test
+    public void getTotalTicketsShouldReturnResultForAllDays() {
+        QueueManagementSystem administration = new  QueueManagementSystem("Administration");
+        callGetNextTicket(administration,4);
+        administration.toNextWorkDay();
+        callGetNextTicket(administration,8);
+        administration.toNextWorkDay();
+        callGetNextTicket(administration, 23);
+        administration.toNextWorkDay();
+        int actualResult = administration.getTotalTickets();
+        Assertions.assertEquals(35, actualResult);
+    }
+
+    @Test
     public void getNextTicketShouldReturnTicketWhereFieldNumberIsOneWhenMethodWasCalledFirstTime(){
         QueueManagementSystem bank = new  QueueManagementSystem("Bank");
         entities.Ticket actual = bank.getNextTicket();
@@ -82,12 +95,13 @@ class QueueManagementSystemTest {
     }
 
     @Test
-    public void toNextWorkDayShouldResetToZeroTotalTickets() {
+    public void toNextWorkDayShouldResetToZeroFieldOfTotalTicketsAndCreateOneMoreElementInDaysFieldWithZeroValue() {
         QueueManagementSystem administration = new  QueueManagementSystem("Administration");
         callGetNextTicket(administration, 21);
         administration.toNextWorkDay();
-        int actualTotalTickets = administration.getTotalTickets();
-        Assertions.assertEquals(0, actualTotalTickets);
+        int[] actualArray = administration.getVisitsByDay().toArray();
+        int actualValue = actualArray[1];
+        Assertions.assertEquals(0,actualValue);
     }
 
     @Test
