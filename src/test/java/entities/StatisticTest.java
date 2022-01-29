@@ -42,8 +42,8 @@ class StatisticTest {
 
     @Test
     public void equalsShouldReturnFalseWhenSecondObjectHaveAllDifferentElements() {
-        Statistic first = new Statistic(3,4, 8,2, 2);
-        Statistic second = new Statistic(2,5, 7,3, 2);
+        Statistic first = new Statistic(3,4, 8,3.6666666666666665, 2);
+        Statistic second = new Statistic(2,5, 7,3.666666666666667, 2);
         boolean actualResult = first.equals(second);
         Assertions.assertFalse(actualResult);
     }

@@ -48,7 +48,7 @@ public class Statistic {
     public boolean equals(Statistic that) {
         return that != null ? (this.min == that.min
                 && this.max == that.max && this.count == that.count
-                && this.median == that.median) : false;
+                && this.average == that.average && this.median == that.median) : false;
     }
 }
 
