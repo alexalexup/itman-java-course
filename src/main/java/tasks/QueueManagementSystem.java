@@ -1,10 +1,12 @@
 package tasks;
 
 import entities.Ticket;
+import collections.ArrayList;
 
 public class QueueManagementSystem {
     private int totalTickets;
     private String place;
+    private ArrayList days;
 
     /**
      * Set value for field place when creating the object
@@ -13,6 +15,8 @@ public class QueueManagementSystem {
      */
     public QueueManagementSystem(String place) {
         this.place = place;
+        this.days = new ArrayList();
+        this.days.add(totalTickets);
     }
 
     /**
@@ -33,7 +37,21 @@ public class QueueManagementSystem {
      */
     public Ticket getNextTicket() {
         totalTickets++;
-        Ticket newTicket = new Ticket(totalTickets, place);
+        days.set(days.size()-1, totalTickets);
+        Ticket newTicket = new Ticket(days.get(days.size()-1), place);
         return newTicket;
+    }
+
+    public void toNextWorkDay() {
+        totalTickets = 0;
+        days.add(totalTickets);
+    }
+
+    public ArrayList getVisitsByDay() {
+        ArrayList result = new ArrayList();
+        for (int i = 0; i < days.size(); i++) {
+            result.add(days.get(i));
+        }
+        return result;
     }
 }
