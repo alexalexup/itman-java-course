@@ -254,4 +254,23 @@ class ArrayListTest {
         boolean expectedResult = actualArray.equals(expectedArray);
         Assertions.assertTrue(expectedResult);
     }
+
+    @Test
+    public void ArrayListShouldCreateObjectsWithElementsFromTheReceivedObject() {
+        ArrayList expectedArray = new ArrayList(1);
+        for (int i = 0; i < 8; i++) {
+            expectedArray.add(i);
+        }
+        ArrayList actualArray = new ArrayList(expectedArray);
+        boolean expectedResult = actualArray.equals(expectedArray);
+        Assertions.assertTrue(expectedResult);
+    }
+    @Test
+    public void ArrayListShouldCreateObjectsWithElementsFromTheReceivedObjectWhenReceivedObjectHaveOneElement() {
+        ArrayList expectedArray = new ArrayList(1);
+        expectedArray.add(4);
+        ArrayList actualArray = new ArrayList(expectedArray);
+        boolean expectedResult = actualArray.equals(expectedArray);
+        Assertions.assertTrue(expectedResult);
+    }
 }

@@ -8,6 +8,17 @@ public class ArrayList {
             this.numbers = new int[capacity];
     }
 
+    public ArrayList(ArrayList that) {
+        this.numbers = new int[1];
+        for (int i = 0 ; i < that.size; i++) {
+            this.add(that.numbers[i]);
+        }
+    }
+
+    public ArrayList() {
+        this.numbers = new int[16];
+    }
+
     /**
      * Set the value of the array element of the number field
      * @cpu O(1)
