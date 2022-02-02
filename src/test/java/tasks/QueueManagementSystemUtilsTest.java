@@ -212,7 +212,7 @@ class QueueManagementSystemUtilsTest {
     public void calcStatisticByDaysShouldReturnStatisticWhenQueuesHaveNotElements() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{};
         Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
-        Statistic[] expectedStatistic = new Statistic[]{new Statistic(0, 0,0,0,0)};
+        Statistic[] expectedStatistic = new Statistic[]{};
         boolean actualResult = QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
         Assertions.assertTrue(actualResult);
     }
