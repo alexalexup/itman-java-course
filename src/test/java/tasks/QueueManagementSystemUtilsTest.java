@@ -43,7 +43,6 @@ class QueueManagementSystemUtilsTest {
         }
     }
 
-
     @Test
     public void calcTotalVisitsShouldReturnResultWhenSomePlacesAreNull() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
@@ -185,12 +184,27 @@ class QueueManagementSystemUtilsTest {
     public void calcStatisticByDaysShouldReturnStatisticWhenQueuesAndDaysHaveOneElement() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{callSomeTickets(25,"Administration")};
         Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
-        Statistic[] expectedStatistic = new Statistic[]{(new Statistic(25,25,25,25,25))};
+        Statistic[] expectedStatistic = new Statistic[]{(new Statistic(25,25,25,
+                25,25))};
         boolean actualResult =QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
-        System.out.println(actualStatistic[0].getMin());
-        System.out.println(actualStatistic[0].getMax());
-        System.out.println(actualStatistic[0].getAverage());
-        System.out.println(actualStatistic[0].getCount());
-        System.out.println(actualStatistic[0].getMedian());
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void calcStatisticByDaysShouldReturnStatisticWhenQueuesHaveOneElementAndDaysHaveSomeElements() {
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{callSomeTickets(25,"Administration")};
+        systems[0].toNextWorkDay();
+        callGetNextTicket(systems[0], 32);
+        systems[0].toNextWorkDay();
+        callGetNextTicket(systems[0], 43);
+        systems[0].toNextWorkDay();
+        Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
+        Statistic[] expectedStatistic = new Statistic[] {
+                (new Statistic(25, 25, 25, 25, 25)),
+                (new Statistic(32, 32, 32, 32, 32)),
+                (new Statistic(43, 43,43, 43, 43)),
+                (new Statistic(0,0,0,0,0))};
+        boolean actualResult = QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
+        Assertions.assertTrue(actualResult);
     }
 }

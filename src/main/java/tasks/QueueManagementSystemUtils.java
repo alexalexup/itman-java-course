@@ -77,6 +77,7 @@ public class QueueManagementSystemUtils {
         long result = 0;
         if (visitsByDays.length == 1) {
             result = (long)visitsByDays[0][day];
+            return result;
         }
         for (int i = 0; i < visitsByDays.length; i++) {
             result = result + (long)visitsByDays[i][day];
