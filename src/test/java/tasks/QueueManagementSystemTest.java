@@ -152,10 +152,4 @@ class QueueManagementSystemTest {
         boolean actualResult = actualArray.equals(expectedArray);
         Assertions.assertTrue(actualResult);
     }
-
-    @Test public void sdfsdf() {
-        QueueManagementSystem administration = new  QueueManagementSystem("Administration");
-        int a = QueueManagementSystem.take(2);
-        System.out.println(a);
-    }
 }
