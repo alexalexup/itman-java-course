@@ -170,8 +170,9 @@ public class QueueManagementSystemUtils {
         if (systems == null) {
             return null;
         }
-        if (systems.length < 1) {
-            Statistic[] statistic = new Statistic[]{};
+        if (systems.length == 0) {
+            Statistic[] statistic = new Statistic[]{new Statistic(0,0,0,0,0)};
+            return statistic;
         }
         int[][] visitByDays = fillEmptyDays(systems);
         Statistic[] statistic = new Statistic[visitByDays[0].length];
