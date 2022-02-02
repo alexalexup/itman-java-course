@@ -58,4 +58,8 @@ public class QueueManagementSystem {
         }
         return result;
     }
+
+    public static int take(int x) {
+        return x +x;
+    }
 }

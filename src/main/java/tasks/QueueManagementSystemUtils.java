@@ -1,6 +1,7 @@
 package tasks;
 
 import tasks.QueueManagementSystem;
+import entities.Statistic;
 
 public class QueueManagementSystemUtils {
 
@@ -70,5 +71,116 @@ public class QueueManagementSystemUtils {
         }
         double result = (double)(sortTotalTickets[systems.length / 2 -1] + sortTotalTickets[systems.length / 2]) / 2;
         return result;
+    }
+
+    private static long calcTotalVisitsByDays(int[][]visitsByDays, int day) {
+        long result = 0;
+        if (visitsByDays.length == 1) {
+            result = (long)visitsByDays[0][day];
+        }
+        for (int i = 0; i < visitsByDays.length; i++) {
+            result = result + (long)visitsByDays[i][day];
+        }
+        return result;
+    }
+
+    private static double calcAverageVisitsByDays(int[][]visitsByDays, int day) {
+        double result = (double)QueueManagementSystemUtils.calcTotalVisitsByDays(visitsByDays,  day);
+        return result / visitsByDays.length;
+    }
+
+    private static int findMinVisitsByDays(int[][]visitsByDays, int day) {
+        int result = visitsByDays[0][day];
+        if (visitsByDays.length == 1) {
+            return result;
+        }
+        for (int i = 0; i < visitsByDays.length; i++) {
+            if (result > visitsByDays[i][day]) {
+                result = visitsByDays[i][day];
+            }
+        }
+        return result;
+    }
+
+    private static int findMaxVisitsByDays(int[][]visitsByDays, int day) {
+        int result = visitsByDays[0][day];
+        if (visitsByDays.length == 1) {
+            return result;
+        }
+        for (int i = 0; i < visitsByDays.length; i++) {
+            if (result < visitsByDays[i][day]) {
+                result = visitsByDays[i][day];
+            }
+        }
+        return result;
+    }
+
+    private static int[][] fillEmptyDays(QueueManagementSystem[] systems) {
+        int size = systems[0].getVisitsByDay().toArray().length;
+        for (int i = 0; i < systems.length; i++) {
+            if (size < systems[i].getVisitsByDay().toArray().length ) {
+                size = systems[i].getVisitsByDay().toArray().length;
+            }
+        }
+        int[][] visitsByDays = new int[systems.length][size];
+        for (int i = 0; i < systems.length; i++) {
+            if (systems[i].getVisitsByDay().toArray().length == size) {
+                System.arraycopy(systems[i].getVisitsByDay().toArray(),0,visitsByDays[i],0,size);
+            }else {
+                int delta = size - systems[i].getVisitsByDay().toArray().length;
+                System.arraycopy(systems[i].getVisitsByDay().toArray(),0,
+                                 visitsByDays[i],delta,systems[i].getVisitsByDay().toArray().length);
+            }
+        }
+        return visitsByDays;
+    }
+
+    private static double calcMedianVisitsByDays(int[][] visitsByDays, int day) {
+        double result = visitsByDays[0][day];
+        if (visitsByDays.length == 1) {
+            return result;
+        }
+        int[] sortVisitsByDays = new int[visitsByDays.length];
+        for (int i = 0; i < sortVisitsByDays.length; i ++) {
+            sortVisitsByDays[i] = visitsByDays[i][day];
+        }
+        for (int i = 0; i < sortVisitsByDays.length; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j <sortVisitsByDays.length; j++) {
+                if (sortVisitsByDays[minIndex] > sortVisitsByDays[j]) {
+                        minIndex = j;
+                }
+            }
+            int buffer = sortVisitsByDays[i];
+            sortVisitsByDays[i] = sortVisitsByDays[minIndex];
+            sortVisitsByDays[minIndex] = buffer;
+        }
+        if ((sortVisitsByDays.length % 2) != 0) {
+            result = (double)sortVisitsByDays[sortVisitsByDays.length / 2 ];
+            return result;
+        }
+        result = ((double)sortVisitsByDays[(sortVisitsByDays.length / 2) - 1]
+                + (double)sortVisitsByDays[sortVisitsByDays.length / 2]) / 2;
+        return  result;
+    }
+
+
+    public static Statistic[] calcStatisticByDays(QueueManagementSystem[] systems) {
+        if (systems == null) {
+            return null;
+        }
+        if (systems.length < 1) {
+            Statistic[] statistic = new Statistic[]{};
+        }
+        int[][] visitByDays = fillEmptyDays(systems);
+        Statistic[] statistic = new Statistic[visitByDays[0].length];
+        for (int i = 0; i < visitByDays[0].length; i++){
+            statistic[i] = new Statistic(findMinVisitsByDays(visitByDays, i),
+                    findMaxVisitsByDays(visitByDays,i),
+                    calcTotalVisitsByDays(visitByDays,i),
+                    calcAverageVisitsByDays(visitByDays,i),
+                    calcMedianVisitsByDays(visitByDays,i));
+        }
+        return statistic;
     }
 }

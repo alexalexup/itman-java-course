@@ -1,11 +1,25 @@
 package tasks;
 
+import entities.Statistic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import entities.Ticket;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class QueueManagementSystemUtilsTest {
+
+    public static boolean checkEqualsStat(Statistic[] expected, Statistic[] actual){
+        if (expected.length != actual.length) {
+            return false;
+        }
+        for (int i = 0; i < expected.length; i++) {
+            if (expected[i].equals(actual[i]) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public QueueManagementSystem callSomeTickets(int count, String place) {
         QueueManagementSystem result = new QueueManagementSystem (place);
@@ -14,6 +28,21 @@ class QueueManagementSystemUtilsTest {
         }
         return result;
     }
+
+    public Ticket callGetNextTicket(QueueManagementSystem that, int count) {
+        Ticket newTicket = new entities.Ticket();
+        for (int i = 0; i < count; i++) {
+            newTicket = that.getNextTicket();
+        }
+        return newTicket;
+    }
+
+    public void callNextDays(QueueManagementSystem[] that) {
+        for (int i = 0; i < that.length; i++) {
+            that[i].toNextWorkDay();
+        }
+    }
+
 
     @Test
     public void calcTotalVisitsShouldReturnResultWhenSomePlacesAreNull() {
@@ -126,5 +155,42 @@ class QueueManagementSystemUtilsTest {
         for (int i = 0; i < systems.length; i++) {
             Assertions.assertEquals(expectedSystems[i], systems[i]);
         }
+    }
+
+    @Test
+    public void calcStatisticByDaysShouldReturnStatisticWhenQueuesHaveEqualCountOfWorkDaysAndSystemsLengthIsOdd() {
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{
+                callSomeTickets(25,"Administration"),
+                callSomeTickets(20,"Pharmacy"),
+                callSomeTickets(18,"School")
+        };
+        callNextDays(systems);
+        callGetNextTicket(systems[0], 4);
+        callGetNextTicket(systems[1], 32);
+        callGetNextTicket(systems[2], 8);
+        callNextDays(systems);
+        callGetNextTicket(systems[0], 42);
+        callGetNextTicket(systems[1], 3);
+        callGetNextTicket(systems[2], 8);
+        Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
+        Statistic[] expectedStatistic = new Statistic[] {
+                (new Statistic(18, 25, 63, 21.0, 20.0)),
+                (new Statistic(4, 32, 44, 44.0 / 3.0, 8.0)),
+                (new Statistic(3, 42,53, 53.0 / 3.0, 8.0))};
+        boolean actualResult = QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void calcStatisticByDaysShouldReturnStatisticWhenQueuesAndDaysHaveOneElement() {
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{callSomeTickets(25,"Administration")};
+        Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
+        Statistic[] expectedStatistic = new Statistic[]{(new Statistic(25,25,25,25,25))};
+        boolean actualResult =QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
+        System.out.println(actualStatistic[0].getMin());
+        System.out.println(actualStatistic[0].getMax());
+        System.out.println(actualStatistic[0].getAverage());
+        System.out.println(actualStatistic[0].getCount());
+        System.out.println(actualStatistic[0].getMedian());
     }
 }
