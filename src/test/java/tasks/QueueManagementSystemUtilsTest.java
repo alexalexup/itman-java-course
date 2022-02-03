@@ -216,4 +216,22 @@ class QueueManagementSystemUtilsTest {
         boolean actualResult = QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
         Assertions.assertTrue(actualResult);
     }
+
+    @Test
+    public void voidShouldReturn() {
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{
+                callSomeTickets(7,"Administration"),
+                callSomeTickets(4,"Pharmacy"),
+                callSomeTickets(6,"School")
+        };
+        systems[0].toNextWorkDay();
+        systems[1].toNextWorkDay();
+        callGetNextTicket(systems[0],3);
+        callGetNextTicket(systems[1],2);
+        systems[0].toNextWorkDay();
+        callGetNextTicket(systems[0], 5);
+        for (int i = 0; i < 3; i++){
+            System.out.println(QueueManagementSystemUtils.findMinVisitsByDays(systems,i));
+        }
+    }
 }
