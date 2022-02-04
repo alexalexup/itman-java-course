@@ -73,19 +73,19 @@ public class QueueManagementSystemUtils {
         return result;
     }
 
-    public static long calcTotalVisitsByDays(QueueManagementSystem[] systems, int day) {
+    private static long calcTotalVisitsWhenEqualCount(QueueManagementSystem[] systems, int day) {
         long result = 0;
         if (systems.length == 1) {
-            result = (long)systems[0].getVisitsByDay().toArray()[day];
-            return result;
+            return (long)systems[0].getVisitsByDay().toArray()[day];
         }
-        if (checkEqualsDays(systems)) {
-            for (int i = 0; i < systems[0].getVisitsByDay().toArray().length; i++) {
+        for (int i = 0; i < systems[0].getVisitsByDay().toArray().length; i++) {
                 result = result + (long)systems[i].getVisitsByDay().toArray()[day];
-                }
-            return result;
-            }
-        int maxDays = findMaxCountOfDays(systems);
+        }
+        return result;
+    }
+
+    private static long calcTotalVisitsWhenDifferentCount(QueueManagementSystem[] systems, int day, int maxDays) {
+        long result = 0;
         for (int i = 0; i < systems.length; i++) {
             int delta = maxDays - systems[i].getVisitsByDay().toArray().length;
             if (day >= delta) {
@@ -95,18 +95,7 @@ public class QueueManagementSystemUtils {
         return result;
     }
 
-    public static double calcAverageVisitsByDays(QueueManagementSystem[] systems, int day) {
-        double result = 0;
-        if (systems.length == 1) {
-            result = (double)systems[0].getVisitsByDay().toArray()[day];
-            return result;
-        }
-        result = (double)QueueManagementSystemUtils.calcTotalVisitsByDays(systems,day);
-        if (checkEqualsDays(systems)) {
-            result = result / systems[0].getVisitsByDay().toArray().length;
-            return result;
-        }
-        int maxDays = findMaxCountOfDays(systems);
+    private static double calcAvrVisitsWhenDifferentCount(QueueManagementSystem[] systems, int day, int maxDays) {
         int countOfDays = 0;
         for (int  i = 0; i < systems.length; i++) {
             int delta = maxDays - systems[i].getVisitsByDay().toArray().length;
@@ -114,12 +103,20 @@ public class QueueManagementSystemUtils {
                 countOfDays++;
             }
         }
-        result = result / (double)countOfDays;
-        return result;
+        return (double)QueueManagementSystemUtils.calcTotalVisitsWhenDifferentCount(systems,day, maxDays)
+                / (double)countOfDays;
     }
 
-    private static int findMinVisitsWhenDifferentCountOfDays(QueueManagementSystem[] systems, int day, int maxDays ){
-        int result = 0;
+    private static double calcAvrVisitsWhenEqualCount(QueueManagementSystem[] systems, int day) {
+        if (systems.length == 1) {
+             return (double)systems[0].getVisitsByDay().toArray()[day];
+        }
+        return (double)QueueManagementSystemUtils.calcTotalVisitsWhenEqualCount(systems,day)
+                / (double)systems[0].getVisitsByDay().toArray().length;
+    }
+
+    private static int findMinVisitsWhenDifferentCount(QueueManagementSystem[] systems, int day, int maxDays){
+        int result = Integer.MAX_VALUE;
         for( int i = 0; i <systems.length; i++) {
             int delta = maxDays - systems[i].getVisitsByDay().toArray().length;
             if((day >= delta) && (systems[i].getVisitsByDay().toArray()[day - delta]) < result) {
@@ -129,7 +126,7 @@ public class QueueManagementSystemUtils {
         return result;
     }
 
-    public static int findMinVisitsWhenEqualCountOfDays(QueueManagementSystem[] systems, int day) {
+    private static int findMinVisitsWhenEqualCount(QueueManagementSystem[] systems, int day) {
         if (systems.length == 1) {
             return systems[0].getVisitsByDay().toArray()[day];
         }
@@ -142,7 +139,7 @@ public class QueueManagementSystemUtils {
         return result;
     }
 
-    private static int findMaxVisitsWhenDifferentCountOfDays(QueueManagementSystem[] systems, int day, int maxDays ){
+    private static int findMaxVisitsWhenDifferentCount(QueueManagementSystem[] systems, int day, int maxDays){
         int result = 0;
         for( int i = 0; i <systems.length; i++) {
             int delta = maxDays - systems[i].getVisitsByDay().toArray().length;
@@ -153,7 +150,7 @@ public class QueueManagementSystemUtils {
         return result;
     }
 
-    public static int findMaxVisitsWhenEqualCountOfDays(QueueManagementSystem[] systems, int day) {
+    public static int findMaxVisitsWhenEqualCount(QueueManagementSystem[] systems, int day) {
         if (systems.length == 1) {
             return systems[0].getVisitsByDay().toArray()[day];
         }
@@ -164,6 +161,36 @@ public class QueueManagementSystemUtils {
             }
         }
         return result;
+    }
+
+    private static double calcMedianVisitsWhenEqualCount(QueueManagementSystem[] systems, int day) {
+        if (systems.length == 1) {
+            return systems[0].getVisitsByDay().toArray()[day];
+        }
+
+        int[] sortVisitsByDays = new int[systems[0].getVisitsByDay().toArray().length];
+        for (int i = 0; i < systems.length; i++) {
+            sortVisitsByDays[i] = systems[i].getVisitsByDay().toArray()[day];
+        }
+        return calcMedianFromArray(sortVisitsByDays);
+    }
+
+    private static double calcMedianVisitsWhenDifferentCount(QueueManagementSystem[] systems, int day, int maxDays) {
+        int countOfDays = 0;
+        for( int i = 0; i <systems.length; i++) {
+            int delta = maxDays - systems[i].getVisitsByDay().toArray().length;
+            if((day >= delta)) {
+                countOfDays++;
+            }
+        }
+        int[] sortVisitsByDays = new int[countOfDays++];
+        for (int i = 0; i < systems.length; i++) {
+            int delta = maxDays - systems[i].getVisitsByDay().toArray().length;
+            if(day >= delta ) {
+                sortVisitsByDays[i] = systems[i].getVisitsByDay().toArray()[day - delta];
+            }
+        }
+        return calcMedianFromArray(sortVisitsByDays);
     }
 
     private static boolean checkEqualsDays(QueueManagementSystem[] systems) {
@@ -204,37 +231,6 @@ public class QueueManagementSystemUtils {
         return ((double)array[(array.length / 2) - 1] + (double)array[array.length / 2]) / 2;
     }
 
-
-    public static double calcMedianVisitsByDays(QueueManagementSystem[] systems, int day) {
-        if (systems.length == 1) {
-            return systems[0].getVisitsByDay().toArray()[day];
-        }
-        if (checkEqualsDays(systems)){
-            int[] sortVisitsByDays = new int[systems[0].getVisitsByDay().toArray().length];
-            for (int i = 0; i < systems.length; i++) {
-                sortVisitsByDays[i] = systems[i].getVisitsByDay().toArray()[day];
-            }
-            return calcMedianFromArray(sortVisitsByDays);
-        }
-        int maxDays = findMaxCountOfDays(systems);
-        int countOfDays = 0;
-        for( int i = 0; i <systems.length; i++) {
-            int delta = maxDays - systems[i].getVisitsByDay().toArray().length;
-            if((day >= delta)) {
-                countOfDays++;
-            }
-        }
-        int[] sortVisitsByDays = new int[countOfDays++];
-        for (int i = 0; i < systems.length; i++) {
-            int delta = maxDays - systems[i].getVisitsByDay().toArray().length;
-            if(day >= delta ) {
-                sortVisitsByDays[i] = systems[i].getVisitsByDay().toArray()[day - delta];
-            }
-        }
-        return calcMedianFromArray(sortVisitsByDays);
-    }
-
-
     public static Statistic[] calcStatisticByDays(QueueManagementSystem[] systems) {
         if (systems == null) {
             return null;
@@ -246,14 +242,21 @@ public class QueueManagementSystemUtils {
         int maxCountOfDays = findMaxCountOfDays(systems);
         Statistic[] statistic = new Statistic[maxCountOfDays];
         if (checkEqualsDays(systems)) {
-
+            for (int i = 0; i < maxCountOfDays; i++) {
+                statistic[i] = new Statistic(findMinVisitsWhenEqualCount(systems,i),
+                        findMaxVisitsWhenEqualCount(systems,i),
+                        calcTotalVisitsWhenEqualCount(systems,i),
+                        calcAvrVisitsWhenEqualCount(systems,i),
+                        calcMedianVisitsWhenEqualCount(systems,i));
+            }
+            return statistic;
         }
         for (int i = 0; i < maxCountOfDays; i++){
-            statistic[i] = new Statistic(findMinVisitsByDays(systems, i),
-                    findMaxVisitsByDays(systems,i),
-                    calcTotalVisitsByDays(systems,i),
-                    calcAverageVisitsByDays(systems,i),
-                    calcMedianVisitsByDays(systems,i));
+            statistic[i] = new Statistic(findMinVisitsWhenDifferentCount(systems, i, maxCountOfDays),
+                    findMaxVisitsWhenDifferentCount(systems,i, maxCountOfDays),
+                    calcTotalVisitsWhenDifferentCount(systems,i, maxCountOfDays),
+                    calcAvrVisitsWhenDifferentCount(systems,i, maxCountOfDays),
+                    calcMedianVisitsWhenDifferentCount(systems,i, maxCountOfDays));
         }
         return statistic;
     }

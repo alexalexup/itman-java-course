@@ -218,7 +218,7 @@ class QueueManagementSystemUtilsTest {
     }
 
     @Test
-    public void voidShouldReturn() {
+    public void calcStatisticByDaysShouldReturnStatisticWhenQueuesHaveDifferentCountOfDays() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
                 callSomeTickets(7,"Administration"),
                 callSomeTickets(4,"Pharmacy"),
@@ -230,8 +230,12 @@ class QueueManagementSystemUtilsTest {
         callGetNextTicket(systems[1],2);
         systems[0].toNextWorkDay();
         callGetNextTicket(systems[0], 5);
-        for (int i = 0; i < 3; i++){
-            System.out.println(QueueManagementSystemUtils.calcMedianVisitsByDays(systems,i));
-        }
+        Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
+        Statistic[] expectedStatistic = new Statistic[] {
+                (new Statistic(7, 7, 7, 7, 7)),
+                (new Statistic(3, 4, 7, 3.5, 3.5)),
+                (new Statistic(2, 6,13, 13.0 / 3.0, 5.0))};
+        boolean actualResult = QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
+        Assertions.assertTrue(actualResult);
     }
 }
