@@ -183,11 +183,12 @@ public class QueueManagementSystemUtils {
                 countOfDays++;
             }
         }
-        int[] sortVisitsByDays = new int[countOfDays++];
-        for (int i = 0; i < systems.length; i++) {
+        int[] sortVisitsByDays = new int[countOfDays];
+        for (int i = 0, j = 0; i < systems.length; i++) {
             int delta = maxDays - systems[i].getVisitsByDay().toArray().length;
             if(day >= delta ) {
-                sortVisitsByDays[i] = systems[i].getVisitsByDay().toArray()[day - delta];
+                sortVisitsByDays[j] = systems[i].getVisitsByDay().toArray()[day - delta];
+                j++;
             }
         }
         return calcMedianFromArray(sortVisitsByDays);

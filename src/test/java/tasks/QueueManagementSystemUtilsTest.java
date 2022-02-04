@@ -238,4 +238,31 @@ class QueueManagementSystemUtilsTest {
         boolean actualResult = QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
         Assertions.assertTrue(actualResult);
     }
+
+    @Test
+    public void calcStatisticByDaysShouldReturnStatisticWhenQueuesHaveDifferentCountOfDaysAndOneDayHaveNotTickets() {
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{
+                callSomeTickets(1, "Administration"),
+                callSomeTickets(0, "Pharmacy"),
+                callSomeTickets(5, "School")
+        };
+        callNextDays(systems);
+        callGetNextTicket(systems[0], 2);
+        callGetNextTicket(systems[1], 1);
+        callGetNextTicket(systems[2], 10);
+        systems[0].toNextWorkDay();
+        systems[2].toNextWorkDay();
+        callGetNextTicket(systems[0], 3);
+        callGetNextTicket(systems[2], 7);
+        systems[0].toNextWorkDay();
+        callGetNextTicket(systems[0], 4);
+        Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
+        Statistic[] expectedStatistic = new Statistic[]{
+                (new Statistic(1, 1, 1, 1.0, 1.0)),
+                (new Statistic(2, 5, 7, 3.5, 3.5)),
+                (new Statistic(0, 10, 13, 13.0 / 3.0, 3.0)),
+                (new Statistic(1, 7, 12, 4.0, 4.0))};
+        boolean actualResult = QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic, actualStatistic);
+        Assertions.assertTrue(actualResult);
+    }
 }
