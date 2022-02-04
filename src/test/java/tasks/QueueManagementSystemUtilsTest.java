@@ -231,7 +231,7 @@ class QueueManagementSystemUtilsTest {
         systems[0].toNextWorkDay();
         callGetNextTicket(systems[0], 5);
         for (int i = 0; i < 3; i++){
-            System.out.println(QueueManagementSystemUtils.findMinVisitsByDays(systems,i));
+            System.out.println(QueueManagementSystemUtils.calcMedianVisitsByDays(systems,i));
         }
     }
 }
