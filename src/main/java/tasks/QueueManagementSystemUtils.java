@@ -150,7 +150,7 @@ public class QueueManagementSystemUtils {
         return result;
     }
 
-    public static int findMaxVisitsWhenEqualCount(QueueManagementSystem[] systems, int day) {
+    private static int findMaxVisitsWhenEqualCount(QueueManagementSystem[] systems, int day) {
         if (systems.length == 1) {
             return systems[0].getVisitsByDay().toArray()[day];
         }
