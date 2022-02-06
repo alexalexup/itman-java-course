@@ -51,8 +51,11 @@ class StatisticTest {
 
     @Test
     public void dfs() {
-        StringBuilder s = new StringBuilder(1);
-        s.append(null);
+        String s = "3";
+        String c = null;
+        String a = c + s;
+        System.out.println(a);
+
 
     }
 
