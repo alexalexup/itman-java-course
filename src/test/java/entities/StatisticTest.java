@@ -2,6 +2,7 @@ package entities;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import utils.StringBuilder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,4 +48,12 @@ class StatisticTest {
         boolean actualResult = first.equals(second);
         Assertions.assertFalse(actualResult);
     }
+
+    @Test
+    public void dfs() {
+        StringBuilder s = new StringBuilder(1);
+        s.append(null);
+
+    }
+
 }

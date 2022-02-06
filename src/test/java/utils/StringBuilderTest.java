@@ -41,4 +41,14 @@ class StringBuilderTest {
         boolean actualResult = actualString.equals(expectedString);
         Assertions.assertTrue(actualResult);
     }
+
+    @Test
+    public void appendShouldWorkWhenNullIsPassedToMethod() {
+        StringBuilder s = new StringBuilder(1);
+        s.append(null);
+        String expectedString = "";
+        String actualString = s.toString();
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
 }

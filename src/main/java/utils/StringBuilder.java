@@ -27,6 +27,9 @@ public class StringBuilder {
     }
 
     public StringBuilder append(String s) {
+        if(s == null) {
+            return this;
+        }
         for (int i = 0; i < s.length(); i++) {
             this.add(s.toCharArray()[i]);
         }
