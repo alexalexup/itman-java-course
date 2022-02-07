@@ -131,4 +131,15 @@ public class ArrayList {
         }
         return result;
     }
+
+    public String toString() {
+        if ( this.size == 0) {
+            return "";
+        }
+        StringBuilder result = new StringBuilder(this.size);
+        for (int i = 0; i < size; i++) {
+            result.append(this.numbers[i]);
+        }
+        return result.toString();
+    }
 }

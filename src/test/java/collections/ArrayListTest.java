@@ -314,4 +314,27 @@ class ArrayListTest {
         Assertions.assertTrue(expectedResult);
     }
 
+    @Test
+    public void toStringShouldReturnResultWhenArrayIsEmpty() {
+        ArrayList array = new ArrayList();
+        String expectedResult = "";
+        String actualResult = array.toString();
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void toStringShouldReturnResultWhenArrayHaveAnyData() {
+        ArrayList array = ArrayList.of(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+        String expectedResult = "123456789101112131415";
+        String actualResult = array.toString();
+        Assertions.assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    public void toStringShouldReturnResultWhenArrayHaveAOneElement() {
+        ArrayList array = ArrayList.of(1);
+        String expectedResult = "1";
+        String actualResult = array.toString();
+        Assertions.assertEquals(expectedResult,actualResult);
+    }
 }
