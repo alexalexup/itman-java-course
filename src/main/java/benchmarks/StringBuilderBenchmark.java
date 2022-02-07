@@ -23,9 +23,9 @@ public class StringBuilderBenchmark {
     //concatenateUsingStringBuilder takes 0,05 sec
     public static void main(String[] args) {
         double firstTime = System.currentTimeMillis();
-        concatenateUsingOperator(500000);
+        concatenateUsingOperator(500);
         double secondTime = System.currentTimeMillis();
-        concatenateUsingStringBuilder(500000);
+        concatenateUsingStringBuilder(500);
         double thirdTime = System.currentTimeMillis();
         System.out.println("concatenateUsingOperator takes " + (secondTime - firstTime) + "ms");
         System.out.println("concatenateUsingStringBuilder " + (thirdTime - secondTime) + " ms");

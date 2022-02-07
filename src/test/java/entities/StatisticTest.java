@@ -48,15 +48,4 @@ class StatisticTest {
         boolean actualResult = first.equals(second);
         Assertions.assertFalse(actualResult);
     }
-
-    @Test
-    public void dfs() {
-        String s = "3";
-        String c = null;
-        String a = c + s;
-        System.out.println(a);
-
-
-    }
-
 }

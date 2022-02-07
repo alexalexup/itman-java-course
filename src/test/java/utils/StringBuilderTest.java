@@ -98,7 +98,7 @@ class StringBuilderTest {
     public void appendShouldWorkLessThanOneSecWhenMethodWasCalledAnyTimes() {
         StringBuilder s = new StringBuilder(1);
         double first = System.currentTimeMillis();
-        for (int i = 0; i < 2888888; i++) {
+        for (int i = 1000000; i < 2000000; i++) {
             s.append(i);
         }
         double second = System.currentTimeMillis();
