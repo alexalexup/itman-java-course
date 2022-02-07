@@ -337,4 +337,18 @@ class ArrayListTest {
         String actualResult = array.toString();
         Assertions.assertEquals(expectedResult,actualResult);
     }
+
+    @Test
+    public void toStringShouldWorkLessThanOneSecWithBigData() {
+        int[] data = new int[1000000];
+        for (int i = 0; i < 1000000; i++) {
+            data[i] = i +1000000;
+        }
+        ArrayList array = ArrayList.of(data);
+        double firstTime = System.currentTimeMillis();
+        array.toString();
+        double secondTime = System.currentTimeMillis();
+        double actualResult = secondTime - firstTime;
+        Assertions.assertTrue(actualResult < 1000.0);
+    }
 }

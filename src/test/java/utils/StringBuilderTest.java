@@ -51,4 +51,58 @@ class StringBuilderTest {
         boolean actualResult = actualString.equals(expectedString);
         Assertions.assertTrue(actualResult);
     }
+
+    @Test
+    public void appendShouldWorkLessThanOneSecWhenArgumentHaveIntegerMaxValue() {
+        StringBuilder s = new StringBuilder(1);
+        double firstTime = System.currentTimeMillis();
+        s.append(Integer.MAX_VALUE);
+        double secondTime = System.currentTimeMillis();
+        double expectedTime = 1000.00;
+        double actualTime = secondTime - firstTime;
+        String expectedString = "2147483647";
+        String actualString = s.toString();
+        boolean actualResult = (actualString.equals(expectedString)) && (expectedTime > actualTime);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void appendShouldWorkLessThanOneSecWhenArgumentHaveLongMaxValue() {
+        StringBuilder s = new StringBuilder(1);
+        double firstTime = System.currentTimeMillis();
+        s.append(Long.MAX_VALUE);
+        double secondTime = System.currentTimeMillis();
+        double expectedTime = 1000.00;
+        double actualTime = secondTime - firstTime;
+        String expectedString = "9223372036854775807";
+        String actualString = s.toString();
+        boolean actualResult = (actualString.equals(expectedString)) && (expectedTime > actualTime);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void appendShouldWorkLessThanOneSecWhenArgumentHaveDoubleMaxValue() {
+        StringBuilder s = new StringBuilder(1);
+        double firstTime = System.currentTimeMillis();
+        s.append(Double.MAX_VALUE);
+        double secondTime = System.currentTimeMillis();
+        double expectedTime = 1000.00;
+        double actualTime = secondTime - firstTime;
+        String expectedString = "1.7976931348623157E308";
+        String actualString = s.toString();
+        boolean actualResult = (actualString.equals(expectedString)) && (expectedTime > actualTime);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void appendShouldWorkLessThanOneSecWhenMethodWasCalledAnyTimes() {
+        StringBuilder s = new StringBuilder(1);
+        double first = System.currentTimeMillis();
+        for (int i = 0; i < 2888888; i++) {
+            s.append(i);
+        }
+        double second = System.currentTimeMillis();
+        double actualResult = second - first;
+        Assertions.assertTrue(actualResult < 1000.0);
+    }
 }
