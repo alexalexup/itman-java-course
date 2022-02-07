@@ -133,8 +133,8 @@ public class ArrayList {
     }
 
     public String toString() {
-        if ( this.size == 0) {
-            StringBuilder result = new StringBuilder(0);
+        if ( this.size == 0 ) {
+            StringBuilder result = new StringBuilder();
             return result.toString();
         }
         StringBuilder result = new StringBuilder(this.size);
