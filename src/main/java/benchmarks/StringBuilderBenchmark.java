@@ -11,12 +11,12 @@ public class StringBuilderBenchmark {
         return result;
     }
 
-    public static StringBuilder concatenateUsingStringBuilder(int n) {
+    public static String concatenateUsingStringBuilder(int n) {
         StringBuilder result = new StringBuilder().append(" ");
         for (int i = 0; i < n; i++) {
             result.append(" " + i % 10);
         }
-        return result;
+        return result.toString();
     }
 
     //concatenateUsingOperator takes 39,06 sec

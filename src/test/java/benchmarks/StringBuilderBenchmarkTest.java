@@ -24,14 +24,14 @@ class StringBuilderBenchmarkTest {
     @Test
     public void concatenateUsingStringBuilderShouldReturnResultWhenArgumentIsZero() {
         String expectedResult = " ";
-        String actualResult = StringBuilderBenchmark.concatenateUsingStringBuilder(0).toString();
+        String actualResult = StringBuilderBenchmark.concatenateUsingStringBuilder(0);
         Assertions.assertEquals(expectedResult,actualResult);
     }
 
     @Test
     public void concatenateUsingStringBuilderShouldReturnResultWhenMethodWasCalled() {
         String expectedResult = "  0 1 2 3";
-        String actualResult = StringBuilderBenchmark.concatenateUsingStringBuilder(4).toString();
+        String actualResult = StringBuilderBenchmark.concatenateUsingStringBuilder(4);
         Assertions.assertEquals(expectedResult,actualResult);
     }
 }
