@@ -315,7 +315,7 @@ class ArrayListTest {
     }
 
     @Test
-    public void toStringShouldReturnResultWhenArrayIsEmpty() {
+    public void toStringShouldReturnNullWhenArrayIsEmpty() {
         ArrayList array = new ArrayList();
         String expectedResult = "";
         String actualResult = array.toString();
