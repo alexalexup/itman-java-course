@@ -3,6 +3,7 @@ package collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ArrayListTest {
@@ -317,7 +318,7 @@ class ArrayListTest {
     @Test
     public void toStringShouldReturnNullWhenArrayIsEmpty() {
         ArrayList array = new ArrayList();
-        String expectedResult = "";
+        String expectedResult = null;
         String actualResult = array.toString();
         Assertions.assertEquals(expectedResult, actualResult);
     }

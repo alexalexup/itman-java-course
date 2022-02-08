@@ -134,8 +134,7 @@ public class ArrayList {
 
     public String toString() {
         if ( this.size == 0 ) {
-            StringBuilder result = new StringBuilder();
-            return result.toString();
+            return null;
         }
         StringBuilder result = new StringBuilder(this.size);
         for (int i = 0; i < size; i++) {
