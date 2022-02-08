@@ -316,17 +316,17 @@ class ArrayListTest {
     }
 
     @Test
-    public void toStringShouldReturnNullWhenArrayIsEmpty() {
-        ArrayList array = new ArrayList();
-        String expectedResult = null;
-        String actualResult = array.toString();
-        Assertions.assertEquals(expectedResult, actualResult);
+    public void toStringShouldReturnEmptyStringWhenArrayHaveNotElements() {
+        ArrayList actualArray = new ArrayList();
+        String expectedString = "[]";
+        String actualString = actualArray.toString();
+        Assertions.assertEquals(expectedString,actualString);
     }
 
     @Test
     public void toStringShouldReturnResultWhenArrayHaveAnyData() {
-        ArrayList array = ArrayList.of(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
-        String expectedResult = "123456789101112131415";
+        ArrayList array = ArrayList.of(1, 2, 3, 4, 5, 6, 7);
+        String expectedResult = "[1, 2, 3, 4, 5, 6, 7]";
         String actualResult = array.toString();
         Assertions.assertEquals(expectedResult,actualResult);
     }
@@ -334,7 +334,7 @@ class ArrayListTest {
     @Test
     public void toStringShouldReturnResultWhenArrayHaveAOneElement() {
         ArrayList array = ArrayList.of(1);
-        String expectedResult = "1";
+        String expectedResult = "[1]";
         String actualResult = array.toString();
         Assertions.assertEquals(expectedResult,actualResult);
     }

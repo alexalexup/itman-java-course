@@ -1,4 +1,5 @@
 package collections;
+import utils.StringBuilder;
 
 public class ArrayList {
     private int[] numbers;
@@ -134,12 +135,20 @@ public class ArrayList {
 
     public String toString() {
         if ( this.size == 0 ) {
-            return null;
+            return "[]";
+        }
+        if (this.size == 1) {
+            StringBuilder result = new StringBuilder(3);
+            return result.append("[")
+                    .append(this.numbers[0])
+                    .append("]")
+                    .toString();
         }
         StringBuilder result = new StringBuilder(this.size);
-        for (int i = 0; i < size; i++) {
-            result.append(this.numbers[i]);
+        result.append("[").append(this.numbers[0]);
+        for (int i = 1; i < size; i++) {
+            result.append(", ").append(this.numbers[i]);
         }
-        return result.toString();
+        return result.append("]").toString();
     }
 }
