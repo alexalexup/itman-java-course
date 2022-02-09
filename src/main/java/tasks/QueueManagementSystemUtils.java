@@ -7,7 +7,7 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of total tickets from all queues
-     * @cpu O(n), n - systems.length
+     * @cpu O(n * m), n - systems.length, m - systems[].days.size()
      * @ram O(1)
      * @param systems array with queues
      * @return value of all tickets from queues
@@ -22,7 +22,7 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of average tickets from all queues
-     * @cpu O(n), n - systems.length;
+     * @cpu O(n * m), n - systems.length,  m - systems[].days.size()
      * @ram O(1)
      * @param systems array with queues
      * @return value of average tickets from queues
@@ -41,7 +41,7 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of median tickets from all queues
-     * @cpu O(n^2), n - systems.length
+     * @cpu O(n * m + n^2), n - systems.length, m - systems[].days.size()
      * @ram O(n), n - systems.length
      * @param systems array with queues
      * @return value of median tickets  from queues

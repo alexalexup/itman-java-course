@@ -20,10 +20,10 @@ public class QueueManagementSystem {
     }
 
     /**
-     * Get value of the totalTickets field from an object
-     * @cpu O(1)
+     * Calculate totalTickets for all days from queue
+     * @cpu O(n), n - days.size()
      * @ram O(1)
-     * @return value of the totalTickets field
+     * @return value totalTickets  for all days
      */
     public int getTotalTickets() {
         int result = 0;
@@ -34,7 +34,7 @@ public class QueueManagementSystem {
     }
 
     /**
-     * create newTicket
+     * Increase value of totalTickets, set this value for actual day in arrayList days and create newTicket
      * @cpu O(1)
      * @ram O(1)
      * @return newTicket with number increased by one to the previous ticket and with place where method was called
@@ -46,11 +46,22 @@ public class QueueManagementSystem {
         return newTicket;
     }
 
+    /**
+     * Increase by one size of ArrayList days and reset to zero value of totalTickets
+     * @cpu Θ(1)
+     * @ram O(n), n - days.size()
+     */
     public void toNextWorkDay() {
         totalTickets = 0;
         days.add(totalTickets);
     }
 
+    /**
+     * Create arrayList with data from days field
+     * @cpu Θ(n), n - days.size()
+     * @ram O(n), n - days.size()
+     * return arrayList with visits by day
+     */
     public ArrayList getVisitsByDay() {
         ArrayList result = new ArrayList();
         for (int i = 0; i < days.size(); i++) {

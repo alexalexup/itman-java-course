@@ -5,10 +5,24 @@ public class ArrayList {
     private int[] numbers;
     private int size;
 
+    /**
+     * Create empty arrayList and set size for field numbers[]
+     * @cpu O(n), n - capacity
+     * @ram O(n), n - capacity
+     * @param capacity argument
+     * return object without logical data by ArrayList class
+     */
     public ArrayList(int capacity) {
             this.numbers = new int[capacity];
     }
 
+    /**
+     * Create arrayList with data from arrayList that
+     * @cpu Θ(n), n - that.size
+     * @ram O(n), n - that.size
+     * @param that argument
+     * return object by ArrayList class with data from argument
+     */
     public ArrayList(ArrayList that) {
         this.numbers = new int[1];
         for (int i = 0 ; i < that.size; i++) {
@@ -16,12 +30,18 @@ public class ArrayList {
         }
     }
 
+    /**
+     * Create empty arrayList and set size 16 for field numbers[]
+     * @cpu O(1)
+     * @ram O(1)
+     * return object without logical data by ArrayList class
+     */
     public ArrayList() {
         this.numbers = new int[16];
     }
 
     /**
-     * Set the value of the array element of the number field
+     * Set the value of the arrayList element
      * @cpu O(1)
      * @ram O(1)
      * @param index argument
@@ -32,17 +52,18 @@ public class ArrayList {
     }
 
     /**
-     * Get array of the numbers field from an object
+     * Get value of element from arrayList by index
      * @cpu O(1)
      * @ram O(1)
-     * @return array of the numbers field
+     * @param index argument
+     * @return element from arrayList by index
      */
     public int get(int index) {
         return this.numbers[index];
     }
 
     /**
-     * Get value of the size field from an object
+     * Get value of the size arrayList
      * @cpu O(1)
      * @ram O(1)
      * @return value of the size field
@@ -51,6 +72,12 @@ public class ArrayList {
         return this.size;
     }
 
+    /**
+     * Add argument to arrayList
+     * @cpu Θ(1)
+     * @ram O(n), n - this.numbers.length
+     * @param element argument
+     */
     public void add(int element) {
         if (this.size >= this.numbers.length) {
             int[] newNumbers = new int[numbers.length * 2];
@@ -61,6 +88,12 @@ public class ArrayList {
         this.numbers[this.size -1] = element;
     }
 
+    /**
+     * Get data in to array from object by ArrayList class
+     * @cpu O(n), n - this.size
+     * @ram O(n), n - this.size
+     * @return array with data from arrayList
+     */
     public int[] toArray(){
         if (this.numbers.length == this.size) {
             return this.numbers;
@@ -71,6 +104,13 @@ public class ArrayList {
         return this.numbers;
     }
 
+    /**
+     * Remove element from arrayList by index
+     * @cpu O(n), n - this.size
+     * @ram O(n), n - this.size
+     * @param index argument
+     * @return array with data from arrayList by index
+     */
     public int remove(int index) {
         int result = this.numbers[index];
         if (this.size == 1) {
@@ -79,13 +119,13 @@ public class ArrayList {
             return result;
         }
         this.size--;
+        if (index == this.size) {
+            return result;
+        }
         int[] logicalNumbers = new int[size];
         if (index == 0) {
             System.arraycopy(this.numbers,index + 1,logicalNumbers,0,logicalNumbers.length);
             this.numbers = logicalNumbers;
-            return result;
-        }
-        if (index == this.size) {
             return result;
         }
         System.arraycopy(this.numbers,0,logicalNumbers,0,index);
@@ -94,6 +134,13 @@ public class ArrayList {
         return result;
     }
 
+    /**
+     * Comparing arrayLists
+     * @cpu O(n), n - this.size
+     * @ram O(1)
+     * @param that argument
+     * @return true when arrayLists are equal, false are not equal
+     */
     public boolean equals(ArrayList that) {
         if (that == null || this.size != that.size) {
             return false;
@@ -106,6 +153,11 @@ public class ArrayList {
         return true;
     }
 
+    /**
+     * Sort elements in arrayList in order of increasing
+     * @cpu O(n^2), n - this.size
+     * @ram O(1)
+     */
     public void sort() {
         for (int i = 0; i < size; i++) {
             int minIndex = i;
@@ -120,6 +172,13 @@ public class ArrayList {
         }
     }
 
+    /**
+     * Create arrayList with data by argument
+     * @cpu Θ(n), n - elements.length
+     * @ram O(n), n - elements.length
+     * @param elements argument
+     * @return arrayList with data by argument
+     */
     public static ArrayList of(int... elements) {
         ArrayList result = new ArrayList();
         if (elements.length < 1) {
@@ -138,15 +197,18 @@ public class ArrayList {
         if (this.size == 1) {
             StringBuilder result = new StringBuilder(3);
             return result.append("[")
-                    .append(this.numbers[0])
-                    .append("]")
-                    .toString();
+                         .append(this.numbers[0])
+                         .append("]")
+                         .toString();
         }
         StringBuilder result = new StringBuilder(this.size);
-        result.append("[").append(this.numbers[0]);
+        result.append("[")
+              .append(this.numbers[0]);
         for (int i = 1; i < size; i++) {
-            result.append(", ").append(this.numbers[i]);
+            result.append(", ")
+                  .append(this.numbers[i]);
         }
-        return result.append("]").toString();
+        return result.append("]")
+                     .toString();
     }
 }

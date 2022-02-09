@@ -35,6 +35,12 @@ public class Statistic {
         return this.median = median;
     }
 
+    /**
+     * Takes data from all fields from Object and returns it as a String value
+     * @cpu O(n), n - this.count
+     * @ram O(n), n - this.count
+     * @return String value with data from all fields an Object
+     */
     public String toString() {
         String min = "min=" + this.min + ", ";
         String max = "max=" + this.max + ", ";
@@ -45,10 +51,18 @@ public class Statistic {
         return info;
     }
 
+    /**
+     * Compare two statistics
+     * @cpu O(1)
+     * @ram O(1)
+     * @return true when both statistics are equal, false are not equal
+     */
     public boolean equals(Statistic that) {
         return that != null ? (this.min == that.min
-                && this.max == that.max && this.count == that.count
-                && this.average == that.average && this.median == that.median) : false;
+                && this.max == that.max
+                && this.count == that.count
+                && this.average == that.average
+                && this.median == that.median) : false;
     }
 }
 
