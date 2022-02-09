@@ -1,28 +1,28 @@
 package entities;
 
 public class Cuboid {
-    private int a;
-    private int b;
-    private int c;
+    private int edgeA;
+    private int edgeB;
+    private int edgeC;
 
-    public Cuboid (int a, int b, int c) {
-        if ( a >= 0 && b >= 0 && c >= 0) {
-            this.a = a;
-            this.b = b;
-            this.c = c;
+    public Cuboid (int edgeA, int edgeB, int edgeC) {
+        if ( edgeA >= 0 && edgeB >= 0 && edgeC >= 0) {
+            this.edgeA = edgeA;
+            this.edgeB = edgeB;
+            this.edgeC = edgeC;
         }
     }
 
-    public int getA() {
-        return a;
+    public int getEdgeA() {
+        return this.edgeA;
     }
 
-    public int getB() {
-        return b;
+    public int getEdgeB() {
+        return this.edgeB;
     }
 
-    public int getC() {
-        return c;
+    public int getEdgeC() {
+        return this.edgeC;
     }
 
     /**
@@ -32,7 +32,8 @@ public class Cuboid {
      * @return surface area of the cuboid
      */
     public long calcSurfaceArea() {
-        return  2 * ((long)a * (long)b + (long)b * (long)c + (long)a * (long)c);
+        return  2 * ((long)this.edgeA * (long)this.edgeB
+                + (long)edgeB * (long)this.edgeC + (long)this.edgeA * (long)this.edgeC);
     }
 
     /**
@@ -42,6 +43,6 @@ public class Cuboid {
      * @return volume of the cuboid
      */
     public long calcVolume() {
-        return (long)a * (long)b * (long)c;
+        return (long)this.edgeA * (long)this.edgeB * (long)this.edgeC;
     }
 }
