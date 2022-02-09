@@ -86,8 +86,6 @@ public class ArrayList {
             return result;
         }
         if (index == this.size) {
-            System.arraycopy(this.numbers,0,logicalNumbers,0,logicalNumbers.length);
-            this.numbers = logicalNumbers;
             return result;
         }
         System.arraycopy(this.numbers,0,logicalNumbers,0,index);
