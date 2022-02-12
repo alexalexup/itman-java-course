@@ -190,6 +190,12 @@ public class ArrayList {
         return result;
     }
 
+    /**
+     * Create and return object by StringBuilder class with logical data from current arrayList
+     * @cpu O(n), n - this.size
+     * @ram O(n), n - this.size
+     * @return string with logical data by current object
+     */
     public String toString() {
         if ( this.size == 0 ) {
             return "[]";
@@ -201,7 +207,7 @@ public class ArrayList {
                          .append("]")
                          .toString();
         }
-        StringBuilder result = new StringBuilder(this.size);
+        StringBuilder result = new StringBuilder(this.size * 3);
         result.append("[")
               .append(this.numbers[0]);
         for (int i = 1; i < size; i++) {
