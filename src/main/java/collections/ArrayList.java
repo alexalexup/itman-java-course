@@ -113,15 +113,7 @@ public class ArrayList {
      */
     public int remove(int index) {
         int result = this.numbers[index];
-        if (this.size == 1) {
-            this.numbers = new int[]{0};
-            this.size--;
-            return result;
-        }
         this.size--;
-        if (index == this.size) {
-            return result;
-        }
         for (int i = index; i < this.size; i++) {
             this.numbers[i] = this.numbers[i+1];
         }

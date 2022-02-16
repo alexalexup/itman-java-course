@@ -58,14 +58,11 @@ public class Statistic {
      * @return true when both statistics are equal, false are not equal
      */
     public boolean equals(Statistic that) {
-        if ( that != null && this.min == that.min
-                          && this.max == that.max
-                          && this.count == that.count
-                          && this.average == that.average
-                          && this.median == that.median) {
-            return true;
-        }
-        return false;
+        return that != null && this.min == that.min
+                            && this.max == that.max
+                            && this.count == that.count
+                            && this.average == that.average
+                            && this.median == that.median;
     }
 }
 

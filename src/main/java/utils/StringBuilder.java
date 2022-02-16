@@ -54,7 +54,7 @@ public class StringBuilder {
     /**
      * Add symbols by string argument to current object
      * @cpu Θ(n), n - s.length
-     * @ram O(m), m - this.data.length
+     * @ram O(n + m), n - s.length, m - this.data.length
      * @param s string
      * return string with added data from the argument
      */

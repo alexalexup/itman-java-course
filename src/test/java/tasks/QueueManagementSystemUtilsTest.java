@@ -10,16 +10,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class QueueManagementSystemUtilsTest {
 
     public static void checkEqualsStat(Statistic[] expected, Statistic[] actual){
-        boolean result = true;
-        if (expected.length != actual.length) {
-            result = false;
-        }
+        Assertions.assertTrue(expected.length == actual.length);
         for (int i = 0; i < expected.length; i++) {
-            if (expected[i].equals(actual[i]) == false) {
-                result = false;
-            }
+            Assertions.assertTrue(expected[i].equals(actual[i]));
         }
-        Assertions.assertTrue(result);
     }
 
     public QueueManagementSystem callSomeTickets(String place, int... count) {
