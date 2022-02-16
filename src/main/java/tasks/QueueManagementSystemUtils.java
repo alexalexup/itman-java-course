@@ -7,7 +7,7 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of total tickets from all queues
-     * @cpu O(n * m), n - systems.length, m - systems[].days.size()
+     * @cpu O(n), n - systems.length
      * @ram O(1)
      * @param systems array with queues
      * @return value of all tickets from queues
@@ -22,7 +22,7 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of average tickets from all queues
-     * @cpu O(n * m), n - systems.length,  m - systems[].getVisitsByDay().toArray().length
+     * @cpu O(n), n - systems.length,
      * @ram O(1)
      * @param systems array with queues
      * @return value of average tickets from queues
@@ -41,7 +41,7 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of median tickets from all queues
-     * @cpu O(n * m + n^2), n - systems.length, m - systems[].getVisitsByDay().toArray().length
+     * @cpu O(n^2), n - systems.length
      * @ram O(n), n - systems.length
      * @param systems array with queues
      * @return value of median tickets  from queues
@@ -75,8 +75,8 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of total tickets from all queues by current day when queues have equal counts of days
-     * @cpu O(n), n - systems.length
-     * @ram O(1)
+     * @cpu O(n * m), n - systems.length, m - days.size()
+     * @ram O(m), m - days.size()
      * @param systems array with queues
      * @param day argument
      * @return value of total tickets  from queues by current cay
@@ -94,8 +94,8 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of total tickets from all queues by current day when queues have different counts of days
-     * @cpu O(n), n - systems.length
-     * @ram O(1)
+     * @cpu O(n * m), n - systems.length, m - days.size()
+     * @ram O(m), m - days.size()
      * @param systems array with queues
      * @param day argument
      * @param maxDays argument
@@ -114,8 +114,8 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of average tickets from all queues by current day when queues have different counts of days
-     * @cpu O(n), n - systems.length
-     * @ram O(1)
+     * @cpu O(n * m), n - systems.length, m - days.size()
+     * @ram O(m), m - days.size()
      * @param systems array with queues
      * @param day argument
      * @param maxDays argument
@@ -135,8 +135,8 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of average tickets from all queues by current day when queues have equal counts of days
-     * @cpu O(n), n - systems.length
-     * @ram O(1)
+     * @cpu O(n * m), n - systems.length, m - days.size()
+     * @ram O(m), m - days.size()
      * @param systems array with queues
      * @param day argument
      * @return value of average tickets  from queues by current cay
@@ -151,8 +151,8 @@ public class QueueManagementSystemUtils {
 
     /**
      * find value of minimum tickets from all queues by current day when queues have different counts of days
-     * @cpu O(n), n - systems.length
-     * @ram O(1)
+     * @cpu O(n * m), n - systems.length, m - days.size()
+     * @ram O(m), m - days.size()
      * @param systems array with queues
      * @param day argument
      * @param maxDays argument
@@ -162,8 +162,11 @@ public class QueueManagementSystemUtils {
         int result = Integer.MAX_VALUE;
         for( int i = 0; i <systems.length; i++) {
             int delta = maxDays - systems[i].getVisitsByDay().toArray().length;
-            if((day >= delta) && (systems[i].getVisitsByDay().toArray()[day - delta]) < result) {
-                result = systems[i].getVisitsByDay().toArray()[day - delta];
+            if (day >= delta) {
+                int countOfVisits = systems[i].getVisitsByDay().toArray()[day - delta];
+                if (countOfVisits < result) {
+                    result = countOfVisits;
+                }
             }
         }
         return result;
@@ -171,8 +174,8 @@ public class QueueManagementSystemUtils {
 
     /**
      * find value of minimum tickets from all queues by current day when queues have equal counts of days
-     * @cpu O(n), n - systems.length
-     * @ram O(1)
+     * @cpu O(n * m), n - systems.length, m - days.size()
+     * @ram O(m), m - days.size()
      * @param systems array with queues
      * @param day argument
      * @return value of minimum tickets from all queues by current day
@@ -183,8 +186,9 @@ public class QueueManagementSystemUtils {
         }
         int result = systems[0].getVisitsByDay().toArray()[day];
         for (int i = 0; i <systems.length; i++) {
-            if (result > systems[i].getVisitsByDay().toArray()[day]) {
-                result = systems[i].getVisitsByDay().toArray()[day];
+            int countOfVisits = systems[i].getVisitsByDay().toArray()[day];
+            if (result > countOfVisits) {
+                result = countOfVisits;
             }
         }
         return result;
@@ -192,8 +196,8 @@ public class QueueManagementSystemUtils {
 
     /**
      * find value of maximum tickets from all queues by current day when queues have different counts of days
-     * @cpu O(n), n - systems.length
-     * @ram O(1)
+     * @cpu O(n * m), n - systems.length, m - days.size()
+     * @ram O(m), m - days.size()
      * @param systems array with queues
      * @param day argument
      * @param maxDays argument
@@ -203,8 +207,11 @@ public class QueueManagementSystemUtils {
         int result = 0;
         for( int i = 0; i <systems.length; i++) {
             int delta = maxDays - systems[i].getVisitsByDay().toArray().length;
-            if((day >= delta) && (systems[i].getVisitsByDay().toArray()[day - delta]) > result) {
-                result = systems[i].getVisitsByDay().toArray()[day - delta];
+            if (day >= delta) {
+                int countOfVisits = systems[i].getVisitsByDay().toArray()[day - delta];
+                if (countOfVisits > result) {
+                    result = countOfVisits ;
+                }
             }
         }
         return result;
@@ -212,8 +219,8 @@ public class QueueManagementSystemUtils {
 
     /**
      * find value of maximum tickets from all queues by current day when queues have equal counts of days
-     * @cpu O(n), n - systems.length
-     * @ram O(1)
+     * @cpu O(n * m), n - systems.length, m - days.size()
+     * @ram O(m), m - days.size()
      * @param systems array with queues
      * @param day argument
      * @return value of maximum tickets from all queues by current day
@@ -224,8 +231,9 @@ public class QueueManagementSystemUtils {
         }
         int result = systems[0].getVisitsByDay().toArray()[day];
         for (int i = 0; i <systems.length; i++) {
-            if (result < systems[i].getVisitsByDay().toArray()[day]) {
-                    result = systems[i].getVisitsByDay().toArray()[day];
+            int countOfVisits = systems[i].getVisitsByDay().toArray()[day];
+            if (result < countOfVisits) {
+                    result = countOfVisits;
             }
         }
         return result;
@@ -233,8 +241,8 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of median tickets from all queues by current day when queues have equal counts of days
-     * @cpu O(n^2), n - systems.length
-     * @ram O(n), n - systems.length
+     * @cpu O(n * m + n^2), n - systems.length,  m - days.size()
+     * @ram O(n + m), n - systems.length,  m - days.size()
      * @param systems array with queues
      * @param day argument
      * @return value of median tickets from all queues by current day
@@ -253,8 +261,8 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of median tickets from all queues by current day when queues have different counts of days
-     * @cpu O(n^2), n - systems.length
-     * @ram O(n), n - systems.length
+     * @cpu O(n * m + n^2), n - systems.length,  m - days.size()
+     * @ram O(n + m), n - systems.length,  m - days.size()
      * @param systems array with queues
      * @param day argument
      * @param maxDays argument
@@ -281,8 +289,8 @@ public class QueueManagementSystemUtils {
 
     /**
      * Checks same or not counts of days in all queues
-     * @cpu O(n), n - systems.length
-     * @ram O(1)
+     * @cpu O(n * m), n - systems.length,  m - days.size()
+     * @ram O(m), m - days.size()
      * @param systems array with queues
      * @return true when all queues have same counts of days, false when counts of days are different
      */
@@ -298,16 +306,17 @@ public class QueueManagementSystemUtils {
 
     /**
      * Find max count of days from queues
-     * @cpu O(n), n - systems.length
-     * @ram O(1)
+     * @cpu O(n * m), n - systems.length,  m - days.size()
+     * @ram O(m), m - days.size()
      * @param systems array with queues
      * @return max count of days from queue
      */
     private static int findMaxCountOfDays(QueueManagementSystem[] systems) {
         int result = 0;
         for (int i = 0; i <systems.length; i++) {
-            if (result < systems[i].getVisitsByDay().toArray().length) {
-                result = systems[i].getVisitsByDay().toArray().length;
+            int size = systems[i].getVisitsByDay().toArray().length;
+            if (result < size) {
+                result = size;
             }
         }
         return result;
@@ -340,8 +349,8 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate statistic from all queues by days
-     * @cpu O(n^3), n - systems.length
-     * @ram O(n), n - systems.length
+     * @cpu O(n * m^2 + n^2 * m), n - systems.length, m - days.size()
+     * @ram O(n + m), n - systems.length, m - days.size()
      * @param systems array with queues
      * @return values of minimum, maximum, total, average and median  tickets from all queues by days
      */

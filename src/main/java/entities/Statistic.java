@@ -37,8 +37,8 @@ public class Statistic {
 
     /**
      * Takes data from all fields from Object and returns it as a String value
-     * @cpu O(n), n - this.count
-     * @ram O(n), n - this.count
+     * @cpu O(1)
+     * @ram O(1)
      * @return String value with data from all fields an Object
      */
     public String toString() {
@@ -58,11 +58,14 @@ public class Statistic {
      * @return true when both statistics are equal, false are not equal
      */
     public boolean equals(Statistic that) {
-        return that != null ? (this.min == that.min
-                && this.max == that.max
-                && this.count == that.count
-                && this.average == that.average
-                && this.median == that.median) : false;
+        if ( that != null && this.min == that.min
+                          && this.max == that.max
+                          && this.count == that.count
+                          && this.average == that.average
+                          && this.median == that.median) {
+            return true;
+        }
+        return false;
     }
 }
 

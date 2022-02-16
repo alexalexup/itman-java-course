@@ -18,13 +18,13 @@ public class ArrayList {
 
     /**
      * Create arrayList with data from arrayList that
-     * @cpu Θ(n), n - that.size
+     * @cpu O(n), n - that.size
      * @ram O(n), n - that.size
      * @param that argument
      * return object by ArrayList class with data from argument
      */
     public ArrayList(ArrayList that) {
-        this.numbers = new int[1];
+        this.numbers = new int[that.size];
         for (int i = 0 ; i < that.size; i++) {
             this.add(that.numbers[i]);
         }
@@ -107,7 +107,7 @@ public class ArrayList {
     /**
      * Remove element from arrayList by index
      * @cpu O(n), n - this.size
-     * @ram O(n), n - this.size
+     * @ram O(1)
      * @param index argument
      * @return array with data from arrayList by index
      */
@@ -122,15 +122,9 @@ public class ArrayList {
         if (index == this.size) {
             return result;
         }
-        int[] logicalNumbers = new int[size];
-        if (index == 0) {
-            System.arraycopy(this.numbers,index + 1,logicalNumbers,0,logicalNumbers.length);
-            this.numbers = logicalNumbers;
-            return result;
+        for (int i = index; i < this.size; i++) {
+            this.numbers[i] = this.numbers[i+1];
         }
-        System.arraycopy(this.numbers,0,logicalNumbers,0,index);
-        System.arraycopy(this.numbers,index + 1,logicalNumbers,index,logicalNumbers.length - index);
-        this.numbers = logicalNumbers;
         return result;
     }
 

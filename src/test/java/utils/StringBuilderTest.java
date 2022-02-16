@@ -17,18 +17,51 @@ class StringBuilderTest {
     }
 
     @Test
-    public void appendShouldAddSomeTypesOfDataToCurrentObjectWhenMethodWasCalled() {
+    public void appendShouldAddDataFromStringToCurrentObjectWhenMethodWasCalled() {
         StringBuilder s = new StringBuilder();
-        String firstData = "One";
-        int secondData = 2;
-        double thirdData = 3.15;
-        boolean fourthData  = false;
-        String actualString = s.append(firstData)
-                .append(secondData)
-                .append(thirdData)
-                .append(fourthData)
-                .toString();
-        String expectedString = "One23.15false";
+        String data = "One";
+        String actualString = s.append(data).toString();
+        String expectedString = "One";
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void appendShouldAddDataFromArgumentToCurrentObjectWhenArgumentFromIntegerClass() {
+        StringBuilder s = new StringBuilder();
+        int data = 245564;
+        String actualString = s.append(data).toString();
+        String expectedString = "245564";
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void appendShouldAddDataFromArgumentToCurrentObjectWhenArgumentFromDoubleClass() {
+        StringBuilder s = new StringBuilder();
+        double data = 2.1313123;
+        String actualString = s.append(data).toString();
+        String expectedString = "2.1313123";
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void appendShouldAddDataFromArgumentToCurrentObjectWhenWhenArgumentFromLongClass() {
+        StringBuilder s = new StringBuilder();
+        long data = 3232322232323232323L;
+        String actualString = s.append(data).toString();
+        String expectedString = "3232322232323232323";
+        boolean actualResult = actualString.equals(expectedString);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void appendShouldAddDataFromArgumentToCurrentObjectWhenWhenArgumentFromBooleanClass() {
+        StringBuilder s = new StringBuilder();
+        boolean data = false;
+        String actualString = s.append(data).toString();
+        String expectedString = "false";
         boolean actualResult = actualString.equals(expectedString);
         Assertions.assertTrue(actualResult);
     }

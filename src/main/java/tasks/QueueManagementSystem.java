@@ -5,6 +5,7 @@ import collections.ArrayList;
 
 public class QueueManagementSystem {
     private int totalTickets;
+    private int previousTickets;
     private String place;
     private ArrayList days;
 
@@ -21,16 +22,12 @@ public class QueueManagementSystem {
 
     /**
      * Calculate totalTickets for all days from queue
-     * @cpu O(n), n - days.size()
+     * @cpu O(1)
      * @ram O(1)
      * @return value totalTickets  for all days
      */
     public int getTotalTickets() {
-        int result = 0;
-        for (int i = 0; i < days.size(); i++) {
-            result = result + days.get(i);
-        }
-        return result;
+        return totalTickets;
     }
 
     /**
@@ -41,7 +38,7 @@ public class QueueManagementSystem {
      */
     public Ticket getNextTicket() {
         totalTickets++;
-        days.set(days.size()-1, totalTickets);
+        days.set(days.size()-1, totalTickets - previousTickets);
         Ticket newTicket = new Ticket(days.get(days.size()-1), place);
         return newTicket;
     }
@@ -52,21 +49,17 @@ public class QueueManagementSystem {
      * @ram O(n), n - days.size()
      */
     public void toNextWorkDay() {
-        totalTickets = 0;
-        days.add(totalTickets);
+        previousTickets = totalTickets;
+        days.add(0);
     }
 
     /**
      * Create arrayList with data from days field
-     * @cpu Θ(n), n - days.size()
+     * @cpu O(n), n - days.size()
      * @ram O(n), n - days.size()
      * return arrayList with visits by day
      */
     public ArrayList getVisitsByDay() {
-        ArrayList result = new ArrayList();
-        for (int i = 0; i < days.size(); i++) {
-            result.add(days.get(i));
-        }
-        return result;
+        return new ArrayList(this.days);
     }
 }

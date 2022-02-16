@@ -9,69 +9,69 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class QueueManagementSystemUtilsTest {
 
-    public static boolean checkEqualsStat(Statistic[] expected, Statistic[] actual){
+    public static void checkEqualsStat(Statistic[] expected, Statistic[] actual){
+        boolean result = true;
         if (expected.length != actual.length) {
-            return false;
+            result = false;
         }
         for (int i = 0; i < expected.length; i++) {
             if (expected[i].equals(actual[i]) == false) {
-                return false;
+                result = false;
             }
         }
-        return true;
+        Assertions.assertTrue(result);
     }
 
-    public QueueManagementSystem callSomeTickets(int count, String place) {
+    public QueueManagementSystem callSomeTickets(String place, int... count) {
         QueueManagementSystem result = new QueueManagementSystem (place);
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count[0]; i++) {
             result.getNextTicket();
         }
+        for (int i = 1; i < count.length; i++) {
+            result.toNextWorkDay();
+            for (int j = 0; j < count[i]; j++) {
+                result.getNextTicket();
+            }
+        }
         return result;
-    }
-
-    public Ticket callGetNextTicket(QueueManagementSystem that, int count) {
-        Ticket newTicket = new entities.Ticket();
-        for (int i = 0; i < count; i++) {
-            newTicket = that.getNextTicket();
-        }
-        return newTicket;
-    }
-
-    public void callNextDays(QueueManagementSystem[] that) {
-        for (int i = 0; i < that.length; i++) {
-            that[i].toNextWorkDay();
-        }
     }
 
     @Test
     public void calcTotalVisitsShouldReturnResultWhenSomePlacesAreNull() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                callSomeTickets(3,null),
-                callSomeTickets(2,"Pharmacy"),
-                callSomeTickets(4,null),
-                callSomeTickets(5,"School")
+                callSomeTickets(null, 3),
+                callSomeTickets("Pharmacy", 2),
+                callSomeTickets(null, 4),
+                callSomeTickets("School", 5)
         };
         long actualResult = QueueManagementSystemUtils.calcTotalVisits(systems);
         Assertions.assertEquals(14, actualResult);
     }
 
     @Test
+    public void calcTotalVisitsShouldReturnResultWhenQueueHaveSomeDays() {
+        QueueManagementSystem queue = callSomeTickets("bank", 3, 10, 0, 2);
+        int actualResult = queue.getTotalTickets();
+        Assertions.assertEquals(15,actualResult);
+    }
+
+    @Test
     public void calcTotalVisitsShouldReturnResultWhenHaveSomeQueuesAndAllFieldHaveData() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                callSomeTickets(9,"CandyShop"),
-                callSomeTickets(4,"Pharmacy"),
-                callSomeTickets(3,"Gym"),
-                callSomeTickets(6,"School")
+                callSomeTickets("CandyShop", 9, 3, 4),
+                callSomeTickets("Pharmacy", 4, 4),
+                callSomeTickets("Gym", 3, 2, 2),
+                callSomeTickets("School", 6, 4)
         };
         long actualResult = QueueManagementSystemUtils.calcTotalVisits(systems);
-        Assertions.assertEquals(22, actualResult);
+        Assertions.assertEquals(41, actualResult);
     }
 
     @Test
     public void calcTotalVisitsShouldReturnZeroWhenThereAreNotTickets() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                callSomeTickets(0,"Pharmacy"),
-                callSomeTickets(0,"School")
+                callSomeTickets("Pharmacy", 0, 0, 0),
+                callSomeTickets("School", 0, 0)
         };
         long actualResult = QueueManagementSystemUtils.calcTotalVisits(systems);
         Assertions.assertEquals(0, actualResult);
@@ -79,7 +79,7 @@ class QueueManagementSystemUtilsTest {
 
     @Test
     public void calcAverageVisitsShouldReturnResultWhenSystemsLengthIsOne() {
-        QueueManagementSystem[] systems = new QueueManagementSystem[]{callSomeTickets(8,"Pharmacy")};
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{callSomeTickets("Pharmacy", 8)};
         double actualResult = QueueManagementSystemUtils.calcAverageVisits(systems);
         Assertions.assertEquals(8, actualResult);
     }
@@ -94,12 +94,12 @@ class QueueManagementSystemUtilsTest {
     @Test
     public void calcAverageVisitsShouldReturnResultWhenHaveSomeQueuesAndAllFieldHaveData() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                callSomeTickets(3,"Administration"),
-                callSomeTickets(12,"Pharmacy"),
-                callSomeTickets(4,"ConcertHall"),
-                callSomeTickets(15,"School")
+                callSomeTickets("Administration",3, 2),
+                callSomeTickets("Pharmacy",12, 6),
+                callSomeTickets("ConcertHall",4, 7),
+                callSomeTickets("School",15, 8)
         };
-        double expectedResult = (3.00 +12.00 + 4.00 + 15.00) / 4.00;
+        double expectedResult = 57.00 / 4.00;
         double actualResult = QueueManagementSystemUtils.calcAverageVisits(systems);
         Assertions.assertEquals(expectedResult,actualResult);
     }
@@ -107,28 +107,26 @@ class QueueManagementSystemUtilsTest {
     @Test
     public void calcMedianVisitsShouldReturnResultWhenLengthOfSystemsIsOdd() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                callSomeTickets(42,"Administration"),
-                callSomeTickets(24,"Pharmacy"),
-                callSomeTickets(13,"ConcertHall"),
-                callSomeTickets(31,"School"),
-                callSomeTickets(22,"CandyShop")
+                callSomeTickets("Administration", 42 , 25),
+                callSomeTickets("Pharmacy", 24, 8),
+                callSomeTickets("ConcertHall", 13, 5),
+                callSomeTickets("School", 31, 6),
+                callSomeTickets("CandyShop", 22, 7)
         };
-        double expectedResult = 24.00;
         double actualResult = QueueManagementSystemUtils.calcMedianVisits(systems);
-        Assertions.assertEquals(expectedResult, actualResult);
+        Assertions.assertEquals(32, actualResult);
     }
 
     @Test
     public void calcMedianVisitsShouldReturnResultWhenLengthOfSystemsIsEven() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                callSomeTickets(8,"Administration"),
-                callSomeTickets(14,"Pharmacy"),
-                callSomeTickets(9,"ConcertHall"),
-                callSomeTickets(6,"School")
+                callSomeTickets("Administration",8, 4),
+                callSomeTickets("Pharmacy",14, 5),
+                callSomeTickets("ConcertHall", 9, 8),
+                callSomeTickets("School", 6, 3)
         };
-        double expectedResult = (8.00 + 9.00) / 2;
         double actualResult = QueueManagementSystemUtils.calcMedianVisits(systems);
-        Assertions.assertEquals(expectedResult, actualResult);
+        Assertions.assertEquals(14.5, actualResult);
     }
 
     @Test
@@ -142,10 +140,10 @@ class QueueManagementSystemUtilsTest {
     @Test
     public void calcMedianVisitsShouldNotSortArrayOfQueuesWhenMethodWasCalled() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                callSomeTickets(25,"Administration"),
-                callSomeTickets(24,"Pharmacy"),
-                callSomeTickets(22,"ConcertHall"),
-                callSomeTickets(18,"School")
+                callSomeTickets("Administration", 25),
+                callSomeTickets("Pharmacy", 24),
+                callSomeTickets("ConcertHall", 22),
+                callSomeTickets("School", 18)
         };
         QueueManagementSystem[] expectedSystems = new QueueManagementSystem[] {
                 systems[0], systems[1], systems[2], systems[3]
@@ -159,53 +157,39 @@ class QueueManagementSystemUtilsTest {
     @Test
     public void calcStatisticByDaysShouldReturnStatisticWhenQueuesHaveEqualCountOfWorkDaysAndSystemsLengthIsOdd() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                callSomeTickets(25,"Administration"),
-                callSomeTickets(20,"Pharmacy"),
-                callSomeTickets(18,"School")
+                callSomeTickets("Administration", 25, 4, 42),
+                callSomeTickets("Pharmacy", 20, 32, 3),
+                callSomeTickets("School", 18, 8, 8)
         };
-        callNextDays(systems);
-        callGetNextTicket(systems[0], 4);
-        callGetNextTicket(systems[1], 32);
-        callGetNextTicket(systems[2], 8);
-        callNextDays(systems);
-        callGetNextTicket(systems[0], 42);
-        callGetNextTicket(systems[1], 3);
-        callGetNextTicket(systems[2], 8);
         Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
         Statistic[] expectedStatistic = new Statistic[] {
                 (new Statistic(18, 25, 63, 21.0, 20.0)),
                 (new Statistic(4, 32, 44, 44.0 / 3.0, 8.0)),
                 (new Statistic(3, 42,53, 53.0 / 3.0, 8.0))};
-        boolean actualResult = QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
-        Assertions.assertTrue(actualResult);
+        QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
     }
 
     @Test
     public void calcStatisticByDaysShouldReturnStatisticWhenQueuesAndDaysHaveOneElement() {
-        QueueManagementSystem[] systems = new QueueManagementSystem[]{callSomeTickets(25,"Administration")};
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{callSomeTickets("Administration", 25)};
         Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
         Statistic[] expectedStatistic = new Statistic[]{(new Statistic(25,25,25,
                 25,25))};
-        boolean actualResult =QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
-        Assertions.assertTrue(actualResult);
+     QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
     }
 
     @Test
     public void calcStatisticByDaysShouldReturnStatisticWhenQueuesHaveOneElementAndDaysHaveSomeElements() {
-        QueueManagementSystem[] systems = new QueueManagementSystem[]{callSomeTickets(25,"Administration")};
-        systems[0].toNextWorkDay();
-        callGetNextTicket(systems[0], 32);
-        systems[0].toNextWorkDay();
-        callGetNextTicket(systems[0], 43);
-        systems[0].toNextWorkDay();
+        QueueManagementSystem[] systems = new QueueManagementSystem[]{callSomeTickets("Administration"
+                ,25, 32, 43, 0)};
+
         Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
         Statistic[] expectedStatistic = new Statistic[] {
                 (new Statistic(25, 25, 25, 25, 25)),
                 (new Statistic(32, 32, 32, 32, 32)),
                 (new Statistic(43, 43,43, 43, 43)),
                 (new Statistic(0,0,0,0,0))};
-        boolean actualResult = QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
-        Assertions.assertTrue(actualResult);
+         QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
     }
 
     @Test
@@ -213,56 +197,37 @@ class QueueManagementSystemUtilsTest {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{};
         Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
         Statistic[] expectedStatistic = new Statistic[]{};
-        boolean actualResult = QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
-        Assertions.assertTrue(actualResult);
+        QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
     }
 
     @Test
     public void calcStatisticByDaysShouldReturnStatisticWhenQueuesHaveDifferentCountOfDays() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                callSomeTickets(7,"Administration"),
-                callSomeTickets(4,"Pharmacy"),
-                callSomeTickets(6,"School")
+                callSomeTickets("Administration", 7 , 3, 5),
+                callSomeTickets("Pharmacy", 4 , 2),
+                callSomeTickets("School", 6)
         };
-        systems[0].toNextWorkDay();
-        systems[1].toNextWorkDay();
-        callGetNextTicket(systems[0],3);
-        callGetNextTicket(systems[1],2);
-        systems[0].toNextWorkDay();
-        callGetNextTicket(systems[0], 5);
         Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
         Statistic[] expectedStatistic = new Statistic[] {
                 (new Statistic(7, 7, 7, 7, 7)),
                 (new Statistic(3, 4, 7, 3.5, 3.5)),
                 (new Statistic(2, 6,13, 13.0 / 3.0, 5.0))};
-        boolean actualResult = QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
-        Assertions.assertTrue(actualResult);
+         QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
     }
 
     @Test
     public void calcStatisticByDaysShouldReturnStatisticWhenQueuesHaveDifferentCountOfDaysAndOneDayHaveNotTickets() {
         QueueManagementSystem[] systems = new QueueManagementSystem[]{
-                callSomeTickets(1, "Administration"),
-                callSomeTickets(0, "Pharmacy"),
-                callSomeTickets(5, "School")
+                callSomeTickets("Administration", 1, 2, 3, 4),
+                callSomeTickets("Pharmacy", 0, 1),
+                callSomeTickets("School", 5, 10, 7)
         };
-        callNextDays(systems);
-        callGetNextTicket(systems[0], 2);
-        callGetNextTicket(systems[1], 1);
-        callGetNextTicket(systems[2], 10);
-        systems[0].toNextWorkDay();
-        systems[2].toNextWorkDay();
-        callGetNextTicket(systems[0], 3);
-        callGetNextTicket(systems[2], 7);
-        systems[0].toNextWorkDay();
-        callGetNextTicket(systems[0], 4);
         Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
         Statistic[] expectedStatistic = new Statistic[]{
                 (new Statistic(1, 1, 1, 1.0, 1.0)),
                 (new Statistic(2, 5, 7, 3.5, 3.5)),
                 (new Statistic(0, 10, 13, 13.0 / 3.0, 3.0)),
                 (new Statistic(1, 7, 12, 4.0, 4.0))};
-        boolean actualResult = QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic, actualStatistic);
-        Assertions.assertTrue(actualResult);
+        QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic, actualStatistic);
     }
 }

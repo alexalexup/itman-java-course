@@ -62,8 +62,9 @@ public class StringBuilder {
         if(s == null) {
             s = "null";
         }
+        char[] stringData = s.toCharArray();
         for (int i = 0; i < s.length(); i++) {
-            this.add(s.toCharArray()[i]);
+            this.add(stringData[i]);
         }
         return this;
     }

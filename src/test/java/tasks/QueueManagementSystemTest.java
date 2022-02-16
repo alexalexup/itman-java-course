@@ -95,7 +95,7 @@ class QueueManagementSystemTest {
     }
 
     @Test
-    public void toNextWorkDayShouldResetToZeroFieldOfTotalTicketsAndCreateOneMoreElementInDaysFieldWithZeroValue() {
+    public void toNextWorkDayShouldCreateOneMoreElementInDaysFieldWithZeroValue() {
         QueueManagementSystem administration = new  QueueManagementSystem("Administration");
         callGetNextTicket(administration, 21);
         administration.toNextWorkDay();
@@ -116,12 +116,7 @@ class QueueManagementSystemTest {
         administration.toNextWorkDay();
         callGetNextTicket(administration, 8);
         ArrayList actualArray = administration.getVisitsByDay();
-        ArrayList expectedArray = new ArrayList();
-        expectedArray.add(21);
-        expectedArray.add(5);
-        expectedArray.add(6);
-        expectedArray.add(0);
-        expectedArray.add(8);
+        ArrayList expectedArray = ArrayList.of(21, 5, 6, 0, 8);
         boolean actualResult = actualArray.equals(expectedArray);
         Assertions.assertTrue(actualResult);
     }
@@ -135,7 +130,7 @@ class QueueManagementSystemTest {
         administration.toNextWorkDay();
         callGetNextTicket(administration, 2);
         ArrayList actualArray = administration.getVisitsByDay();
-        ArrayList expectedArray = administration.getVisitsByDay();
+        ArrayList expectedArray = ArrayList.of(3, 7, 2);
         actualArray.set(0,5);
         actualArray.set(1,10);
         actualArray.set(2,8);

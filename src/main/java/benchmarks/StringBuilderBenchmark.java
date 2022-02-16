@@ -36,11 +36,11 @@ public class StringBuilderBenchmark {
     //concatenateUsingOperator takes 38,72 sec when n is 500 000
     //concatenateUsingStringBuilder takes 0,05 sec when n is 500 000
     public static void main(String[] args) {
-        double firstTime = System.currentTimeMillis();
+        long firstTime = System.currentTimeMillis();
         concatenateUsingOperator(500);
-        double secondTime = System.currentTimeMillis();
+        long  secondTime = System.currentTimeMillis();
         concatenateUsingStringBuilder(500);
-        double thirdTime = System.currentTimeMillis();
+        long  thirdTime = System.currentTimeMillis();
         System.out.println("concatenateUsingOperator takes " + (secondTime - firstTime) + "ms");
         System.out.println("concatenateUsingStringBuilder " + (thirdTime - secondTime) + " ms");
     }
