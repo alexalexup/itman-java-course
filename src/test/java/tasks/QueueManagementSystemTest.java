@@ -131,9 +131,9 @@ class QueueManagementSystemTest {
         callGetNextTicket(administration, 2);
         ArrayList actualArray = administration.getVisitsByDay();
         ArrayList expectedArray = ArrayList.of(3, 7, 2);
-        actualArray.set(0,5);
-        actualArray.set(1,10);
-        actualArray.set(2,8);
+        actualArray.set(0, 5);
+        actualArray.set(1, 10);
+        actualArray.set(2, 8);
         boolean actualResult = expectedArray.equals(administration.getVisitsByDay());
         Assertions.assertTrue(actualResult);
     }
