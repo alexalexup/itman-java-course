@@ -2,6 +2,7 @@ package tasks;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import collections.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,6 +38,19 @@ class QueueManagementSystemTest {
         int actualPharmacy = pharmacy.getTotalTickets();
         Assertions.assertEquals(expectedBank, actualBank);
         Assertions.assertEquals(expectedPharmacy, actualPharmacy);
+    }
+
+    @Test
+    public void getTotalTicketsShouldReturnResultForAllDays() {
+        QueueManagementSystem administration = new  QueueManagementSystem("Administration");
+        callGetNextTicket(administration,4);
+        administration.toNextWorkDay();
+        callGetNextTicket(administration,8);
+        administration.toNextWorkDay();
+        callGetNextTicket(administration, 23);
+        administration.toNextWorkDay();
+        int actualResult = administration.getTotalTickets();
+        Assertions.assertEquals(35, actualResult);
     }
 
     @Test
@@ -78,5 +92,59 @@ class QueueManagementSystemTest {
         entities.Ticket expected = new entities.Ticket(15,null);
         Assertions.assertEquals(expected.getNumber(), actual.getNumber());
         Assertions.assertEquals(null, actual.getPlace());
+    }
+
+    @Test
+    public void toNextWorkDayShouldCreateOneMoreElementInDaysFieldWithZeroValue() {
+        QueueManagementSystem administration = new  QueueManagementSystem("Administration");
+        callGetNextTicket(administration, 21);
+        administration.toNextWorkDay();
+        int[] actualArray = administration.getVisitsByDay().toArray();
+        int actualValue = actualArray[1];
+        Assertions.assertEquals(0,actualValue);
+    }
+
+    @Test
+    public void getVisitsByDayShouldReturnTotalTicketsByDaysWhenQueueHaveSomeDays() {
+        QueueManagementSystem administration = new  QueueManagementSystem("Administration");
+        callGetNextTicket(administration, 21);
+        administration.toNextWorkDay();
+        callGetNextTicket(administration, 5);
+        administration.toNextWorkDay();
+        callGetNextTicket(administration, 6);
+        administration.toNextWorkDay();
+        administration.toNextWorkDay();
+        callGetNextTicket(administration, 8);
+        ArrayList actualArray = administration.getVisitsByDay();
+        ArrayList expectedArray = ArrayList.of(21, 5, 6, 0, 8);
+        boolean actualResult = actualArray.equals(expectedArray);
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void getVisitsByDayShouldReturnResultThatShouldNotChangeTheFieldDaysOfTheObjectIfItIsChanged(){
+        QueueManagementSystem administration = new  QueueManagementSystem("Administration");
+        callGetNextTicket(administration, 3);
+        administration.toNextWorkDay();
+        callGetNextTicket(administration, 7);
+        administration.toNextWorkDay();
+        callGetNextTicket(administration, 2);
+        ArrayList actualArray = administration.getVisitsByDay();
+        ArrayList expectedArray = ArrayList.of(3, 7, 2);
+        actualArray.set(0, 5);
+        actualArray.set(1, 10);
+        actualArray.set(2, 8);
+        boolean actualResult = expectedArray.equals(administration.getVisitsByDay());
+        Assertions.assertTrue(actualResult);
+    }
+
+    @Test
+    public void getVisitsByDayShouldReturnArrayWithOneElementThatValueIsZeroWhenHaveNotNextDaysAndTickets() {
+        QueueManagementSystem administration = new  QueueManagementSystem("Administration");
+        ArrayList actualArray = administration.getVisitsByDay();
+        ArrayList expectedArray = new ArrayList();
+        expectedArray.add(0);
+        boolean actualResult = actualArray.equals(expectedArray);
+        Assertions.assertTrue(actualResult);
     }
 }
