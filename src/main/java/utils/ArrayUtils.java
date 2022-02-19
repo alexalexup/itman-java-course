@@ -1,15 +1,15 @@
-package tasks;
+package utils;
 
 import entities.Event;
 
-public class Task408 {
+public class ArrayUtils {
     /**
      * Sort events in increasing order of date
      * @cpu O(n^2), n- events.length
      * @ram O(1)
      * @param events array
      */
-    public static void  sort(Event[] events) {
+    public static void bubbleSort(Event[] events) {
         int n = events.length;
         if (n < 1) {
            return;

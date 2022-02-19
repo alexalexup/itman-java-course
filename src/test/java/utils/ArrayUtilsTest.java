@@ -1,10 +1,10 @@
-package tasks;
+package utils;
 
 import entities.Event;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class Task408Test {
+class ArrayUtilsTest {
 
     public void checkEqualsValues(Event[] events, Event[] expectedValues) {
         for (int i = 0; i < events.length; i++) {
@@ -14,7 +14,7 @@ class Task408Test {
     }
 
     @Test
-    public void sortShouldNotChangeLinksOnEventsWhenMethodWasCalled() {
+    public void bubbleSortShouldNotChangeLinksOnEventsWhenMethodWasCalled() {
         entities.Event[] events = new entities.Event[] {
                 new entities.Event(2010, 8, 21, "birthday"),
                 new entities.Event(2009, 12, 20, "jobOffer"),
@@ -28,13 +28,13 @@ class Task408Test {
                 events[0],
                 events[3]
         };
-        Task408.sort(events);
+        ArrayUtils.bubbleSort(events);
         Assertions.assertArrayEquals(expectedLinks, events);
         Assertions.assertSame(expectedEvents, events);
     }
 
     @Test
-    public void sortShouldSortEventsWhenAllEventsHaveDifferenceYears() {
+    public void bubbleSortShouldSortEventsWhenAllEventsHaveDifferenceYears() {
         entities.Event[] events = new entities.Event[]{
                 new entities.Event(2010, 4, 8, "jodOffer"),
                 new entities.Event(2012, 3, 12, "birthday"),
@@ -47,12 +47,12 @@ class Task408Test {
                 new entities.Event(2010, 4, 8, "jodOffer"),
                 new entities.Event(2012, 3, 12, "birthday")
         };
-        Task408.sort(events);
+        ArrayUtils.bubbleSort(events);
         checkEqualsValues(events, expectedValues);
     }
 
     @Test
-    public void sortShouldSortEventsWhenEventsHaveSameYears() {
+    public void bubbleSortShouldSortEventsWhenEventsHaveSameYears() {
         entities.Event[] events = new entities.Event[]{
                 new entities.Event(2018, 7, 8, "jodOffer"),
                 new entities.Event(2018, 6, 12, "birthday"),
@@ -65,12 +65,12 @@ class Task408Test {
                 new entities.Event(2018, 6, 12, "birthday"),
                 new entities.Event(2018, 7, 8, "jodOffer")
         };
-        Task408.sort(events);
+        ArrayUtils.bubbleSort(events);
         checkEqualsValues(events, expectedValues);
     }
 
     @Test
-    public void sortShouldSortEventsWhenYeasAndMonthAreSame() {
+    public void bubbleSortShouldSortEventsWhenYeasAndMonthAreSame() {
         entities.Event[] events = new entities.Event[]{
                 new entities.Event(2018, 8, 14, "jodOffer"),
                 new entities.Event(2018, 8, 12, "birthday"),
@@ -83,12 +83,12 @@ class Task408Test {
                 new entities.Event(2018, 8, 24, "holidays"),
                 new entities.Event(2018, 8, 25, "wedding")
         };
-        Task408.sort(events);
+        ArrayUtils.bubbleSort(events);
         checkEqualsValues(events, expectedValues);
     }
 
     @Test
-    public void sortShouldSortEventsWhenEventsHaveThreeSameEvent() {
+    public void bubbleSortShouldSortEventsWhenEventsHaveThreeSameEvent() {
         entities.Event[] events = new entities.Event[]{
                 new entities.Event(2018, 8, 25, "jodOffer"),
                 new entities.Event(2018, 8, 25, "birthday"),
@@ -101,12 +101,12 @@ class Task408Test {
                 new entities.Event(2018, 8, 25, "birthday"),
                 new entities.Event(2018, 8, 25, "holidays")
         };
-        Task408.sort(events);
+        ArrayUtils.bubbleSort(events);
         checkEqualsValues(events, expectedValues);
     }
 
     @Test
-    public void sortShouldNotSwapElementsOfEventsWhenAllElementsAreSame() {
+    public void bubbleSortShouldNotSwapElementsOfEventsWhenAllElementsAreSame() {
         entities.Event[] events = new entities.Event[]{
                 new entities.Event(2018, 8, 25, "jodOffer"),
                 new entities.Event(2018, 8, 25, "birthday"),
@@ -119,28 +119,28 @@ class Task408Test {
                 new entities.Event(2018, 8, 25, "wedding"),
                 new entities.Event(2018, 8, 25, "holidays")
         };
-        Task408.sort(events);
+        ArrayUtils.bubbleSort(events);
         checkEqualsValues(events, expectedValues);
     }
 
     @Test
-    public void sortShouldNotChangeEventsWhenEventsHaveOneEvent() {
+    public void bubbleSortShouldNotChangeEventsWhenEventsHaveOneEvent() {
         entities.Event[] events = new entities.Event[]{new entities.Event(2018, 8, 25, "jodOffer")};
         entities.Event[] expectedValues = new entities.Event[]{new entities.Event(2018, 8, 25, "jodOffer")};
-        Task408.sort(events);
+        ArrayUtils.bubbleSort(events);
         checkEqualsValues(events, expectedValues);
     }
 
     @Test
-    public void sortShouldNotChangeEventsWhenEventsWithoutElements() {
+    public void bubbleSortShouldNotChangeEventsWhenEventsWithoutElements() {
         entities.Event[] events = new entities.Event[]{};
         entities.Event[] expectedValues = new entities.Event[]{};
-        Task408.sort(events);
+        ArrayUtils.bubbleSort(events);
         checkEqualsValues(events, expectedValues);
     }
 
     @Test
-    public void sortShouldSortEventsWhenEventsHaveSameMonthAndDifferenceYearsAndDays() {
+    public void bubbleSortShouldSortEventsWhenEventsHaveSameMonthAndDifferenceYearsAndDays() {
         entities.Event[] events = new entities.Event[]{
                 new entities.Event(2014, 6, 5, "jodOffer"),
                 new entities.Event(2010, 6, 1, "birthday"),
@@ -155,12 +155,12 @@ class Task408Test {
                 new entities.Event(2014, 6, 5, "jodOffer"),
                 new entities.Event(2016, 6, 6, "wedding")
         };
-        Task408.sort(events);
+        ArrayUtils.bubbleSort(events);
         checkEqualsValues(events, expectedValues);
     }
 
     @Test
-    public void sortShouldSortEventsWhenEventsHaveTwoSameEvents() {
+    public void bubbleSortShouldSortEventsWhenEventsHaveTwoSameEvents() {
         entities.Event[] events = new entities.Event[]{
                 new entities.Event(2020, 10, 25, "A"),
                 new entities.Event(2020, 5, 20, "B"),
@@ -175,7 +175,7 @@ class Task408Test {
                 new entities.Event(2020, 10, 25, "A"),
                 new entities.Event(2021, 1, 1, "D")
         };
-        Task408.sort(events);
+        ArrayUtils.bubbleSort(events);
         checkEqualsValues(events, expectedValues);
     }
 }
