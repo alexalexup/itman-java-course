@@ -178,4 +178,28 @@ class ArrayUtilsTest {
         ArrayUtils.bubbleSort(events);
         checkEqualsValues(events, expectedValues);
     }
+
+    @Test
+    public void bubbleSortShouldSortArrayInIncreasingOrderWhenArrayHaveSomeElements() {
+        int[] array = new int[]{5, 2, 4, 1, 3, 3};
+        ArrayUtils.bubbleSort(array);
+        int[] expectedArray = new int[]{1, 2, 3, 3, 4, 5};
+        Assertions.assertArrayEquals(array, expectedArray);
+    }
+
+    @Test
+    public void bubbleSortShouldSortArrayInIncreasingOrderWhenArrayHaveOneElement() {
+        int[] array = new int[]{4};
+        ArrayUtils.bubbleSort(array);
+        int[] expectedArray = new int[]{4};
+        Assertions.assertArrayEquals(array, expectedArray);
+    }
+
+    @Test
+    public void bubbleSortShouldWorkWhenArrayHaveNotElements() {
+        int[] array = new int[]{};
+        ArrayUtils.bubbleSort(array);
+        int[] expectedArray = new int[]{};
+        Assertions.assertArrayEquals(array, expectedArray);
+    }
 }
