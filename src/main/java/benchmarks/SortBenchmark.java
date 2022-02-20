@@ -7,13 +7,13 @@ import utils.ArrayUtils;
 public class SortBenchmark {
 
     /**
-     * Create array with random length and with random numbers
+     * Create array  with random numbers
      * @cpu O(n), n - array.length
      * @ram O(n), n - array.length
      * @param n argument
      * @param min argument
      * @param max argument
-     * return array with random length and numbers
+     * return array with random numbers
      */
     public static int[] randomArray(int n, int min, int max) {
         Random random  = new Random(3);
@@ -26,7 +26,7 @@ public class SortBenchmark {
     }
 
     /**
-     * Create array with events. Method generate array with random length and data
+     * Create array with events. Method generate array with random data
      * @cpu O(n), n - array.length
      * @ram O(n), n - array.length
      * @param n argument
@@ -48,14 +48,14 @@ public class SortBenchmark {
         return events;
     }
 
-    // bsp1: 0.04s
-    // bsp2: 0.03S
-    // bsp3: 2.33s
-    // bsp4: 2.31s
-    // bsp01: 0.26s
-    // bsp02: 0.19s
-    // bsp03: 27.76s
-    // bsp04: 25.12s
+    // bsp1: 0.2s
+    // bsp2: 0.2S
+    // bsp3: 20.57s
+    // bsp4: 20.83s
+    // bsp01: 0.61s
+    // bsp02: 0.47s
+    // bsp03: 92.67s
+    // bsp04: 90.47s
     public static void main (String[] args) {
         int[] numbersArray = randomArray(10000, -10000, 10000);
         Event[] events = randomEvents(10000, 2000, 2021);
