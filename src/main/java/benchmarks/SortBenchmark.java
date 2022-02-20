@@ -18,8 +18,7 @@ public class SortBenchmark {
     public static int[] randomArray(int n, int min, int max) {
         Random random  = new Random(3);
         int delta = max - min;
-        int length = random.nextInt(n);
-        int[] array = new int[length];
+        int[] array = new int[n];
         for (int i = 0; i < array.length; i++) {
             array[i] = random.nextInt(delta) + min;
         }
@@ -38,8 +37,7 @@ public class SortBenchmark {
     public static Event[] randomEvents(int n, int min, int max){
         Random random = new Random(6);
         int delta = max - min;
-        int length = random.nextInt(n);
-        Event[] events = new Event[length];
+        Event[] events = new Event[n];
         for (int i = 0; i < events.length; i ++) {
             int year = random.nextInt(delta) + min;
             int month = random.nextInt(12) + 1;

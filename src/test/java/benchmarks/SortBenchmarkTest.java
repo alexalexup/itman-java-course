@@ -10,16 +10,16 @@ class SortBenchmarkTest {
 
     @Test
     public void randomArrayShouldReturnArraysWithEqualDataWhenArgumentsAreSame() {
-        int[] firstArray = SortBenchmark.randomArray(24, 2, 28);
-        int[] secondArray = SortBenchmark.randomArray(24, 2, 28);
+        int[] firstArray = SortBenchmark.randomArray(1000, -2, 160);
+        int[] secondArray = SortBenchmark.randomArray(1000, -2, 160);
         Assertions.assertArrayEquals(firstArray,secondArray);
     }
 
     @Test
     public void randomArrayShouldReturnResultWhenDataIncludeValueBetweenInclusiveMinArgumentAndExclusiveMaxArgument() {
-        int[] randomArray = SortBenchmark.randomArray(100,5, 124);
+        int[] randomArray = SortBenchmark.randomArray(1000,-5, 5);
         for (int i = 0; i < randomArray.length; i++) {
-            Assertions.assertFalse(randomArray[i] < 5 || randomArray[i] >= 124);
+            Assertions.assertTrue(randomArray[i] >= -5 || randomArray[i] < 5);
         }
     }
 
