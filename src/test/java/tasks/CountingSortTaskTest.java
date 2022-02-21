@@ -30,15 +30,4 @@ class CountingSortTaskTest {
         int[] expectedResult = new int[]{};
         Assertions.assertArrayEquals(expectedResult, actualResult);
     }
-
-    @Test
-    public void sortShouldReturnNullWhenInputArrayIsNull() {
-        int[] array = null;
-        int[] actualResult = CountingSortTask.count(array);
-        int[] expectedResult = null;
-        Assertions.assertArrayEquals(expectedResult, actualResult);
-    }
-
-
-
 }

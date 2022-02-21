@@ -13,9 +13,6 @@ public class CountingSortTask {
         if (array.length == 0) {
             return new int[]{};
         }
-        if (array == null) {
-            return null;
-        }
         int max = 0;
         for (int i = 0 ; i < array.length; i++) {
             if (max < array[i]) {
