@@ -1,5 +1,7 @@
 package tasks;
 
+import collections.ArrayList;
+
 public class CountingSortTask {
 
     /**
@@ -26,4 +28,19 @@ public class CountingSortTask {
         }
         return  result;
     }
+
+     public static int[] restore(int[] array) {
+         if (array.length == 0) {
+             return new int[]{};
+         }
+        ArrayList sortNumb = new ArrayList();
+        for (int i = 0; i < array.length; i++) {
+            if(array[i] != 0) {
+                for (int j = 0; j < array[i]; j++) {
+                    sortNumb.add(i);
+                }
+            }
+        }
+        return sortNumb.toArray();
+     }
 }

@@ -30,4 +30,28 @@ class CountingSortTaskTest {
         int[] expectedResult = new int[]{};
         Assertions.assertArrayEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void restoreShouldReturnResultWhenInputArrayHaveSomeElement() {
+        int[] array = new int[]{0, 2, 1, 1, 0, 1};
+        int[] actualResult = CountingSortTask.restore(array);
+        int[] expectedResult = new int[]{1, 1, 2, 3, 5};
+        Assertions.assertArrayEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void restoreShouldReturnEmptyArrayWhenInputArrayHaveNotData() {
+        int[] array = new int[]{};
+        int[] actualResult = CountingSortTask.restore(array);
+        int[] expectedResult = new int[]{};
+        Assertions.assertArrayEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void restoreShouldReturnCountOfDuplicateElementWhenInputArrayHaveOneElement() {
+        int[] array = new int[]{3};
+        int[] actualResult = CountingSortTask.restore(array);
+        int[] expectedResult = new int[]{0, 0, 0};
+        Assertions.assertArrayEquals(expectedResult, actualResult);
+    }
 }
