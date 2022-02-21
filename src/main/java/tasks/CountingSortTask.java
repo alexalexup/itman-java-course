@@ -43,4 +43,9 @@ public class CountingSortTask {
         }
         return sortNumb.toArray();
      }
+
+     public static void sort(int[] array) {
+        int[] result = restore(count(array));
+        System.arraycopy(result,0,array,0,result.length);
+     }
 }

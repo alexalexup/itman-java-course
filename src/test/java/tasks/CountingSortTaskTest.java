@@ -54,4 +54,36 @@ class CountingSortTaskTest {
         int[] expectedResult = new int[]{0, 0, 0};
         Assertions.assertArrayEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void sortShouldSortArrayByIncreasingValue() {
+        int[] array = new int[]{6, 5, 3, 4, 1, 1, 1, 5, 2, 0};
+        CountingSortTask.sort(array);
+        int[] expectedResult = new int[]{0, 1, 1, 1, 2, 3, 4, 5, 5, 6};
+        Assertions.assertArrayEquals(expectedResult, array);
+    }
+
+    @Test
+    public void sortShoudlWorktWhenInputArrayHaveOneElement() {
+        int[] array = new int[]{5};
+        CountingSortTask.sort(array);
+        int[] expectedResult = new int[]{5};
+        Assertions.assertArrayEquals(expectedResult, array);
+    }
+
+    @Test
+    public void sortShouldWorkWhenInputArrayHaveEqualElements() {
+        int[] array = new int[]{7, 7, 7, 7, 7};
+        CountingSortTask.sort(array);
+        int[] expectedResult = new int[]{7, 7, 7, 7, 7};
+        Assertions.assertArrayEquals(expectedResult, array);
+    }
+
+    @Test
+    public void sortShouldWorkWhenInputArrayHaveNotElements() {
+        int[] array = new int[]{};
+        CountingSortTask.sort(array);
+        int[] expectedResult = new int[]{};
+        Assertions.assertArrayEquals(expectedResult, array);
+    }
 }
