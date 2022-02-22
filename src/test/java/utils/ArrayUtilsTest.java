@@ -242,4 +242,20 @@ class ArrayUtilsTest {
         ArrayUtils.countingSort(actualArray);
         Assertions.assertArrayEquals(expectedArray, actualArray);
     }
+
+    @Test
+    public void countingSortShouldSortArrayWhenElementsFromArrayAreNegative() {
+        int[] actualArray = new int[]{-25, -4, -2, -4, -5};
+        int[] expectedArray = new int[]{-25, -5, -4, -4, -2};
+        ArrayUtils.countingSort(actualArray);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void countingSortShouldSortArrayWhenElementsFromArrayAreNegativeAndPositive() {
+        int[] actualArray = new int[]{-25, -4, 0, 12, 4, -2, -4, -5};
+        int[] expectedArray = new int[]{-25, -5, -4, -4, -2,  0, 4, 12};
+        ArrayUtils.countingSort(actualArray);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
 }

@@ -50,19 +50,22 @@ public class ArrayUtils {
      * @param array array with numbers
      */
     public static void countingSort(int[] array) {
+        if (array.length == 0) {
+            return;
+        }
         int max = 0;
-        int min = 0;
+        int min = Integer.MAX_VALUE;
         for (int i = 0; i < array.length; i++) {
             if (max < array[i]){
                 max = array[i];
             }
+            if (min > array[i]) {
+                min = array[i];
+            }
         }
-        if (max - 1000000 > 0) {
-            min = max - 1000000;
-        }
-        int[] sortArray = new int[max - min + 1];
+        int[] sortArray = new int[Math.abs(max - min) + 1];
         for (int i = 0 ; i < array.length; i++) {
-            int index = (array[i] - min);
+            int index = array[i] - min;
             sortArray[index]++;
         }
         for (int i = 0, j = 0; i < sortArray.length; i++) {
