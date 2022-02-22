@@ -6,8 +6,8 @@ public class CountingSortTask {
 
     /**
      * Count duplicate elements from input array and return data in new array where index is element from input array
-     * @cpu O(n + m), n - array.length, m - array[max]: max value from array
-     * @ram O(m),  m - array[max]: max value from array
+     * @cpu O(n + m), n - array.length, m - max(array)
+     * @ram O(m),  m - m - max(array)
      * @param array array with numbers
      * @return array with count of duplicate elements from input array
      */
@@ -29,21 +29,33 @@ public class CountingSortTask {
         return  result;
     }
 
+
+    /**
+     * Restores the sorted array based on input data and the counting method
+     * @cpu O(n * m), n - array.length, m - max(array)
+     * @ram O(k),  k - sum(array) sum of all elements from array
+     * @param array array with numbers
+     * @return array with count of duplicate elements from input array
+     */
      public static int[] restore(int[] array) {
          if (array.length == 0) {
              return new int[]{};
          }
         ArrayList sortNumb = new ArrayList();
         for (int i = 0; i < array.length; i++) {
-            if(array[i] != 0) {
-                for (int j = 0; j < array[i]; j++) {
-                    sortNumb.add(i);
-                }
+            for (int j = 0; j < array[i]; j++) {
+                sortNumb.add(i);
             }
         }
         return sortNumb.toArray();
      }
 
+    /**
+     * Sort array in increasing order.The counting algorithm is used
+     * @cpu O(n + m), n - array.length, m - max(array)
+     * @ram O(n + m), n - array.length, m - max(array)
+     * @param array array with numbers
+     */
      public static void sort(int[] array) {
         int[] result = restore(count(array));
         System.arraycopy(result,0,array,0,result.length);

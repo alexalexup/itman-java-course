@@ -42,6 +42,32 @@ public class ArrayUtils {
             }
         }
     }
+
+
+    /**
+     * Sort array in increasing order.The counting algorithm is used
+     * @cpu O(n + m), n- array.length, m - max(array)
+     * @ram O(m), m - max(array)
+     * @param array array with numbers
+     */
+    public static void countingSort(int[] array) {
+        int max = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (max < array[i]){
+                max = array[i];
+            }
+        }
+        int[] sortArray = new int[max + 1];
+        for (int i = 0 ; i < array.length; i++) {
+            int index = array[i];
+            sortArray[index]++;
+        }
+        for (int i = 0, j = 0; i < sortArray.length; i++) {
+            for (int k = sortArray[i]; k > 0; k--) {
+                array[j++] = i;
+            }
+        }
+    }
 }
 
 

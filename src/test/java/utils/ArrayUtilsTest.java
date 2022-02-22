@@ -202,4 +202,36 @@ class ArrayUtilsTest {
         int[] expectedArray = new int[]{};
         Assertions.assertArrayEquals(array, expectedArray);
     }
+
+    @Test
+    public void countingShouldSortSortArrayWhenArrayHaveSomeElements() {
+        int[] actualArray = new int[]{4, 2, 2, 10, 1, 3, 5, 2, 7};
+        int[] expectedArray = new int[]{1, 2, 2, 2, 3, 4, 5, 7, 10};
+        ArrayUtils.countingSort(actualArray);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void countingSortShouldWorkWhenArrayHaveOneElement() {
+        int[] actualArray = new int[]{6};
+        int[] expectedArray = new int[]{6};
+        ArrayUtils.countingSort(actualArray);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void countingSortShouldWorkWhenArrayHaveNotElements() {
+        int[] actualArray = new int[]{};
+        int[] expectedArray = new int[]{};
+        ArrayUtils.countingSort(actualArray);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void countingSortShouldWorkWhenArrayHaveEqualElements() {
+        int[] actualArray = new int[]{3, 3, 3, 3, 3};
+        int[] expectedArray = new int[]{3, 3, 3, 3, 3};
+        ArrayUtils.countingSort(actualArray);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
 }
