@@ -49,9 +49,9 @@ public class ArrayUtils {
      * @ram O(1)
      * @param array array with numbers
      */
-    public static void countingSort(long[] array) {
-        long max = 0;
-        long min = 0;
+    public static void countingSort(int[] array) {
+        int max = 0;
+        int min = 0;
         for (int i = 0; i < array.length; i++) {
             if (max < array[i]){
                 max = array[i];
@@ -60,9 +60,9 @@ public class ArrayUtils {
         if (max - 1000000 > 0) {
             min = max - 1000000;
         }
-        int[] sortArray = new int[(int)(max - min) + 1];
+        int[] sortArray = new int[max - min + 1];
         for (int i = 0 ; i < array.length; i++) {
-            int index = (int)(array[i] - min);
+            int index = (array[i] - min);
             sortArray[index]++;
         }
         for (int i = 0, j = 0; i < sortArray.length; i++) {
