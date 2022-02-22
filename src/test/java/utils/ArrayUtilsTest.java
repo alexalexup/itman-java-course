@@ -236,7 +236,7 @@ class ArrayUtilsTest {
     }
 
     @Test
-    public void countingSortShouldSortArrayWhenElementsHaveMaxRangeBetweenMaxAndMinElements() {
+    public void countingSortShouldSortArrayWhenElementsArePositiveAndHaveMaxRangeBetweenMaxAndMinElements() {
         int[] actualArray = new int[]{2147483647, 2147383648, 2147283648};
         int[] expectedArray = new int[]{2147283648, 2147383648, 2147483647};
         ArrayUtils.countingSort(actualArray);
@@ -244,9 +244,9 @@ class ArrayUtilsTest {
     }
 
     @Test
-    public void countingSortShouldSortArrayWhenElementsFromArrayAreNegative() {
-        int[] actualArray = new int[]{-25, -4, -2, -4, -5};
-        int[] expectedArray = new int[]{-25, -5, -4, -4, -2};
+    public void countingSortShouldSortArrayWhenElementsAreNegativeAndHaveMaxRangeBetweenMaxAndMinElements() {
+        int[] actualArray = new int[]{-2146483649, -2147483648};
+        int[] expectedArray = new int[]{-2147483648, -2146483649};
         ArrayUtils.countingSort(actualArray);
         Assertions.assertArrayEquals(expectedArray, actualArray);
     }
@@ -255,6 +255,14 @@ class ArrayUtilsTest {
     public void countingSortShouldSortArrayWhenElementsFromArrayAreNegativeAndPositive() {
         int[] actualArray = new int[]{-25, -4, 0, 12, 4, -2, -4, -5};
         int[] expectedArray = new int[]{-25, -5, -4, -4, -2,  0, 4, 12};
+        ArrayUtils.countingSort(actualArray);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void countingSortShouldSortArrayWhenElementsAreNegativeAndPositiveAndHaveMaxRangeBetweenMaxAndMinElements() {
+        int[] actualArray = new int[]{2, -999998, 0, 1, 1, -3};
+        int[] expectedArray = new int[]{-999998, -3, 0, 1, 1, 2};
         ArrayUtils.countingSort(actualArray);
         Assertions.assertArrayEquals(expectedArray, actualArray);
     }
