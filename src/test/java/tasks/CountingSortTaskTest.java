@@ -68,6 +68,7 @@ class CountingSortTaskTest {
         int[] array = new int[]{5};
         CountingSortTask.sort(array);
         int[] expectedResult = new int[]{5};
+        System.out.println(Integer.MAX_VALUE);
         Assertions.assertArrayEquals(expectedResult, array);
     }
 

@@ -205,32 +205,48 @@ class ArrayUtilsTest {
 
     @Test
     public void countingShouldSortSortArrayWhenArrayHaveSomeElements() {
-        int[] actualArray = new int[]{4, 2, 2, 10, 1, 3, 5, 2, 7};
-        int[] expectedArray = new int[]{1, 2, 2, 2, 3, 4, 5, 7, 10};
+        long[] actualArray = new long[]{4, 2, 2, 10, 1, 3, 5, 2, 7};
+        long[] expectedArray = new long[]{1, 2, 2, 2, 3, 4, 5, 7, 10};
         ArrayUtils.countingSort(actualArray);
         Assertions.assertArrayEquals(expectedArray, actualArray);
     }
 
     @Test
     public void countingSortShouldWorkWhenArrayHaveOneElement() {
-        int[] actualArray = new int[]{6};
-        int[] expectedArray = new int[]{6};
+        long[] actualArray = new long[]{6};
+        long[] expectedArray = new long[]{6};
         ArrayUtils.countingSort(actualArray);
         Assertions.assertArrayEquals(expectedArray, actualArray);
     }
 
     @Test
     public void countingSortShouldWorkWhenArrayHaveNotElements() {
-        int[] actualArray = new int[]{};
-        int[] expectedArray = new int[]{};
+        long[] actualArray = new long[]{};
+        long[] expectedArray = new long[]{};
         ArrayUtils.countingSort(actualArray);
         Assertions.assertArrayEquals(expectedArray, actualArray);
     }
 
     @Test
     public void countingSortShouldWorkWhenArrayHaveEqualElements() {
-        int[] actualArray = new int[]{3, 3, 3, 3, 3};
-        int[] expectedArray = new int[]{3, 3, 3, 3, 3};
+        long[] actualArray = new long[]{3, 3, 3, 3, 3};
+        long[] expectedArray = new long[]{3, 3, 3, 3, 3};
+        ArrayUtils.countingSort(actualArray);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void countingSortShouldSortArrayWhenElementsFromArrayAreLongRange() {
+        long[] actualArray = new long[]{25687458947L, 25687458944L, 25687458948L, 25687458940L};
+        long[] expectedArray = new long[]{25687458940L, 25687458944L, 25687458947L, 25687458948L};
+        ArrayUtils.countingSort(actualArray);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void countingSortShouldSortArrayWhenElementsHaveMaxRangeBetweenMaxAndMinElements() {
+        long[] actualArray = new long[]{25687458947L, 25686458947L};
+        long[] expectedArray = new long[]{25686458947L, 25687458947L};
         ArrayUtils.countingSort(actualArray);
         Assertions.assertArrayEquals(expectedArray, actualArray);
     }
