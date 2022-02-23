@@ -266,4 +266,36 @@ class ArrayUtilsTest {
         ArrayUtils.countingSort(actualArray);
         Assertions.assertArrayEquals(expectedArray, actualArray);
     }
+
+    @Test
+    public void distinctShouldReturnArrayWithUniqueNumbersWhenNumbersPositiveAndNegative(){
+        int[] array= new int[]{5, 2, 2, 4, -6, -5, -2, -5, 0, 0};
+        int[] expectedArray = new int[]{5, 2, 4, -6, -5, -2, 0};
+        int[] actualArray = ArrayUtils.distinct(array);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void distinctShouldReturnArrayWithUniqueNumbersWhenElementsAreNegativeAndPositive() {
+        int[] array = new int[]{2, -999998, -999998, 0, 1, 1, -3};
+        int[] expectedArray = new int[]{2, -999998, 0, 1, -3};
+        int[] actualArray = ArrayUtils.distinct(array);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void distinctShouldReturnResultWhenArrayIsEmpty() {
+        int[] array = new int[]{};
+        int[] expectedArray = new int[]{};
+        int[] actualArray = ArrayUtils.distinct(array);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void distinctShouldReturnResultWhenElementsArePositiveAndHaveMaxRangeBetweenMaxAndMinElements() {
+        int[] array = new int[]{2147483647, 2147383648, 2147283648, 2147483647};
+        int[] expectedArray = new int[]{2147483647, 2147383648, 2147283648};
+        int[] actualArray = ArrayUtils.distinct(array);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
 }

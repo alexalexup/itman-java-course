@@ -74,6 +74,45 @@ public class ArrayUtils {
             }
         }
     }
+
+    /**
+     * Return array with unique numbers from input array
+     * @cpu O(n + m), n- array.length, m - (max - min)(array)
+     * @ram O(n + m), n- array.length, m - (max - min)(array)
+     * @param array array with unique numbers
+     */
+    public static int[] distinct(int[] array) {
+        if (array.length == 0) {
+            return new int[]{};
+        }
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < array.length; i++) {
+            if (max < array[i]) {
+                max = array[i];
+            }
+            if (min > array[i]) {
+                min = array[i];
+            }
+        }
+        int[] uniqueNumb = new int[Math.abs(max - min) + 1];
+        int cnt = 0;
+        for (int i = 0; i < array.length; i++) {
+            int index = array[i] - min;
+            if (uniqueNumb[index] < 1) {
+                uniqueNumb[index]++;
+                cnt++;
+            }
+        }
+        int[] result = new int[cnt];
+        for (int i = 0, j = 0; i < array.length; i++){
+            if(uniqueNumb[array[i] - min] == 1) {
+                uniqueNumb[array[i] - min]--;
+                result[j++] = array[i];
+            }
+        }
+        return result;
+    }
 }
 
 
