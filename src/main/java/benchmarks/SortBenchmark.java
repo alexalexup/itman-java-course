@@ -56,12 +56,17 @@ public class SortBenchmark {
     // bsp02: 0.47s
     // bsp03: 92.67s
     // bsp04: 90.47s
+    // сsp1: 0.002s
+    // csp2: OutOfMemory
+    // csp3: 0.006s
+    // csp4: OutOfMemory
     public static void main (String[] args) {
         int[] numbersArray = randomArray(10000, -10000, 10000);
         Event[] events = randomEvents(10000, 2000, 2021);
         long firstTime = System.currentTimeMillis();
         ArrayUtils.bubbleSort(numbersArray);
         ArrayUtils.bubbleSort(events);
+        ArrayUtils.countingSort(numbersArray);
         long secondTime = System.currentTimeMillis();
         System.out.println(secondTime-firstTime + " ms");
     }
