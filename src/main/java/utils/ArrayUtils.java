@@ -145,6 +145,56 @@ public class ArrayUtils {
         }
         return min + maxIndex;
     }
+
+    public static  int countEquals(int[] a, int[] b) {
+        int maxFirst = Integer.MIN_VALUE;
+        int minFirst = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        if (a.length == 0 || b.length == 0) {
+            return 0;
+        }
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] > maxFirst) {
+                maxFirst = a[i];
+            }
+            if (a[i] < minFirst) {
+                minFirst = a[i];
+            }
+        }
+        for (int i = 0; i < b.length; i++) {
+            if (b[i] > max) {
+                max = b[i];
+            }
+            if (b[i] < min) {
+                min = b[i];
+            }
+        }
+        if (maxFirst < max) {
+            max = maxFirst;
+        }
+        if (minFirst > min) {
+            min = minFirst;
+        }
+        int[] sortArray = new int[Math.abs(max - min) + 1];
+         for (int i = 0; i < a.length; i++) {
+            if (a[i] <= max && a[i] >= min) {
+                int index = a[i] - min;
+                sortArray[index]++;
+            }
+        }
+        int result = 0;
+        for (int i = 0; i < b.length; i++) {
+            if (b[i] <= max && b[i] >= min) {
+                int index = b[i] - min;
+                sortArray[index]--;
+                if (sortArray[index] >= 0) {
+                    result++;
+                }
+            }
+        }
+        return  result;
+    }
 }
 
 

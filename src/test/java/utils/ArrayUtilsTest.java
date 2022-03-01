@@ -341,4 +341,28 @@ class ArrayUtilsTest {
         int actualResult = ArrayUtils.mostFrequent(array);
         Assertions.assertEquals(0, actualResult);
     }
+
+    @Test
+    public void countEqualsShouldReturnResultWhenArraysHaveSomeElements() {
+        int[] firstArray = new int[]{2, 3, 4, 2, 2, 4, 4};
+        int[] secondArray = new int[]{-5, -2, 3, 3, 3, 2, 5, 2};
+        int actualResult = ArrayUtils.countEquals(firstArray, secondArray);
+        Assertions.assertEquals(3, actualResult);
+    }
+
+    @Test
+    public void countEqualsShouldReturnZeroWhenOneArrayHaveNotElements() {
+        int[] firstArray = new int[]{};
+        int[] secondArray = new int[]{-5, -2, 3, 3, 3, 2, 5, 2};
+        int actualResult = ArrayUtils.countEquals(firstArray, secondArray);
+        Assertions.assertEquals(0, actualResult);
+    }
+
+    @Test
+    public void countEqualsShouldReturnResultWhenAllElementsAreEqual() {
+        int[] firstArray = new int[]{4, 4, 4, 4};
+        int[] secondArray = new int[]{4, 4, 4, 4, 4, 4, 4, 4, 4};
+        int actualResult = ArrayUtils.countEquals(firstArray, secondArray);
+        Assertions.assertEquals(4, actualResult);
+    }
 }
