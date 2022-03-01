@@ -113,6 +113,38 @@ public class ArrayUtils {
         }
         return result;
     }
+
+    /**
+     * Find and return most frequent element. When array have some frequent elements return element with lower value.
+     * @cpu O(n + m), n- array.length, m - (max - min)(array)
+     * @ram O(m),  m - (max - min)(array)
+     * @param array array with  numbers
+     * @returm most frequent element with lower value
+     */
+    public static int mostFrequent(int[] array) {
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < array.length; i++) {
+            if (max < array[i]) {
+                max = array[i];
+            }
+            if (min > array[i]) {
+                min = array[i];
+            }
+        }
+        int[] sortArray = new int[Math.abs(max - min) + 1];
+        int maxIndex = array[0] - min;
+        for (int i = 0; i < array.length; i++) {
+            int index = array[i] - min;
+            sortArray[index]++;
+            if (sortArray[index] == sortArray[maxIndex] && index < maxIndex) {
+                maxIndex = index;
+            } else if (sortArray[index] > sortArray[maxIndex]) {
+                maxIndex = index;
+            }
+        }
+        return min + maxIndex;
+    }
 }
 
 

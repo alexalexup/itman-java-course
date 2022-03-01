@@ -298,4 +298,47 @@ class ArrayUtilsTest {
         int[] actualArray = ArrayUtils.distinct(array);
         Assertions.assertArrayEquals(expectedArray, actualArray);
     }
+
+    @Test
+    public void distinctShouldReturnResultWhenElementsAreNegativeAndHaveMaxRangeBetweenMaxAndMinElements() {
+        int[] array = new int[]{-2147483647, -2147383648, -2147283648, -2147483647};
+        int[] expectedArray = new int[]{-2147483647, -2147383648, -2147283648};
+        int[] actualArray = ArrayUtils.distinct(array);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void mostFrequentShouldReturnResultWhenArrayHaveOneElement() {
+        int[] array = new int[]{-12};
+        int actualResult = ArrayUtils.mostFrequent(array);
+        Assertions.assertEquals(-12, actualResult);
+    }
+
+    @Test
+    public void mostFrequentShouldReturnResultWhenElementsAreNegativeAndHaveMaxRangeBetweenMaxAndMinElements() {
+        int[] array = new int[]{-2147483647, -2147383648, -2147283648, -2147283648, -2147483647};
+        int actualResult = ArrayUtils.mostFrequent(array);
+        Assertions.assertEquals(-2147483647, actualResult);
+    }
+
+    @Test
+    public void mostFrequentShouldReturnResultWhenElementsArePositiveAndHaveMaxRangeBetweenMaxAndMinElements() {
+        int[] array = new int[]{2147483647, 2147383648, 2147283648, 2147283648, 2147483647};
+        int actualResult = ArrayUtils.mostFrequent(array);
+        Assertions.assertEquals(2147283648, actualResult);
+    }
+
+    @Test
+    public void mostFrequentShouldReturnResultWhenElementsArePositiveAndNegative() {
+        int[] array = new int[]{5, 2, -7, -3, -3, 5, 5, 5, 9, 2};
+        int actualResult = ArrayUtils.mostFrequent(array);
+        Assertions.assertEquals(5, actualResult);
+    }
+
+    @Test
+    public void mostFrequentShouldReturnResultWhenAllElementsAreZero() {
+        int[] array = new int[]{0, 0, 0, 0, 0};
+        int actualResult = ArrayUtils.mostFrequent(array);
+        Assertions.assertEquals(0, actualResult);
+    }
 }
