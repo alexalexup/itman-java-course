@@ -365,4 +365,20 @@ class ArrayUtilsTest {
         int actualResult = ArrayUtils.countEquals(firstArray, secondArray);
         Assertions.assertEquals(4, actualResult);
     }
+
+    @Test
+    public void countEqualsShouldReturnResultWhenEachArrayHaveOnlyOneElement() {
+        int[] firstArray = new int[]{1000000000};
+        int[] secondArray = new int[]{-1000000000};
+        int actualResult = ArrayUtils.countEquals(firstArray, secondArray);
+        Assertions.assertEquals(0, actualResult);
+    }
+
+    @Test
+    public void countEqualsShouldReturnResultWhenOneArrayHaveMaxRangeBetweenMaxAndMinElements() {
+        int[] firstArray = new int[]{-2147483647, 2, 3, 3, 2, 5, 2147483647};
+        int[] secondArray = new int[]{2, 2, 3, 4};
+        int actualResult = ArrayUtils.countEquals(firstArray, secondArray);
+        Assertions.assertEquals(3, actualResult);
+    }
 }

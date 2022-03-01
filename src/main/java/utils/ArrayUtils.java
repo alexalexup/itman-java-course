@@ -170,6 +170,9 @@ public class ArrayUtils {
                 min = b[i];
             }
         }
+        if (max < minFirst || min > maxFirst) {
+            return 0;
+        }
         if (maxFirst < max) {
             max = maxFirst;
         }
@@ -193,7 +196,7 @@ public class ArrayUtils {
                 }
             }
         }
-        return  result;
+        return result;
     }
 }
 
