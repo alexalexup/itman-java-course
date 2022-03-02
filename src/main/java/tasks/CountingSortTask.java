@@ -29,7 +29,6 @@ public class CountingSortTask {
         return  result;
     }
 
-
     /**
      * Restores the sorted array based on input data and the counting method
      * @cpu O(n * m), n - array.length, m - max(array)

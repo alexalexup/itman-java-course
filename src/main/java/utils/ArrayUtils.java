@@ -1,6 +1,7 @@
 package utils;
 
 import entities.Event;
+import collections.ArrayList;
 
 public class ArrayUtils {
     /**
@@ -200,6 +201,31 @@ public class ArrayUtils {
             }
         }
         return result;
+    }
+
+    public static void countingSort(Event[] events) {
+        int[] keyArray = new int[events.length];
+        for (int i = 0; i < events.length; i ++) {
+            keyArray[i] = events[i].getDay() + events[i].getMonth() * 31 + events[i].getYear() * 12 * 31;
+        }
+        int maxDay  = findMax(keyArray);
+        int minDay = findMin(keyArray);
+        ArrayList[] sortDates = new ArrayList[Math.abs(maxDay-minDay) + 1];
+        for (int i = 0; i < sortDates.length; i++) {
+            sortDates[i] = new ArrayList();
+        }
+        for (int i = 0; i < keyArray.length; i++) {
+            int index = keyArray[i] - minDay;
+            sortDates[index].add(i);
+        }
+        for (int i = 0, j = 0; i < events.length; i++) {
+            for (int k = 0; k < sortDates[i].size(); k++){
+                Event buffer = events[j];
+                events[j] = events[sortDates[i].get(k)];
+                events[sortDates[i].get(k)] = buffer;
+                j++;
+            }
+        }
     }
 }
 

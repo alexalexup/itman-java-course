@@ -381,4 +381,17 @@ class ArrayUtilsTest {
         int actualResult = ArrayUtils.countEquals(firstArray, secondArray);
         Assertions.assertEquals(3, actualResult);
     }
+
+    @Test
+    public void countingSortShouldSortEvents() {
+       Event[] events = new Event[] {
+                new Event(2010, 8, 21, "birthday"),
+                new Event(2009, 12, 20, "jobOffer"),
+                new Event(2008, 12, 25, "christmas"),
+                new Event(2014, 5, 14 , "startHolidays")
+        };
+       Event[] expectedEvents = new Event[]{events[2], events[1], events[0], events[3]};
+       ArrayUtils.countingSort(events);
+       Assertions.assertArrayEquals(expectedEvents, events);
+    }
 }
