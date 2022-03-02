@@ -44,6 +44,40 @@ public class ArrayUtils {
     }
 
     /**
+     * Find max element from array
+     * @cpu O(n), n- a.length
+     * @ram O(1)
+     * @param array array with numbers
+     * @return max element from array
+     */
+    private static int findMax(int[] array) {
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < array.length; i++) {
+            if ( max < array[i]) {
+                max = array[i];
+            }
+        }
+        return max;
+    }
+
+    /**
+     * Find min element from array
+     * @cpu O(n), n- a.length
+     * @ram O(1)
+     * @param array array with numbers
+     * @return min element from array
+     */
+    private static int findMin(int[] array) {
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < array.length; i++) {
+            if ( min > array[i]) {
+                min = array[i];
+            }
+        }
+        return min;
+    }
+
+    /**
      * Sort array in increasing order.The counting algorithm is used
      * @cpu O(n), n- array.length
      * @ram O(1)
@@ -53,16 +87,8 @@ public class ArrayUtils {
         if (array.length == 0) {
             return;
         }
-        int max = Integer.MIN_VALUE;
-        int min = Integer.MAX_VALUE;
-        for (int i = 0; i < array.length; i++) {
-            if (max < array[i]){
-                max = array[i];
-            }
-            if (min > array[i]) {
-                min = array[i];
-            }
-        }
+        int max = findMax(array);
+        int min = findMin(array);
         int[] sortArray = new int[Math.abs(max - min) + 1];
         for (int i = 0 ; i < array.length; i++) {
             int index = array[i] - min;
@@ -85,16 +111,8 @@ public class ArrayUtils {
         if (array.length == 0) {
             return new int[]{};
         }
-        int max = Integer.MIN_VALUE;
-        int min = Integer.MAX_VALUE;
-        for (int i = 0; i < array.length; i++) {
-            if (max < array[i]) {
-                max = array[i];
-            }
-            if (min > array[i]) {
-                min = array[i];
-            }
-        }
+        int max = findMax(array);
+        int min = findMin(array);
         int[] uniqueNumb = new int[Math.abs(max - min) + 1];
         int cnt = 0;
         for (int i = 0; i < array.length; i++) {
@@ -122,16 +140,8 @@ public class ArrayUtils {
      * @returm most frequent element with lower value
      */
     public static int mostFrequent(int[] array) {
-        int max = Integer.MIN_VALUE;
-        int min = Integer.MAX_VALUE;
-        for (int i = 0; i < array.length; i++) {
-            if (max < array[i]) {
-                max = array[i];
-            }
-            if (min > array[i]) {
-                min = array[i];
-            }
-        }
+        int max = findMax(array);
+        int min = findMin(array);
         int[] sortArray = new int[Math.abs(max - min) + 1];
         int maxIndex = array[0] - min;
         for (int i = 0; i < array.length; i++) {
@@ -146,30 +156,23 @@ public class ArrayUtils {
         return min + maxIndex;
     }
 
+
+    /**
+     * Count of Equal elements that are contained in both arrays
+     * @cpu O(n + m), n- a.length, m - b.length
+     * @ram O(k), k - max(a) - min(b)
+     * @param a array with  numbers
+     * @param b array with numbers
+     * @returm count of Equal elements from two arrays
+     */
     public static  int countEquals(int[] a, int[] b) {
-        int maxFirst = Integer.MIN_VALUE;
-        int minFirst = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-        int min = Integer.MAX_VALUE;
         if (a.length == 0 || b.length == 0) {
             return 0;
         }
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] > maxFirst) {
-                maxFirst = a[i];
-            }
-            if (a[i] < minFirst) {
-                minFirst = a[i];
-            }
-        }
-        for (int i = 0; i < b.length; i++) {
-            if (b[i] > max) {
-                max = b[i];
-            }
-            if (b[i] < min) {
-                min = b[i];
-            }
-        }
+        int maxFirst = findMax(a);
+        int minFirst = findMin(a);
+        int max = findMax(b);
+        int min = findMin(b);
         if (max < minFirst || min > maxFirst) {
             return 0;
         }
