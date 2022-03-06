@@ -383,7 +383,7 @@ class ArrayUtilsTest {
     }
 
     @Test
-    public void countingSortShouldSortEvents() {
+    public void countingSortShouldSortEventsWhenEventsHaveDifferentDates() {
        Event[] events = new Event[] {
                 new Event(2010, 8, 21, "birthday"),
                 new Event(2009, 12, 20, "jobOffer"),
@@ -393,5 +393,39 @@ class ArrayUtilsTest {
        Event[] expectedEvents = new Event[]{events[2], events[1], events[0], events[3]};
        ArrayUtils.countingSort(events);
        Assertions.assertArrayEquals(expectedEvents, events);
+    }
+
+    @Test
+    public void countingSortShouldSortEventsWhenEventsHaveDifferentAndSameDates() {
+        Event[] events = new Event[]{
+                new Event(2020, 10, 25, "a"),
+                new Event(2020, 5, 20, "b"),
+                new Event(2020, 7, 15, "c"),
+                new Event(2021, 1, 1, "d"),
+                new Event(2020, 7, 15, "e")};
+        Event[] expectedEvents = new Event[]{events[1], events[2], events[4], events[0], events[3]};
+        ArrayUtils.countingSort(events);
+        Assertions.assertArrayEquals(expectedEvents, events);
+    }
+
+    @Test
+    public void countingSortShouldWorkWhenEventsHaveNotData() {
+        Event[] events = new Event[]{};
+        Event[] expectedEvents = new Event[]{};
+        ArrayUtils.countingSort(events);
+        Assertions.assertArrayEquals(expectedEvents, events);
+    }
+
+    @Test
+    public void countingSortShouldWorkWhenAllEventsHaveSameDates() {
+        Event[] events = new Event[]{
+                new Event(2020, 10, 25, "a"),
+                new Event(2020, 10, 25, "b"),
+                new Event(2020, 10, 25, "c"),
+                new Event(2020, 10, 25, "d"),
+        };
+        Event[] expectedEvents = new Event[]{events[0], events[1], events[2], events[3]};
+        ArrayUtils.countingSort(events);
+        Assertions.assertArrayEquals(expectedEvents, events);
     }
 }

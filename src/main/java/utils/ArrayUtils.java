@@ -104,8 +104,8 @@ public class ArrayUtils {
 
     /**
      * Return array with unique numbers from input array
-     * @cpu O(n + m), n- array.length, m - (max - min)(array)
-     * @ram O(n + m), n- array.length, m - (max - min)(array)
+     * @cpu O(n + m), n- array.length, m = (max - min)(array)
+     * @ram O(n + m), n- array.length, m = (max - min)(array)
      * @param array array with unique numbers
      */
     public static int[] distinct(int[] array) {
@@ -135,8 +135,8 @@ public class ArrayUtils {
 
     /**
      * Find and return most frequent element. When array have some frequent elements return element with lower value.
-     * @cpu O(n + m), n- array.length, m - (max - min)(array)
-     * @ram O(m),  m - (max - min)(array)
+     * @cpu O(n + m), n- array.length, m = (max - min)(array)
+     * @ram O(m),  m = (max - min)(array)
      * @param array array with  numbers
      * @returm most frequent element with lower value
      */
@@ -157,11 +157,10 @@ public class ArrayUtils {
         return min + maxIndex;
     }
 
-
     /**
      * Count of Equal elements that are contained in both arrays
      * @cpu O(n + m), n- a.length, m - b.length
-     * @ram O(k), k - max(a) - min(b)
+     * @ram O(k), k = max(a) - min(b)
      * @param a array with  numbers
      * @param b array with numbers
      * @returm count of Equal elements from two arrays
@@ -203,6 +202,12 @@ public class ArrayUtils {
         return result;
     }
 
+    /**
+     * Sort events in order of increasing by date
+     * @cpu O(n + m), n- events.length, m = (max - min)(events)
+     * @ram O(n + m), n- events.length, m = (max - min)(events)
+     * @param events array with events
+     */
     public static void countingSort(Event[] events) {
         int[] keyArray = new int[events.length];
         for (int i = 0; i < events.length; i ++) {
@@ -218,14 +223,14 @@ public class ArrayUtils {
             int index = keyArray[i] - minDay;
             sortDates[index].add(i);
         }
-        for (int i = 0, j = 0; i < events.length; i++) {
+        Event[] sortEvents = new Event[events.length];
+        for (int i = 0, j = 0; i < sortDates.length; i++) {
             for (int k = 0; k < sortDates[i].size(); k++){
-                Event buffer = events[j];
-                events[j] = events[sortDates[i].get(k)];
-                events[sortDates[i].get(k)] = buffer;
+                sortEvents[j] = events[sortDates[i].get(k)];
                 j++;
             }
         }
+        System.arraycopy(sortEvents, 0, events, 0, events.length);
     }
 }
 
