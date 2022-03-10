@@ -428,4 +428,64 @@ class ArrayUtilsTest {
         ArrayUtils.countingSort(events);
         Assertions.assertArrayEquals(expectedEvents, events);
     }
+
+    @Test
+    public void mergeShouldReturnResultWhenTwoArraysHaveDataThatNeedToMergeToFinalArray() {
+        int a[] = new int[]{100, 2, 4, 5, -7};
+        int aFrom = 1;
+        int aTo = 4;
+        int b[] = new int[]{-7, 2, 3};
+        int bFrom = 1;
+        int bTo = 3;
+        int r[] = new int[]{1, 1, 1, 1, 1, 1, 1, 1};
+        int rFrom = 2;
+        int[] expectedResult = new int[]{1, 1, 2, 2, 3, 4, 5, 1};
+        ArrayUtils.merge(a, aFrom, aTo, b, bFrom, bTo, r, rFrom);
+        Assertions.assertArrayEquals(expectedResult, r);
+    }
+
+    @Test
+    public void mergeShouldReturnResultWhenOnlyOneArraysHaveDataThatNeedToMergeToFinalArray() {
+        int a[] = new int[]{100, 2, 4, 5, -7};
+        int aFrom = 4;
+        int aTo = 4;
+        int b[] = new int[]{-7, 2, 3};
+        int bFrom = 1;
+        int bTo = 3;
+        int r[] = new int[]{1, 1, 1, 1, 1, 1, 1, 1};
+        int rFrom = 2;
+        int[] expectedResult = new int[]{1, 1, 2, 3, 1, 1, 1, 1};
+        ArrayUtils.merge(a, aFrom, aTo, b, bFrom, bTo, r, rFrom);
+        Assertions.assertArrayEquals(expectedResult, r);
+    }
+
+    @Test
+    public void mergeShouldReturnResultWhenHaveNotArraysThatNeedToMergeToFinalArray() {
+        int a[] = new int[]{100, 2, 4, 5, -7};
+        int aFrom = 4;
+        int aTo = 4;
+        int b[] = new int[]{-7, 2, 3};
+        int bFrom = 2;
+        int bTo = 2;
+        int r[] = new int[]{1, 1, 1, 1, 1, 1, 1, 1};
+        int rFrom = 2;
+        int[] expectedResult = new int[]{1, 1, 1, 1, 1, 1, 1, 1};
+        ArrayUtils.merge(a, aFrom, aTo, b, bFrom, bTo, r, rFrom);
+        Assertions.assertArrayEquals(expectedResult, r);
+    }
+
+    @Test
+    public void mergeShouldReturnResultWhenOneArrayHaveNotData() {
+        int a[] = new int[]{};
+        int aFrom = 0;
+        int aTo = 0;
+        int b[] = new int[]{0, 2, 3};
+        int bFrom = 0;
+        int bTo = 3;
+        int r[] = new int[]{1, 1, 1, 1, 1, 1, 1, 1};
+        int rFrom = 1;
+        int[] expectedResult = new int[]{1, 0, 2, 3, 1, 1, 1, 1};
+        ArrayUtils.merge(a, aFrom, aTo, b, bFrom, bTo, r, rFrom);
+        Assertions.assertArrayEquals(expectedResult, r);
+    }
 }

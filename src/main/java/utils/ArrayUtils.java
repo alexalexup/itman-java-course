@@ -232,6 +232,40 @@ public class ArrayUtils {
         }
         System.arraycopy(sortEvents, 0, events, 0, events.length);
     }
+
+    /**
+     * Merge two arrays in increasing order of numbers
+     * @cpu O(n), n = rFrom + aTo - aFrom + bTo - bFrom
+     * @ram O(1)
+     * @param a array with numbers
+     * @param aFrom argument
+     * @param aTo argument
+     * @param b array with numbers
+     * @param bFrom argument
+     * @param bTo argument
+     * @param r array with numbers
+     * @param rFrom argument
+     */
+    public static void merge(int[] a, int aFrom, int aTo, int[] b, int bFrom, int bTo, int[] r, int rFrom) {
+        int length = rFrom + aTo - aFrom + bTo - bFrom;
+        for (int i = rFrom, j = aFrom, k = bFrom; i < length; i++) {
+            if (j >= aTo) {
+                r[i] = b[k];
+                k++;
+            } else if (k >= bTo) {
+                r[i] = a[j];
+                j++;
+            } else {
+                if (a[j] <= b[k]) {
+                    r[i] = a[j];
+                    j++;
+                } else {
+                    r[i] = b[k];
+                    k++;
+                }
+            }
+        }
+    }
 }
 
 
