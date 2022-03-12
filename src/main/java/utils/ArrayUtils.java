@@ -249,21 +249,32 @@ public class ArrayUtils {
     public static void merge(int[] a, int aFrom, int aTo, int[] b, int bFrom, int bTo, int[] r, int rFrom) {
         int length = rFrom + aTo - aFrom + bTo - bFrom;
         for (int i = rFrom, j = aFrom, k = bFrom; i < length; i++) {
-            if (j >= aTo) {
+            if (k < bTo && (j >= aTo || a[j] >= b[k])) {
                 r[i] = b[k];
                 k++;
-            } else if (k >= bTo) {
+            } else {
                 r[i] = a[j];
                 j++;
-            } else {
-                if (a[j] <= b[k]) {
-                    r[i] = a[j];
-                    j++;
-                } else {
-                    r[i] = b[k];
-                    k++;
-                }
             }
+        }
+    }
+
+    public static void mergeSort(int[] a){
+        int[] sortArray = new int[a.length];
+        int size = 1;
+        while (size < a.length) {
+            for (int i = 0; i < a.length; i = i + 2 * size){
+                int aFrom = i;
+                int aTo = i + size;
+                int bFrom = aTo;
+                int bTo = aTo + size;
+                if (bTo > a.length) {
+                    bTo = a.length;
+                }
+                merge(a, aFrom, aTo, a, bFrom, bTo, sortArray, i);
+            }
+            size = size *2;
+            System.arraycopy(sortArray, 0, a, 0, a.length);
         }
     }
 }

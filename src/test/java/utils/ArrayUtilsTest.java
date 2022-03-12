@@ -488,4 +488,28 @@ class ArrayUtilsTest {
         ArrayUtils.merge(a, aFrom, aTo, b, bFrom, bTo, r, rFrom);
         Assertions.assertArrayEquals(expectedResult, r);
     }
+
+    @Test
+    public void mergeSortShouldSortArrayWhenArrayHasAnEvenNumberOfElements(){
+        int[] actualArray = new int[]{13, 9 ,8, 12, 5, 7};
+        ArrayUtils.mergeSort(actualArray);
+        int[] expectedArray = new int[]{5, 7, 8, 9, 12, 13};
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void mergeSortShouldSortArrayWhenArrayHasAnOddNumberOfElements(){
+        int[] actualArray = new int[]{13, 9 ,8, 12, 5, 7, -1};
+        ArrayUtils.mergeSort(actualArray);
+        int[] expectedArray = new int[]{-1, 5, 7, 8, 9, 12, 13};
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void mergeSortShouldWorkWhenArrayHasNotElements(){
+        int[] actualArray = new int[]{};
+        ArrayUtils.mergeSort(actualArray);
+        int[] expectedArray = new int[]{};
+        Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
 }
