@@ -259,6 +259,11 @@ public class ArrayUtils {
         }
     }
 
+    /**
+     * Sort Array use merge method
+     * @cpu O(nlogn), n - a.length
+     * @ram O(n), n- a.length
+     */
     public static void mergeSort(int[] a){
         int[] sortArray = new int[a.length];
         int size = 1;
@@ -275,6 +280,46 @@ public class ArrayUtils {
             }
             size = size *2;
             System.arraycopy(sortArray, 0, a, 0, a.length);
+        }
+    }
+
+    public static void merge(Event[] a, int aFrom, int aTo, Event[] b, int bFrom, int bTo, Event[] r, int rFrom) {
+        int length = rFrom + aTo - aFrom + bTo - bFrom;
+        int[] datesFromA = new int[a.length];
+        int[] datesFromB = new int[b.length];
+        for (int i = 0; i < a.length; i++) {
+            datesFromA[i] = a[i].getDay() + a[i].getMonth() * 31 + a[i].getYear() * 12 * 31;
+        }
+        for (int i = 0; i < b.length; i++) {
+            datesFromB[i] = b[i].getDay() + b[i].getMonth() * 31 + b[i].getYear() * 12 * 31;
+        }
+        for (int i = rFrom, j = aFrom, k = bFrom; i < length; i++) {
+            if (k < bTo && (j >= aTo || datesFromA[j] > datesFromB[k])) {
+                r[i] = b[k];
+                k++;
+            } else {
+                r[i] = a[j];
+                j++;
+            }
+        }
+    }
+
+    public static void mergeSort(Event[] events) {
+        Event[] bufferEvents = new Event[events.length];
+        int size = 1;
+        while (size < events.length) {
+            for (int i = 0; i < events.length; i = i + 2 * size){
+                int aFrom = i;
+                int aTo = i + size;
+                int bFrom = aTo;
+                int bTo = aTo + size;
+                if (bTo > events.length) {
+                    bTo = events.length;
+                }
+                merge(events, aFrom, aTo, events, bFrom, bTo, bufferEvents, i);
+            }
+            size = size *2;
+            System.arraycopy(bufferEvents, 0, events, 0, events.length);
         }
     }
 }

@@ -430,7 +430,7 @@ class ArrayUtilsTest {
     }
 
     @Test
-    public void mergeShouldReturnResultWhenTwoArraysHaveDataThatNeedToMergeToFinalArray() {
+    public void mergeShouldWorkWhenTwoArraysHaveDataThatNeedToMergeToFinalArray() {
         int a[] = new int[]{100, 2, 4, 5, -7};
         int aFrom = 1;
         int aTo = 4;
@@ -445,7 +445,7 @@ class ArrayUtilsTest {
     }
 
     @Test
-    public void mergeShouldReturnResultWhenOnlyOneArraysHaveDataThatNeedToMergeToFinalArray() {
+    public void mergeShouldWorkWhenOnlyOneArraysHaveDataThatNeedToMergeToFinalArray() {
         int a[] = new int[]{100, 2, 4, 5, -7};
         int aFrom = 4;
         int aTo = 4;
@@ -460,7 +460,7 @@ class ArrayUtilsTest {
     }
 
     @Test
-    public void mergeShouldReturnResultWhenHaveNotArraysThatNeedToMergeToFinalArray() {
+    public void mergeShouldWorkWhenHaveNotArraysThatNeedToMergeToFinalArray() {
         int a[] = new int[]{100, 2, 4, 5, -7};
         int aFrom = 4;
         int aTo = 4;
@@ -475,7 +475,7 @@ class ArrayUtilsTest {
     }
 
     @Test
-    public void mergeShouldReturnResultWhenOneArrayHaveNotData() {
+    public void mergeShouldWorkWhenOneArrayHaveNotData() {
         int a[] = new int[]{};
         int aFrom = 0;
         int aTo = 0;
@@ -511,5 +511,136 @@ class ArrayUtilsTest {
         ArrayUtils.mergeSort(actualArray);
         int[] expectedArray = new int[]{};
         Assertions.assertArrayEquals(expectedArray, actualArray);
+    }
+
+    @Test
+    public void mergeShouldWorkWhenTwoArraysWithEventsHaveDataThatNeedToMergeToFinalArray() {
+        Event[] a = new Event[]{
+                new Event(2020, 6, 24, "A"),
+                new Event(2021, 12, 21, "B"),
+                new Event(2020, 8, 3, "C"),
+                new Event(2012,8, 2,"D")
+        };
+        Event[] b = new Event[]{
+                new Event(2018, 3, 2, "E"),
+                new Event(2017, 4, 21, "F"),
+                new Event(2011,7, 4,"H"),
+                new Event(2020, 8, 1, "J")
+        };
+        Event[] result = new Event[] {
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+        };
+        ArrayUtils.merge(a,0,2, b,2, 4, result, 0);
+        Event[] expectedResult = new Event[]{b[2], a[0], b[3], a[1], new Event(2014, 1, 1, "R")};
+        checkEqualsValues(expectedResult, result);
+    }
+
+    @Test
+    public void mergeShouldWorkWhenHaveNotArraysWithEventsThatNeedToMergeToFinalArray() {
+        Event[] a = new Event[]{};
+        Event[] b = new Event[]{
+                new Event(2018, 3, 2, "E"),
+                new Event(2011,7, 4,"H"),
+                new Event(2017, 4, 21, "F"),
+                new Event(2020, 8, 1, "J")
+        };
+        Event[] result = new Event[]{
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R")
+        };
+        Event[] expectedResult = new Event[]{
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2011,7, 4,"H"),
+                new Event(2017, 4, 21, "F"),
+                new Event(2020, 8, 1, "J")
+        };
+        ArrayUtils.merge(a,0,0, b,1, 4, result, 2);
+        checkEqualsValues(expectedResult, result);
+    }
+
+    @Test
+    public void mergeShouldWorkWhenOneArrayWithEventsHaveNotDataThat() {
+        Event[] a = new Event[]{
+                new Event(2020, 6, 24, "A"),
+                new Event(2021, 12, 21, "B"),
+                new Event(2020, 8, 3, "C"),
+                new Event(2012,8, 2,"D")
+        };
+        Event[] b = new Event[]{
+                new Event(2018, 3, 2, "E"),
+                new Event(2017, 4, 21, "F"),
+                new Event(2011,7, 4,"H"),
+                new Event(2020, 8, 1, "J")
+        };
+        Event[] result = new Event[]{
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R")
+        };
+        Event[] expectedResult = new Event[]{
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R"),
+                new Event(2014, 1, 1, "R")
+        };
+        ArrayUtils.merge(a,0,0, b,3, 3, result, 3);
+        checkEqualsValues(expectedResult, result);
+    }
+
+    @Test
+    public void mergeSortShouldWorkWhenAllEventsHaveDifferentDates() {
+        Event[] events = new Event[]{
+                new Event(2020, 6, 24, "A"),
+                new Event(2021, 12, 21, "B"),
+                new Event(2020, 8, 3, "C"),
+                new Event(2012,8, 2,"D"),
+                new Event(2019,7, 2,"E")
+        };
+        Event[] expectedResult = new Event[]{events[3], events[4], events[0], events[2], events[1]};
+        ArrayUtils.mergeSort(events);
+        checkEqualsValues(expectedResult, events);
+    }
+
+    @Test
+    public void mergeSortShouldWorkWhenSomeEventsHaveSameDates() {
+        Event[] events = new Event[]{
+                new Event(2020, 6, 24, "A"),
+                new Event(2021, 12, 21, "B"),
+                new Event(2020, 8, 3, "C"),
+                new Event(2020,8, 3,"D"),
+                new Event(2019,7, 2,"E"),
+                new Event(2012,7, 2,"F"),
+                new Event(2020, 6, 24, "J")
+        };
+        Event[] expectedResult = new Event[]{
+                new Event(2012,7, 2,"F"),
+                new Event(2019,7, 2,"E"),
+                new Event(2020, 6, 24, "A"),
+                new Event(2020, 6, 24, "J"),
+                new Event(2020, 8, 3, "C"),
+                new Event(2020,8, 3,"D"),
+                new Event(2021, 12, 21, "B")
+        };
+        ArrayUtils.mergeSort(events);
+        checkEqualsValues(expectedResult, events);
+    }
+
+    @Test
+    public void mergeSortShouldWorkWhenEventsHaveNotData() {
+        Event[] events = new Event[]{};
+        Event[] expectedResult = new Event[]{};
+        ArrayUtils.mergeSort(events);
+        checkEqualsValues(expectedResult, events);
     }
 }
