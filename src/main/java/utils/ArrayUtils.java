@@ -288,8 +288,6 @@ public class ArrayUtils {
         int length = rFrom + aTo - aFrom + bTo - bFrom;
         int[] datesA = new int[aTo - aFrom];
         int[] datesB = new int[bTo - bFrom];
-        System.out.print(bTo + " ");
-        System.out.println(bFrom + " ");
         for (int i = 0; i < datesA.length; i++) {
             int index = i + aFrom;
             datesA[i] = a[index].getDay() + a[index].getMonth() * 31 + a[index].getYear() * 12 * 31;
@@ -314,11 +312,13 @@ public class ArrayUtils {
         int size = 1;
         while (size < events.length) {
             for (int i = 0; i < events.length; i = i + 2 * size){
-                System.out.println("work" + i);
                 int aFrom = i;
                 int aTo = i + size;
+                if (aTo > events.length) {
+                    aTo = events.length;
+                }
                 int bFrom = aTo;
-                int bTo = aTo + size;
+                int bTo = bFrom + size;
                 if (bTo > events.length) {
                     bTo = events.length;
                 }

@@ -669,7 +669,6 @@ class ArrayUtilsTest {
         ArrayUtils.mergeSort(events);
         long secondTime = System.currentTimeMillis();
         long result = secondTime - firstTime;
-        System.out.println(result);
         Assertions.assertTrue(result < 100000);
     }
 }
