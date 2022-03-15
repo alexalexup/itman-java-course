@@ -3,6 +3,7 @@ package tasks;
 import collections.ArrayList;
 import tasks.QueueManagementSystem;
 import entities.Statistic;
+import utils.ArrayUtils;
 
 public class QueueManagementSystemUtils {
 
@@ -42,7 +43,7 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of median tickets from all queues
-     * @cpu O(n^2), n - systems.length
+     * @cpu O(n * logn), n - systems.length
      * @ram O(n), n - systems.length
      * @param systems array with queues
      * @return value of median tickets  from queues
@@ -55,17 +56,7 @@ public class QueueManagementSystemUtils {
         for (int i = 0; i < systems.length; i++) {
             sortTotalTickets[i] = systems[i].getTotalTickets();
         }
-        for (int i = 0; i < systems.length - 1; i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < systems.length; j++) {
-                if (sortTotalTickets[minIndex] > sortTotalTickets[j]) {
-                    minIndex = j;
-                }
-            }
-            int buffer = sortTotalTickets[i];
-            sortTotalTickets[i] = sortTotalTickets[minIndex];
-            sortTotalTickets[minIndex] = buffer;
-        }
+        ArrayUtils.mergeSort(sortTotalTickets);
         if (systems.length % 2 != 0) {
             double result = sortTotalTickets[systems.length / 2];
             return result;
@@ -175,7 +166,7 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate value of median tickets from all queues by current day when queues have different counts of days
-     * @cpu O(n^2), n - daysByQueue.length
+     * @cpu O(n * logn), n - daysByQueue.length
      * @ram O(n), n - daysByQueue.length
      * @param daysByQueue array that include data with visits by days from queues
      * @param day argument
@@ -224,23 +215,13 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate median value from array
-     * @cpu O(n^2), n - array.length
-     * @ram O(1)
+     * @cpu O(n * logn), n - array.length
+     * @ram O(n), n, array.length
      * @param array with data
      * @return median value from array
      */
     private static double calcMedianFromArray(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < array.length; j++) {
-                if (array[minIndex] > array[j]) {
-                    minIndex = j;
-                }
-            }
-            int buffer = array[i];
-            array[i] = array[minIndex];
-            array[minIndex] = buffer;
-        }
+        ArrayUtils.mergeSort(array);
         if ((array.length % 2) != 0) {
             return (double)array[array.length / 2 ];
         }
@@ -249,7 +230,7 @@ public class QueueManagementSystemUtils {
 
     /**
      * calculate statistic from all queues by days
-     * @cpu O(n^2 * m), n - systems.length, m - days.size()
+     * @cpu O(m * n * logn), n - systems.length, m - days.size()
      * @ram O(n * m), n - systems.length, m - days.size()
      * @param systems array with queues
      * @return values of minimum, maximum, total, average and median  tickets from all queues by days

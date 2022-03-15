@@ -262,8 +262,8 @@ public class ArrayUtils {
 
     /**
      * Sort Array use merge method
-     * @cpu O(nlogn), n - a.length
-     * @ram O(n), n- a.length
+     * @cpu O(n * logn), n - a.length
+     * @ram O(n), n - a.length
      * @param a array with numbers
      */
     public static void mergeSort(int[] a){
@@ -323,7 +323,7 @@ public class ArrayUtils {
 
     /**
      * Sort Array with events use merge method
-     * @cpu O(nlogn), n - events.length
+     * @cpu O(n* logn), n - events.length
      * @ram O(n), n- a.length
      * @param events array with events
      */
@@ -351,7 +351,7 @@ public class ArrayUtils {
 
     /**
      * Sort part of array with numbers  use merge method
-     * @cpu O(nlogn), n = toIndex - fromIndex
+     * @cpu O(n * logn), n = toIndex - fromIndex
      * @ram O(n), n = toIndex - fromIndex
      * @param array array with numbers
      * @param fromIndex argument
@@ -371,7 +371,7 @@ public class ArrayUtils {
 
     /**
      * Sort part of array with events use merge method
-     * @cpu O(nlogn), n = toIndex - fromIndex
+     * @cpu O(n * logn), n = toIndex - fromIndex
      * @ram O(n), n = toIndex - fromIndex
      * @param array array with numbers
      * @param fromIndex argument

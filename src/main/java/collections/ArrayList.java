@@ -142,7 +142,7 @@ public class ArrayList {
 
     /**
      * Sort elements in arrayList in order of increasing use merge method
-     * @cpu O(n*log*n), n - this.size
+     * @cpu O(n*logn), n - this.size
      * @ram O(n), n - this.size
      */
     public void sort() {
