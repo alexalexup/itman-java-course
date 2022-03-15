@@ -3,6 +3,7 @@ package utils;
 import entities.Event;
 import collections.ArrayList;
 
+
 public class ArrayUtils {
     /**
      * Sort events in increasing order of date
@@ -285,20 +286,24 @@ public class ArrayUtils {
 
     public static void merge(Event[] a, int aFrom, int aTo, Event[] b, int bFrom, int bTo, Event[] r, int rFrom) {
         int length = rFrom + aTo - aFrom + bTo - bFrom;
-        int[] datesFromA = new int[a.length];
-        int[] datesFromB = new int[b.length];
-        for (int i = 0; i < a.length; i++) {
-            datesFromA[i] = a[i].getDay() + a[i].getMonth() * 31 + a[i].getYear() * 12 * 31;
+        int[] datesA = new int[aTo - aFrom];
+        int[] datesB = new int[bTo - bFrom];
+        System.out.print(bTo + " ");
+        System.out.println(bFrom + " ");
+        for (int i = 0; i < datesA.length; i++) {
+            int index = i + aFrom;
+            datesA[i] = a[index].getDay() + a[index].getMonth() * 31 + a[index].getYear() * 12 * 31;
         }
-        for (int i = 0; i < b.length; i++) {
-            datesFromB[i] = b[i].getDay() + b[i].getMonth() * 31 + b[i].getYear() * 12 * 31;
+        for (int i = 0; i < datesB.length; i++) {
+            int index = i + bFrom;
+            datesB[i] = b[index].getDay() + b[index].getMonth() * 31 + b[index].getYear() * 12 * 31;
         }
-        for (int i = rFrom, j = aFrom, k = bFrom; i < length; i++) {
-            if (k < bTo && (j >= aTo || datesFromA[j] > datesFromB[k])) {
-                r[i] = b[k];
+        for (int i = rFrom, j = 0, k = 0; i < length; i++) {
+            if (k < datesB.length  && (j >= datesA.length || datesA[j] > datesB[k])) {
+                r[i] = b[k + bFrom];
                 k++;
             } else {
-                r[i] = a[j];
+                r[i] = a[j + aFrom];
                 j++;
             }
         }
@@ -309,6 +314,7 @@ public class ArrayUtils {
         int size = 1;
         while (size < events.length) {
             for (int i = 0; i < events.length; i = i + 2 * size){
+                System.out.println("work" + i);
                 int aFrom = i;
                 int aTo = i + size;
                 int bFrom = aTo;
@@ -318,7 +324,7 @@ public class ArrayUtils {
                 }
                 merge(events, aFrom, aTo, events, bFrom, bTo, bufferEvents, i);
             }
-            size = size *2;
+            size = size * 2;
             System.arraycopy(bufferEvents, 0, events, 0, events.length);
         }
     }

@@ -3,6 +3,8 @@ package utils;
 import entities.Event;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import benchmarks.SortBenchmark;
+import java.util.Random;
 
 class ArrayUtilsTest {
 
@@ -506,6 +508,16 @@ class ArrayUtilsTest {
     }
 
     @Test
+    public void mergeSortShouldSortArrayLessThanOneSecond(){
+        int[] actualArray = SortBenchmark.randomArray(1000000, -3, 10000);
+        long firstTime = System.currentTimeMillis();
+        ArrayUtils.mergeSort(actualArray);
+        long secondTime = System.currentTimeMillis();
+        long result = secondTime - firstTime;
+        Assertions.assertTrue(result < 1000);
+    }
+
+    @Test
     public void mergeSortShouldWorkWhenArrayHasNotElements(){
         int[] actualArray = new int[]{};
         ArrayUtils.mergeSort(actualArray);
@@ -535,7 +547,13 @@ class ArrayUtilsTest {
                 new Event(2014, 1, 1, "R"),
         };
         ArrayUtils.merge(a,0,2, b,2, 4, result, 0);
-        Event[] expectedResult = new Event[]{b[2], a[0], b[3], a[1], new Event(2014, 1, 1, "R")};
+        Event[] expectedResult = new Event[]{
+                  new Event(2011,7, 4,"H"),
+                  new Event(2020, 6, 24, "A"),
+                  new Event(2020, 8, 1, "J"),
+                  new Event(2021, 12, 21, "B"),
+                  new Event(2014, 1, 1, "R")
+                };
         checkEqualsValues(expectedResult, result);
     }
 
@@ -567,7 +585,7 @@ class ArrayUtilsTest {
     }
 
     @Test
-    public void mergeShouldWorkWhenOneArrayWithEventsHaveNotDataThat() {
+    public void mergeShouldWorkWhenOneArrayWithEventsHaveNotDataThatNeedToMergeToFinalArray() {
         Event[] a = new Event[]{
                 new Event(2020, 6, 24, "A"),
                 new Event(2021, 12, 21, "B"),
@@ -642,5 +660,16 @@ class ArrayUtilsTest {
         Event[] expectedResult = new Event[]{};
         ArrayUtils.mergeSort(events);
         checkEqualsValues(expectedResult, events);
+    }
+
+    @Test
+    public void mergeSortShouldWorkLessThanOneSecond() {
+        Event[] events = SortBenchmark.randomEvents(36000, 1, 3000);
+        long firstTime = System.currentTimeMillis();
+        ArrayUtils.mergeSort(events);
+        long secondTime = System.currentTimeMillis();
+        long result = secondTime - firstTime;
+        System.out.println(result);
+        Assertions.assertTrue(result < 100000);
     }
 }
