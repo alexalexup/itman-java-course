@@ -64,6 +64,24 @@ public class SortBenchmark {
     // cso2: OutOfMemory
     // cso3: 0.026s
     // cso4: OutOfMemory
+       /*
+    msp1: randomArray(10_000, -10_000, 10_000)
+    msp2: randomArray(10_000, -1_000_000_000, 1_000_000_000)
+    msp3: randomArray(100_000, -10_000, 10_000)
+    msp4: randomArray(100_000, -1_000_000_000, 1_000_000_000)
+    mso1: randomEvents(10_000, 2000, 2021)
+    mso2: randomEvents(10_000, -1_000_000, 1_000_000)
+    mso3: randomEvents(100_000, 2000, 2021)
+    mso4: randomEvents(100_000, -1_000_000, 1_000_000)
+     */
+    // msp1: 0.004s
+    // msp2: 0.005s
+    // msp3: 0.022s
+    // msp4: 0.020s
+    // mso1: 0.008s
+    // mso2: 0.010s
+    // mso3: 0.055s
+    // mso4: 0.056s
     public static void main (String[] args) {
         int[] numbersArray = randomArray(10000, -10000, 10000);
         Event[] events = randomEvents(10000, 2000, 2021);
@@ -72,6 +90,8 @@ public class SortBenchmark {
         ArrayUtils.bubbleSort(events);
         ArrayUtils.countingSort(numbersArray);
         ArrayUtils.countingSort(events);
+        ArrayUtils.mergeSort(numbersArray);
+        ArrayUtils.mergeSort(events);
         long secondTime = System.currentTimeMillis();
         System.out.println(secondTime-firstTime + " ms");
     }

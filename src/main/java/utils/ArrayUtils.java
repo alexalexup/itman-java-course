@@ -284,6 +284,19 @@ public class ArrayUtils {
         }
     }
 
+    /**
+     * Merge two arrays with events in increasing order of numbers
+     * @cpu O(n + m + k), n = aTo - aFrom, m = bTo - bFrom, k = rFrom
+     * @ram O(n + m)
+     * @param a array with events
+     * @param aFrom argument
+     * @param aTo argument
+     * @param b array with events
+     * @param bFrom argument
+     * @param bTo argument
+     * @param r array with events
+     * @param rFrom argument
+     */
     public static void merge(Event[] a, int aFrom, int aTo, Event[] b, int bFrom, int bTo, Event[] r, int rFrom) {
         int length = rFrom + aTo - aFrom + bTo - bFrom;
         int[] datesA = new int[aTo - aFrom];
@@ -307,6 +320,11 @@ public class ArrayUtils {
         }
     }
 
+    /**
+     * Sort Array with events use merge method
+     * @cpu O(nlogn), n - events.length
+     * @ram O(n), n- a.length
+     */
     public static void mergeSort(Event[] events) {
         Event[] bufferEvents = new Event[events.length];
         int size = 1;
