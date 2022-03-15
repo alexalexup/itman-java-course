@@ -264,6 +264,7 @@ public class ArrayUtils {
      * Sort Array use merge method
      * @cpu O(nlogn), n - a.length
      * @ram O(n), n- a.length
+     * @param a array with numbers
      */
     public static void mergeSort(int[] a){
         int[] sortArray = new int[a.length];
@@ -324,6 +325,7 @@ public class ArrayUtils {
      * Sort Array with events use merge method
      * @cpu O(nlogn), n - events.length
      * @ram O(n), n- a.length
+     * @param events array with events
      */
     public static void mergeSort(Event[] events) {
         Event[] bufferEvents = new Event[events.length];
@@ -345,6 +347,46 @@ public class ArrayUtils {
             size = size * 2;
             System.arraycopy(bufferEvents, 0, events, 0, events.length);
         }
+    }
+
+    /**
+     * Sort part of array with numbers  use merge method
+     * @cpu O(nlogn), n = toIndex - fromIndex
+     * @ram O(n), n = toIndex - fromIndex
+     * @param array array with numbers
+     * @param fromIndex argument
+     * @param toIndex argument
+     */
+    public static void mergeSort(int[] array, int fromIndex, int toIndex){
+        int length = toIndex - fromIndex;
+        if (length == array.length) {
+            mergeSort(array);
+            return;
+        }
+        int[] sortArray = new int[length];
+        System.arraycopy(array, fromIndex, sortArray, 0, sortArray.length);
+        mergeSort(sortArray);
+        System.arraycopy(sortArray,0, array, fromIndex, sortArray.length);
+    }
+
+    /**
+     * Sort part of array with events use merge method
+     * @cpu O(nlogn), n = toIndex - fromIndex
+     * @ram O(n), n = toIndex - fromIndex
+     * @param array array with numbers
+     * @param fromIndex argument
+     * @param toIndex argument
+     */
+    public static void mergeSort(Event[] array, int fromIndex, int toIndex) {
+        int length = toIndex - fromIndex;
+        if (length == array.length) {
+            mergeSort(array);
+            return;
+        }
+        Event[] sortEvents = new Event[length];
+        System.arraycopy(array, fromIndex, sortEvents, 0, sortEvents.length);
+        mergeSort(sortEvents);
+        System.arraycopy(sortEvents,0, array, fromIndex, sortEvents.length);
     }
 }
 

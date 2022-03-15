@@ -669,6 +669,106 @@ class ArrayUtilsTest {
         ArrayUtils.mergeSort(events);
         long secondTime = System.currentTimeMillis();
         long result = secondTime - firstTime;
-        Assertions.assertTrue(result < 100000);
+        Assertions.assertTrue(result < 1000);
+    }
+
+    @Test
+    public void mergeSortShouldSortWhenNeedToSortPartOfArray() {
+        int[] array = new int[] {4, 2, -1, 4, 2, -5, 3};
+        ArrayUtils.mergeSort(array, 3, 7);
+        int[] expectedArray = new int[]{4, 2, -1, -5, 2, 3, 4};
+        Assertions.assertArrayEquals(expectedArray, array);
+    }
+
+    @Test
+    public void mergeSortShouldSortWhenNeedToSortOnlyOneElementFromArray() {
+        int[] array = new int[] {4, 2, -1, 4, 2, -5, 3};
+        ArrayUtils.mergeSort(array, 6, 7);
+        int[] expectedArray = new int[]{4, 2, -1, 4, 2, -5, 3};
+        Assertions.assertArrayEquals(expectedArray, array);
+    }
+
+    @Test
+    public void mergeSortShouldSortWhenHaveNotElementForSorting() {
+        int[] array = new int[] {4, 2, -1, 4, 2, -5, 3};
+        ArrayUtils.mergeSort(array, 7, 7);
+        int[] expectedArray = new int[]{4, 2, -1, 4, 2, -5, 3};
+        Assertions.assertArrayEquals(expectedArray, array);
+    }
+
+    @Test
+    public void mergeSortShouldSortWhenNeedToSortAllElementsFromArray() {
+        int[] array = new int[] {4, 2, -1, 4, 2, -5, 3};
+        ArrayUtils.mergeSort(array, 0, 7);
+        int[] expectedArray = new int[]{-5, -1, 2, 2, 3, 4, 4};
+        Assertions.assertArrayEquals(expectedArray, array);
+    }
+
+    @Test
+    public void mergeSortShouldWorkWhenArrayIsEmpty() {
+        int[] array = new int[]{};
+        ArrayUtils.mergeSort(array, 0, 0);
+        int[] expectedArray = new int[]{};
+        Assertions.assertArrayEquals(expectedArray, array);
+    }
+
+    @Test
+    public void mergeSortShouldWorkLessThanOneSecondWhenArrayHaveBigData() {
+        int[] array = SortBenchmark.randomArray(100000, 1, 30000);
+        long firstTime = System.currentTimeMillis();
+        ArrayUtils.mergeSort(array, 4, 9253);
+        long secondTime = System.currentTimeMillis();
+        long result = secondTime - firstTime;
+        Assertions.assertTrue(result < 1000);
+    }
+
+    @Test
+    public void mergeSortShouldSortWhenNeedToSortPartOfArrayWithEvents() {
+        Event[] events = new Event[] {
+                new Event (2019, 12, 3, "A"),
+                new Event (2018, 4, 2, "B"),
+                new Event (2021, 3, 4, "C"),
+                new Event (2014, 4, 3, "D"),
+                new Event (2015, 2, 12, "E")
+        };
+        ArrayUtils.mergeSort(events, 2, 5);
+        Event[] expectedEvents = new Event[]{
+                new Event (2019, 12, 3, "A"),
+                new Event (2018, 4, 2, "B"),
+                new Event (2014, 4, 3, "D"),
+                new Event (2015, 2, 12, "E"),
+                new Event (2021, 3, 4, "C")
+        };
+        checkEqualsValues(expectedEvents, events);
+    }
+
+    @Test
+    public void mergeSortShouldSortWhenNeedToOnlyOneEvent() {
+        Event[] events = new Event[] {
+                new Event (2019, 12, 3, "A"),
+                new Event (2018, 4, 2, "B"),
+                new Event (2021, 3, 4, "C"),
+                new Event (2014, 4, 3, "D"),
+                new Event (2015, 2, 12, "E")
+        };
+        ArrayUtils.mergeSort(events, 4, 5);
+        Event[] expectedEvents = new Event[]{
+                new Event (2019, 12, 3, "A"),
+                new Event (2018, 4, 2, "B"),
+                new Event (2021, 3, 4, "C"),
+                new Event (2014, 4, 3, "D"),
+                new Event (2015, 2, 12, "E")
+        };
+        checkEqualsValues(expectedEvents, events);
+    }
+
+    @Test
+    public void mergeSortShouldWorkLessThanOneSecondWithBigData() {
+        Event[] events = SortBenchmark.randomEvents(36000, 2000, 2022);
+        long firstTime = System.currentTimeMillis();
+        ArrayUtils.mergeSort(events, 22, 34521);
+        long secondTime = System.currentTimeMillis();
+        long result = secondTime - firstTime;
+        Assertions.assertTrue(result < 1000);
     }
 }
