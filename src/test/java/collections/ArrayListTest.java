@@ -1,7 +1,9 @@
 package collections;
 
+import benchmarks.SortBenchmark;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import utils.ArrayUtils;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -185,13 +187,14 @@ class ArrayListTest {
     }
 
     @Test
-    public void sortShouldSortArrayWhenMethodWasCalled() {
-        ArrayList actualArray = ArrayList.of(4, 2, 3, 1);
-        ArrayList expectedArray = ArrayList.of(1, 2, 3, 4);
+    public void sortMergeShouldSortArrayWhenMethodWasCalled() {
+        ArrayList actualArray = ArrayList.of(4, 2, 3, 1, 1, 5, -5);
+        ArrayList expectedArray = ArrayList.of(-5, 1, 1, 2, 3, 4, 5);
         actualArray.sort();
         boolean expectedResult = actualArray.equals(expectedArray);
         Assertions.assertTrue(expectedResult);
     }
+
 
     @Test
     public void sortShouldWorkWhenArrayHaveOneElement() {

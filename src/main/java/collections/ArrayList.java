@@ -1,5 +1,6 @@
 package collections;
 import utils.StringBuilder;
+import utils.ArrayUtils;
 
 public class ArrayList {
     private int[] numbers;
@@ -140,21 +141,15 @@ public class ArrayList {
     }
 
     /**
-     * Sort elements in arrayList in order of increasing
-     * @cpu O(n^2), n - this.size
-     * @ram O(1)
+     * Sort elements in arrayList in order of increasing use merge method
+     * @cpu O(n*log*n), n - this.size
+     * @ram O(n), n - this.size
      */
     public void sort() {
-        for (int i = 0; i < size; i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < size; j++) {
-                if (this.numbers[minIndex] > this.numbers[j]) {
-                    minIndex = j;
-                }
-            }
-            int buffer = this.numbers[i];
-            this.numbers[i] = this.numbers[minIndex];
-            this.numbers[minIndex] = buffer;
+        int[] array = this.toArray();
+        ArrayUtils.mergeSort(array);
+        for (int i = 0; i < array.length; i++) {
+            set(i,array[i]);
         }
     }
 
