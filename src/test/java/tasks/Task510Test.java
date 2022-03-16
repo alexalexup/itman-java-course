@@ -10,10 +10,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class Task510Test {
 
     @Test
-    public void mostFrequentShouldReturnResultWhenArrayHaveSomeEqualElements() {
+    public void mostFrequentShouldReturnResultWhenArrayHaveSomeEqualElementsAndEqualElementsHaveSameCount() {
         int[] array = new int[]{1, 2, 5, 1, 2, 2, 3, 1};
         int result = Task510.mostFrequent(array);
         Assertions.assertEquals(1, result);
+    }
+
+    @Test
+    public void mostFrequentShouldReturnResultWhenArrayHaveSomeEqualElements() {
+        int[] array = new int[]{6, 2, 5, 1, 2, 6, 1, 4, 4, 5, 3,6, 6};
+        int result = Task510.mostFrequent(array);
+        Assertions.assertEquals(6, result);
     }
 
     @Test
@@ -32,7 +39,7 @@ class Task510Test {
 
     @Test
     public void mostFrequentShouldWorkLessOneSecond(){
-        int[] array = SortBenchmark.randomArray(1000000, 1, 30000);
+        int[] array = SortBenchmark.randomArray(100000, 1, 30000);
         long firstTime = System.currentTimeMillis();
         Task510.mostFrequent(array);
         long secondTime = System.currentTimeMillis();
