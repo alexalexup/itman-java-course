@@ -3,6 +3,13 @@ import utils.ArrayUtils;
 
 public class Task510 {
 
+    /**
+     * Find and return most frequent element from array
+     * cpu O(n * logn), n - array.length
+     * @ram O(n), array.length
+     * @param array array with numbers
+     * @return most frequent element from array
+     */
     public static int mostFrequent(int array[]) {
         int[] sortArray = new int[array.length];
         System.arraycopy(array,0,sortArray,0, array.length);
