@@ -250,7 +250,7 @@ public class ArrayUtils {
     public static void merge(int[] a, int aFrom, int aTo, int[] b, int bFrom, int bTo, int[] r, int rFrom) {
         int length = rFrom + aTo - aFrom + bTo - bFrom;
         for (int i = rFrom, j = aFrom, k = bFrom; i < length; i++) {
-            if (k < bTo && (j >= aTo || a[j] >= b[k])) {
+            if (k < bTo && (j >= aTo || a[j] > b[k])) {
                 r[i] = b[k];
                 k++;
             } else {
@@ -300,12 +300,12 @@ public class ArrayUtils {
      */
     public static void merge(Event[] a, int aFrom, int aTo, Event[] b, int bFrom, int bTo, Event[] r, int rFrom) {
         int length = rFrom + aTo - aFrom + bTo - bFrom;
-        for (int i = rFrom, j = 0, k = 0; i < length; i++) {
-            if (k < b.length  && (j >= a.length || a[j].compareTo(b[k]) > 0 )) {
-                r[i] = b[k + bFrom];
+        for (int i = rFrom, j = aFrom, k = bFrom; i < length; i++) {
+            if (k < b.length  && (j >= a.length || a[j].compareTo(b[k]) > 0)) {
+                r[i] = b[k];
                 k++;
             } else {
-                r[i] = a[j + aFrom];
+                r[i] = a[j];
                 j++;
             }
         }

@@ -529,15 +529,15 @@ class ArrayUtilsTest {
     public void mergeShouldWorkWhenTwoArraysWithEventsHaveDataThatNeedToMergeToFinalArray() {
         Event[] a = new Event[]{
                 new Event(2020, 6, 24, "A"),
-                new Event(2021, 12, 21, "B"),
-                new Event(2020, 8, 3, "C"),
-                new Event(2012,8, 2,"D")
+                new Event(2020, 7, 22, "B"),
+                new Event(2021, 8, 3, "C"),
+                new Event(2022,8, 2,"D")
         };
         Event[] b = new Event[]{
                 new Event(2018, 3, 2, "E"),
-                new Event(2017, 4, 21, "F"),
-                new Event(2011,7, 4,"H"),
-                new Event(2020, 8, 1, "J")
+                new Event(2019, 4, 21, "F"),
+                new Event(2019,6, 4,"H"),
+                new Event(2019, 6, 24, "J")
         };
         Event[] result = new Event[] {
                 new Event(2014, 1, 1, "R"),
@@ -548,10 +548,10 @@ class ArrayUtilsTest {
         };
         ArrayUtils.merge(a,0,2, b,2, 4, result, 0);
         Event[] expectedResult = new Event[]{
-                  new Event(2011,7, 4,"H"),
+                  new Event(2019,6, 4,"H"),
+                  new Event(2019, 6, 24, "J"),
                   new Event(2020, 6, 24, "A"),
-                  new Event(2020, 8, 1, "J"),
-                  new Event(2021, 12, 21, "B"),
+                  new Event(2020, 7, 22, "B"),
                   new Event(2014, 1, 1, "R")
                 };
         checkEqualsValues(expectedResult, result);
