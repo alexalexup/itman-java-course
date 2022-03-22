@@ -187,7 +187,7 @@ class ArrayListTest {
     }
 
     @Test
-    public void sortMergeShouldSortArrayWhenMethodWasCalled() {
+    public void sortShouldSortArrayWhenMethodWasCalled() {
         ArrayList actualArray = ArrayList.of(4, 2, 3, 1, 1, 5, -5);
         ArrayList expectedArray = ArrayList.of(-5, 1, 1, 2, 3, 4, 5);
         actualArray.sort();

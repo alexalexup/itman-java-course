@@ -3,8 +3,8 @@ package tasks;
 public class Task497 {
     /**
      * Merge two arrays
-     * cpu O(n), n = a.length + b.length
-     * @ram O(n), n = a.length + b.length
+     * cpu O(n + m), n - a.length,  m -  b.length
+     * @ram O(n + m), n - a.length,  m -  b.length
      * @param a array with numbers
      * @param b array with numbers
      * @return array with elements from both arrays in increasing order

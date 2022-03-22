@@ -81,8 +81,8 @@ public class ArrayUtils {
 
     /**
      * Sort array in increasing order.The counting algorithm is used
-     * @cpu O(n), n- array.length
-     * @ram O(1)
+     * @cpu O(n + m), n - array.length, m = max(array) - min(array)
+     * @ram O(m), m = max(array) - min(array)
      * @param array array with numbers
      */
     public static void countingSort(int[] array) {
@@ -161,7 +161,7 @@ public class ArrayUtils {
     /**
      * Count of Equal elements that are contained in both arrays
      * @cpu O(n + m), n- a.length, m - b.length
-     * @ram O(k), k = max(a) - min(b)
+     * @ram O(k), k = min(max(a), max(b)) - max(min(a), min(b))
      * @param a array with  numbers
      * @param b array with numbers
      * @returm count of Equal elements from two arrays
@@ -236,7 +236,7 @@ public class ArrayUtils {
 
     /**
      * Merge two arrays in increasing order of numbers
-     * @cpu O(n), n = rFrom + aTo - aFrom + bTo - bFrom
+     * @cpu O(n + m + k), n = aTo - aFrom, m = bTo - bFrom, k = rFrom
      * @ram O(1)
      * @param a array with numbers
      * @param aFrom argument
@@ -300,18 +300,8 @@ public class ArrayUtils {
      */
     public static void merge(Event[] a, int aFrom, int aTo, Event[] b, int bFrom, int bTo, Event[] r, int rFrom) {
         int length = rFrom + aTo - aFrom + bTo - bFrom;
-        int[] datesA = new int[aTo - aFrom];
-        int[] datesB = new int[bTo - bFrom];
-        for (int i = 0; i < datesA.length; i++) {
-            int index = i + aFrom;
-            datesA[i] = a[index].getDay() + a[index].getMonth() * 31 + a[index].getYear() * 12 * 31;
-        }
-        for (int i = 0; i < datesB.length; i++) {
-            int index = i + bFrom;
-            datesB[i] = b[index].getDay() + b[index].getMonth() * 31 + b[index].getYear() * 12 * 31;
-        }
         for (int i = rFrom, j = 0, k = 0; i < length; i++) {
-            if (k < datesB.length  && (j >= datesA.length || datesA[j] > datesB[k])) {
+            if (k < b.length  && (j >= a.length || a[j].compareTo(b[k]) > 0 )) {
                 r[i] = b[k + bFrom];
                 k++;
             } else {

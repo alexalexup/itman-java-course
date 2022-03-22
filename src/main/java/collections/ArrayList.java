@@ -146,11 +146,7 @@ public class ArrayList {
      * @ram O(n), n - this.size
      */
     public void sort() {
-        int[] array = this.toArray();
-        ArrayUtils.mergeSort(array);
-        for (int i = 0; i < array.length; i++) {
-            set(i,array[i]);
-        }
+        ArrayUtils.mergeSort(this.toArray());
     }
 
     /**
