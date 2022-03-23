@@ -273,6 +273,9 @@ public class ArrayUtils {
             for (int i = 0; i < a.length; i = i + 2 * size){
                 int aFrom = i;
                 int aTo = i + size;
+                if (aTo > a.length) {
+                    aTo = a.length;
+                }
                 int bFrom = aTo;
                 int bTo = aTo + size;
                 if (bTo > a.length) {
@@ -301,7 +304,7 @@ public class ArrayUtils {
     public static void merge(Event[] a, int aFrom, int aTo, Event[] b, int bFrom, int bTo, Event[] r, int rFrom) {
         int length = rFrom + aTo - aFrom + bTo - bFrom;
         for (int i = rFrom, j = aFrom, k = bFrom; i < length; i++) {
-            if (k < b.length  && (j >= a.length || a[j].compareTo(b[k]) > 0)) {
+            if (k < bTo  && (j >= aTo || a[j].compareTo(b[k]) > 0)) {
                 r[i] = b[k];
                 k++;
             } else {
