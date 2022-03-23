@@ -673,10 +673,18 @@ class ArrayUtilsTest {
     }
 
     @Test
-    public void mergeSortShouldSortWhenNeedToSortPartOfArray() {
-        int[] array = new int[] {4, 2, -1, 4, 2, -5, 3};
-        ArrayUtils.mergeSort(array, 3, 7);
-        int[] expectedArray = new int[]{4, 2, -1, -5, 2, 3, 4};
+    public void mergeSortShouldSortWhenNeedToSortPartOfArrayAndCountOfSortingElementsIsOdd() {
+        int[] array = new int[]{2, -3, 4, 7, 1, 3, 2, 3};
+        ArrayUtils.mergeSort(array, 1, 6);
+        int[] expectedArray = new int[]{2, -3, 1, 3, 4, 7, 2, 3};
+        Assertions.assertArrayEquals(expectedArray, array);
+    }
+
+    @Test
+    public void mergeSortShouldSortWhenNeedToSortPartOfArrayAndCountOfSortingElementsIsEven() {
+        int[] array = new int[]{2, -3, 4, 7, 5, 1, 3, 2, 3};
+        ArrayUtils.mergeSort(array, 1, 7);
+        int[] expectedArray = new int[]{2, -3, 1, 3, 4, 5, 7, 2, 3};
         Assertions.assertArrayEquals(expectedArray, array);
     }
 
@@ -716,7 +724,7 @@ class ArrayUtilsTest {
     public void mergeSortShouldWorkLessThanOneSecondWhenArrayHaveBigData() {
         int[] array = SortBenchmark.randomArray(100000, 1, 30000);
         long firstTime = System.currentTimeMillis();
-        ArrayUtils.mergeSort(array, 4, 9253);
+        ArrayUtils.mergeSort(array, 2, 92459);
         long secondTime = System.currentTimeMillis();
         long result = secondTime - firstTime;
         Assertions.assertTrue(result < 1000);

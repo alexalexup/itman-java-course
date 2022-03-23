@@ -94,6 +94,5 @@ public class SortBenchmark {
             long result = time[i + 1] - time[i];
             System.out.println(name[i] + ":" + result + "ms");
         }
-
     }
 }

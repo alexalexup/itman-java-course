@@ -31,7 +31,7 @@ public class CountingSortTask {
 
     /**
      * Restores the sorted array based on input data and the counting method
-     * @cpu O(n + k), n - array.length, m - sum(array) sum of all elements from array
+     * @cpu O(n + k), n - array.length, k - sum(array) sum of all elements from array
      * @ram O(k),  k - sum(array) sum of all elements from array
      * @param array array with numbers
      * @return array with count of duplicate elements from input array

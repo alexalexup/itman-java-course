@@ -291,7 +291,7 @@ public class ArrayUtils {
     /**
      * Merge two arrays with events in increasing order of numbers
      * @cpu O(n + m + k), n = aTo - aFrom, m = bTo - bFrom, k = rFrom
-     * @ram O(n + m)
+     * @ram O(1)
      * @param a array with events
      * @param aFrom argument
      * @param aTo argument
@@ -316,7 +316,7 @@ public class ArrayUtils {
 
     /**
      * Sort Array with events use merge method
-     * @cpu O(n* logn), n - events.length
+     * @cpu O(n * logn), n - events.length
      * @ram O(n), n- a.length
      * @param events array with events
      */
@@ -351,15 +351,25 @@ public class ArrayUtils {
      * @param toIndex argument
      */
     public static void mergeSort(int[] array, int fromIndex, int toIndex){
-        int length = toIndex - fromIndex;
-        if (length == array.length) {
-            mergeSort(array);
-            return;
+        int[] sortArray = new int[toIndex  - fromIndex];
+        int size = 1;
+        while (size < sortArray.length) {
+            for (int i = fromIndex; i < toIndex; i = i + 2 * size){
+                int aFrom = i;
+                int aTo = i + size;
+                if (aTo > toIndex) {
+                    aTo = toIndex;
+                }
+                int bFrom = aTo;
+                int bTo = aTo + size;
+                if (bTo > toIndex) {
+                    bTo = toIndex;
+                }
+                merge(array, aFrom, aTo, array, bFrom, bTo, sortArray, i - fromIndex);
+            }
+            size = size * 2;
+            System.arraycopy(sortArray, 0, array, fromIndex, sortArray.length);
         }
-        int[] sortArray = new int[length];
-        System.arraycopy(array, fromIndex, sortArray, 0, sortArray.length);
-        mergeSort(sortArray);
-        System.arraycopy(sortArray,0, array, fromIndex, sortArray.length);
     }
 
     /**
@@ -371,15 +381,25 @@ public class ArrayUtils {
      * @param toIndex argument
      */
     public static void mergeSort(Event[] array, int fromIndex, int toIndex) {
-        int length = toIndex - fromIndex;
-        if (length == array.length) {
-            mergeSort(array);
-            return;
+        Event[] bufferEvents = new Event[toIndex - fromIndex];
+        int size = 1;
+        while (size < bufferEvents.length) {
+            for (int i = fromIndex; i < toIndex; i = i + 2 * size) {
+                int aFrom = i;
+                int aTo = i + size;
+                if (aTo > toIndex) {
+                    aTo = toIndex;
+                }
+                int bFrom = aTo;
+                int bTo = bFrom + size;
+                if (bTo > toIndex) {
+                    bTo = toIndex;
+                }
+                merge(array, aFrom, aTo, array, bFrom, bTo, bufferEvents, i - fromIndex);
+            }
+            size = size * 2;
+            System.arraycopy(bufferEvents, 0, array, fromIndex, bufferEvents.length);
         }
-        Event[] sortEvents = new Event[length];
-        System.arraycopy(array, fromIndex, sortEvents, 0, sortEvents.length);
-        mergeSort(sortEvents);
-        System.arraycopy(sortEvents,0, array, fromIndex, sortEvents.length);
     }
 }
 
