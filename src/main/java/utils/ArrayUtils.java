@@ -267,25 +267,7 @@ public class ArrayUtils {
      * @param a array with numbers
      */
     public static void mergeSort(int[] a){
-        int[] sortArray = new int[a.length];
-        int size = 1;
-        while (size < a.length) {
-            for (int i = 0; i < a.length; i = i + 2 * size){
-                int aFrom = i;
-                int aTo = i + size;
-                if (aTo > a.length) {
-                    aTo = a.length;
-                }
-                int bFrom = aTo;
-                int bTo = aTo + size;
-                if (bTo > a.length) {
-                    bTo = a.length;
-                }
-                merge(a, aFrom, aTo, a, bFrom, bTo, sortArray, i);
-            }
-            size = size *2;
-            System.arraycopy(sortArray, 0, a, 0, a.length);
-        }
+       mergeSort(a,0, a.length);
     }
 
     /**
@@ -321,25 +303,7 @@ public class ArrayUtils {
      * @param events array with events
      */
     public static void mergeSort(Event[] events) {
-        Event[] bufferEvents = new Event[events.length];
-        int size = 1;
-        while (size < events.length) {
-            for (int i = 0; i < events.length; i = i + 2 * size){
-                int aFrom = i;
-                int aTo = i + size;
-                if (aTo > events.length) {
-                    aTo = events.length;
-                }
-                int bFrom = aTo;
-                int bTo = bFrom + size;
-                if (bTo > events.length) {
-                    bTo = events.length;
-                }
-                merge(events, aFrom, aTo, events, bFrom, bTo, bufferEvents, i);
-            }
-            size = size * 2;
-            System.arraycopy(bufferEvents, 0, events, 0, events.length);
-        }
+        mergeSort(events, 0, events.length);
     }
 
     /**
