@@ -50,12 +50,12 @@ public class SortBenchmark {
 
     // bsp1: 0.2s
     // bsp2: 0.2S
-    // bsp3: 20.57s
-    // bsp4: 20.83s
+    // bsp3: 13.97s
+    // bsp4: 20.91s
     // bsp01: 0.61s
     // bsp02: 0.47s
-    // bsp03: 92.67s
-    // bsp04: 90.47s
+    // bsp03: 100.57s
+    // bsp04: 93.990s
     // сsp1: 0.002s
     // csp2: OutOfMemory
     // csp3: 0.006s
@@ -73,26 +73,132 @@ public class SortBenchmark {
     // mso3: 0.055s
     // mso4: 0.056s
     public static void main (String[] args) {
+        String[] name = new String[]{
+                "bsp1",
+                "bsp2",
+                "bsp3",
+                "bsp4",
+                "bsp01",
+                "bsp02",
+                "bsp03",
+                "bsp04",
+                "сsp1",
+                "сsp2",
+                "сsp3",
+                "сsp4",
+                "cso1",
+                "cso2",
+                "cso3",
+                "cso4",
+                "msp1",
+                "msp2",
+                "msp3",
+                "msp4",
+                "mso1",
+                "mso2",
+                "mso3",
+                "mso4"
+        };
+        long[] time = new long[48];
         int[] numbersArray = randomArray(10000, -10000, 10000);
-        Event[] events = randomEvents(10000, 2000, 2021);
-        String[] name = new String[]{"bsp", "bspo", "csp", "cso", "msp", "mso"};
-        long[] time = new long[7];
         time[0] = System.currentTimeMillis();
         ArrayUtils.bubbleSort(numbersArray);
         time[1] = System.currentTimeMillis();
-        ArrayUtils.bubbleSort(events);
+        numbersArray = randomArray(10000, -1000000000, 1000000000);
         time[2] = System.currentTimeMillis();
-        ArrayUtils.countingSort(numbersArray);
+        ArrayUtils.bubbleSort(numbersArray);
         time[3] = System.currentTimeMillis();
-        ArrayUtils.countingSort(events);
+        numbersArray = randomArray(100000, -10000, 10000);
         time[4] = System.currentTimeMillis();
-        ArrayUtils.mergeSort(numbersArray);
+        ArrayUtils.bubbleSort(numbersArray);
         time[5] = System.currentTimeMillis();
-        ArrayUtils.mergeSort(events);
+        numbersArray = randomArray(100000, -1000000000, 1000000000);
         time[6] = System.currentTimeMillis();
-        for (int i = 0; i < time.length - 1; i++) {
+        ArrayUtils.bubbleSort(numbersArray);
+        time[7] = System.currentTimeMillis();
+        Event[] events = randomEvents(10000, 2000, 2021);
+        time[8] = System.currentTimeMillis();
+        ArrayUtils.bubbleSort(events);
+        time[9] = System.currentTimeMillis();
+        events = randomEvents(10000, -1000000000, 1000000000);
+        time[10] = System.currentTimeMillis();
+        ArrayUtils.bubbleSort(events);
+        time[11] = System.currentTimeMillis();
+        events = randomEvents(100000, 2000, 2021);
+        time[12] = System.currentTimeMillis();
+        ArrayUtils.bubbleSort(events);
+        time[13] = System.currentTimeMillis();
+        events = randomEvents(100000, -1000000000, 1000000000);
+        time[14] = System.currentTimeMillis();
+        ArrayUtils.bubbleSort(events);
+        time[15] = System.currentTimeMillis();
+        numbersArray = randomArray(10000, -10000, 10000);
+        time[16] = System.currentTimeMillis();
+        ArrayUtils.countingSort(numbersArray);
+        time[17] = System.currentTimeMillis();
+        numbersArray = randomArray(10000, -1000000000, 1000000000);
+        time[18] = System.currentTimeMillis();
+        ArrayUtils.countingSort(numbersArray);
+        time[19] = System.currentTimeMillis();
+        numbersArray = randomArray(100000, -10000, 10000);
+        time[20] = System.currentTimeMillis();
+        ArrayUtils.countingSort(numbersArray);
+        time[21] = System.currentTimeMillis();
+        numbersArray = randomArray(100000, -1000000000, 1000000000);
+        time[22] = System.currentTimeMillis();
+        ArrayUtils.countingSort(numbersArray);
+        time[23] = System.currentTimeMillis();
+        events = randomEvents(10000, 2000, 2021);
+        time[24] = System.currentTimeMillis();
+        ArrayUtils.countingSort(events);
+        time[25] = System.currentTimeMillis();
+        events = randomEvents(10000, -1000000000, 1000000000);
+        time[26] = System.currentTimeMillis();
+        ArrayUtils.countingSort(events);
+        time[27] = System.currentTimeMillis();
+        events = randomEvents(100000, 2000, 2021);
+        time[28] = System.currentTimeMillis();
+        ArrayUtils.countingSort(events);
+        time[29] = System.currentTimeMillis();
+        events = randomEvents(100000, -1000000000, 1000000000);
+        time[30] = System.currentTimeMillis();
+        ArrayUtils.countingSort(events);
+        time[31] = System.currentTimeMillis();
+        numbersArray = randomArray(10000, -10000, 10000);
+        time[32] = System.currentTimeMillis();
+        ArrayUtils.mergeSort(numbersArray);
+        time[33] = System.currentTimeMillis();
+        numbersArray = randomArray(10000, -1000000000, 1000000000);
+        time[34] = System.currentTimeMillis();
+        ArrayUtils.mergeSort(numbersArray);
+        time[35] = System.currentTimeMillis();
+        numbersArray = randomArray(100000, -10000, 10000);
+        time[36] = System.currentTimeMillis();
+        ArrayUtils.mergeSort(numbersArray);
+        time[37] = System.currentTimeMillis();
+        numbersArray = randomArray(100000, -1000000000, 1000000000);
+        time[38] = System.currentTimeMillis();
+        ArrayUtils.mergeSort(numbersArray);
+        time[39] = System.currentTimeMillis();
+        events = randomEvents(10000, 2000, 2021);
+        time[40] = System.currentTimeMillis();
+        ArrayUtils.mergeSort(events);
+        time[41] = System.currentTimeMillis();
+        events = randomEvents(10000, -1000000000, 1000000000);
+        time[42] = System.currentTimeMillis();
+        ArrayUtils.mergeSort(events);
+        time[43] = System.currentTimeMillis();
+        events = randomEvents(100000, 2000, 2021);
+        time[44] = System.currentTimeMillis();
+        ArrayUtils.mergeSort(events);
+        time[45] = System.currentTimeMillis();
+        events = randomEvents(100000, -1000000000, 1000000000);
+        time[46] = System.currentTimeMillis();
+        ArrayUtils.mergeSort(events);
+        time[47] = System.currentTimeMillis();
+        for (int i = 0, j = 0; i < time.length; i = i + 2) {
             long result = time[i + 1] - time[i];
-            System.out.println(name[i] + ":" + result + "ms");
+            System.out.println(name[j++] + ":" + result + "ms");
         }
     }
 }

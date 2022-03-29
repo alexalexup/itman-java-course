@@ -236,7 +236,7 @@ public class ArrayUtils {
 
     /**
      * Merge two arrays in increasing order of numbers
-     * @cpu O(n + m + k), n = aTo - aFrom, m = bTo - bFrom, k = rFrom
+     * @cpu O(n + m), n = aTo - aFrom, m = bTo - bFrom
      * @ram O(1)
      * @param a array with numbers
      * @param aFrom argument
@@ -272,7 +272,7 @@ public class ArrayUtils {
 
     /**
      * Merge two arrays with events in increasing order of numbers
-     * @cpu O(n + m + k), n = aTo - aFrom, m = bTo - bFrom, k = rFrom
+     * @cpu O(n + m), n = aTo - aFrom, m = bTo - bFrom
      * @ram O(1)
      * @param a array with events
      * @param aFrom argument
