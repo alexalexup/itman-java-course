@@ -17,15 +17,15 @@ public class Event {
    }
 
    public int getYear() {
-        return year;
+        return this.year;
    }
 
    public int getMonth() {
-        return month;
+        return this.month;
    }
 
    public int getDay() {
-        return day;
+        return this.day;
    }
 
    public String getName() {
