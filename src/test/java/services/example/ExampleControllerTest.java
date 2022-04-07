@@ -21,7 +21,7 @@ class ExampleControllerTest {
     @Test
     public void extractShouldExecutedWith200WhenPassAllParams() throws Exception {
         final MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .post("/extract/one/1?required=r&optional=opt&default=0&missing=world")
+                .post("/extract/one/1e?rquired=r&optional=opt&default=0&missing=world")
                 .content("all params");
         this.mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isOk())

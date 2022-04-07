@@ -1,6 +1,8 @@
 package services.example;
 
+import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
+import utils.StringBuilder;
 
 @RestController
 public class ExampleController {
@@ -48,5 +50,16 @@ public class ExampleController {
                 + "optional = " + optional + "\n"
                 + "default = " + defaultValue + "\n"
                 + "body = " + body + "\n";
+    }
+
+    @GetMapping("api/range")
+    public String numbFromKey(@RequestParam int from, @RequestParam int to) {
+        int length = to - from;
+        StringBuilder string = new StringBuilder(length);
+        for (int i = 0; i < length + 1; i++) {
+           string.append( i + from + "\n");
+        }
+        String result = string.toString();
+        return result;
     }
 }
