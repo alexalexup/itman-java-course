@@ -16,22 +16,22 @@ public class ExampleController {
     }
 
     @PostMapping("/second")
-    public String PostMethod() {
+    public String postMethod() {
         return "I'm post mapping";
     }
 
     @PutMapping("/second")
-    public String PutMethod() {
+    public String putMethod() {
         return "I'm put mapping";
     }
 
     @PatchMapping("/second")
-    public String PutchMethod() {
+    public String patchMethod() {
         return "I'm patch mapping";
     }
 
     @DeleteMapping("/second")
-    public String DeleteMethod() {
+    public String deleteMethod() {
         return "I'm delete mapping";
     }
 
