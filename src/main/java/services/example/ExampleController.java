@@ -52,14 +52,23 @@ public class ExampleController {
                 + "body = " + body + "\n";
     }
 
-    @GetMapping("api/range")
-    public String numbFromKey(@RequestParam int from, @RequestParam int to) {
-        int length = to - from;
+    private String range(int from, int to) {
+        int length = Math.abs(to - from);
         StringBuilder string = new StringBuilder(length);
         for (int i = 0; i < length + 1; i++) {
-           string.append( i + from + "\n");
+            string.append( i + from + "\n");
         }
         String result = string.toString();
         return result;
+    }
+
+    @GetMapping("api/range")
+    public String numbFromParam(@RequestParam int from, @RequestParam int to) {
+       return range(from, to);
+    }
+
+    @GetMapping("api/range/{param1}/{param2}")
+    public String numbFromVariable(@PathVariable("param1") int from, @PathVariable("param2") int to) {
+        return range(from, to);
     }
 }

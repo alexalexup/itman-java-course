@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureMockMvc
 class ExampleControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
-
 
     @Test
     public void extractShouldExecutedWith200WhenPassAllParams() throws Exception {
@@ -81,5 +81,55 @@ class ExampleControllerTest {
         this.mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("I'm delete mapping"));
+    }
+
+    @Test
+    public void numbFromParamShouldReturnResultWhenRangeHaveTwoValues() throws Exception {
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/range?from=-3&to=-2");
+        this.mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("" +
+                        "-3\n" +
+                        "-2\n"));
+    }
+
+    @Test
+    public void numbFromParamShouldReturnResultWhenRangeHaveSomeValues() throws Exception {
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/range?from=-3&to=4");
+        this.mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("" +
+                        "-3\n" +
+                        "-2\n" +
+                        "-1\n" +
+                        "0\n" +
+                        "1\n" +
+                        "2\n" +
+                        "3\n" +
+                        "4\n"));
+    }
+
+    @Test
+    public void numbFromVariableShouldReturnResultWhenRangeHaveTwoValues() throws Exception {
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/range/0/1");
+        this.mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("" +
+                        "0\n" +
+                        "1\n"));
+    }
+
+    @Test
+    public void numbFromVariableShouldReturnResultWhenRangeHaveSomeValues() throws Exception {
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/api/range/-1/4");
+        this.mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("" +
+                        "-1\n" +
+                        "0\n" +
+                        "1\n" +
+                        "2\n" +
+                        "3\n" +
+                        "4\n"));
     }
 }
