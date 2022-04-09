@@ -1,11 +1,14 @@
 package services.example;
 
+import entities.Event;
 import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
 import utils.StringBuilder;
 
 @RestController
 public class ExampleController {
+
+    private Event event;
 
     @GetMapping("/")
     public String firstPage() {
@@ -70,5 +73,15 @@ public class ExampleController {
     @GetMapping("api/range/{param1}/{param2}")
     public String numbFromVariable(@PathVariable("param1") int from, @PathVariable("param2") int to) {
         return range(from, to);
+    }
+
+    @PostMapping("/api/event")
+    public void postEvent(@RequestBody Event event) {
+        this.event = event;
+    }
+
+    @GetMapping("/api/event")
+    public Event getEvent() {
+        return this.event;
     }
 }
