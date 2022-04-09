@@ -55,7 +55,7 @@ public class ExampleController {
     private String range(int from, int to) {
         int length = Math.abs(to - from);
         StringBuilder string = new StringBuilder(length);
-        for (int i = 0; i < length + 1; i++) {
+        for (int i = 0; i < length; i++) {
             string.append( i + from + "\n");
         }
         String result = string.toString();
