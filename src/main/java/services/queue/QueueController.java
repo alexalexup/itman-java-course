@@ -1,5 +1,6 @@
 package services.queue;
 
+import entities.Ticket;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,8 +12,8 @@ public class QueueController {
     private QueueManagementSystem queue = new QueueManagementSystem("bank");
 
     @GetMapping("/api/queue/nextTicket")
-    public String getNextTicket() {
-        return this.queue.getNextTicket().toString();
+    public Ticket getNextTicket() {
+        return this.queue.getNextTicket();
     }
 
     @GetMapping("/api/queue/totalTickets")
@@ -26,8 +27,7 @@ public class QueueController {
    }
 
     @GetMapping("api/queue/getVisitsByDays")
-    public String  getVisitsByDays() {
-        return this.queue.getVisitsByDay().toString();
+    public int[]  getVisitsByDays() {
+        return this.queue.getVisitsByDay().toArray();
     }
-
 }
