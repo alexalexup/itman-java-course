@@ -35,7 +35,7 @@ class QueueControllerTest {
         this.mockMvc.perform(nextTicketRequest);
         this.mockMvc.perform(nextTicketRequest)
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Ticket{number=5, place='bank'}"));
+                .andExpect(MockMvcResultMatchers.content().json("{\"number\":5, \"place\":\"bank\"}"));
         MockHttpServletRequestBuilder nextWorkDayRequest = MockMvcRequestBuilders
                 .post("/api/queue/toNextWorkDay");
         this.mockMvc.perform(nextWorkDayRequest);
@@ -43,7 +43,7 @@ class QueueControllerTest {
         this.mockMvc.perform(nextTicketRequest);
         this.mockMvc.perform(nextTicketRequest)
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Ticket{number=3, place='bank'}"));
+                .andExpect(MockMvcResultMatchers.content().json("{\"number\":3, \"place\":\"bank\"}"));
         this.mockMvc.perform(nextWorkDayRequest);
         this.mockMvc.perform(nextTicketRequest);
         this.mockMvc.perform(nextTicketRequest);
@@ -53,10 +53,9 @@ class QueueControllerTest {
                 .get("/api/queue/getVisitsByDays");
         this.mockMvc.perform(getVisitsByDaysRequest)
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("[5, 3, 4]"));
+                .andExpect(MockMvcResultMatchers.content().json("[5,3,4]"));
         this.mockMvc.perform(totalRequest)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("12"));
     }
-
 }
