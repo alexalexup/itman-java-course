@@ -78,8 +78,8 @@ public class ExampleController {
 
     /**
      * Return information from http request by query, path and body
-     * @cpu O(1)
-     * @ram O(1)
+     * @cpu O(n + m + k + z), n - pathVariable.length, m - required.length , k - optional.length , z - body.length
+     * @ram O(n + m + k + z), n - pathVariable.length, m - required.length , k - optional.length , z - body.length
      * @param pathVariable path parameter
      * @param secondVariable path parameter
      * @param required query parameter
