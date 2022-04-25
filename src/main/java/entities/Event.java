@@ -17,12 +17,12 @@ public class Event {
         this.name = name;
    }
 
-    public Event (int year, int month, int day, String name, int id) {
+    public Event (int id, int year, int month, int day, String name) {
+        this.id = id;
         this.year = year;
         this.month = month;
         this.day = day;
         this.name = name;
-        this.id = id;
     }
 
    public int getYear() {
