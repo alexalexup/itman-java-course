@@ -45,6 +45,11 @@ public class Event {
         return this.id;
    }
 
+   public void setId(int id) {
+        this.id = id;
+   }
+
+
     /**
      * Takes data from all fields from Object and returns it as a String value
      * @cpu O(n), n - name.length
