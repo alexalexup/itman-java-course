@@ -33,6 +33,15 @@ public class EventList {
         }
     }
 
+    public void edit(int id, Event event) {
+        for (int i = 0; i < size; i++) {
+            if (this.events[i].getId() == id) {
+                this.events[i] = new Event(id, event.getYear(), event.getMonth(), event.getDay(), event.getName());
+                return;
+            }
+        }
+    }
+
     public Event getEvent(int id) {
         for (int i = 0; i < this.size; i ++) {
             if (this.events[i].getId() == id) {
