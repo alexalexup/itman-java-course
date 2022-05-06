@@ -32,7 +32,14 @@ public class CalendarController {
     }
 
     @GetMapping("/api/event/all")
-    public Event[] getEvent() {
-        return events.getAllEvents();
+    public Event[] getAllEvents() {
+        Event[] result = this.events.getAllEvents();
+        EventList.sortEvents(result);
+        return result;
+    }
+
+    @GetMapping("/api/event/year")
+    public Event[] getEventsByYear(@RequestBody int year) {
+        return EventList.filterEventsByYear(getAllEvents(), year);
     }
 }
