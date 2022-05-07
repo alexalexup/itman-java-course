@@ -169,8 +169,7 @@ public class EventList {
                 (events[i].getYear() <= year) &&
                 (events[i].getYear() != year || events[i].getMonth() <= month) &&
                 (events[i].getYear() != year || events[i].getMonth() != month || events[i].getDay() <= day); i ++) {
-            System.out.println("111");
-            if (events[i].getYear() == year && events[i].getMonth() == month) {
+            if (events[i].getYear() == year && events[i].getMonth() == month && events[i].getDay() == day) {
                 add(events[i], list);
             }
         }
