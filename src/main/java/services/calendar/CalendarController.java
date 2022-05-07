@@ -39,8 +39,20 @@ public class CalendarController {
     }
 
     @GetMapping("/api/event/year")
-    public Event[] getEventsByYear(@RequestBody int year) {
+    public Event[] getEventsByYear(@RequestParam int year) {
         Event[] result = getAllEvents();
         return EventList.filterEventsByYear(result, year);
+    }
+
+    @GetMapping("/api/event/year/month")
+    public Event[] getEventsByYearMonth(@RequestParam int year, @RequestParam int month) {
+        Event[] result = getAllEvents();
+        return EventList.filterEventsByYearMonth(result, year, month);
+    }
+
+    @GetMapping("/api/event/year/month/day")
+    public Event[] getEventsByYearMonthDay(@RequestParam int year, @RequestParam int month, @RequestParam int day) {
+        Event[] result = getAllEvents();
+        return EventList.filterEventsByYearMonthDay(result, year, month, day);
     }
 }

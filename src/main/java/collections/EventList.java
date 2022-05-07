@@ -21,6 +21,15 @@ public class EventList {
         this.events[this.size -1] = event;
     }
 
+    private static void add(Event event, EventList list) {
+        if (list.size >= list.events.length) {
+            Event[] newEvents = new Event [list.events.length * 2];
+            System.arraycopy(list.events, 0, newEvents, 0, list.events.length );
+        }
+        list.size++;
+        list.events[list.size - 1] = event;
+    }
+
     public void remove(int id) {
         for (int i = 0; i < size; i ++) {
             if (this.events[i].getId() == id) {
@@ -136,9 +145,33 @@ public class EventList {
         EventList list = new EventList();
         for (int i = 0; i < events.length && events[i].getYear() < year + 1; i ++) {
             if (events[i].getYear() == year) {
-                int id = events[i].getId();
-                list.addEvent(events[i]);
-//                list.events[i].setId(id);
+                add(events[i], list);
+            }
+        }
+        return list.getAllEvents();
+    }
+
+    public static Event[] filterEventsByYearMonth(Event[] events, int year, int month) {
+        EventList list = new EventList();
+        for (int i = 0; (i < events.length) &&
+                (events[i].getYear() <= year) &&
+                (events[i].getYear()!= year || events[i].getMonth() <= month); i ++) {
+            if (events[i].getYear() == year && events[i].getMonth() == month) {
+                add(events[i], list);
+            }
+        }
+        return list.getAllEvents();
+    }
+
+    public static Event[] filterEventsByYearMonthDay(Event[] events, int year, int month, int day) {
+        EventList list = new EventList();
+        for (int i = 0; (i < events.length) &&
+                (events[i].getYear() <= year) &&
+                (events[i].getYear() != year || events[i].getMonth() <= month) &&
+                (events[i].getYear() != year || events[i].getMonth() != month || events[i].getDay() <= day); i ++) {
+            System.out.println("111");
+            if (events[i].getYear() == year && events[i].getMonth() == month) {
+                add(events[i], list);
             }
         }
         return list.getAllEvents();

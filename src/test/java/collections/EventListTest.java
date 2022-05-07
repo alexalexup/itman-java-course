@@ -10,11 +10,11 @@ class EventListTest {
     @Test
     public void ShouldReturn(){
         EventList list = new EventList();
-        Event[] events = new Event[] { new Event( 2022,12,24, "A"),
+        Event[] events = new Event[] { new Event( 2022,12,2, "B"),
+                new Event(2022, 12, 2, "C"),
+                new Event(2022, 12, 2, "A"),
                 new Event(2022, 12, 2, "B"),
-                new Event(2022, 4, 2, "B"),
-                new Event(2022, 3, 2, "B"),
-                new Event(2023, 4, 21, "C"),
+                new Event(2022, 12, 21, "C"),
                 new Event(2023, 4, 21, "D"),
                 new Event(2023, 5, 21, "D"),
                 new Event(2025, 5, 21, "D"),
@@ -22,7 +22,8 @@ class EventListTest {
         for (int i = 0; i < events.length; i++) {
             list.addEvent(events[i]);
         }
-        Event[] result = EventList.filterEventsByYear(events, 2025);
+        EventList.sortEvents(events);
+        Event[] result = EventList.filterEventsByYearMonthDay(events, 2022, 12, 2);
         for (int i = 0; i < result.length; i++ ) {
             System.out.println(result[i]);
         }
