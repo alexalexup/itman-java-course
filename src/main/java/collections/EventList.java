@@ -134,10 +134,11 @@ public class EventList {
 
     public static Event[] filterEventsByYear(Event[] events, int year) {
         EventList list = new EventList();
-        for (int i = 0; i < events.length && events[i].getYear() <= year; i ++) {
+        for (int i = 0; i < events.length && events[i].getYear() < year + 1; i ++) {
             if (events[i].getYear() == year) {
+                int id = events[i].getId();
                 list.addEvent(events[i]);
-                list.events[i].setId(events[i].getId());
+//                list.events[i].setId(id);
             }
         }
         return list.getAllEvents();
