@@ -2,14 +2,38 @@ package collections;
 import entities.Event;
 
 public class EventList {
-    public Event[] events;
-    public int size;
-    public int id;
+    private Event[] events;
+    private int size;
+    private int id;
 
+    /**
+     * Create empty EventList and set size 12 for field events
+     * @cpu O(1)
+     * @ram O(1)
+     * return object without logical data by EventList class
+     */
     public EventList() {
         this.events = new Event[12];
     }
 
+    /**
+     * Get logical data from field events by object by EventList class
+     * @cpu O(n), n - this.size
+     * @ram O(n), n - this.size
+     * return array with events that include data from events field by object by EventList class
+     */
+    public Event[] getEvents() {
+        Event[] newEvents = new Event[this.size];
+        System.arraycopy(this.events, 0, newEvents, 0, this.size);
+        return newEvents;
+    }
+
+    /**
+     * Add event to object by EventList class
+     * @cpu O(1)
+     * @ram O(n), n - this.events.length
+     * @param event object by Event class
+     */
     public void addEvent(Event event){
         event.setId(++this.id);
         if (this.size >= this.events.length) {
@@ -21,15 +45,29 @@ public class EventList {
         this.events[this.size -1] = event;
     }
 
+    /**
+     * Add event object by Event class to object list by EventList class
+     * @cpu O(1)
+     * @ram O(n), n - list.events.length
+     * @param event object by Event class
+     * @param list object by EventList class
+     */
     private static void add(Event event, EventList list) {
         if (list.size >= list.events.length) {
             Event[] newEvents = new Event [list.events.length * 2];
             System.arraycopy(list.events, 0, newEvents, 0, list.events.length );
+            list.events = newEvents;
         }
         list.size++;
         list.events[list.size - 1] = event;
     }
 
+    /**
+     * Delete event from object by EventList class by id
+     * @cpu O(n), n - this.size
+     * @ram O(1)
+     * @param id argument
+     */
     public void remove(int id) {
         for (int i = 0; i < size; i ++) {
             if (this.events[i].getId() == id) {
@@ -42,6 +80,13 @@ public class EventList {
         }
     }
 
+    /**
+     * Edit event from object by EventList class by id
+     * @cpu O(n), n - this.size
+     * @ram O(1)
+     * @param id argument
+     * @param event object by Event class
+     */
     public void edit(int id, Event event) {
         for (int i = 0; i < size; i++) {
             if (this.events[i].getId() == id) {
@@ -51,6 +96,12 @@ public class EventList {
         }
     }
 
+    /**
+     * Get event from object by EventList class by id
+     * @cpu O(n), n - this.size
+     * @ram O(1)
+     * @param id argument
+     */
     public Event getEvent(int id) {
         for (int i = 0; i < this.size; i ++) {
             if (this.events[i].getId() == id) {
@@ -60,12 +111,25 @@ public class EventList {
         return null;
     }
 
+    /**
+     * Get all events from object by EventList class
+     * @cpu O(n), n - this.size
+     * @ram O(n), n - this.size
+     */
     public Event[] getAllEvents() {
         Event[] logicalEvents = new Event[this.size];
         System.arraycopy(this.events, 0, logicalEvents, 0, this.size);
         return logicalEvents;
     }
 
+    /**
+     * Compare two object by String class
+     * @cpu O(k), k - min(n, m), n - firstName.length(), m - secondName.length()
+     * @ram O(n + m), n - firstName.length(), m - secondName.length()
+     * @param firstName object by String class
+     * @param secondName object by String class
+     * return 1 if firstName > secondName, -1 if firstName < secondName, 0 if firstName == secondName
+     */
     private static int compareNames(String firstName, String secondName) {
         char[] first = firstName.toCharArray();
         char[] second =secondName.toCharArray();
@@ -141,6 +205,14 @@ public class EventList {
         }
     }
 
+    /**
+     * Filter events object by Event class by year
+     * @cpu O(n), n  - events.length
+     * @ram O(m), m - list.events.length
+     * @param events array with events
+     * @param year argument
+     * @return array with events that are sorted by year
+     */
     public static Event[] filterEventsByYear(Event[] events, int year) {
         EventList list = new EventList();
         for (int i = 0; i < events.length && events[i].getYear() < year + 1; i ++) {
@@ -151,6 +223,15 @@ public class EventList {
         return list.getAllEvents();
     }
 
+    /**
+     * Filter events object by Event class by year and month
+     * @cpu O(n), n  - events.length
+     * @ram O(m), m - list.events.length
+     * @param events array with events
+     * @param year argument
+     * @param month argument
+     * @return array with events that are sorted by year and month
+     */
     public static Event[] filterEventsByYearMonth(Event[] events, int year, int month) {
         EventList list = new EventList();
         for (int i = 0; (i < events.length) &&
@@ -163,6 +244,15 @@ public class EventList {
         return list.getAllEvents();
     }
 
+    /**
+     * Filter events object by Event class by year, month and day
+     * @cpu O(n), n  - events.length
+     * @ram O(m), m - list.events.length
+     * @param events array with events
+     * @param year argument
+     * @param month argument
+     * @return array with events that are sorted by year, month and day
+     */
     public static Event[] filterEventsByYearMonthDay(Event[] events, int year, int month, int day) {
         EventList list = new EventList();
         for (int i = 0; (i < events.length) &&
