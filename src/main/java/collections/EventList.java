@@ -17,18 +17,6 @@ public class EventList {
     }
 
     /**
-     * Get logical data from field events by object by EventList class
-     * @cpu O(n), n - this.size
-     * @ram O(n), n - this.size
-     * return array with events that include data from events field by object by EventList class
-     */
-    public Event[] getEvents() {
-        Event[] newEvents = new Event[this.size];
-        System.arraycopy(this.events, 0, newEvents, 0, this.size);
-        return newEvents;
-    }
-
-    /**
      * Add event to object by EventList class
      * @cpu O(1)
      * @ram O(n), n - this.events.length
@@ -206,14 +194,15 @@ public class EventList {
     }
 
     /**
-     * Filter events object by Event class by year
-     * @cpu O(n), n  - events.length
-     * @ram O(m), m - list.events.length
+     * Filter events object by Event class by year.
+     * @cpu O(n * logn), n  - events.length
+     * @ram O(n), events.length
      * @param events array with events
      * @param year argument
      * @return array with events that are sorted by year
      */
     public static Event[] filterEventsByYear(Event[] events, int year) {
+        EventList.sortEvents(events);
         EventList list = new EventList();
         for (int i = 0; i < events.length && events[i].getYear() < year + 1; i ++) {
             if (events[i].getYear() == year) {
@@ -224,15 +213,16 @@ public class EventList {
     }
 
     /**
-     * Filter events object by Event class by year and month
-     * @cpu O(n), n  - events.length
-     * @ram O(m), m - list.events.length
+     * Filter events object by Event class by year and month.
+     * @cpu O(n * logn), n  - events.length
+     * @ram O(n), events.length
      * @param events array with events
      * @param year argument
      * @param month argument
      * @return array with events that are sorted by year and month
      */
     public static Event[] filterEventsByYearMonth(Event[] events, int year, int month) {
+        EventList.sortEvents(events);
         EventList list = new EventList();
         for (int i = 0; (i < events.length) &&
                 (events[i].getYear() <= year) &&
@@ -245,15 +235,16 @@ public class EventList {
     }
 
     /**
-     * Filter events object by Event class by year, month and day
-     * @cpu O(n), n  - events.length
-     * @ram O(m), m - list.events.length
+     * Filter events object by Event class by year, month and day.
+     * @cpu O(n * logn), n  - events.length
+     * @ram O(n), events.length
      * @param events array with events
      * @param year argument
      * @param month argument
      * @return array with events that are sorted by year, month and day
      */
     public static Event[] filterEventsByYearMonthDay(Event[] events, int year, int month, int day) {
+        EventList.sortEvents(events);
         EventList list = new EventList();
         for (int i = 0; (i < events.length) &&
                 (events[i].getYear() <= year) &&

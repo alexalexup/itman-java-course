@@ -32,7 +32,7 @@ class EventListTest {
                 new Event(2023, 4, 21, "J")
         };
         add(list, expectedEvents);
-        Event[] actualEvents = list.getEvents();
+        Event[] actualEvents = list.getAllEvents();
         compareEvents(expectedEvents, actualEvents);
     }
 
@@ -55,7 +55,7 @@ class EventListTest {
     }
 
     @Test
-    public void removeShouldNotdDeleteEventWhenObjectHaveNotInputId() {
+    public void removeShouldNotDeleteEventWhenObjectHaveNotInputId() {
         EventList list = new EventList();
         Event[] events = new Event[] { new Event( 2022,8,4, "A"),
                 new Event(2021, 8, 4, "B"),
@@ -109,6 +109,189 @@ class EventListTest {
                 new Event(2,2021, 8, 4, "B"),
                 new Event(3,2019, 4, 16, "C"),
                 new Event(4,2022, 12, 6, "D")
+        };
+        compareEvents(expectedEvents, actualEvents);
+    }
+
+    @Test
+    public void getEventShouldReturnEventByIdFromEventListWhenIdIs() {
+        EventList list = new EventList();
+        Event[] events = new Event[] { new Event( 2022,8,4, "A"),
+                new Event(2021, 8, 4, "B"),
+                new Event(2019, 4, 16, "C"),
+                new Event(2022, 12, 6, "D")
+        };
+        add(list, events);
+        Event actualEvent = list.getEvent(2);
+        Event expectedEvent = new Event(2, 2021, 8, 4, "B" );
+        Assertions.assertTrue(actualEvent.equals(expectedEvent));
+    }
+
+    @Test
+    public void getEventShouldNotReturnEventByIdFromEventListWhenIdIsNot() {
+        EventList list = new EventList();
+        Event[] events = new Event[] { new Event( 2022,8,4, "A"),
+                new Event(2021, 8, 4, "B"),
+                new Event(2019, 4, 16, "C"),
+                new Event(2022, 12, 6, "D")
+        };
+        add(list, events);
+        Event actualEvent = list.getEvent(8);
+        Assertions.assertEquals(actualEvent, null);
+
+    }
+
+    @Test
+    public void getAllEventsShouldReturnAllEventWhenMethodWasCalled() {
+        EventList list = new EventList();
+        Event[] events = new Event[] { new Event( 2022,8,4, "Abc"),
+                new Event(2022, 8, 4, "Abb"),
+                new Event(2022, 8, 4, "Bf"),
+                new Event(2021, 12, 6, "Drc"),
+                new Event(2020, 5, 22, "Dra"),
+                new Event(2021, 12, 3, "Dre")
+        };
+        add(list, events);
+        Event[] actualEvents = list.getAllEvents();
+        Event[] expectedEvents = new Event[] { new Event( 1,2022,8,4, "Abc"),
+                new Event(2,2022, 8, 4, "Abb"),
+                new Event(3,2022, 8, 4, "Bf"),
+                new Event(4,2021, 12, 6, "Drc"),
+                new Event(5, 2020, 5, 22, "Dra"),
+                new Event(6,2021, 12, 3, "Dre")
+        };
+       compareEvents(expectedEvents, actualEvents);
+    }
+
+    @Test
+    public void sortEventsShouldSortWhenAllEventsHaveDifferentYears() {
+        Event[] actualEvents = new Event[] { new Event( 1,2024,8,4, "Abc"),
+                new Event(2,2019, 8, 4, "Abb"),
+                new Event(3,2021, 8, 4, "Bf"),
+                new Event(4,2025, 12, 6, "Drc"),
+                new Event(5,2022, 5, 22, "Dra"),
+                new Event(6,2018, 12, 3, "Dre")
+        };
+        EventList.sortEvents(actualEvents);
+        Event[] expectedEvents =new Event[] { new Event( 6,2018, 12, 3, "Dre"),
+                new Event(2,2019, 8, 4, "Abb"),
+                new Event(3,2021, 8, 4, "Bf"),
+                new Event(5,2022, 5, 22, "Dra"),
+                new Event(1,2024,8,4, "Abc"),
+                new Event(4,2025, 12, 6, "Drc")
+        };
+        compareEvents(expectedEvents, actualEvents);
+    }
+
+    @Test
+    public void sortEventsShouldSortWhenSomeEventsHaveSameYears() {
+        Event[] actualEvents = new Event[] { new Event( 1,2024,8,4, "Abc"),
+                new Event(2,2019, 8, 4, "Abb"),
+                new Event(3,2021, 8, 4, "Bf"),
+                new Event(4,2024, 1, 6, "Drc"),
+                new Event(5,2024, 2, 22, "Dra"),
+                new Event(6,2018, 12, 3, "Dre")
+        };
+        EventList.sortEvents(actualEvents);
+        Event[] expectedEvents =new Event[] { new Event( 6,2018, 12, 3, "Dre"),
+                new Event(2,2019, 8, 4, "Abb"),
+                new Event(3,2021, 8, 4, "Bf"),
+                new Event(4,2024, 1, 6, "Drc"),
+                new Event(5,2024, 2, 22, "Dra"),
+                new Event(1,2024,8,4, "Abc")
+        };
+        compareEvents(expectedEvents, actualEvents);
+    }
+
+    @Test
+    public void sortEventsShouldSortWhenSomeEventsHaveSameYearsAndMonth() {
+        Event[] actualEvents = new Event[] { new Event( 1,2024,8,4, "Abc"),
+                new Event(2,2019, 8, 4, "Abb"),
+                new Event(3,2021, 8, 4, "Bf"),
+                new Event(4,2024, 1, 6, "Drc"),
+                new Event(5,2024, 1, 3, "Dra"),
+                new Event(6,2018, 12, 3, "Dre")
+        };
+        EventList.sortEvents(actualEvents);
+        Event[] expectedEvents =new Event[] { new Event( 6,2018, 12, 3, "Dre"),
+                new Event(2,2019, 8, 4, "Abb"),
+                new Event(3,2021, 8, 4, "Bf"),
+                new Event(5,2024, 1, 3, "Dra"),
+                new Event(4,2024, 1, 6, "Drc"),
+                new Event(1,2024,8,4, "Abc")
+        };
+        compareEvents(expectedEvents, actualEvents);
+    }
+
+    @Test
+    public void sortEventsShouldSortWhenSomeEventsHaveSameYearsMonthAndDays() {
+        Event[] actualEvents = new Event[] { new Event( 1,2024,8,4, "Abc"),
+                new Event(2,2019, 8, 4, "Abb"),
+                new Event(3,2021, 8, 4, "Bf"),
+                new Event(4,2024, 1, 3, "Abd"),
+                new Event(5,2024, 1, 3, "Abb"),
+                new Event(6,2018, 12, 3, "Dre"),
+                new Event(7,2024,1,  3, "Br")
+
+        };
+        EventList.sortEvents(actualEvents);
+        Event[] expectedEvents =new Event[] { new Event( 6,2018, 12, 3, "Dre"),
+                new Event(2,2019, 8, 4, "Abb"),
+                new Event(3,2021, 8, 4, "Bf"),
+                new Event(5,2024, 1, 3, "Abb"),
+                new Event(4,2024, 1, 3, "Abd"),
+                new Event(7,2024,1,  3, "Br"),
+                new Event(1,2024,8,4, "Abc")
+        };
+        compareEvents(expectedEvents, actualEvents);
+    }
+
+    @Test
+    public void filterEventsByYearShouldSortEventsAndReturnEventsThanIncludeYearFromInputData(){
+        Event[] events = new Event[] { new Event( 1,2024,8,4, "Abc"),
+                new Event(2,2019, 8, 4, "Abb"),
+                new Event(3,2021, 8, 4, "Bf"),
+                new Event(4,2024, 1, 6, "Drc"),
+                new Event(5,2024, 1, 3, "Dra"),
+                new Event(6,2018, 12, 3, "Dre")
+        };
+        Event[] actualEvents = EventList.filterEventsByYear(events,2024);
+        Event[] expectedEvents = new Event[] {new Event(5,2024, 1, 3, "Dra"),
+                new Event(4,2024, 1, 6, "Drc"),
+                new Event(1,2024,8,4, "Abc")
+        };
+        compareEvents(expectedEvents, actualEvents);
+    }
+
+    @Test
+    public void filterEventsByYearMonthShouldSortEventsAndReturnEventsThanIncludeYearAndMonthFromInputData(){
+        Event[] events = new Event[] { new Event( 1,2024,8,4, "Abc"),
+                new Event(2,2019, 8, 4, "Abb"),
+                new Event(3,2021, 8, 4, "Bf"),
+                new Event(4,2024, 1, 6, "Drc"),
+                new Event(5,2024, 1, 3, "Dra"),
+                new Event(6,2018, 12, 3, "Dre")
+        };
+        Event[] actualEvents = EventList.filterEventsByYearMonth(events,2024,1);
+        Event[] expectedEvents = new Event[] {new Event(5,2024, 1, 3, "Dra"),
+                new Event(4,2024, 1, 6, "Drc")
+        };
+        compareEvents(expectedEvents, actualEvents);
+    }
+
+    @Test
+    public void filterEventsByYearMonthDayShouldSortEventsAndReturnEventsThanIncludeYearMonthAndDayFromInputData(){
+        Event[] events = new Event[] { new Event( 1,2024,1,3, "Abz"),
+                new Event(2,2019, 8, 4, "Abb"),
+                new Event(3,2021, 8, 4, "Bf"),
+                new Event(4,2024, 1, 3, "Abc"),
+                new Event(5,2024, 1, 3, "Abb"),
+                new Event(6,2018, 12, 3, "Dre")
+        };
+        Event[] actualEvents = EventList.filterEventsByYearMonthDay(events,2024,1,3);
+        Event[] expectedEvents = new Event[] {new Event(5,2024, 1, 3, "Abb"),
+                new Event(4,2024, 1, 3, "Abc"),
+                new Event( 1,2024,1,3, "Abz")
         };
         compareEvents(expectedEvents, actualEvents);
     }
