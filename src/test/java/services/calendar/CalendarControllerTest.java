@@ -19,7 +19,7 @@ class CalendarControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void methodsFromCalendarSpringApplicationShouldWorkCorrectWhenFirstScriptWasCalled() throws Exception {
+    public void methodsFromCalendarSpringApplicationShouldWorkCorrectWhenScriptWasCalled() throws Exception {
         MockHttpServletRequestBuilder addEvent = MockMvcRequestBuilders.post("/api/event/add")
                 .contentType("application/json")
                 .content("{\"year\":1998, \"month\":8, \"day\":25, \"name\":\"job offer\"}");
