@@ -5,6 +5,7 @@ public class Event {
     private int month;
     private int day;
     private String name;
+    private int id;
 
     public Event () {
     }
@@ -15,6 +16,14 @@ public class Event {
         this.day = day;
         this.name = name;
    }
+
+    public Event (int id, int year, int month, int day, String name) {
+        this.id = id;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.name = name;
+    }
 
    public int getYear() {
         return this.year;
@@ -32,6 +41,15 @@ public class Event {
         return this.name;
    }
 
+   public int getId() {
+        return this.id;
+   }
+
+   public void setId(int id) {
+        this.id = id;
+   }
+
+
     /**
      * Takes data from all fields from Object and returns it as a String value
      * @cpu O(n), n - name.length
@@ -39,11 +57,12 @@ public class Event {
      * @return String value with data from all fields an Object
      */
     public String toString() {
-        String year = "year=" + this.year;
+        String id = "id=" + this.id;
+        String year = ", year=" + this.year;
         String month= ", month=" + this.month;
         String day = ", day=" + this.day;
         String name = ", name='" + this.name + "'";
-        String info = "Event{" + year + month + day + name +"}";
+        String info = "Event{"+ id + year + month + day + name +"}";
         return info;
     }
 
@@ -57,7 +76,8 @@ public class Event {
     public boolean equals(Event that) {
         return that != null
                 && (this.name == null ? that.name == null : this.name.equals(that.name))
-                && (this.compareTo(that) == 0);
+                && (this.compareTo(that) == 0)
+                && (this.id == that.id);
     }
 
     /**
