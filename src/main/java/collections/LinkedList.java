@@ -42,6 +42,7 @@ public class LinkedList {
         Node link = this.node;
         if (link.getNext() == null) {
           this.node = null;
+          return result;
         }
         do {
             if (link.getNext().getNext() != null) {

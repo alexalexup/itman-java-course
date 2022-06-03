@@ -61,6 +61,8 @@ class LinkedListTest {
         list.addFirst(10);
         list.removeFirst();
         list.removeFirst();
+        list.removeFirst();
+        list.removeFirst();
         int[] actualResult = new int[] {4, 2};
         checkElements(list, actualResult);
     }
@@ -70,6 +72,15 @@ class LinkedListTest {
         LinkedList list = new LinkedList(new Node(12,new Node(10,new Node(56, null))));
         int actualResult = list.removeFirst();
         Assertions.assertEquals(12, actualResult);
+    }
+
+    @Test
+    public void removeFirstShouldReturnFirstElementWhenListHaveOneElement() {
+        LinkedList list = new LinkedList(new Node(12,new Node(10,new Node(56, null))));
+        list.removeFirst();
+        list.removeFirst();
+        int actualResult = list.removeFirst();
+        Assertions.assertEquals(56, actualResult);
     }
 
 }
