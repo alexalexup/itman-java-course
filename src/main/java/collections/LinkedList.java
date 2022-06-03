@@ -1,6 +1,7 @@
 package collections;
 
 import entities.Node;
+import utils.StringBuilder;
 
 
 public class LinkedList {
@@ -55,5 +56,22 @@ public class LinkedList {
             }
         } while (link != null);
         return result;
+    }
+
+    public String toString() {
+        Node link = this.node;
+        if (link == null) {
+            return "[]";
+        }
+        StringBuilder result = new StringBuilder();
+        result.append("[");
+        while (link.getNext() != null) {
+            result.append(link.getElement());
+            result.append(", ");
+            link = link.getNext();
+        }
+        result.append(link.getElement());
+        result.append("]");
+        return result.toString();
     }
 }

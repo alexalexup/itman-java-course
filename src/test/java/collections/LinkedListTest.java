@@ -83,4 +83,25 @@ class LinkedListTest {
         Assertions.assertEquals(56, actualResult);
     }
 
+    @Test
+    public void toStringShouldReturnStringWhenLinkedListHaveOneElement() {
+        LinkedList list = new LinkedList(new Node(4,null));
+        String actualResult = list.toString();
+        Assertions.assertTrue(actualResult.equals("[4]"));
+    }
+
+    @Test
+    public void toStringShouldReturnStringWhenLinkedListHaveSomeElement() {
+        LinkedList list = new LinkedList(new Node(12,new Node(10,new Node(56, null))));
+        String actualResult = list.toString();
+        Assertions.assertTrue(actualResult.equals("[12, 10, 56]"));
+    }
+
+    @Test
+    public void toStringShouldReturnStringWhenLinkedListHaveNotAnyElement() {
+        LinkedList list = new LinkedList();
+        String actualResult = list.toString();
+        Assertions.assertTrue(actualResult.equals("[]"));
+    }
+
 }
