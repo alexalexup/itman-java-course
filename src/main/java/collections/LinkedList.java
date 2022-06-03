@@ -1,10 +1,9 @@
 package collections;
 
 import entities.Node;
-import collections.LinkedList;
+
 
 public class LinkedList {
-
     private Node node;
 
     public LinkedList(Node node) {
@@ -19,23 +18,19 @@ public class LinkedList {
     }
 
     public  void addFirst(int element) {
-        if (this.node == null) {
-            this.node = new Node( element, null);
+        Node link = this.getNode();
+        if (link == null) {
+            this.node = new Node(element, null);
+            return;
         }
-        Node link = this.node;
-        do {
-            if (link.getNext() != null) {
-                int buffer = link.getElement();
-                link.setElement(element);
-                element = link.getNext().getElement();
-                link.getNext().setElement(buffer);
-                link = link.getNext();
-            } else {
-              link.setNext( new Node(element, null));
-              link = null;
-            }
-
-        } while (link != null);
+        while (link.getNext() != null) {
+           int buffer = link.getElement();
+           link.setElement(element);
+           element = buffer;
+           link = link.getNext();
+        }
+        link.setNext(new Node(link.getElement(),null));
+        link.setElement(element);
     }
 
     public int getFirst() {
