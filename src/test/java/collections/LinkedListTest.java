@@ -63,8 +63,8 @@ class LinkedListTest {
         list.removeFirst();
         list.removeFirst();
         list.removeFirst();
-        int[] actualResult = new int[] {4, 2};
-        checkElements(list, actualResult);
+        int[] expectedResult = new int[] {4, 2};
+        checkElements(list, expectedResult);
     }
 
     @Test
@@ -104,4 +104,69 @@ class LinkedListTest {
         Assertions.assertTrue(actualResult.equals("[]"));
     }
 
+    @Test
+    public void addLastShouldAddLastElementWhenListHaveNotElements() {
+        LinkedList list = new LinkedList();
+        list.addLast(6);
+        Assertions.assertEquals(6,list.getNode().getElement());
+    }
+
+    @Test
+    public void addLastShouldAddLastElementWhenListHaveOneElement() {
+        LinkedList list = new LinkedList(new Node(10,null));
+        list.addLast(36);
+        int[] expectedResult = new int[] {10, 36};
+        checkElements(list, expectedResult);
+    }
+
+    @Test
+    public void addLastShouldAddLastElementWhenListHaveSomeElements() {
+        LinkedList list = new LinkedList(new Node(10,new Node(36, new Node(24, null))));
+        list.addLast(87);
+        int[] expectedResult = new int[] {10, 36, 24, 87};
+        checkElements(list, expectedResult);
+    }
+
+    @Test
+    public void addLastShouldHaveNullInTheLastNodeWhenMethodWasCalled() {
+        LinkedList list = new LinkedList(new Node(5,null));
+        list.addLast(6);
+        list.addLast(7);
+        Node actualResult = list.getNode().getNext().getNext().getNext();
+        Assertions.assertEquals(null, actualResult);
+    }
+
+    @Test
+    public void getLastShouldReturnLastElementWhenMethodWasCalled() {
+        LinkedList list = new LinkedList(new Node(6, new Node(9, new Node(14, null))));
+        int actualResult = list.getLast();
+        Assertions.assertEquals(14, actualResult);
+    }
+
+    @Test
+    public void removeLastShouldReturnLastElementWhenListHaveOneElement() {
+        LinkedList list = new LinkedList(new Node(12,null));
+        int actualResult = list.removeLast();
+        Assertions.assertEquals(12, actualResult);
+    }
+
+    @Test
+    public void removeLastShouldReturnLastElementWhenListHaveSomeElements() {
+        LinkedList list = new LinkedList(new Node(12,new Node(9, new Node(11, null))));
+        int actualResult = list.removeLast();
+        Assertions.assertEquals(11, actualResult);
+    }
+
+    @Test
+    public void removeLastShouldReturnLastElementWhenMethodWasCalledSeveralTimes() {
+        LinkedList list = new LinkedList(new Node(6,null));
+        list.addLast(7);
+        list.addLast(8);
+        list.addLast(9);
+        list.addLast(10);
+        list.removeLast();
+        list.removeLast();
+        int actualResult = list.removeLast();
+        Assertions.assertEquals(8, actualResult);
+    }
 }

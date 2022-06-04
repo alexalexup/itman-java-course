@@ -74,4 +74,40 @@ public class LinkedList {
         result.append("]");
         return result.toString();
     }
+
+    public void addLast(int element) {
+        Node link = this.getNode();
+        if (link == null) {
+            this.node = new Node(element, null);
+            return;
+        }
+        while (link.getNext() != null) {
+            link = link.getNext();
+        }
+        link.setNext(new Node(element,null));
+    }
+
+    public int getLast() {
+        Node link = this.node;
+        while (link.getNext() != null) {
+            link = link.getNext();
+        }
+        return link.getElement();
+    }
+
+    public int removeLast(){
+        Node link = this.getNode();
+        int result;
+        if (link.getNext() == null) {
+            result = link.getElement();
+            this.node = null;
+            return result;
+        }
+        while (link.getNext().getNext() != null) {
+            link = link.getNext();
+        }
+        result = link.getNext().getElement();
+        link.setNext(null);
+        return result;
+    }
 }
