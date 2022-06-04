@@ -15,4 +15,12 @@ class Task551Test {
         Assertions.assertEquals(list.getNext().getElement(), 99);
         Assertions.assertEquals(list.getNext().getNext().getElement(), 37);
     }
+
+    @Test
+    public void buildLinkedListShouldReturnListWithCorrectValuesWhenUsedPrevField() {
+        Node list = Task551.buildLinkedList();
+        Assertions.assertEquals(99, list.getNext().getNext().getPrev().getElement());
+        Assertions.assertEquals(12, list.getNext().getPrev().getElement());
+        Assertions.assertEquals(37, list.getNext().getNext().getElement());
+    }
 }
