@@ -88,7 +88,7 @@ public class LinkedList {
     }
 
     public boolean equals(LinkedList that) {
-        if (this.size() != that.size()) {
+        if (that == null || this.size() != that.size()) {
             return false;
         }
         Node firstLink = this.node;

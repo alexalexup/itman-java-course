@@ -28,7 +28,8 @@ class Task551Test {
     @Test
     public void smth() {
         LinkedList list = LinkedList.of(10, 20, 30);
+        LinkedList list2 = null;
         list.set(2, 100);
-        System.out.println(list);
+        System.out.println(list.equals(list2));
     }
 }
