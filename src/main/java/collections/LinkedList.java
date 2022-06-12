@@ -6,6 +6,8 @@ import utils.StringBuilder;
 
 public class LinkedList {
     private Node node;
+    private Node lastNode;
+
 
     public LinkedList(Node node) {
         this.node = node;
@@ -15,23 +17,23 @@ public class LinkedList {
     }
 
     public Node getNode() {
-        return node;
+        return this.node;
+    }
+
+    public Node getLastNode() {
+        return this.lastNode;
     }
 
     public  void addFirst(int element) {
         Node link = this.getNode();
         if (link == null) {
-            this.node = new Node(element, null);
+            this.node = new Node(element, null,null);
+            this.lastNode = this.node;
             return;
         }
-        while (link.getNext() != null) {
-           int buffer = link.getElement();
-           link.setElement(element);
-           element = buffer;
-           link = link.getNext();
-        }
-        link.setNext(new Node(link.getElement(),null));
-        link.setElement(element);
+        this.node = new Node(element, link, null);
+        link.setPrev(this.node);
+        return;
     }
 
     public int getFirst() {
@@ -45,16 +47,8 @@ public class LinkedList {
           this.node = null;
           return result;
         }
-        do {
-            if (link.getNext().getNext() != null) {
-                link.setElement(link.getNext().getElement());
-                link = link.getNext();
-            } else {
-                link.setElement(link.getNext().getElement());
-                link.setNext(null);
-                link = null;
-            }
-        } while (link != null);
+        this.node = this.node.getNext();
+        this.node.setPrev(null);
         return result;
     }
 
@@ -78,36 +72,30 @@ public class LinkedList {
     public void addLast(int element) {
         Node link = this.getNode();
         if (link == null) {
-            this.node = new Node(element, null);
+            this.node = new Node(element, null, null);
+            this.lastNode = this.node;
             return;
         }
-        while (link.getNext() != null) {
-            link = link.getNext();
-        }
-        link.setNext(new Node(element,null));
+        this.lastNode.setNext(new Node(element, null, this.lastNode));
+        this.lastNode = this.lastNode.getNext();
     }
 
+
+
     public int getLast() {
-        Node link = this.node;
-        while (link.getNext() != null) {
-            link = link.getNext();
-        }
-        return link.getElement();
+        return this.lastNode.getElement();
     }
 
     public int removeLast(){
-        Node link = this.getNode();
-        int result;
-        if (link.getNext() == null) {
-            result = link.getElement();
-            this.node = null;
-            return result;
-        }
-        while (link.getNext().getNext() != null) {
-            link = link.getNext();
-        }
-        result = link.getNext().getElement();
-        link.setNext(null);
-        return result;
+       int result = this.getLast();
+       if (this.getLastNode().getPrev() == null) {
+           this.node = null;
+           this.lastNode = null;
+           return result;
+       }
+       this.getLastNode().getPrev().setNext(null);
+       this.lastNode = this.lastNode.getPrev();
+       return result;
     }
+
 }

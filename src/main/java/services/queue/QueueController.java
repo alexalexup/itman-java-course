@@ -35,7 +35,7 @@ public class QueueController {
 
     /**
      * Switch queue to new work day. Increase by one size of ArrayList days and reset to zero value of totalTickets
-     * @cpu Θ(1)
+     * @cpu O(1)
      * @ram O(n), n - days.size()
      */
    @PostMapping("api/queue/toNextWorkDay")

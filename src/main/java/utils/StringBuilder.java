@@ -37,7 +37,7 @@ public class StringBuilder {
 
     /**
      * Add symbol to string
-     * @cpu Θ(1)
+     * @cpu O(1)
      * @ram O(n), n - this.data.length
      * @param symbol argument
      */
@@ -53,7 +53,7 @@ public class StringBuilder {
 
     /**
      * Add symbols by string argument to current object
-     * @cpu Θ(n), n - s.length
+     * @cpu O(n), n - s.length
      * @ram O(n + m), n - s.length, m - this.data.length
      * @param s string
      * return string with added data from the argument
@@ -71,7 +71,7 @@ public class StringBuilder {
 
     /**
      * Add symbols by boolean argument to current object
-     * @cpu Θ(1)
+     * @cpu O(1)
      * @ram O(m), m - this.data.length
      * @param x argument
      * return string with added data from the argument
@@ -83,7 +83,7 @@ public class StringBuilder {
 
     /**
      * Add symbols by Integer argument to current object
-     * @cpu Θ(1)
+     * @cpu O(1)
      * @ram O(m), m - this.data.length
      * @param x argument
      * return string with added data from the argument
@@ -95,7 +95,7 @@ public class StringBuilder {
 
     /**
      * Add symbols by Double argument to current object
-     * @cpu Θ(n), n - x
+     * @cpu O(n), n - x
      * @ram O(m), m - this.data.length
      * @param x argument
      * return string with added data from the argument
@@ -107,7 +107,7 @@ public class StringBuilder {
 
     /**
      * Add symbols by Long argument to current object
-     * @cpu Θ(1)
+     * @cpu O(1)
      * @ram O(m), m - this.data.length
      * @param x argument
      * return string with added data from the argument
