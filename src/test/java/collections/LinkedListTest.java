@@ -179,4 +179,22 @@ class LinkedListTest {
         int actualResult = list.removeLast();
         Assertions.assertEquals(8, actualResult);
     }
+
+    @Test
+    public void LinkedListShouldCopyElementsFromAnotherLinkedList() {
+        LinkedList firstList = new LinkedList();
+        firstList.addLast(1);
+        firstList.addLast(2);
+        firstList.addLast(3);
+        firstList.addLast(4);
+        LinkedList secondList = new LinkedList(firstList);
+        int[] expectedResult = new int[] {1, 2, 3, 4};
+        checkElements(secondList, expectedResult);
+    }
+
+    @Test public void LinkedListShouldWorkWhenAnotherLinkedHaveFirstNodeWithNullValue() {
+        LinkedList firstList = new LinkedList();
+        LinkedList secondList = new LinkedList(firstList);
+        Assertions.assertEquals(secondList.getNode(), null);
+    }
 }

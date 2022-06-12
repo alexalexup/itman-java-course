@@ -16,6 +16,17 @@ public class LinkedList {
     public LinkedList() {
     }
 
+    public LinkedList(LinkedList that) {
+        if (that == null) {
+            return;
+        }
+        Node link = that.node;
+        while (link != null) {
+            this.addLast(link.getElement());
+            link = link.getNext();
+        }
+    }
+
     public Node getNode() {
         return this.node;
     }
