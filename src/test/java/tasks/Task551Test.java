@@ -24,20 +24,4 @@ class Task551Test {
         Assertions.assertEquals(12, list.getNext().getPrev().getElement());
         Assertions.assertEquals(37, list.getNext().getNext().getElement());
     }
-
-    @Test
-    public void doSomeThing(){
-        LinkedList list = new LinkedList();
-        list.addLast(0);
-        list.addLast(1);
-        list.addLast(2);
-        list.addLast(3);
-        list.addFirst(5);
-        list.addLast(10);
-        System.out.println(list);
-        list.removeLast();
-        System.out.println(list);
-        System.out.println(list.getLast());
-
-    }
 }

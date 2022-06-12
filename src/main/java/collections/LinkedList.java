@@ -7,6 +7,7 @@ import utils.StringBuilder;
 public class LinkedList {
     private Node node;
     private Node lastNode;
+    private int size;
 
 
     public LinkedList(Node node) {
@@ -35,7 +36,109 @@ public class LinkedList {
         return this.lastNode;
     }
 
+    public int size() {
+        return this.size;
+    }
+
+    public static LinkedList of(int ... elements) {
+        LinkedList list = new LinkedList();
+        for (int i = 0; i < elements.length; i++) {
+            list.addLast(elements[i]);
+        }
+        return list;
+    }
+
+    public int[] toArray(){
+        int[] result = new int[this.size];
+        Node link = this.node;
+        for (int i = 0; i < this.size; i++) {
+            result[i] = link.getElement();
+            link = link.getNext();
+        }
+        return result;
+    }
+
+    public int get(int index) {
+        int size = this.size();
+        if (index <= size / 2) {
+            Node link = this.getNode();
+            for (int i = 0; i < index; i++) {
+                link = link.getNext();
+            }
+            return link.getElement();
+        } else {
+            Node link = this.getLastNode();
+            for (int i = 0; i < size - index - 1; i++) {
+                link = link.getPrev();
+            }
+            return link.getElement();
+        }
+    }
+
+    public void set(int index, int element) {
+        if (index == this.size -1) {
+            this.getLastNode().setElement(index);
+            return;
+        }
+        Node link = this.node;
+        for (int i = 0; i < index; i++ ) {
+            link = link.getNext();
+        }
+        link.setElement(element);
+    }
+
+    public boolean equals(LinkedList that) {
+        if (this.size() != that.size()) {
+            return false;
+        }
+        Node firstLink = this.node;
+        Node secondLink =that.node;
+        for (int i = 0; i < this.size(); i++) {
+            if (firstLink.getElement() != secondLink.getElement()) {
+                return false;
+            }
+            firstLink = firstLink.getNext();
+            secondLink = secondLink.getNext();
+        }
+        return true;
+    }
+
+    public int remove(int index) {
+        if (index == 0) {
+            this.size--;
+            return this.removeFirst();
+        }
+        if (index == (size - 1)) {
+            this.size--;
+            return this.removeLast();
+        }
+        int size = this.size();
+        if (index <= size / 2) {
+            Node link = this.getNode();
+            for (int i = 0; i < index; i++) {
+                link = link.getNext();
+            }
+            this.size--;
+            return removeNode(link);
+        } else {
+            Node link = this.getLastNode();
+            for (int i = 0; i < size - index - 1; i++) {
+                link = link.getPrev();
+            }
+            this.size--;
+            return removeNode(link);
+        }
+    }
+
+    private int removeNode(Node link) {
+        int result = link.getElement();
+        link.getPrev().setNext(link.getNext());
+        link.getNext().setPrev(link.getPrev());
+        return result;
+    }
+
     public  void addFirst(int element) {
+        this.size++;
         Node link = this.getNode();
         if (link == null) {
             this.node = new Node(element, null,null);
@@ -52,6 +155,7 @@ public class LinkedList {
     }
 
     public int removeFirst() {
+        this.size--;
         int result = this.getFirst();
         Node link = this.node;
         if (link.getNext() == null) {
@@ -81,6 +185,7 @@ public class LinkedList {
     }
 
     public void addLast(int element) {
+        this.size++;
         Node link = this.getNode();
         if (link == null) {
             this.node = new Node(element, null, null);
@@ -98,6 +203,7 @@ public class LinkedList {
     }
 
     public int removeLast(){
+        this.size--;
        int result = this.getLast();
        if (this.getLastNode().getPrev() == null) {
            this.node = null;
