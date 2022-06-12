@@ -77,7 +77,7 @@ public class LinkedList {
 
     public void set(int index, int element) {
         if (index == this.size -1) {
-            this.getLastNode().setElement(index);
+            this.getLastNode().setElement(element);
             return;
         }
         Node link = this.node;

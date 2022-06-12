@@ -28,8 +28,7 @@ class Task551Test {
     @Test
     public void smth() {
         LinkedList list = LinkedList.of(10, 20, 30);
-        int r = list.remove(0);
-        System.out.println(r);
-        System.out.println(list.getNode().getElement());
+        list.set(2, 100);
+        System.out.println(list);
     }
 }
