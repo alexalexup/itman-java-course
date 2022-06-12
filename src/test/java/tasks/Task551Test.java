@@ -24,4 +24,12 @@ class Task551Test {
         Assertions.assertEquals(12, list.getNext().getPrev().getElement());
         Assertions.assertEquals(37, list.getNext().getNext().getElement());
     }
+
+    @Test
+    public void smth() {
+        LinkedList list = LinkedList.of(10, 20, 30);
+        int r = list.remove(0);
+        System.out.println(r);
+        System.out.println(list.getNode().getElement());
+    }
 }

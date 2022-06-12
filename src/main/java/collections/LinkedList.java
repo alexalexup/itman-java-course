@@ -105,11 +105,9 @@ public class LinkedList {
 
     public int remove(int index) {
         if (index == 0) {
-            this.size--;
             return this.removeFirst();
         }
         if (index == (size - 1)) {
-            this.size--;
             return this.removeLast();
         }
         int size = this.size();
