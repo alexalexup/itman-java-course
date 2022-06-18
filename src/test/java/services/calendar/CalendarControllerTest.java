@@ -18,8 +18,10 @@ class CalendarControllerTest {
 
     @Nested
     public class MethodsFromCalendarSpringApplication {
+
         @Autowired
         private MockMvc mockMvc;
+
         @Test
         public void shouldWorkCorrectWhenScriptWasCalled() throws Exception {
             MockHttpServletRequestBuilder addEvent = MockMvcRequestBuilders.post("/api/event/add")
