@@ -116,7 +116,7 @@ public class QueueManagementSystem {
             Ticket[] tickets = new Ticket[this.size()];
             Node link = this.node;
             if (link == null) {
-                return new Ticket[]{};
+                return null;
             }
             for (int i = 0; i < tickets.length; i++) {
                 tickets[i] = link.getTicket();
@@ -127,6 +127,9 @@ public class QueueManagementSystem {
     }
 
     public Ticket[] getCurrentQueue() {
+        if(this.tickets.size() == 0) {
+            return new Ticket[]{};
+        }
         return this.tickets.getTickets();
     }
 
