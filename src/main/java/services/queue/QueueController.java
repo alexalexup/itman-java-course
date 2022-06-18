@@ -11,6 +11,16 @@ public class QueueController {
 
     private QueueManagementSystem queue = new QueueManagementSystem("bank");
 
+    @GetMapping("/api/queue/getCurrentQueue")
+    public Ticket[] getCurrentQueue(){
+        return this.queue.getCurrentQueue();
+    }
+
+    @PostMapping("/api/queue/callNext")
+    public Ticket callNext() {
+        return this.queue.callNext();
+    }
+
     /**
      * Create and return newTicket with number increased by one to the previous ticket
      * @cpu O(1)
