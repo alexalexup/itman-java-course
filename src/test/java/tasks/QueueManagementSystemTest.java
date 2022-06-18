@@ -1,5 +1,6 @@
 package tasks;
 
+import entities.Ticket;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,99 @@ class QueueManagementSystemTest {
             newTicket = that.getNextTicket();
         }
         return newTicket;
+    }
+
+    @Nested
+    public class CallNext{
+        @Test
+        public void shouldReturnFirstTicketFromQueue() {
+            QueueManagementSystem bank = new  QueueManagementSystem("Bank");
+            callGetNextTicket(bank, 5);
+            Ticket actualResult = bank.callNext();
+            Ticket expectedResult = new Ticket(1,"Bank");
+            Assertions.assertTrue(actualResult.toString().equals(expectedResult.toString()));
+        }
+
+        @Test
+        public void shouldDeleteFirstTicketFromQueueWhenQueueHaveSomeTickets() {
+            QueueManagementSystem bank = new  QueueManagementSystem("Bank");
+            callGetNextTicket(bank, 8);
+            bank.callNext();
+            bank.callNext();
+            Ticket[] actualResult = bank.getCurrentQueue();
+            Ticket[] expectedResult = new Ticket[]{new Ticket(3,"Bank"),
+                    new Ticket(4,"Bank"),
+                    new Ticket(5,"Bank"),
+                    new Ticket(6,"Bank"),
+                    new Ticket(7,"Bank"),
+                    new Ticket(8,"Bank")};
+            Assertions.assertEquals(actualResult.length, expectedResult.length);
+            for (int i = 0; i < 6; i++) {
+                Assertions.assertTrue(actualResult[i].toString().equals(expectedResult[i].toString()));
+            }
+        }
+
+        @Test
+        public void shouldDeleteFirstTicketFromQueueWhenQueueHaveSomeTicketsYesterday() {
+            QueueManagementSystem bank = new  QueueManagementSystem("Bank");
+            callGetNextTicket(bank, 8);
+            bank.toNextWorkDay();
+            callGetNextTicket(bank, 5);
+            bank.callNext();
+            Ticket[] actualResult = bank.getCurrentQueue();
+            Ticket[] expectedResult = new Ticket[]{new Ticket(2,"Bank"),
+                    new Ticket(3,"Bank"),
+                    new Ticket(4,"Bank"),
+                    new Ticket(5,"Bank")};
+            Assertions.assertEquals(actualResult.length, expectedResult.length);
+            for (int i = 0; i < 4; i++) {
+                Assertions.assertTrue(actualResult[i].toString().equals(expectedResult[i].toString()));
+            }
+        }
+    }
+
+    @Nested
+    public class getCurrentQueue {
+        @Test
+        public void shouldReturnTicketsWhenQueueHaveSomeTickets(){
+            QueueManagementSystem bank = new  QueueManagementSystem("Bank");
+            callGetNextTicket(bank, 5);
+            Ticket[] actualResult = bank.getCurrentQueue();
+            Ticket[] expectedResult = new Ticket[]{new Ticket(1,"Bank"),
+                    new Ticket(2,"Bank"),
+                    new Ticket(3,"Bank"),
+                    new Ticket(4,"Bank"),
+                    new Ticket(5,"Bank")};
+            Assertions.assertEquals(actualResult.length, expectedResult.length);
+            for (int i = 0; i < 5; i++) {
+                Assertions.assertTrue(actualResult[i].toString().equals(expectedResult[i].toString()));
+            }
+        }
+
+        @Test
+        public void shouldReturnNullWhenQueueHaveNotAnyTicketsTodayButHaveSomeTicketYesterday(){
+            QueueManagementSystem bank = new  QueueManagementSystem("Bank");
+            callGetNextTicket(bank, 5);
+            bank.toNextWorkDay();
+            Ticket[] tickets = bank.getCurrentQueue();
+            Assertions.assertArrayEquals(null, tickets);
+        }
+
+        @Test
+        public void shouldReturnTicketsWhenQueueHaveSomeTicketsTodayAndHaveSomeTicketYesterday(){
+            QueueManagementSystem bank = new  QueueManagementSystem("Bank");
+            callGetNextTicket(bank, 5);
+            bank.toNextWorkDay();
+            callGetNextTicket(bank, 3);
+            Ticket[] actualResult = bank.getCurrentQueue();
+            Ticket[] expectedResult = new Ticket[]{new Ticket(1,"Bank"),
+                    new Ticket(2,"Bank"),
+                    new Ticket(3,"Bank")};
+            Assertions.assertEquals(actualResult.length, expectedResult.length);
+            for (int i = 0; i < 3; i++) {
+                Assertions.assertTrue(actualResult[i].toString().equals(expectedResult[i].toString()));
+            }
+        }
     }
 
     @Nested
