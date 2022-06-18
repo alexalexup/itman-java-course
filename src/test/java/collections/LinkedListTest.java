@@ -1,18 +1,15 @@
 package collections;
 
-import entities.Node;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class LinkedListTest {
     private static void checkElements(LinkedList list, int[] array) {
-        Node link = list.getNode();
-        int i = 0;
-        while (link != null) {
-           Assertions.assertEquals(array[i], link.getElement());
-            i++;
-            link = link.getNext();
+        int size = list.size();
+        Assertions.assertEquals(size, array.length);
+        for(int i = 0; i < size; i++) {
+            Assertions.assertEquals(list.get(i), array[i]);
         }
     }
 
@@ -35,14 +32,7 @@ class LinkedListTest {
         public void shouldWorkWhenListHaveNotElements() {
             LinkedList list = new LinkedList();
             list.addFirst(4);
-            Assertions.assertEquals(4, list.getNode().getElement());
-        }
-
-        @Test
-        public void shouldHaveNullInTheLastNodeWhenMethodWasCalled() {
-            LinkedList list = LinkedList.of(9, 5, 6);
-            Node actualResult = list.getNode().getNext().getNext().getNext();
-            Assertions.assertEquals(null, actualResult);
+            Assertions.assertEquals(4, list.get(0));
         }
     }
 
@@ -61,8 +51,6 @@ class LinkedListTest {
         @Test
         public void shouldRemoveElementsWhenWethodWasCalledSeveralTimes(){
             LinkedList list = LinkedList.of(10, 8, 4, 2);
-            list.removeFirst();
-            list.removeFirst();
             list.removeFirst();
             list.removeFirst();
             int[] expectedResult = new int[] {4, 2};
