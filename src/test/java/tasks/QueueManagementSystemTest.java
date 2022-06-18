@@ -29,7 +29,6 @@ class QueueManagementSystemTest {
             Assertions.assertTrue(actualResult.toString().equals(expectedResult.toString()));
         }
 
-
         @Test
         public void shouldDeleteFirstTicketFromQueueWhenQueueHaveSomeTickets() {
             QueueManagementSystem bank = new  QueueManagementSystem("Bank");
@@ -73,17 +72,12 @@ class QueueManagementSystemTest {
         @Test
         public void shouldReturnTicketsWhenQueueHaveSomeTickets(){
             QueueManagementSystem bank = new  QueueManagementSystem("Bank");
-            callGetNextTicket(bank, 5);
-            Ticket[] actualResult = bank.getCurrentQueue();
-            Ticket[] expectedResult = new Ticket[]{new Ticket(1,"Bank"),
-                    new Ticket(2,"Bank"),
-                    new Ticket(3,"Bank"),
-                    new Ticket(4,"Bank"),
-                    new Ticket(5,"Bank")};
-            Assertions.assertEquals(actualResult.length, expectedResult.length);
-            for (int i = 0; i < 5; i++) {
-                Assertions.assertTrue(actualResult[i].toString().equals(expectedResult[i].toString()));
+            Ticket[] expectedResult = new Ticket[3];
+            for (int i = 0; i < 3; i++) {
+                expectedResult[i] = bank.getNextTicket();
             }
+            Ticket[] actualResult = bank.getCurrentQueue();
+            Assertions.assertArrayEquals(expectedResult, actualResult);
         }
 
         @Test
@@ -92,7 +86,7 @@ class QueueManagementSystemTest {
             callGetNextTicket(bank, 5);
             bank.toNextWorkDay();
             Ticket[] tickets = bank.getCurrentQueue();
-            Assertions.assertArrayEquals(null, tickets);
+            Assertions.assertArrayEquals(new Ticket[]{}, tickets);
         }
 
         @Test
