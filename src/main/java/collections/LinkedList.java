@@ -212,5 +212,4 @@ public class LinkedList {
        this.lastNode = this.lastNode.getPrev();
        return result;
     }
-
 }
