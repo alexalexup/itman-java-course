@@ -4,11 +4,18 @@ import entities.Ticket;
 import collections.ArrayList;
 
 public class QueueManagementSystem {
+    private int totalTickets;
+    private int previousTickets;
+    private String place;
+    private ArrayList days;
+    private LinkedList tickets;
+
 
     private static class LinkedList {
         private Node node;
         private Node lastNode;
         private int size;
+
 
         private static class Node {
             private Ticket ticket;
@@ -69,6 +76,7 @@ public class QueueManagementSystem {
         }
 
         public LinkedList() {
+
         }
 
         public int size() {
@@ -108,7 +116,7 @@ public class QueueManagementSystem {
             Ticket[] tickets = new Ticket[this.size()];
             Node link = this.node;
             if (link == null) {
-                return null;
+                return tickets;
             }
             for (int i = 0; i < tickets.length; i++) {
                 tickets[i] = link.getTicket();
@@ -117,12 +125,6 @@ public class QueueManagementSystem {
             return tickets;
         }
     }
-
-    private int totalTickets;
-    private int previousTickets;
-    private String place;
-    private ArrayList days;
-    private LinkedList tickets;
 
     public Ticket[] getCurrentQueue() {
         return this.tickets.getTickets();

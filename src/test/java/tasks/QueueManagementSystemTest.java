@@ -29,6 +29,7 @@ class QueueManagementSystemTest {
             Assertions.assertTrue(actualResult.toString().equals(expectedResult.toString()));
         }
 
+
         @Test
         public void shouldDeleteFirstTicketFromQueueWhenQueueHaveSomeTickets() {
             QueueManagementSystem bank = new  QueueManagementSystem("Bank");
