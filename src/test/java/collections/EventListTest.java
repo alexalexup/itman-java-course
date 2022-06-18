@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import entities.Event;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class EventListTest {
 
