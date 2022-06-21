@@ -6,13 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.web.bind.annotation.RestController;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -61,6 +57,35 @@ class QueueControllerTest {
             this.mockMvc.perform(totalRequest)
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().string("12"));
+        }
+
+        @Test
+        public void methodsFromQueueSpringApplicationShouldWorkCorrectWhenSecondScriptWasCalled() throws Exception {
+            MockHttpServletRequestBuilder nextTicketRequest = MockMvcRequestBuilders
+                    .get("/api/queue/nextTicket");
+            this.mockMvc.perform(nextTicketRequest);
+            this.mockMvc.perform(nextTicketRequest);
+            this.mockMvc.perform(nextTicketRequest);
+            MockHttpServletRequestBuilder getCurrentQueue = MockMvcRequestBuilders
+                    .get("/api/queue/getCurrentQueue");
+            this.mockMvc.perform(getCurrentQueue).andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("[{\"number\":1,\"place\":\"bank\"}" +
+                            ",{\"number\":2,\"place\":\"bank\"}" +
+                            ",{\"number\":3,\"place\":\"bank\"}]"));
+            MockHttpServletRequestBuilder callNext = MockMvcRequestBuilders
+                    .post("/api/queue/callNext");
+            this.mockMvc.perform(callNext);
+            this.mockMvc.perform(callNext);
+            this.mockMvc.perform(callNext).andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("{\"number\":3, \"place\":\"bank\"}"));
+            MockHttpServletRequestBuilder nextWorkDayRequest = MockMvcRequestBuilders
+                    .post("/api/queue/toNextWorkDay");
+            this.mockMvc.perform(nextWorkDayRequest);
+            this.mockMvc.perform(nextTicketRequest);
+            this.mockMvc.perform(nextTicketRequest);
+            this.mockMvc.perform(getCurrentQueue).andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("[{\"number\":1,\"place\":\"bank\"}" +
+                            ",{\"number\":2,\"place\":\"bank\"}]"));
         }
     }
 }

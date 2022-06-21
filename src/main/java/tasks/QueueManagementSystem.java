@@ -22,68 +22,61 @@ public class QueueManagementSystem {
             private Node next;
             private Node prev;
 
-            public Ticket getTicket() {
+            private Ticket getTicket() {
                 return ticket;
             }
 
-            public void setTicket(Ticket ticket) {
-                this.ticket = ticket;
-            }
-
-            public Node getNext() {
+            private Node getNext() {
                 return next;
             }
 
-            public void setNext(Node next) {
+            private void setNext(Node next) {
                 this.next = next;
             }
 
-            public Node getPrev() {
-                return prev;
-            }
-
-            public void setPrev(Node prev) {
+            private void setPrev(Node prev) {
                 this.prev = prev;
             }
 
 
 
-            public Node(Ticket ticket, Node next, Node prev) {
+            private Node(Ticket ticket, Node next, Node prev) {
                 this.ticket = ticket;
                 this.next = next;
                 this.prev = prev;
             }
 
-            public Node() {
+            private Node() {
             }
 
         }
 
-        public Node getNode() {
+        private Node getNode() {
             return node;
         }
 
-        public void setNode(Node node) {
-            this.node = node;
-        }
 
-        public Node getLastNode() {
-            return lastNode;
-        }
-
-        public void setLastNode(Node lastNode) {
-            this.lastNode = lastNode;
-        }
-
-        public LinkedList() {
+        private LinkedList() {
 
         }
 
-        public int size() {
+        /**
+         * Return size of the LinkedList tickets
+         * @cpu O(1)
+         * @ram O(1)
+         * @return size of the LinkedList tickets
+         */
+        private int size() {
             return this.size;
         }
 
-        public void addLast(Ticket ticket) {
+        /**
+         * Add one element to the end of the LinkedList tickets
+         * @cpu O(1)
+         * @ram O(1)
+         * @param ticket that we need to add to the end of the queue
+         */
+        private void addLast(Ticket ticket) {
             this.size++;
             Node link = this.getNode();
             if (link == null) {
@@ -95,11 +88,23 @@ public class QueueManagementSystem {
             this.lastNode = this.lastNode.getNext();
         }
 
-        public Ticket getFirst() {
+        /**
+         * Get ticket from head of the queue
+         * @cpu O(1)
+         * @ram O(1)
+         * @return first ticket from the queue
+         */
+        private Ticket getFirst() {
             return this.node.getTicket();
         }
 
-        public Ticket removeFirst() {
+        /**
+         * Get ticket from head of the queue and delete it
+         * @cpu O(1)
+         * @ram O(1)
+         * @return first ticket from the queue
+         */
+        private Ticket removeFirst() {
             this.size--;
             Ticket result = this.getFirst();
             Node link = this.node;
@@ -112,7 +117,13 @@ public class QueueManagementSystem {
             return result;
         }
 
-        public Ticket[] getTickets() {
+        /**
+         * Create and return array with tickets from the LinkedList tickets
+         * @cpu O(n), n -  this.tickets.size() (size of the LinkedList tickets)
+         * @ram O(n), n -  this.tickets.size() (size of the LinkedList tickets)
+         * @return array with tickets from the LinkedList tickets
+         */
+        private Ticket[] getTickets() {
             Ticket[] tickets = new Ticket[this.size()];
             Node link = this.node;
             if (link == null) {
@@ -126,6 +137,12 @@ public class QueueManagementSystem {
         }
     }
 
+    /**
+     * Create and return array with tickets from the LinkedList tickets
+     * @cpu O(n), size of the LinkedList tickets
+     * @ram O(n), size of the LinkedList tickets
+     * @return array with tickets from the LinkedList tickets
+     */
     public Ticket[] getCurrentQueue() {
         if(this.tickets.size() == 0) {
             return new Ticket[]{};
@@ -133,6 +150,12 @@ public class QueueManagementSystem {
         return this.tickets.getTickets();
     }
 
+    /**
+     * Get ticket from head of the queue and delete it
+     * @cpu O(1)
+     * @ram O(1)
+     * @return first ticket from the queue
+     */
     public Ticket callNext() {
         return this.tickets.removeFirst();
     }
@@ -176,7 +199,7 @@ public class QueueManagementSystem {
     }
 
     /**
-     * Increase by one size of ArrayList days and reset to zero value of totalTickets
+     * Increase by one size of ArrayList days and reset to zero value of totalTickets. Create new LinkedList tickets (reset)
      * @cpu O(1)
      * @ram O(n), n - days.size()
      */

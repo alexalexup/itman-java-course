@@ -11,11 +11,23 @@ public class QueueController {
 
     private QueueManagementSystem queue = new QueueManagementSystem("bank");
 
+    /**
+     * Create and return array with tickets from queue
+     * @cpu O(n), queue.size()
+     * @ram O(n), queue.size()
+     * @return array with tickets from the LinkedList tickets
+     */
     @GetMapping("/api/queue/getCurrentQueue")
     public Ticket[] getCurrentQueue(){
         return this.queue.getCurrentQueue();
     }
 
+    /**
+     * Get ticket from head of the queue and delete it
+     * @cpu O(1)
+     * @ram O(1)
+     * @return first ticket from the queue
+     */
     @PostMapping("/api/queue/callNext")
     public Ticket callNext() {
         return this.queue.callNext();

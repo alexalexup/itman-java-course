@@ -18,6 +18,15 @@ class QueueTest {
             int[] expectedResult = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
             Assertions.assertArrayEquals(expectedResult, actualResult);
         }
+
+        @Test
+        public void shouldAddElementWhenQueueHaveNotElements() {
+            Queue queue = new Queue();
+            queue.offer(1);
+            int[] actualResult = queue.toArray();
+            int[] expectedResult = new int[] {1};
+            Assertions.assertArrayEquals(expectedResult, actualResult);
+        }
     }
 
     @Nested

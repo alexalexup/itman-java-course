@@ -57,17 +57,6 @@ public class LinkedList {
     public LinkedList() {
     }
 
-    public LinkedList(LinkedList that) {
-        if (that == null) {
-            return;
-        }
-        Node link = that.node;
-        while (link != null) {
-            this.addLast(link.getElement());
-            link = link.getNext();
-        }
-    }
-
     public Node getNode() {
         return this.node;
     }
@@ -80,6 +69,31 @@ public class LinkedList {
         return this.size;
     }
 
+    /**
+     * Create LinkedList with numbers from argument LinkedList
+     * @cpu O(n), n - size of LinkedList (that)
+     * @ram O(n), n - size of LinkedList (that)
+     * @param that LinkedList from argument
+     * @return LinkedList with values from argument
+     */
+    public LinkedList(LinkedList that) {
+        if (that == null) {
+            return;
+        }
+        Node link = that.node;
+        while (link != null) {
+            this.addLast(link.getElement());
+            link = link.getNext();
+        }
+    }
+
+    /**
+     * Create LinkedList with elements from array
+     * @cpu O(n), n - elements.length
+     * @ram O(n), n - elements.length
+     * @param elements array with numbers
+     * @return LinkedList with values from argument
+     */
     public static LinkedList of(int ... elements) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < elements.length; i++) {
@@ -88,6 +102,12 @@ public class LinkedList {
         return list;
     }
 
+    /**
+     * Create array with numbers from LinkedList
+     * @cpu O(n), n - size of LinkedList
+     * @ram O(n), n - size of LinkedList
+     * @return array with numbers from LinkedList
+     */
     public int[] toArray(){
         int[] result = new int[this.size];
         Node link = this.node;
@@ -98,6 +118,13 @@ public class LinkedList {
         return result;
     }
 
+    /**
+     * Get element from LinkedList by index
+     * @cpu O(n), n - size of LinkedList
+     * @ram O(1), n - size of LinkedList
+     * @param index argument
+     * @return number from LinkedList by index
+     */
     public int get(int index) {
         int size = this.size();
         if (index <= size / 2) {
@@ -115,18 +142,37 @@ public class LinkedList {
         }
     }
 
+    /**
+     * Set element in LinkedList by index
+     * @cpu O(n), n - size of LinkedList
+     * @ram O(1), n - size of LinkedList
+     * @param index argument
+     * @param element argument
+     */
     public void set(int index, int element) {
-        if (index == this.size -1) {
-            this.getLastNode().setElement(element);
+        int size = this.size();
+        if (index <= size / 2) {
+            Node link = this.getNode();
+            for (int i = 0; i < index; i++) {
+                link = link.getNext();
+            }
+            link.setElement(element);
             return;
         }
-        Node link = this.node;
-        for (int i = 0; i < index; i++ ) {
-            link = link.getNext();
+        Node link = this.getLastNode();
+        for (int i = 0; i < size - index - 1; i++) {
+            link = link.getPrev();
         }
         link.setElement(element);
     }
 
+    /**
+     * Compare two LinkedList
+     * @cpu O(n), n - size of LinkedList
+     * @ram O(1), n - size of LinkedList
+     * @param  that LinkedList
+     * @return true when elements and size from LinkedLists are same. In another way - false.
+     */
     public boolean equals(LinkedList that) {
         if (that == null || this.size() != that.size()) {
             return false;
@@ -143,11 +189,18 @@ public class LinkedList {
         return true;
     }
 
+    /**
+     * Get element by the index and delete it
+     * @cpu O(n)
+     * @ram O(1)
+     * @param index argument
+     * @return first element from LinkedList
+     */
     public int remove(int index) {
         if (index == 0) {
             return this.removeFirst();
         }
-        if (index == (size - 1)) {
+        if (index == (this.size - 1)) {
             return this.removeLast();
         }
         int size = this.size();
@@ -168,6 +221,13 @@ public class LinkedList {
         }
     }
 
+    /**
+     * Get element from node by the link and delete this node
+     * @cpu O(1)
+     * @ram O(1)
+     * @param link by node
+     * @return element from node
+     */
     private int removeNode(Node link) {
         int result = link.getElement();
         link.getPrev().setNext(link.getNext());
@@ -175,6 +235,12 @@ public class LinkedList {
         return result;
     }
 
+    /**
+     * Add one element in the head of LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @param element argument
+     */
     public  void addFirst(int element) {
         this.size++;
         Node link = this.getNode();
@@ -188,10 +254,22 @@ public class LinkedList {
         return;
     }
 
+    /**
+     * Get first element from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return first element from LinkedList
+     */
     public int getFirst() {
         return this.node.getElement();
     }
 
+    /**
+     * Get first element and delete first node from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return first element from LinkedList
+     */
     public int removeFirst() {
         this.size--;
         int result = this.getFirst();
@@ -205,6 +283,12 @@ public class LinkedList {
         return result;
     }
 
+    /**
+     * Return String with values of elements from LinkedList
+     * @cpu O(n), n - size of LinkedList
+     * @ram O(n), n - size of LinkedList
+     * @return String with values of elements from LinkedList
+     */
     public String toString() {
         Node link = this.node;
         if (link == null) {
@@ -222,6 +306,12 @@ public class LinkedList {
         return result.toString();
     }
 
+    /**
+     * Add one element to the end of the LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @param element
+     */
     public void addLast(int element) {
         this.size++;
         Node link = this.getNode();
@@ -234,10 +324,22 @@ public class LinkedList {
         this.lastNode = this.lastNode.getNext();
     }
 
+    /**
+     * Get last element from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return last element from LinkedList
+     */
     public int getLast() {
         return this.lastNode.getElement();
     }
 
+    /**
+     * Return last element and delete last node from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return last element from LinkedList
+     */
     public int removeLast(){
         this.size--;
        int result = this.getLast();

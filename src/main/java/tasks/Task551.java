@@ -2,6 +2,11 @@ package tasks;
 
 public class Task551 {
 
+    /**
+     * Create double linked list
+     * @cpu O(1)
+     * @ram O(1)
+     */
     public static Node buildLinkedList() {
        Node list = new Node (12, new Node(99, new Node(37, null,null),null),null);
        list.getNext().setPrev(list);
