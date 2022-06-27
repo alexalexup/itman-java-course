@@ -16,7 +16,7 @@ public class Stack {
 
     /**
      * Add argument to Stack
-     * @cpu Θ(1)
+     * @cpu O(1)
      * @ram O(n), n - arrayList.numbers.length
      * @param element argument
      */

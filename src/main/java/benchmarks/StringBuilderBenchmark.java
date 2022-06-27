@@ -20,7 +20,7 @@ public class StringBuilderBenchmark {
 
     /**
      * Adds two characters from string to the current string n times
-     * @cpu Θ(n)
+     * @cpu O(n)
      * @ram O(n)
      * @param n argument
      * return string with data after сoncatenation

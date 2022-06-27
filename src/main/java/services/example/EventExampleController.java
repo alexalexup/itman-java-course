@@ -1,10 +1,7 @@
 package services.example;
 
 import entities.Event;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class EventExampleController {
@@ -21,7 +18,7 @@ public class EventExampleController {
     public void postEvent(@RequestBody Event event) {
         this.event = event;
     }
-
+    
     /**
      * Return Event Object
      * @cpu O(1)

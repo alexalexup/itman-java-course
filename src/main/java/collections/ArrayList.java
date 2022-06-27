@@ -75,7 +75,7 @@ public class ArrayList {
 
     /**
      * Add argument to arrayList
-     * @cpu Θ(1)
+     * @cpu O(1)
      * @ram O(n), n - this.numbers.length
      * @param element argument
      */
@@ -151,7 +151,7 @@ public class ArrayList {
 
     /**
      * Create arrayList with data by argument
-     * @cpu Θ(n), n - elements.length
+     * @cpu O(n), n - elements.length
      * @ram O(n), n - elements.length
      * @param elements argument
      * @return arrayList with data by argument

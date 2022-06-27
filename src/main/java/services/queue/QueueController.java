@@ -12,6 +12,28 @@ public class QueueController {
     private QueueManagementSystem queue = new QueueManagementSystem("bank");
 
     /**
+     * Create and return array with tickets from queue
+     * @cpu O(n), queue.size()
+     * @ram O(n), queue.size()
+     * @return array with tickets from the LinkedList tickets
+     */
+    @GetMapping("/api/queue/getCurrentQueue")
+    public Ticket[] getCurrentQueue(){
+        return this.queue.getCurrentQueue();
+    }
+
+    /**
+     * Get ticket from head of the queue and delete it
+     * @cpu O(1)
+     * @ram O(1)
+     * @return first ticket from the queue
+     */
+    @PostMapping("/api/queue/callNext")
+    public Ticket callNext() {
+        return this.queue.callNext();
+    }
+
+    /**
      * Create and return newTicket with number increased by one to the previous ticket
      * @cpu O(1)
      * @ram O(1)
@@ -35,7 +57,7 @@ public class QueueController {
 
     /**
      * Switch queue to new work day. Increase by one size of ArrayList days and reset to zero value of totalTickets
-     * @cpu Θ(1)
+     * @cpu O(1)
      * @ram O(n), n - days.size()
      */
    @PostMapping("api/queue/toNextWorkDay")
