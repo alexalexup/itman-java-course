@@ -2,6 +2,8 @@ package benchmarks;
 
 import collections.ArrayList;
 import collections.LinkedList;
+import entities.items.Item;
+import utils.StringBuilder;
 
 public class ListBenchmark {
     // ArrayListWithCapacity takes 0.028 sec
