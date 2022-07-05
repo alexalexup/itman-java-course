@@ -63,13 +63,13 @@ class VideoGameTest {
 
         @Test
         public void shouldReturnFalseWhenObjectsFromSameClassesAndOneFiledIsNull() {
-            VideoGame firstGame = new VideoGame(1,"War", 24, 2, 8, "Steam");
-            VideoGame secondGame = new VideoGame(1,null, 24, 2, 8, "Steam");
+            VideoGame firstGame = new VideoGame(1,"War", 24, 2, 8, null);
+            VideoGame secondGame = new VideoGame(1,"War", 24, 2, 8, "Steam");
             Assertions.assertFalse(firstGame.equals(secondGame));
         }
 
         @Test
-        public void shouldReturnFalseWhenObjectsFromSameClassesAndSomePlatformFieldsAreNull() {
+        public void shouldReturnFalseWhenObjectsFromSameClassesAndlatformFieldsAreNull() {
             VideoGame firstGame = new VideoGame(1,"T", 24, 2, 8, null);
             VideoGame secondGame = new VideoGame(1,"T", 24, 2, 8, null);
             Assertions.assertTrue(firstGame.equals(secondGame));

@@ -70,6 +70,27 @@ public class Item {
     }
 
     /**
+     * Compare title fields from objects by Item class
+     * @cpu O(n), n - this.title.length
+     * @ram O(1)
+     * @param that object by Item class
+     * return true if  fields from objects are equal, if are not - false
+     */
+    private boolean compareTitleFields(Item that) {
+        if (this.getTitle() == null) {
+            if (that.getTitle()  == null) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (this.getTitle().equals(that.getTitle())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Compare fields from objects by Item class
      * @cpu O(n), n - this.title.length
      * @ram O(1)
@@ -77,9 +98,7 @@ public class Item {
      * return true if  fields from objects are equal, if are not - false
      */
     protected boolean compareItemFields (Item that) {
-        if (this.getTitle() !=null
-                &&  that.getTitle() != null
-                && this.getTitle().equals(that.getTitle())
+        if (this.compareTitleFields(that)
                 && this.getId() == that.getId()
                 && this.getPrice() == that.getPrice()) {
             return true;

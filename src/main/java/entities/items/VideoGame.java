@@ -53,12 +53,12 @@ public class VideoGame extends Game {
 
     /**
      * Compare fields from objects by VideoGame class
-     * @cpu O(n + m), n - this.title.length, m - this.platform.length
+     * @cpu O(n), n - this.platform.length
      * @ram O(1)
      * @param that object by VideoGame class
      * return true if  fields from objects are equal, if are not - false
      */
-    protected boolean compareVideoGameFields(VideoGame that) {
+    private boolean compareVideoGameFields(VideoGame that) {
         if (this.getPlatform() == null) {
             if (that.getPlatform() == null) {
                 return true;

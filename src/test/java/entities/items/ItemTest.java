@@ -72,7 +72,7 @@ class ItemTest {
         public void shouldReturnFalseWhenObjectsFromSameClassesAndSomeFieldsAreNull() {
             Item firstItem = new Item(1,null, 12);
             Item secondItem = new Item(1,null, 12);
-            Assertions.assertFalse(firstItem.equals(secondItem));
+            Assertions.assertTrue(firstItem.equals(secondItem));
         }
     }
 }

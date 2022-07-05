@@ -62,16 +62,23 @@ class BookTest {
 
         @Test
         public void shouldReturnFalseWhenObjectsFromSameClassesAndOneFiledIsNull() {
-            Book firstBook = new Book(2,null, 36, "Ann" , 300);
+            Book firstBook = new Book(2,"Potter", 36, null , 300);
             Book secondBook = new Book(2,"Potter", 45, "Ann" , 300);
             Assertions.assertFalse(firstBook.equals(secondBook));
         }
 
         @Test
-        public void shouldReturnFalseWhenObjectsFromSameClassesAndSomeFieldsAreNull() {
+        public void shouldReturnTrueWhenObjectsFromSameClassesAndSomeFieldsAreNull() {
+            Book firstBook = new Book(2,"Potter", 36, null , 300);
+            Book secondBook = new Book(2,"Potter", 36, null , 300);
+            Assertions.assertTrue(firstBook.equals(secondBook));
+        }
+
+        @Test
+        public void shouldReturnTrueWhenObjectsFromSameClassesAndFieldsWithLinksTypeAreNull() {
             Book firstBook = new Book(2,null, 36, null , 300);
-            Book secondBook = new Book(2,null, 45, null , 300);
-            Assertions.assertFalse(firstBook.equals(secondBook));
+            Book secondBook = new Book(2,null, 36, null , 300);
+            Assertions.assertTrue(firstBook.equals(secondBook));
         }
     }
 
