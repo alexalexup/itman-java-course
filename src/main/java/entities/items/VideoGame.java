@@ -59,9 +59,14 @@ public class VideoGame extends Game {
      * return true if  fields from objects are equal, if are not - false
      */
     protected boolean compareVideoGameFields(VideoGame that) {
-        if (this.getPlatform() != null
-                && that.getPlatform() != null
-                && this.getPlatform().equals(that.getPlatform())) {
+        if (this.getPlatform() == null) {
+            if (that.getPlatform() == null) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (this.getPlatform().equals(that.getPlatform())) {
             return true;
         }
         return false;

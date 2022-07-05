@@ -69,10 +69,10 @@ class VideoGameTest {
         }
 
         @Test
-        public void shouldReturnFalseWhenObjectsFromSameClassesAndSomeFieldsAreNull() {
-            VideoGame firstGame = new VideoGame(1,null, 24, 2, 8, null);
-            VideoGame secondGame = new VideoGame(1,null, 24, 2, 8, null);
-            Assertions.assertFalse(firstGame.equals(secondGame));
+        public void shouldReturnFalseWhenObjectsFromSameClassesAndSomePlatformFieldsAreNull() {
+            VideoGame firstGame = new VideoGame(1,"T", 24, 2, 8, null);
+            VideoGame secondGame = new VideoGame(1,"T", 24, 2, 8, null);
+            Assertions.assertTrue(firstGame.equals(secondGame));
         }
     }
 
