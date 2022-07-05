@@ -61,4 +61,42 @@ public class Book extends Item {
                 .append("}");
         return string.toString();
     }
+
+    /**
+     * Compare fields from objects by Book class
+     * @cpu O(n + m), n - this.title.length, m - this.author.length
+     * @ram O(1)
+     * @param that object by Book class
+     * return true if  fields from objects are equal, if are not - false
+     */
+    protected boolean compareBookFields(Book that) {
+        if (this.getAuthor() != null
+                &&  that.getAuthor() != null
+                && this.getAuthor().equals(that.getAuthor())
+                && this.getPages() == that.getPages()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Compare two objects
+     * @cpu O(n + m), n - this.title.length, m - this.author.length
+     * @ram O(1)
+     * @param that object
+     * return true if  objects are equal, if are not - false
+     */
+    @Override
+    public boolean equals(Object that) {
+        if (that == null || that.getClass() != Book.class ) {
+            return false;
+        }
+        if (this == that) {
+            return true;
+        }
+        if (this.compareItemFields((Item)that) && this.compareBookFields((Book)that)) {
+            return true;
+        }
+        return false;
+    }
 }

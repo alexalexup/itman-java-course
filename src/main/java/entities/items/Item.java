@@ -68,4 +68,43 @@ public class Item {
                 .append("}");
         return string.toString();
     }
+
+    /**
+     * Compare fields from objects by Item class
+     * @cpu O(n), n - this.title.length
+     * @ram O(1)
+     * @param that object by Item class
+     * return true if  fields from objects are equal, if are not - false
+     */
+    protected boolean compareItemFields (Item that) {
+        if (this.getTitle() !=null
+                &&  that.getTitle() != null
+                && this.getTitle().equals(that.getTitle())
+                && this.getId() == that.getId()
+                && this.getPrice() == that.getPrice()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Compare two objects
+     * @cpu O(n), n - this.title.length
+     * @ram O(1)
+     * @param that object
+     * return true if  objects are equal, if are not - false
+     */
+    @Override
+    public boolean equals(Object that) {
+        if (that == null || that.getClass() != Item.class ) {
+            return false;
+        }
+        if (this == that) {
+            return true;
+        }
+        if (this.compareItemFields((Item)that)) {
+            return true;
+        }
+        return false;
+    }
 }

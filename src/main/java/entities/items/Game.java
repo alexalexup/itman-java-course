@@ -54,4 +54,40 @@ public class Game extends Item {
                 .append("}");
         return string.toString();
     }
+
+    /**
+     * Compare fields from objects by Game class
+     * @cpu O(n), n - this.title.length
+     * @ram O(1)
+     * @param that object by Game class
+     * return true if  fields from objects are equal, if are not - false
+     */
+    protected boolean compareGameFields(Game that) {
+        if (this.getPlayersMax() ==  that.getPlayersMax()
+                && this.getPlayersMin() == that.getPlayersMin()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Compare two objects
+     * @cpu O(n), n - this.title.length
+     * @ram O(1)
+     * @param that object
+     * return true if  objects are equal, if are not - false
+     */
+    @Override
+    public boolean equals(Object that) {
+        if (that == null || that.getClass() != Game.class ) {
+            return false;
+        }
+        if (this == that) {
+            return true;
+        }
+        if (this.compareItemFields((Item)that) && this.compareGameFields((Game)that)) {
+            return true;
+        }
+        return false;
+    }
 }

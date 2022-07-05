@@ -50,4 +50,43 @@ public class VideoGame extends Game {
         return  string.toString();
 
     }
+
+    /**
+     * Compare fields from objects by VideoGame class
+     * @cpu O(n + m), n - this.title.length, m - this.platform.length
+     * @ram O(1)
+     * @param that object by VideoGame class
+     * return true if  fields from objects are equal, if are not - false
+     */
+    protected boolean compareVideoGameFields(VideoGame that) {
+        if (this.getPlatform() != null
+                && that.getPlatform() != null
+                && this.getPlatform().equals(that.getPlatform())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Compare two objects
+     * @cpu O(n + m), n - this.title.length, m - this.platform.length
+     * @ram O(1)
+     * @param that object
+     * return true if  objects are equal, if are not - false
+     */
+    @Override
+    public boolean equals(Object that) {
+        if (that == null || that.getClass() != VideoGame.class ) {
+            return false;
+        }
+        if (this == that) {
+            return true;
+        }
+        if (this.compareItemFields((Item) that)
+                && this.compareGameFields((Game) that)
+                && this.compareVideoGameFields((VideoGame) that)) {
+            return true;
+        }
+        return false;
+    }
 }

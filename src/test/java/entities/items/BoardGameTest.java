@@ -18,4 +18,62 @@ class BoardGameTest {
         }
     }
 
+    @Nested
+    public class Equals{
+        @Test
+        public void shouldReturnTrueWhenCompareObjectsHaveEqualLink() {
+            BoardGame firstGame = new BoardGame(1,"Ri", 34, 2, 8, 3,10);
+            BoardGame secondGame = firstGame;
+            Assertions.assertTrue(firstGame.equals(secondGame));
+        }
+
+        @Test
+        public void shouldReturnTrueWhenFieldsFromObjectsHaveSameValues() {
+            BoardGame firstGame = new BoardGame(1,"Ri", 34, 2, 8, 3,10);
+            BoardGame secondGame = new BoardGame(1,"Ri", 34, 2, 8, 3,10);
+            Assertions.assertTrue(firstGame.equals(secondGame));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenObjectsFromDifferentClassesAndHaveFieldsWithSameValues() {
+            Item item = new Item(1,"Rick", 34);
+            BoardGame game = new BoardGame(1,"Ri", 34, 2, 8, 3,10);
+            Assertions.assertFalse(game.equals(item));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenObjectsFromSameClassesAndHaveDifferentValues() {
+            BoardGame firstGame = new BoardGame(1,"Ri", 34, 2, 8, 3,10);
+            BoardGame secondGame = new BoardGame(2,"TTT", 3, 3, 9, 1,15);
+            Assertions.assertFalse(firstGame.equals(secondGame));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenObjectsFromSameClassesAndHaveOnlyOneDifferentField() {
+            BoardGame firstGame = new BoardGame(1,"Ri", 34, 2, 8, 3,10);
+            BoardGame secondGame = new BoardGame(2,"Ri", 34, 2, 8, 3,10);
+            Assertions.assertFalse(firstGame.equals(secondGame));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenThatObjectIsNull() {
+            BoardGame firstGame = new BoardGame(1,"Ri", 34, 2, 8, 3,10);
+            BoardGame secondGame = null;
+            Assertions.assertFalse(firstGame.equals(secondGame));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenObjectsFromSameClassesAndOneFiledIsNull() {
+            BoardGame firstGame = new BoardGame(1,null, 34, 2, 8, 3,10);
+            BoardGame secondGame = new BoardGame(1,"Ri", 34, 2, 12, 3,10);
+            Assertions.assertFalse(firstGame.equals(secondGame));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenObjectsFromSameClassesAndSomeFieldsAreNull() {
+            BoardGame firstGame = new BoardGame(1,null, 34, 2, 8, 3,10);
+            BoardGame secondGame = new BoardGame(1,null, 34, 2, 12, 3,10);
+            Assertions.assertFalse(firstGame.equals(secondGame));
+        }
+    }
 }
