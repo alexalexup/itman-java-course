@@ -1,6 +1,6 @@
 package benchmarks;
 
-import collections.InArrayList;
+import collections.IntArrayList;
 import collections.LinkedList;
 
 public class ListBenchmark {
@@ -8,7 +8,6 @@ public class ListBenchmark {
     // ArrayListWith takes 0.071 sec
     // LinkedList takes 0.86 sec
     public static void main(String[] args) {
-
         long firstTime = System.currentTimeMillis();
         createArrayListWithCapacity(10000000);
         long secondTime = System.currentTimeMillis();
@@ -20,20 +19,20 @@ public class ListBenchmark {
         System.out.println("ArrayListWith takes " + (thirdTime - secondTime) + "ms");
         System.out.println("LinkedList takes " + (fourthTime - thirdTime) + "ms");
     }
-   public static InArrayList createArrayListWithCapacity(int length) {
-        InArrayList inArrayList = new InArrayList(length);
+   public static IntArrayList createArrayListWithCapacity(int length) {
+        IntArrayList intArrayList = new IntArrayList(length);
         for (int i = 0; i < length;  i++) {
-            inArrayList.add(i);
+            intArrayList.add(i);
         }
-        return inArrayList;
+        return intArrayList;
     }
 
-   public static InArrayList createArrayList(int length) {
-        InArrayList inArrayList = new InArrayList();
+   public static IntArrayList createArrayList(int length) {
+        IntArrayList intArrayList = new IntArrayList();
        for (int i = 0; i < length;  i++) {
-           inArrayList.add(i);
+           intArrayList.add(i);
        }
-       return inArrayList;
+       return intArrayList;
    }
 
    public static LinkedList createLinkedList(int length) {

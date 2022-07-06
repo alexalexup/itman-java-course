@@ -2,7 +2,7 @@ package collections;
 
 
 public class Stack {
-    private InArrayList inArrayList;
+    private IntArrayList intArrayList;
 
     /**
      * Create empty object by Stack class without logical data
@@ -11,7 +11,7 @@ public class Stack {
      * return object without logical data by Stack class
      */
     public Stack(){
-        this.inArrayList = new InArrayList();
+        this.intArrayList = new IntArrayList();
     }
 
     /**
@@ -21,7 +21,7 @@ public class Stack {
      * @param element argument
      */
     public  void push(int element){
-        this.inArrayList.add(element);
+        this.intArrayList.add(element);
     }
 
     /**
@@ -31,7 +31,7 @@ public class Stack {
      * return last element from object by Stack class
      */
     public int peek() {
-        return this.inArrayList.get(this.inArrayList.size() -1);
+        return this.intArrayList.get(this.intArrayList.size() -1);
     }
 
     /**
@@ -42,7 +42,7 @@ public class Stack {
      */
     public int pop() {
         int result = this.peek();
-        this.inArrayList.remove(this.inArrayList.size() -1);
+        this.intArrayList.remove(this.intArrayList.size() -1);
         return result;
     }
 
@@ -53,7 +53,7 @@ public class Stack {
      * return size of the object by Stack class
      */
     public int size() {
-        return this.inArrayList.size();
+        return this.intArrayList.size();
     }
 
     /**
@@ -73,6 +73,6 @@ public class Stack {
      * @return array with data from object by Stack class
      */
     public int[] toArray() {
-        return this.inArrayList.toArray();
+        return this.intArrayList.toArray();
     }
 }
