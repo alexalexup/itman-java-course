@@ -4,9 +4,7 @@ import entities.Ticket;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import collections.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
+import collections.InArrayList;
 
 class QueueManagementSystemTest {
 
@@ -216,8 +214,8 @@ class QueueManagementSystemTest {
             administration.toNextWorkDay();
             administration.toNextWorkDay();
             callGetNextTicket(administration, 8);
-            ArrayList actualArray = administration.getVisitsByDay();
-            ArrayList expectedArray = ArrayList.of(21, 5, 6, 0, 8);
+            InArrayList actualArray = administration.getVisitsByDay();
+            InArrayList expectedArray = InArrayList.of(21, 5, 6, 0, 8);
             boolean actualResult = actualArray.equals(expectedArray);
             Assertions.assertTrue(actualResult);
         }
@@ -230,8 +228,8 @@ class QueueManagementSystemTest {
             callGetNextTicket(administration, 7);
             administration.toNextWorkDay();
             callGetNextTicket(administration, 2);
-            ArrayList actualArray = administration.getVisitsByDay();
-            ArrayList expectedArray = ArrayList.of(3, 7, 2);
+            InArrayList actualArray = administration.getVisitsByDay();
+            InArrayList expectedArray = InArrayList.of(3, 7, 2);
             actualArray.set(0, 5);
             actualArray.set(1, 10);
             actualArray.set(2, 8);
@@ -242,8 +240,8 @@ class QueueManagementSystemTest {
         @Test
         public void shouldReturnArrayWithOneElementThatValueIsZeroWhenHaveNotNextDaysAndTickets() {
             QueueManagementSystem administration = new  QueueManagementSystem("Administration");
-            ArrayList actualArray = administration.getVisitsByDay();
-            ArrayList expectedArray = new ArrayList();
+            InArrayList actualArray = administration.getVisitsByDay();
+            InArrayList expectedArray = new InArrayList();
             expectedArray.add(0);
             boolean actualResult = actualArray.equals(expectedArray);
             Assertions.assertTrue(actualResult);

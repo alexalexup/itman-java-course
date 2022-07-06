@@ -1,7 +1,5 @@
 package tasks;
 
-import collections.ArrayList;
-import tasks.QueueManagementSystem;
 import entities.Statistic;
 import utils.ArrayUtils;
 

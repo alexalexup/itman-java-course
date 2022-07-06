@@ -1,9 +1,8 @@
 package collections;
-import entities.items.Book;
 import utils.StringBuilder;
 import utils.ArrayUtils;
 
-public class ArrayList {
+public class InArrayList {
     private int[] numbers;
     private int size;
 
@@ -14,7 +13,7 @@ public class ArrayList {
      * @param capacity argument
      * return object without logical data by ArrayList class
      */
-    public ArrayList(int capacity) {
+    public InArrayList(int capacity) {
             this.numbers = new int[capacity];
     }
 
@@ -25,7 +24,7 @@ public class ArrayList {
      * @param that argument
      * return object by ArrayList class with data from argument
      */
-    public ArrayList(ArrayList that) {
+    public InArrayList(InArrayList that) {
         this.numbers = new int[that.size];
         for (int i = 0 ; i < that.size; i++) {
             this.add(that.numbers[i]);
@@ -38,7 +37,7 @@ public class ArrayList {
      * @ram O(1)
      * return object without logical data by ArrayList class
      */
-    public ArrayList() {
+    public InArrayList() {
         this.numbers = new int[16];
     }
 
@@ -130,10 +129,10 @@ public class ArrayList {
      * @return true when arrayLists are equal, false are not equal
      */
     public boolean equals(Object obj) {
-        if (obj == null || obj.getClass() != ArrayList.class) {
+        if (obj == null || obj.getClass() != InArrayList.class) {
             return false;
         }
-        ArrayList that = (ArrayList) obj;
+        InArrayList that = (InArrayList) obj;
         if (this.size != that.size) {
             return false;
         }
@@ -161,8 +160,8 @@ public class ArrayList {
      * @param elements argument
      * @return arrayList with data by argument
      */
-    public static ArrayList of(int... elements) {
-        ArrayList result = new ArrayList();
+    public static InArrayList of(int... elements) {
+        InArrayList result = new InArrayList();
         if (elements.length < 1) {
             return result;
         }

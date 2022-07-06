@@ -1,7 +1,7 @@
 package utils;
 
 import entities.Event;
-import collections.ArrayList;
+import collections.InArrayList;
 
 
 public class ArrayUtils {
@@ -216,9 +216,9 @@ public class ArrayUtils {
         }
         int maxDay  = findMax(keyArray);
         int minDay = findMin(keyArray);
-        ArrayList[] sortDates = new ArrayList[Math.abs(maxDay-minDay) + 1];
+        InArrayList[] sortDates = new InArrayList[Math.abs(maxDay-minDay) + 1];
         for (int i = 0; i < sortDates.length; i++) {
-            sortDates[i] = new ArrayList();
+            sortDates[i] = new InArrayList();
         }
         for (int i = 0; i < keyArray.length; i++) {
             int index = keyArray[i] - minDay;

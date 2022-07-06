@@ -1,6 +1,6 @@
 package tasks;
 
-import collections.ArrayList;
+import collections.InArrayList;
 
 public class CountingSortTask {
 
@@ -40,7 +40,7 @@ public class CountingSortTask {
          if (array.length == 0) {
              return new int[]{};
          }
-        ArrayList sortNumb = new ArrayList();
+        InArrayList sortNumb = new InArrayList();
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i]; j++) {
                 sortNumb.add(i);
