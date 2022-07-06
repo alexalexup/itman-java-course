@@ -4,9 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-
-
-
 class StatisticTest {
 
     @Nested
@@ -24,35 +21,39 @@ class StatisticTest {
     @Nested
     public class Equals {
         @Test
-        public void shouldReturnTrueWhenBothObjectsAreEqual() {
+        public void shouldBeEqualWhenBothObjectsAreEqual() {
             Statistic first = new Statistic(3,4, 8,2, 2);
             Statistic second = new Statistic(3,4, 8,2, 2);
-            boolean actualResult = first.equals(second);
-            Assertions.assertTrue(actualResult);
+            Assertions.assertEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenSecondObjectsIsNull() {
+        public void shouldNotBeEqualWhenSecondObjectsIsNull() {
             Statistic first = new Statistic(3,4, 8,2, 2);
             Statistic second = null;
-            boolean actualResult = first.equals(second);
-            Assertions.assertFalse(actualResult);
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenSecondObjectHaveOneDifferentElement() {
+        public void shouldNotBeEqualWhenSecondObjectHaveOneDifferentElement() {
             Statistic first = new Statistic(3,4, 8,2, 2);
             Statistic second = new Statistic(3,4, 8,2, 3);
-            boolean actualResult = first.equals(second);
-            Assertions.assertFalse(actualResult);
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenSecondObjectHaveAllDifferentElements() {
+        public void shouldNotBeEqualWhenSecondObjectHaveAllDifferentElements() {
             Statistic first = new Statistic(3,4, 8,3.6666666666666665, 2);
             Statistic second = new Statistic(2,5, 7,3.666666666666667, 2);
-            boolean actualResult = first.equals(second);
-            Assertions.assertFalse(actualResult);
+            Assertions.assertNotEquals(first, second);
+
+        }
+
+        @Test
+        public void shouldNotBeEqualWhenOneObjectIsNoyFromStatisticClass() {
+            Statistic first = new Statistic(3,4, 8,3.6666666666666665, 2);
+            Object obj = new Object();
+            Assertions.assertNotEquals(first, obj);
         }
     }
 }

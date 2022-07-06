@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class EventTest {
 
     @Nested
@@ -52,83 +50,73 @@ class EventTest {
     @Nested
     public class Equals {
         @Test
-        public void shouldReturnTrueWhenEventsHaveSameValues() {
+        public void shouldBeEqualWhenEventsHaveSameValues() {
             Event first = new Event(5, 1956, 10, 24, "Happy day");
             Event second = new Event(5, 1956, 10, 24, "Happy day");
-            boolean result = first.equals(second);
-            Assertions.assertTrue(result);
+            Assertions.assertEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenEventsHaveDifferentDays() {
+        public void shouldNotBeEqualWhenEventsHaveDifferentDays() {
             Event first = new Event(5, 1956, 10, 21, "Happy day");
             Event second = new Event(5, 1956, 10, 24, "Happy day");
-            boolean result = first.equals(second);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenEventsHaveDifferentMonth() {
+        public void shouldNotBeEqualWhenEventsHaveDifferentMonth() {
             Event first = new Event(5, 1956, 10, 24, "Happy day");
             Event second = new Event(5, 1956, 11, 24, "Happy day");
-            boolean result = first.equals(second);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenEventsHaveDifferentYears() {
+        public void shouldNotBeEqualWhenEventsHaveDifferentYears() {
             Event first = new Event(5, 1956, 10, 24, "Happy day");
             Event second = new Event(5, 1951, 10, 24, "Happy day");
-            boolean result = first.equals(second);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenEventsHaveDifferentNames() {
+        public void shouldNotBeEqualWhenEventsHaveDifferentNames() {
             Event first = new Event(5, 1956, 10, 24, "Usual day");
             Event second = new Event(5, 1956, 10, 24, "Happy day");
-            boolean result = first.equals(second);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenEventsHaveSameValuesAndFirstNameFieldIsNull() {
+        public void shouldNotBeEqualWhenEventsHaveSameValuesAndFirstNameFieldIsNull() {
             Event first = new Event(5, 1956, 10, 24, null);
             Event second = new Event(5, 1956, 10, 24, "Happy day");
-            boolean result = first.equals(second);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnWhenEventsHaveSameValuesAndIdFieldAreDifferent() {
+        public void shouldNotBeEqualWhenEventsHaveSameValuesAndIdFieldAreDifferent() {
             Event first = new Event(5, 1956, 10, 24, "Happy day");
             Event second = new Event(1, 1956, 10, 24, "Happy day");
-            boolean result = first.equals(second);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnTrueWhenEventsHaveSameValuesAndFieldsNameAreNull() {
+        public void shouldBeEqualWhenEventsHaveSameValuesAndFieldsNameAreNull() {
             Event first = new Event(5, 1956, 10, 24, null);
             Event second = new Event(5, 1956, 10, 24, null);
-            boolean result = first.equals(second);
-            Assertions.assertTrue(result);
+            Assertions.assertEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenAllElementsHaveDifferentValues() {
+        public void shouldNotBeEqualWhenAllElementsHaveDifferentValues() {
             Event first = new Event(2, 1954, 8, 4, "Not bad day");
             Event second = new Event(5, 1956, 10, 24, "Happy day");
-            boolean result = first.equals(second);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenSecondEventIsNull() {
+        public void shouldNotBeEqualWhenSecondEventIsNull() {
             Event first = new Event(5, 1956, 10, 24, "Happy day");
             Event second = null;
-            boolean result = first.equals(second);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
@@ -155,36 +143,28 @@ class EventTest {
         public void ShouldReturnPlusValueWhenFistEventLatestThanSecondEvent() {
             Event first = new Event (2018, 4 , 24, "Wedding");
             Event second = new Event (2018, 2, 20, "Super party");
-            int actual = first.compareTo(second);
-            boolean expected = actual > 0;
-            Assertions.assertTrue(expected);
+            Assertions.assertTrue(first.compareTo(second) > 0);
         }
 
         @Test
         public void shouldReturnMinusValueWhenSecondEventLatestThanFirstEvent() {
             Event first = new Event (2018, 4 , 2, "Wedding");
             Event second = new Event (2018, 4, 20, "Super party");
-            int actual = first.compareTo(second);
-            boolean expected = actual < 0;
-            Assertions.assertTrue(expected);
+            Assertions.assertTrue(first.compareTo(second) < 0);
         }
 
         @Test
         public void shouldReturnZeroWhenFirstAndSecondEventsHaveSameDatesAndDifferentNames() {
             Event first = new Event (2022, 7 , 24, "New record bitcoin value");
             Event second = new Event (2022, 7, 24, "Blackout");
-            int actual = first.compareTo(second);
-            int expected = 0;
-            Assertions.assertEquals(expected, actual);
+            Assertions.assertEquals(0, first.compareTo(second));
         }
 
         @Test
         public void shouldReturnNegativeNumberWhenSecondEventLatestThanFirstEventAndAllValuesAreDifferent() {
             Event first = new Event (2017, 4 , 12, "Create new company");
             Event second = new Event (2019, 8, 18, "Wedding");
-            int actual = first.compareTo(second);
-            boolean expected = actual < 0;
-            Assertions.assertTrue(expected);
+            Assertions.assertTrue(first.compareTo(second) < 0);
         }
 
         @Test

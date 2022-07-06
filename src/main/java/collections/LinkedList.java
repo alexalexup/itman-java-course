@@ -167,14 +167,18 @@ public class LinkedList {
     }
 
     /**
-     * Compare two LinkedList
+     * Compare two objects
      * @cpu O(n), n - size of LinkedList
      * @ram O(1), n - size of LinkedList
-     * @param  that LinkedList
+     * @param  obj argument
      * @return true when elements and size from LinkedLists are same. In another way - false.
      */
-    public boolean equals(LinkedList that) {
-        if (that == null || this.size() != that.size()) {
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != LinkedList.class) {
+            return false;
+        }
+        LinkedList that = (LinkedList) obj;
+        if (this.size() != that.size()) {
             return false;
         }
         Node firstLink = this.node;

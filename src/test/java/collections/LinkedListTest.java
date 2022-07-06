@@ -58,38 +58,52 @@ class LinkedListTest {
     @Nested
     public class Equals {
         @Test
-        public void shouldReturnFalseWhenLinkedListHaveDifferentSize() {
+        public void shouldNotBeEqualWhenLinkedListHaveDifferentSize() {
             LinkedList first = LinkedList.of(1, 2, 3, 4);
             LinkedList second = LinkedList.of(1, 2, 3, 4, 5);
-            Assertions.assertFalse(first.equals(second));
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenLinkedListHaveOnlyOneDifferentElement() {
+        public void shouldNotBeEqualWhenLinkedListHaveOnlyOneDifferentElement() {
             LinkedList first = LinkedList.of(1, 2, 1, 4, 5);
             LinkedList second = LinkedList.of(1, 2, 3, 4, 5);
-            Assertions.assertFalse(first.equals(second));
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnTrueWhenLinkedListHaveSameElementsAndSize() {
+        public void shouldBeEqualWhenLinkedListHaveSameElementsAndSize() {
             LinkedList first = LinkedList.of(1, 2, 3, 4, 5);
             LinkedList second = LinkedList.of(1, 2, 3, 4, 5);
-            Assertions.assertTrue(first.equals(second));
+            Assertions.assertEquals(first, second);
         }
 
         @Test
-        public void shouldReturnTrueWhenBothLinkedListHaveNotElements() {
+        public void shouldBeEqualWhenBothLinkedListHaveNotElements() {
             LinkedList first = LinkedList.of();
             LinkedList second = LinkedList.of();
-            Assertions.assertTrue(first.equals(second));
+            Assertions.assertEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenOneLinkedListHaveNotElementsAndSecondHave() {
+        public void shouldNotBeEqualWhenOneLinkedListHaveNotElementsAndSecondHave() {
             LinkedList first = LinkedList.of(3, 4, 5, 6);
             LinkedList second = LinkedList.of();
-            Assertions.assertFalse(first.equals(second));
+            Assertions.assertNotEquals(first, second);
+        }
+
+        @Test
+        public void shouldNotBeEqualWhenOneObjectIsNotFromLinkedListClass() {
+            LinkedList first = LinkedList.of(3, 4, 5, 6);
+            Object second = new Object();
+            Assertions.assertNotEquals(first, second);
+        }
+
+        @Test
+        public void shouldNotBeEqualWhenOneObjectIsNull() {
+            LinkedList first = LinkedList.of(3, 4, 5, 6);
+            LinkedList second = null;
+            Assertions.assertNotEquals(first, second);
         }
     }
 

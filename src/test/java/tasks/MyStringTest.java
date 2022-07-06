@@ -118,35 +118,31 @@ class MyStringTest {
     @Nested
     public class Equals {
         @Test
-        public void shouldReturnTrueWhenStringAreSame() {
+        public void shouldBeEqualWhenStringAreSame() {
             MyString firstString = new MyString(new char[]{'f', 'i', 's', 'h'});
             MyString secondString = new MyString(new char[]{'f', 'i', 's', 'h'});
-            boolean actualResult = firstString.equals(secondString);
-            Assertions.assertTrue(actualResult);
+            Assertions.assertEquals(firstString, secondString);
         }
 
         @Test
-        public void shouldReturnFalseWhenStringHaveDifferentLength() {
+        public void shouldNotBeEqualWhenStringHaveDifferentLength() {
             MyString firstString = new MyString(new char[]{'f', 'i', 's', 'h'});
             MyString secondString = new MyString(new char[]{'f', 'i', 's', 'h', 'h', 'h'});
-            boolean actualResult = firstString.equals(secondString);
-            Assertions.assertFalse(actualResult);
+            Assertions.assertNotEquals(firstString, secondString);
         }
 
         @Test
-        public void shouldReturnFalseWhenStringHaveSameLengthAndDifferentSymbols() {
+        public void shouldNotBeEqualWhenStringHaveSameLengthAndDifferentSymbols() {
             MyString firstString = new MyString(new char[]{'f', 'i', 't', 'h'});
             MyString secondString = new MyString(new char[]{'f', 'i', 's', 'h'});
-            boolean actualResult = firstString.equals(secondString);
-            Assertions.assertFalse(actualResult);
+            Assertions.assertNotEquals(firstString, secondString);
         }
 
         @Test
-        public void shouldReturnFalseWhenSecondStringIsNull() {
+        public void shouldNotBeEqualWhenSecondStringIsNull() {
             MyString firstString = new MyString(new char[]{'f', 'i', 't', 'h'});
             MyString secondString = null;
-            boolean actualResult = firstString.equals(secondString);
-            Assertions.assertFalse(actualResult);
+            Assertions.assertNotEquals(firstString, secondString);
         }
     }
 

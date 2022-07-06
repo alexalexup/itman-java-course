@@ -32,16 +32,19 @@ public class Ticket {
     }
 
     /**
-     * Determines whether the tickets are equivalent or not.
+     * Determines whether the objects are equivalent or not.
      * @cpu O(n), n - place.length;
      * @ram O(1)
-     * @param that Object by class Ticket
-     * @return true if all fields from Objects are equal, false if are not.
+     * @param obj argument
+     * @return true if  objects are equal, false if are not.
      */
-    public boolean equals(Ticket that) {
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != Ticket.class) {
+            return false;
+        }
+        Ticket that = (Ticket) obj;
         return that != null
                 && (this.place == null ? that.place == null :  this.place.equals(that.place))
-                && (this.number ==that.number);
-
+                && (this.number == that.number);
     }
 }

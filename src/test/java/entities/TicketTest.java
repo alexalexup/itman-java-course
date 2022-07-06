@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-
 class TicketTest {
 
     @Nested
@@ -48,59 +47,59 @@ class TicketTest {
     @Nested
     public class Equals {
         @Test
-        public void shouldReturnTrueWheBothObjectsHaveSameFields() {
+        public void shouldBeEqualWheBothObjectsHaveSameFields() {
             Ticket one = new Ticket(46, "Administration");
             Ticket two = new Ticket(46, "Administration");
-            boolean result = one.equals(two);
-            Assertions.assertTrue(result);
+            Assertions.assertEquals(one, two);
         }
 
         @Test
-        public void shouldReturnFalseWhenObjectsHaveDifferentNumbersAndSameNames() {
+        public void shouldNotBeEqualWhenObjectsHaveDifferentNumbersAndSameNames() {
             Ticket one = new Ticket(54, "Administration");
             Ticket two = new Ticket(24, "Administration");
-            boolean result = one.equals(two);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(one, two);
         }
 
         @Test
-        public void shouldReturnFalseWhenObjectsHaveSameNumbersAndDifferentNames() {
+        public void shouldNotBeEqualWhenObjectsHaveSameNumbersAndDifferentNames() {
             Ticket one = new Ticket(24, "Pharmacy");
             Ticket two = new Ticket(24, "Administration");
-            boolean result = one.equals(two);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(one, two);
         }
 
         @Test
-        public void shouldReturnFalseWhenAllFieldsGHaveDifferentData() {
+        public void shouldNotBeEqualWhenAllFieldsGHaveDifferentData() {
             Ticket one = new Ticket(54, "Pharmacy");
             Ticket two = new Ticket(24, "Administration");
-            boolean result = one.equals(two);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(one, two);
         }
 
         @Test
-        public void shouldReturnFalseWhenSecondTicketIsNull() {
+        public void shouldNotBeEqualWhenSecondTicketIsNull() {
             Ticket one = new Ticket(54, "Pharmacy");
             Ticket two = null;
-            boolean result = one.equals(two);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(one, two);
         }
 
         @Test
-        public void shouldReturnFalseWhenOneFieldPlaceIsNullAndSecondFiledPlaceHaveData() {
+        public void shouldNotBeEqualWhenOneFieldPlaceIsNullAndSecondFiledPlaceHaveData() {
             Ticket one = new Ticket(54, null);
             Ticket two = new Ticket(24, "Administration");
-            boolean result = one.equals(two);
-            Assertions.assertFalse(result);
+            Assertions.assertNotEquals(one, two);
         }
 
         @Test
-        public void shouldReturnTrueWhenObjectsHaveSameDataAndFieldsPlaceAreNull() {
+        public void shouldBeEqualWhenObjectsHaveSameDataAndFieldsPlaceAreNull() {
             Ticket one = new Ticket(24, null);
             Ticket two = new Ticket(24, null);
-            boolean result = one.equals(two);
-            Assertions.assertTrue(result);
+            Assertions.assertEquals(one, two);
+        }
+
+        @Test
+        public void shouldNotBeEqualWhenOneObjectIsNotFromTicketClass() {
+            Ticket one = new Ticket(24, null);
+            Object obj = new Object();
+            Assertions.assertNotEquals(one, obj);
         }
     }
 }

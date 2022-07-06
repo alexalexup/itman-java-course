@@ -1,4 +1,5 @@
 package collections;
+import entities.items.Book;
 import utils.StringBuilder;
 import utils.ArrayUtils;
 
@@ -125,11 +126,15 @@ public class ArrayList {
      * Comparing arrayLists
      * @cpu O(n), n - this.size
      * @ram O(1)
-     * @param that argument
+     * @param obj argument
      * @return true when arrayLists are equal, false are not equal
      */
-    public boolean equals(ArrayList that) {
-        if (that == null || this.size != that.size) {
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != ArrayList.class) {
+            return false;
+        }
+        ArrayList that = (ArrayList) obj;
+        if (this.size != that.size) {
             return false;
         }
         for (int i = 0; i < this.size; i++) {

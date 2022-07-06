@@ -111,16 +111,17 @@ public class MyString {
     }
 
     /**
-     * compares two strings
+     * compares two objects
      * @cpu O(n), n - symbols.length
      * @ram O(1)
-     * @param that Object from class MyString
+     * @param obj argument
      * @return true if both strings are equal, false if two strings aren't equal
      */
-    public boolean equals(MyString that) {
-        if (that == null) {
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != MyString.class) {
             return false;
         }
+        MyString that = (MyString) obj;
         if (compareTo(that) == 0) {
             return true;
         }

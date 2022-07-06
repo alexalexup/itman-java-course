@@ -164,43 +164,45 @@ class ArrayListTest {
     @Nested
     public class Equals {
         @Test
-        public void shouldReturnTrueWhenBothArraysAreEqual() {
+        public void shouldBeEqualsWhenBothArraysAreEqual() {
             ArrayList firstArray = ArrayList.of(1, 2, 3, 4, 5);
             ArrayList secondArray = ArrayList.of(1, 2, 3, 4, 5);
-            boolean actualResult = firstArray.equals(secondArray);
-            Assertions.assertTrue(actualResult);
+            Assertions.assertEquals(firstArray, secondArray);
         }
 
         @Test
-        public void shouldReturnFalseWhenSecondObjectIsNull() {
+        public void shouldNotBeEqualWhenSecondArrayIsNull() {
             ArrayList firstArray = ArrayList.of(1, 2, 3, 4);
             ArrayList secondArray = null;
-            boolean actualResult = firstArray.equals(secondArray);
-            Assertions.assertFalse(actualResult);
+            Assertions.assertNotEquals(firstArray, secondArray);
         }
 
         @Test
-        public void shouldReturnFalseWhenArraysHaveSameLengthAndOneDifferentElement() {
+        public void shouldNotBeEqualWhenArraysHaveSameLengthAndOneDifferentElement() {
             ArrayList firstArray = ArrayList.of(1, 2, 3, 4, 5);
             ArrayList secondArray = ArrayList.of(1, 2, 3, 3, 5);
-            boolean actualResult = firstArray.equals(secondArray);
-            Assertions.assertFalse(actualResult);
+            Assertions.assertNotEquals(firstArray, secondArray);
         }
 
         @Test
-        public void shouldReturnFalseWhenArraysHaveDifferentLengthAndEqualsElements() {
+        public void shouldNotBeEqualWhenArraysHaveDifferentLengthAndEqualsElements() {
             ArrayList firstArray = ArrayList.of(1, 2, 3, 4, 5);
             ArrayList secondArray = ArrayList.of(1, 2, 3, 4);
-            boolean actualResult = firstArray.equals(secondArray);
-            Assertions.assertFalse(actualResult);
+            Assertions.assertNotEquals(firstArray, secondArray);
         }
 
         @Test
-        public void shouldReturnFalseWhenLengthOfBothArraysIsOneAndElementsAreDifferent() {
+        public void shouldNotBeEqualWhenLengthOfBothArraysIsOneAndElementsAreDifferent() {
             ArrayList firstArray = ArrayList.of(2);
             ArrayList secondArray = ArrayList.of(1);
-            boolean actualResult = firstArray.equals(secondArray);
-            Assertions.assertFalse(actualResult);
+            Assertions.assertNotEquals(firstArray, secondArray);
+        }
+
+        @Test
+        public void shouldNotBeEqualWhenOneObjectIsNotByArrayListClass() {
+            ArrayList arrayList = ArrayList.of(1, 2, 3, 4, 5);
+            Object object = new Object();
+            Assertions.assertNotEquals(arrayList, object);
         }
     }
 
@@ -211,8 +213,7 @@ class ArrayListTest {
             ArrayList actualArray = ArrayList.of(4, 2, 3, 1, 1, 5, -5);
             ArrayList expectedArray = ArrayList.of(-5, 1, 1, 2, 3, 4, 5);
             actualArray.sort();
-            boolean expectedResult = actualArray.equals(expectedArray);
-            Assertions.assertTrue(expectedResult);
+            Assertions.assertEquals(expectedArray, actualArray);
         }
 
         @Test
@@ -220,8 +221,7 @@ class ArrayListTest {
             ArrayList actualArray = ArrayList.of(4);
             ArrayList expectedArray = ArrayList.of(4);
             actualArray.sort();
-            boolean expectedResult = actualArray.equals(expectedArray);
-            Assertions.assertTrue(expectedResult);
+            Assertions.assertEquals(expectedArray, actualArray);
         }
 
         @Test
@@ -229,8 +229,7 @@ class ArrayListTest {
             ArrayList actualArray = ArrayList.of(1, 2, 3, 4);
             ArrayList expectedArray = ArrayList.of(1, 2, 3, 4);
             actualArray.sort();
-            boolean expectedResult = actualArray.equals(expectedArray);
-            Assertions.assertTrue(expectedResult);
+            Assertions.assertEquals(expectedArray, actualArray);
         }
     }
 
@@ -240,8 +239,7 @@ class ArrayListTest {
         public void shouldCreateObjectsWithElementsFromTheReceivedObject() {
             ArrayList expectedArray = ArrayList.of(1, 2, 3, 4, 5, 6, 7);
             ArrayList actualArray = new ArrayList(expectedArray);
-            boolean expectedResult = actualArray.equals(expectedArray);
-            Assertions.assertTrue(expectedResult);
+            Assertions.assertEquals(expectedArray, actualArray);
         }
 
         @Test
@@ -249,8 +247,7 @@ class ArrayListTest {
             ArrayList expectedArray = new ArrayList(1);
             expectedArray.add(4);
             ArrayList actualArray = new ArrayList(expectedArray);
-            boolean expectedResult = actualArray.equals(expectedArray);
-            Assertions.assertTrue(expectedResult);
+            Assertions.assertEquals(expectedArray, actualArray);
         }
     }
 
@@ -263,8 +260,7 @@ class ArrayListTest {
             for (int i = 1; i < 6; i++) {
                 expectedArray.add(i);
             }
-            boolean expectedResult = actualArray.equals(expectedArray);
-            Assertions.assertTrue(expectedResult);
+            Assertions.assertEquals(expectedArray, actualArray);
         }
 
         @Test
@@ -274,8 +270,7 @@ class ArrayListTest {
             for (int i = 1; i < 6; i++) {
                 expectedArray.add(i);
             }
-            boolean expectedResult = actualArray.equals(expectedArray);
-            Assertions.assertTrue(expectedResult);
+            Assertions.assertEquals(expectedArray, actualArray);
         }
 
         @Test
@@ -283,16 +278,14 @@ class ArrayListTest {
             ArrayList actualArray = ArrayList.of(6);
             ArrayList expectedArray = new ArrayList(1);
             expectedArray.add(6);
-            boolean expectedResult = actualArray.equals(expectedArray);
-            Assertions.assertTrue(expectedResult);
+            Assertions.assertEquals(expectedArray, actualArray);
         }
 
         @Test
         public void shouldReturnArrayWithoutElementWhenArgumentHaveNotElements() {
             ArrayList actualArray = ArrayList.of();
             ArrayList expectedArray = new ArrayList();
-            boolean expectedResult = actualArray.equals(expectedArray);
-            Assertions.assertTrue(expectedResult);
+            Assertions.assertEquals(expectedArray, actualArray);
         }
     }
 
