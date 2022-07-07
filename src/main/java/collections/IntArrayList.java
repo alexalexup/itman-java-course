@@ -96,9 +96,6 @@ public class IntArrayList {
      * @return array with data from arrayList
      */
     public int[] toArray(){
-        if (this.numbers.length == this.size) {
-            return this.numbers;
-        }
         int[] logicalNumbers = new int[this.size];
         System.arraycopy(this.numbers,0,logicalNumbers,0,this.size);
         this.numbers =logicalNumbers;
