@@ -14,7 +14,7 @@ public class Queue {
      * @param element argument
      */
     public void offer(Object element) {
-        this.list.addLast(element);
+        this.list.add(element);
     }
 
     /**

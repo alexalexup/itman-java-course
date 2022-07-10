@@ -3,7 +3,7 @@ package collections;
 import utils.StringBuilder;
 
 
-public class LinkedList {
+public class LinkedList implements List {
 
     private static class Node {
         private Object element;
@@ -82,7 +82,7 @@ public class LinkedList {
         }
         Node link = that.node;
         while (link != null) {
-            this.addLast(link.getElement());
+            this.add(link.getElement());
             link = link.getNext();
         }
     }
@@ -97,7 +97,7 @@ public class LinkedList {
     public static LinkedList of(Object ... elements) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < elements.length; i++) {
-            list.addLast(elements[i]);
+            list.add(elements[i]);
         }
         return list;
     }
@@ -184,7 +184,7 @@ public class LinkedList {
         Node firstLink = this.node;
         Node secondLink =that.node;
         for (int i = 0; i < this.size(); i++) {
-            if (firstLink.getElement() != secondLink.getElement()) {
+            if (firstLink.getElement().equals(secondLink.getElement()) == false) {
                 return false;
             }
             firstLink = firstLink.getNext();
@@ -326,7 +326,7 @@ public class LinkedList {
      * @ram O(1)
      * @param element
      */
-    public void addLast(Object element) {
+    public void add(Object element) {
         this.size++;
         Node link = this.getNode();
         if (link == null) {
