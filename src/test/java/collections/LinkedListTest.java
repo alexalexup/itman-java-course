@@ -170,23 +170,23 @@ class LinkedListTest {
         @Test
         public void shouldAddLastElementWhenListHaveNotElements() {
             LinkedList list = new LinkedList();
-            list.add(6);
+            list.addLast(6);
             Assertions.assertEquals(6,list.getLast());
         }
 
         @Test
         public void shouldWorkWhenAddLastWasCalledSomeTimes() {
             LinkedList list = new LinkedList();
-            list.add(36);
-            list.add(42);
-            list.add(56);
+            list.addLast(36);
+            list.addLast(42);
+            list.addLast(56);
             LinkedList expectedResult = LinkedList.of(36, 42, 56);
             Assertions.assertTrue(list.equals(expectedResult));
         }
         @Test
         public void shouldWorkWhenLinkedListHaveSomeElements() {
             LinkedList list = LinkedList.of(2, 3, 4, 5);
-            list.add(99);
+            list.addLast(99);
             LinkedList expectedResult = LinkedList.of(2, 3, 4, 5, 99);
             Assertions.assertTrue(list.equals(expectedResult));
         }
@@ -264,7 +264,7 @@ class LinkedListTest {
         @Test
         public void shouldReturnLastElementWhenListHaveOneElement() {
             LinkedList list = new LinkedList();
-            list.add(12);
+            list.addLast(12);
             Object actualResult = list.removeLast();
             Assertions.assertEquals(12, actualResult);
         }

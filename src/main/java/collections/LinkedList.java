@@ -82,7 +82,7 @@ public class LinkedList implements List {
         }
         Node link = that.node;
         while (link != null) {
-            this.add(link.getElement());
+            this.addLast(link.getElement());
             link = link.getNext();
         }
     }
@@ -97,7 +97,7 @@ public class LinkedList implements List {
     public static LinkedList of(Object ... elements) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < elements.length; i++) {
-            list.add(elements[i]);
+            list.addLast(elements[i]);
         }
         return list;
     }
@@ -140,6 +140,11 @@ public class LinkedList implements List {
             }
             return link.getElement();
         }
+    }
+
+    @Override
+    public void add(Object element) {
+        this.addLast(element);
     }
 
     /**
@@ -326,7 +331,7 @@ public class LinkedList implements List {
      * @ram O(1)
      * @param element
      */
-    public void add(Object element) {
+    public void addLast(Object element) {
         this.size++;
         Node link = this.getNode();
         if (link == null) {

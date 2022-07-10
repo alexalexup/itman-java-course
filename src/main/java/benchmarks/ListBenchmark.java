@@ -45,7 +45,7 @@ public class ListBenchmark {
    public static LinkedList createLinkedList(int length) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < length; i++) {
-            list.add(i);
+            list.addLast(i);
         }
         return list;
    }
