@@ -8,7 +8,7 @@ public class ListBenchmark {
     // ArrayIntListWithCapacity takes 0.028 sec
     // ArrayIntListWith takes 0.071 sec
     // LinkedList takes 0.86 sec
-    // ArrayList 0.403 sec
+    // ArrayList 0.518 sec
     public static void main(String[] args) {
         long firstTime = System.currentTimeMillis();
         createIntArrayListWithCapacity(10000000);
@@ -51,7 +51,7 @@ public class ListBenchmark {
    }
 
    public static ArrayList createArrayList(int length) {
-        ArrayList arrayList = new ArrayList(length);
+        ArrayList arrayList = new ArrayList();
        for (int i = 0; i < length;  i++) {
            arrayList.add(i);
        }

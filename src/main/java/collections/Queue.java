@@ -13,7 +13,7 @@ public class Queue {
      * @ram O(1)
      * @param element argument
      */
-    public void offer(int element) {
+    public void offer(Object element) {
         this.list.addLast(element);
     }
 
@@ -23,7 +23,7 @@ public class Queue {
      * @ram O(1)
      * @return first element from the queue
      */
-    public int peek() {
+    public Object peek() {
         return this.list.getFirst();
     }
 
@@ -33,7 +33,7 @@ public class Queue {
      * @ram O(1)
      * @return first element from the queue
      */
-    public int poll() {
+    public Object poll() {
         return this.list.removeFirst();
     }
 
@@ -66,7 +66,7 @@ public class Queue {
      * @ram O(n), n - size of the queue
      * @return array with elements from the queue
      */
-    public int[] toArray() {
+    public Object[] toArray() {
         return this.list.toArray();
     }
 }

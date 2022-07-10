@@ -43,14 +43,14 @@ class LinkedListTest {
         @Test
         public void shouldReturnFirstElementWhenLinkedListHaveSomeElements() {
             LinkedList list = LinkedList.of(2, 3, 4, 5, 6, 7);
-            int actualResult = list.getFirst();
+            Object actualResult = list.getFirst();
             Assertions.assertEquals(2, actualResult);
         }
 
         @Test
         public void shouldReturnFirstElementWhenLinkedListHaveOneElement() {
             LinkedList list = LinkedList.of(54);
-            int actualResult = list.getFirst();
+            Object actualResult = list.getFirst();
             Assertions.assertEquals(54, actualResult);
         }
     }
@@ -112,14 +112,14 @@ class LinkedListTest {
         @Test
         public void shouldReturnFirstElementWhenLinkedListHaveSomeElements() {
             LinkedList list = LinkedList.of(2, 3, 4);
-            int actualResult = list.removeFirst();
+            Object actualResult = list.removeFirst();
             Assertions.assertEquals(2, actualResult);
         }
 
         @Test
         public void shouldReturnFirstElementWhenLinkedListHaveOneElement() {
             LinkedList list = LinkedList.of(4);
-            int actualResult = list.removeFirst();
+            Object actualResult = list.removeFirst();
             Assertions.assertEquals(4, actualResult);
         }
 
@@ -197,7 +197,7 @@ class LinkedListTest {
         @Test
         public void shouldReturnLastElementWhenLinkedListHaveSomeElements() {
             LinkedList list = LinkedList.of(6, 9, 14);
-            int actualResult = list.getLast();
+            Object actualResult = list.getLast();
             Assertions.assertEquals(14, actualResult);
         }
 
@@ -205,7 +205,7 @@ class LinkedListTest {
         public void shouldReturnLastElementWhenListHaveOneElement() {
             LinkedList list = new LinkedList();
             list.addFirst(4);
-            int actualResult = list.getLast();
+            Object actualResult = list.getLast();
             Assertions.assertEquals(4, actualResult);
         }
     }
@@ -215,21 +215,21 @@ class LinkedListTest {
         @Test
         public void shouldReturnElementByIndexWhenIndexIsLessThanSizeOfLinkedList() {
             LinkedList list = LinkedList.of(1, 2, 3, 4, 5, 6, 7);
-            int actualResult = list.remove(1);
+            Object actualResult = list.remove(1);
             Assertions.assertEquals(2, actualResult);
         }
 
         @Test
         public void shouldReturnElementByIndexWhenIndexIsMoreThanSizeOfLinkedList() {
             LinkedList list = LinkedList.of(1, 2, 3, 4, 5, 6, 7);
-            int actualResult = list.remove(5);
+            Object actualResult = list.remove(5);
             Assertions.assertEquals(6, actualResult);
         }
 
         @Test
         public void shouldReturnElementByIndexWhenIndexIsHalfOfSizeOfLinkedList() {
             LinkedList list = LinkedList.of(1, 2, 3, 4, 5, 6, 7, 8);
-            int actualResult = list.remove(3);
+            Object actualResult = list.remove(3);
             Assertions.assertEquals(4, actualResult);
 
         }
@@ -265,14 +265,14 @@ class LinkedListTest {
         public void shouldReturnLastElementWhenListHaveOneElement() {
             LinkedList list = new LinkedList();
             list.addLast(12);
-            int actualResult = list.removeLast();
+            Object actualResult = list.removeLast();
             Assertions.assertEquals(12, actualResult);
         }
 
         @Test
         public void shouldReturnLastElementWhenListHaveSomeElements() {
             LinkedList list = LinkedList.of(3, 6, 11);
-            int actualResult = list.removeLast();
+            Object actualResult = list.removeLast();
             Assertions.assertEquals(11, actualResult);
         }
 
@@ -281,7 +281,7 @@ class LinkedListTest {
             LinkedList list = LinkedList.of(2, 7, 8, 9, 10);
             list.removeLast();
             list.removeLast();
-            int actualResult = list.removeLast();
+            Object actualResult = list.removeLast();
             Assertions.assertEquals(8, actualResult);
         }
 

@@ -14,8 +14,8 @@ class QueueTest {
             for (int i = 1; i < 11; i++) {
                 queue.offer(i);
             }
-            int[] actualResult = queue.toArray();
-            int[] expectedResult = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+            Object[] actualResult = queue.toArray();
+            Object[] expectedResult = new Object[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
             Assertions.assertArrayEquals(expectedResult, actualResult);
         }
 
@@ -23,8 +23,8 @@ class QueueTest {
         public void shouldAddElementWhenQueueHaveNotElements() {
             Queue queue = new Queue();
             queue.offer(1);
-            int[] actualResult = queue.toArray();
-            int[] expectedResult = new int[] {1};
+            Object[] actualResult = queue.toArray();
+            Object[] expectedResult = new Object[] {1};
             Assertions.assertArrayEquals(expectedResult, actualResult);
         }
     }
@@ -37,7 +37,7 @@ class QueueTest {
             queue.offer(1);
             queue.offer(2);
             queue.offer(3);
-            int actualResult = queue.peek();
+            Object actualResult = queue.peek();
             Assertions.assertEquals(1, actualResult);
         }
 
@@ -45,7 +45,7 @@ class QueueTest {
         public void shouldReturnFirsElementFromQueueWhenQueueHaveOneElement() {
             Queue queue = new Queue();
             queue.offer(5);
-            int actualResult = queue.peek();
+            Object actualResult = queue.peek();
             Assertions.assertEquals(5, actualResult);
         }
     }
@@ -58,20 +58,20 @@ class QueueTest {
             queue.offer(1);
             queue.offer(2);
             queue.offer(3);
-            int actualResult = queue.poll();
-            int[] actualArray = queue.toArray();
+            Object actualResult = queue.poll();
+            Object[] actualArray = queue.toArray();
             Assertions.assertEquals(1, actualResult);
-            Assertions.assertArrayEquals(new int[]{2, 3}, actualArray);
+            Assertions.assertArrayEquals(new Object[]{2, 3}, actualArray);
         }
 
         @Test
         public void shouldReturnAndDeleteFirsElementFromQueueWhenQueueHaveOneElement() {
             Queue queue = new Queue();
             queue.offer(1);
-            int actualResult = queue.poll();
-            int[] actualArray = queue.toArray();
+            Object actualResult = queue.poll();
+            Object[] actualArray = queue.toArray();
             Assertions.assertEquals(1, actualResult);
-            Assertions.assertArrayEquals(new int[]{}, actualArray);
+            Assertions.assertArrayEquals(new Object[]{}, actualArray);
         }
     }
 
@@ -133,8 +133,8 @@ class QueueTest {
         @Test
         public void shouldReturnArrayWithoutElementsWhenQueueHaveNotAnyElements() {
             Queue queue = new Queue();
-            int[] actualResult = queue.toArray();
-            Assertions.assertArrayEquals(new int[]{}, actualResult);
+            Object[] actualResult = queue.toArray();
+            Assertions.assertArrayEquals(new Object[]{}, actualResult);
         }
 
         @Test
@@ -143,8 +143,8 @@ class QueueTest {
             queue.offer(1);
             queue.offer(2);
             queue.offer(3);
-            int[] actualResult = queue.toArray();
-            Assertions.assertArrayEquals(new int[]{1, 2, 3}, actualResult);
+            Object[] actualResult = queue.toArray();
+            Assertions.assertArrayEquals(new Object[]{1, 2, 3}, actualResult);
         }
     }
 }
