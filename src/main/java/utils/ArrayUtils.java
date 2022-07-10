@@ -1,5 +1,6 @@
 package utils;
 
+import collections.ArrayList;
 import entities.Event;
 import collections.IntArrayList;
 
@@ -216,22 +217,20 @@ public class ArrayUtils {
         }
         int maxDay  = findMax(keyArray);
         int minDay = findMin(keyArray);
-        IntArrayList[] sortDates = new IntArrayList[Math.abs(maxDay-minDay) + 1];
+        ArrayList[] sortDates = new ArrayList[Math.abs(maxDay-minDay) + 1];
         for (int i = 0; i < sortDates.length; i++) {
-            sortDates[i] = new IntArrayList();
+           sortDates[i] = new ArrayList();
         }
         for (int i = 0; i < keyArray.length; i++) {
             int index = keyArray[i] - minDay;
-            sortDates[index].add(i);
+            sortDates[index].add(events[i]);
         }
-        Event[] sortEvents = new Event[events.length];
         for (int i = 0, j = 0; i < sortDates.length; i++) {
             for (int k = 0; k < sortDates[i].size(); k++){
-                sortEvents[j] = events[sortDates[i].get(k)];
+                events[j] = (Event) sortDates[i].get(k);
                 j++;
             }
         }
-        System.arraycopy(sortEvents, 0, events, 0, events.length);
     }
 
     /**
