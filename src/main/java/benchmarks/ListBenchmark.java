@@ -11,7 +11,7 @@ public class ListBenchmark {
     // ArrayList 0.403 sec
     public static void main(String[] args) {
         long firstTime = System.currentTimeMillis();
-        createArrayIntListWithCapacity(10000000);
+        createIntArrayListWithCapacity(10000000);
         long secondTime = System.currentTimeMillis();
         createIntArrayList(10000000);
         long thirdTime = System.currentTimeMillis();
@@ -26,7 +26,7 @@ public class ListBenchmark {
     }
 
 
-   public static IntArrayList createArrayIntListWithCapacity(int length) {
+   public static IntArrayList createIntArrayListWithCapacity(int length) {
         IntArrayList intArrayList = new IntArrayList(length);
         for (int i = 0; i < length;  i++) {
             intArrayList.add(i);
