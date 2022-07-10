@@ -1,5 +1,7 @@
 package collections;
 
+import utils.StringBuilder;
+
 public class ArrayList {
     private Object[] objects;
     private int size;
@@ -18,6 +20,9 @@ public class ArrayList {
             Object[] newObjects = new Object[this.objects.length * 2];
             System.arraycopy(this.objects, 0, newObjects, 0, this.objects.length);
             this.objects = newObjects;
+        }
+        if (element == null) {
+            return;
         }
         this.objects[this.size - 1] = element;
     }
@@ -55,5 +60,63 @@ public class ArrayList {
             arrayList.add(elements[i]);
         }
         return arrayList;
+    }
+
+    public String toString() {
+        if ( this.size == 0 ) {
+            return "[]";
+        }
+        if (this.size == 1) {
+            StringBuilder result = new StringBuilder(3);
+            return result.append("[")
+                    .append(this.objects[0].toString())
+                    .append("]")
+                    .toString();
+        }
+        StringBuilder result = new StringBuilder();
+        result.append("[");
+        for (int i = 0; i < this.size; i++) {
+            if (i != this.size - 1) {
+                if (this.objects[i] == null) {
+                    result.append(null)
+                            .append(", ");
+                } else {
+                    result.append(this.objects[i].toString())
+                            .append(", ");
+                }
+            } else {
+                if (this.objects[i] == null) {
+                    result.append(null)
+                            .append("]");
+                } else {
+                    result.append(this.objects[i].toString())
+                            .append("]");
+                }
+            }
+        }
+        return result.toString();
+    }
+
+    public boolean equals(Object that) {
+        if (that == null || that.getClass() != ArrayList.class) {
+            return false;
+        }
+        ArrayList thatArray = (ArrayList) that;
+        if (this.size != thatArray.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.size; i++) {
+            if (this.objects[i] == null) {
+              if (thatArray.objects[i] != null) {
+                  return false;
+              }
+            } else {
+                if (this.objects[i].equals(thatArray.objects[i])) {
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
