@@ -281,7 +281,7 @@ public class LinkedList implements List, Queue {
     }
 
     public void offer(Object element) {
-        this.addFirst(element);
+        this.addLast(element);
     }
 
     /**
@@ -374,7 +374,7 @@ public class LinkedList implements List, Queue {
     }
 
     public Object peek() {
-        return this.getLast();
+        return this.getFirst();
     }
 
     /**
@@ -397,6 +397,6 @@ public class LinkedList implements List, Queue {
     }
 
     public Object poll() {
-        return this.removeLast();
+        return this.removeFirst();
     }
 }
