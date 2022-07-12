@@ -3,7 +3,7 @@ package collections;
 import utils.StringBuilder;
 
 
-public class LinkedList implements List {
+public class LinkedList implements List, Queue {
 
     private static class Node {
         private Object element;
@@ -198,6 +198,13 @@ public class LinkedList implements List {
         return true;
     }
 
+    public boolean isEmpty() {
+        if (this.size() == 0) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Get element by the index and delete it
      * @cpu O(n)
@@ -271,6 +278,10 @@ public class LinkedList implements List {
         this.node = new Node(element, link, null);
         link.setPrev(this.node);
         return;
+    }
+
+    public void offer(Object element) {
+        this.addFirst(element);
     }
 
     /**
@@ -362,6 +373,10 @@ public class LinkedList implements List {
         return this.lastNode.getElement();
     }
 
+    public Object peek() {
+        return this.getLast();
+    }
+
     /**
      * Return last element and delete last node from LinkedList
      * @cpu O(1)
@@ -379,5 +394,9 @@ public class LinkedList implements List {
        this.getLastNode().getPrev().setNext(null);
        this.lastNode = this.lastNode.getPrev();
        return result;
+    }
+
+    public Object poll() {
+        return this.removeLast();
     }
 }
