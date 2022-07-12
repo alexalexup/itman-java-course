@@ -12,10 +12,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class QueueControllerTest {
+class LinkedQueueControllerTest {
 
     @Nested
-    public class MethodsFromQueueSpringApplicationFirstScript {
+    public class MethodsFromLinkedQueueSpringApplicationFirstScript {
 
         @Autowired
         private MockMvc mockMvc;

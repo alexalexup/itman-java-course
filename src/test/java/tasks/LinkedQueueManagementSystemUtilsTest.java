@@ -4,11 +4,8 @@ import entities.Statistic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import entities.Ticket;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class QueueManagementSystemUtilsTest {
+class LinkedQueueManagementSystemUtilsTest {
 
     public static void checkEqualsStat(Statistic[] expected, Statistic[] actual){
         Assertions.assertTrue(expected.length == actual.length);
@@ -172,7 +169,7 @@ class QueueManagementSystemUtilsTest {
                     (new Statistic(18, 25, 63, 21.0, 20.0)),
                     (new Statistic(4, 32, 44, 44.0 / 3.0, 8.0)),
                     (new Statistic(3, 42,53, 53.0 / 3.0, 8.0))};
-            QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
+            LinkedQueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
         }
 
         @Test
@@ -181,7 +178,7 @@ class QueueManagementSystemUtilsTest {
             Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
             Statistic[] expectedStatistic = new Statistic[]{(new Statistic(25, 25, 25,
                     25, 25))};
-            QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
+            LinkedQueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
         }
 
         @Test
@@ -195,7 +192,7 @@ class QueueManagementSystemUtilsTest {
                     (new Statistic(32, 32, 32, 32, 32)),
                     (new Statistic(43, 43, 43, 43, 43)),
                     (new Statistic(0, 0, 0, 0, 0))};
-            QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
+            LinkedQueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
         }
 
         @Test
@@ -203,7 +200,7 @@ class QueueManagementSystemUtilsTest {
             QueueManagementSystem[] systems = new QueueManagementSystem[]{};
             Statistic[] actualStatistic = QueueManagementSystemUtils.calcStatisticByDays(systems);
             Statistic[] expectedStatistic = new Statistic[]{};
-            QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
+            LinkedQueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
         }
 
         @Test
@@ -218,7 +215,7 @@ class QueueManagementSystemUtilsTest {
                     (new Statistic(7, 7, 7, 7, 7)),
                     (new Statistic(3, 4, 7, 3.5, 3.5)),
                     (new Statistic(2, 6,13, 13.0 / 3.0, 5.0))};
-            QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
+            LinkedQueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic,actualStatistic);
         }
 
         @Test
@@ -234,7 +231,7 @@ class QueueManagementSystemUtilsTest {
                     (new Statistic(2, 5, 7, 3.5, 3.5)),
                     (new Statistic(0, 10, 13, 13.0 / 3.0, 3.0)),
                     (new Statistic(1, 7, 12, 4.0, 4.0))};
-            QueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic, actualStatistic);
+            LinkedQueueManagementSystemUtilsTest.checkEqualsStat(expectedStatistic, actualStatistic);
         }
     }
 }

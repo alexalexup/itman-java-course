@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import collections.IntArrayList;
 
-class QueueManagementSystemTest {
+class LinkedQueueManagementSystemTest {
 
     public entities.Ticket callGetNextTicket(QueueManagementSystem that, int count) {
         entities.Ticket newTicket = new entities.Ticket();
@@ -66,7 +66,7 @@ class QueueManagementSystemTest {
     }
 
     @Nested
-    public class getCurrentQueue {
+    public class getCurrentLinkedQueue {
         @Test
         public void shouldReturnTicketsWhenQueueHaveSomeTickets(){
             QueueManagementSystem bank = new  QueueManagementSystem("Bank");
