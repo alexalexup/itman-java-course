@@ -4,6 +4,9 @@ import utils.StringBuilder;
 
 
 public class LinkedList implements List, Queue {
+    private Node node;
+    private Node lastNode;
+    private int size;
 
     private static class Node {
         private Object element;
@@ -43,12 +46,6 @@ public class LinkedList implements List, Queue {
             this.prev = prev;
         }
     }
-
-    private Node node;
-    private Node lastNode;
-    private int size;
-
-
 
     public LinkedList(Node node) {
         this.node = node;
@@ -261,18 +258,8 @@ public class LinkedList implements List, Queue {
         this.size++;
         Node link = this.getNode();
         if (link == null) {
-            if (element == null) {
-                this.node = new Node(null, null,null);
-                this.lastNode = this.node;
-                return;
-            }
             this.node = new Node(element, null,null);
             this.lastNode = this.node;
-            return;
-        }
-        if (element == null) {
-            this.node = new Node(null, link, null);
-            link.setPrev(this.node);
             return;
         }
         this.node = new Node(element, link, null);
@@ -326,13 +313,28 @@ public class LinkedList implements List, Queue {
         }
         StringBuilder result = new StringBuilder();
         result.append("[");
+        Object object;
         while (link.getNext() != null) {
-            result.append(link.getElement().toString());
-            result.append(", ");
-            link = link.getNext();
+            object = link.getElement();
+            if (object == null) {
+                result.append(null);
+                result.append(", ");
+                link = link.getNext();
+            } else {
+                result.append(object.toString());
+                result.append(", ");
+                link = link.getNext();
+            }
+
         }
-        result.append(link.getElement().toString());
-        result.append("]");
+        object = link.getElement();
+        if (object == null) {
+            result.append(null)
+                    .append("]");
+        } else {
+            result.append(object.toString());
+            result.append("]");
+        }
         return result.toString();
     }
 
@@ -346,17 +348,8 @@ public class LinkedList implements List, Queue {
         this.size++;
         Node link = this.getNode();
         if (link == null) {
-            if (element == null) {
-                this.node = new Node(null, null, null);
-                return;
-            }
             this.node = new Node(element, null, null);
             this.lastNode = this.node;
-            return;
-        }
-        if (element == null) {
-            this.lastNode.setNext(new Node(null, null, this.lastNode));
-            this.lastNode = this.lastNode.getNext();
             return;
         }
         this.lastNode.setNext(new Node(element, null, this.lastNode));

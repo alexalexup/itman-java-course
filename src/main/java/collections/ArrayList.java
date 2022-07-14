@@ -54,8 +54,13 @@ public class ArrayList implements List {
         return result;
     }
 
-    public static ArrayList of (Object ... elements) {
-        ArrayList arrayList = new ArrayList(elements.length);
+    public static ArrayList of(Object ... elements) {
+        ArrayList arrayList;
+        if (elements.length == 0) {
+            arrayList = new ArrayList();
+        } else {
+            arrayList = new ArrayList(elements.length);
+        }
         for (int i = 0 ; i < elements.length; i ++) {
             arrayList.add(elements[i]);
         }
@@ -68,6 +73,12 @@ public class ArrayList implements List {
         }
         if (this.size == 1) {
             StringBuilder result = new StringBuilder(3);
+            if (this.objects[0] == null) {
+                return result.append("[")
+                        .append(null)
+                        .append("]")
+                        .toString();
+            }
             return result.append("[")
                     .append(this.objects[0].toString())
                     .append("]")
