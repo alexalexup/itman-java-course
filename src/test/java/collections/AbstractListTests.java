@@ -54,8 +54,14 @@ abstract public  class AbstractListTests {
             list.add(5);
             Assertions.assertArrayEquals(new Object[]{1, 3, 4, 5, null, 5}, list.toArray());
         }
-    }
 
+        @Test
+        public void shouldAddNullToEmptyArray() {
+            List list = of();
+            list.add(null);
+            Assertions.assertArrayEquals(new Object[]{null}, list.toArray());
+        }
+    }
 
     @Nested
     public class Set {
@@ -120,7 +126,6 @@ abstract public  class AbstractListTests {
             Assertions.assertEquals(0, list.size());
         }
     }
-
 
     @Nested
     public class ToArray {
@@ -198,6 +203,84 @@ abstract public  class AbstractListTests {
         @Test
         public void shouldReturnStringWhenListHaveOneElementThatIsNull() {
             List list = of(1);
+        }
+
+        @Test
+        public void shouldReturnStringWhenListHaveSomeNumbers() {
+            List list = of(1, 2, 3, 4);
+            Assertions.assertTrue("[1, 2, 3, 4]".equals(list.toString()));
+        }
+
+        @Test
+        public void shouldReturnStringWhenListHaveOnlyNull() {
+            List list = of(null, null, null, null);
+            Assertions.assertTrue("[null, null, null, null]".equals(list.toString()));
+        }
+    }
+
+    @Nested
+    public class Of {
+        @Test
+        public void shouldCreateArrayWithObjectsWhenArgumentsAreNumbers() {
+            List list = of (1, 2, 3, 4, 5);
+            Assertions.assertArrayEquals(new Object[]{1, 2, 3, 4, 5}, list.toArray());
+        }
+
+        @Test
+        public void shouldCreateArrayWithObjectWhenArgumentIsNumber() {
+            List list = of (5);
+            Assertions.assertArrayEquals(new Object[]{5}, list.toArray());
+        }
+
+        @Test
+        public void shouldCreateArrayWithObjectsWhenArgumentsAreNull() {
+            List list = of (null, null, null);
+            Assertions.assertArrayEquals(new Object[]{null, null, null}, list.toArray());
+;        }
+    }
+
+    @Nested
+    public class Equals {
+        @Test
+        public void shouldCompareWhenListHaveSameNumbers() {
+            List first = of(1, 2, 3, 4);
+            List second = of (1, 2, 3, 4);
+            Assertions.assertEquals(first, second);
+        }
+
+        @Test
+        public void shouldCompareWhenListHaveNotSameNumbers() {
+            List first = of(1, 3, 3, 4);
+            List second = of (1, 2, 3, 4);
+            Assertions.assertNotEquals(first, second);
+        }
+
+        @Test
+        public void shouldCompareWhenListHaveSameElementsAndTheyAreFromDifferentClasses() {
+            List first = of("Hi", 2, 3.15, null);
+            List second = of ("Hi", 2, 3.15, null);
+            Assertions.assertEquals(first, second);
+        }
+
+        @Test
+        public void shouldCompareWhenListHaveNotSameElementsAndTheyAreFromDifferentClasses() {
+            List first = of("Hi", 2, 3.15, 10);
+            List second = of ("Hi", 2, 3.15, null);
+            Assertions.assertNotEquals(first, second);
+        }
+
+        @Test
+        public void shouldCompareWhenOneListHaveNotElementsAndSecondHave() {
+            List first = of();
+            List second = of (100);
+            Assertions.assertNotEquals(first, second);
+        }
+
+        @Test
+        public void shouldCompareWhenListsHaveDifferentSizes() {
+            List first = of(1, 2, null, 5);
+            List second = of (2, 3, 3, 3, 3, 3);
+            Assertions.assertNotEquals(first, second);
         }
     }
 }

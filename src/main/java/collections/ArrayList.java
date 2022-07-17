@@ -55,12 +55,7 @@ public class ArrayList implements List {
     }
 
     public static ArrayList of(Object ... elements) {
-        ArrayList arrayList;
-        if (elements.length == 0) {
-            arrayList = new ArrayList();
-        } else {
-            arrayList = new ArrayList(elements.length);
-        }
+        ArrayList arrayList = new ArrayList();
         for (int i = 0 ; i < elements.length; i ++) {
             arrayList.add(elements[i]);
         }
