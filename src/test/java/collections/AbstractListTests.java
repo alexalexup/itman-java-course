@@ -237,6 +237,12 @@ abstract public  class AbstractListTests {
             List list = of (null, null, null);
             Assertions.assertArrayEquals(new Object[]{null, null, null}, list.toArray());
 ;        }
+
+        @Test
+        public void shouldfCreateArrayWithObjectsWhenArgumentsAreNull() {
+            List list = of (null);
+            Assertions.assertArrayEquals(new Object[]{null}, list.toArray());
+        }
     }
 
     @Nested

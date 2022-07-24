@@ -1,12 +1,12 @@
-package services.calendar;
+package services.calculation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class CalendarSpringApplication {
+public class CalculationSpringApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CalendarSpringApplication.class, args);
+        SpringApplication.run(CalculationSpringApplication.class, args);
     }
 }
