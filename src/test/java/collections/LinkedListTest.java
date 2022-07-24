@@ -39,7 +39,7 @@ class LinkedListTest {
     }
 
     @Nested
-    public class GetFirst{
+    public class Peek{
         @Test
         public void shouldReturnFirstElementWhenLinkedListHaveSomeElements() {
             LinkedList list = LinkedList.of(2, 3, 4, 5, 6, 7);
@@ -108,7 +108,7 @@ class LinkedListTest {
     }
 
     @Nested
-    public class RemoveFirst {
+    public class Poll {
         @Test
         public void shouldReturnFirstElementWhenLinkedListHaveSomeElements() {
             LinkedList list = LinkedList.of(2, 3, 4);
@@ -141,7 +141,7 @@ class LinkedListTest {
     }
 
     @Nested
-    public class AddLast {
+    public class Offer {
         @Test
         public void shouldAddLastElementWhenListHaveNotElements() {
             LinkedList list = new LinkedList();

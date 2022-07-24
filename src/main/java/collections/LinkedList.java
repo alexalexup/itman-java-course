@@ -13,55 +13,134 @@ public class LinkedList implements List, Queue {
         private Node next;
         private Node prev;
 
+        /**
+         * Custom constructor for Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return Node with custom values
+         */
         public Node(Object element, Node next, Node prev) {
             this.element = element;
             this.next = next;
             this.prev = prev;
         }
 
+        /**
+         * Default constructor for Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return Node with default values
+         */
         public Node() {
         }
 
+        /**
+         * Get element from Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return element from Node
+         */
         public Object getElement() {
             return element;
         }
 
+        /**
+         * Set element in Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @param element argument
+         * @return element from Node
+         */
         public void setElement(Object element) {
             this.element = element;
         }
 
+        /**
+         * Get nextNode from Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return nextNode from Node
+         */
         public Node getNext() {
             return this.next;
         }
 
+        /**
+         * Get prevNode from Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return prevNode from Node
+         */
         public Node getPrev() {
             return this.prev;
         }
 
+        /**
+         * Set nextNode to Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return nextNode to Node
+         */
         public void setNext(Node next) {
             this.next = next;
         }
 
+        /**
+         * Set prevNode to Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return prevNode to Node
+         */
         public void setPrev(Node prev) {
             this.prev = prev;
         }
     }
 
+    /**
+     * Custom constructor for LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return LinkedList with custom value
+     */
     public LinkedList(Node node) {
         this.node = node;
     }
 
+    /**
+     * Default constructor for LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return LinkedList with default values
+     */
     public LinkedList() {
     }
 
+    /**
+     * Get Node from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return Node from LinkedList
+     */
     public Node getNode() {
         return this.node;
     }
 
+    /**
+     * Get lastNode from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return lastNode from LinkedList
+     */
     public Node getLastNode() {
         return this.lastNode;
     }
 
+    /**
+     * Get size from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return size from LinkedList
+     */
     public int size() {
         return this.size;
     }
@@ -139,6 +218,12 @@ public class LinkedList implements List, Queue {
         }
     }
 
+    /**
+     * Add one element to the end of the LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @param element
+     */
     @Override
     public void add(Object element) {
         this.addLast(element);
@@ -202,6 +287,12 @@ public class LinkedList implements List, Queue {
         return true;
     }
 
+    /**
+     * Check LinkedList is empty or isn't
+     * @cpu O(1)
+     * @ram O(1)
+     * @return true if LinkedList is empty, false if LinkedList have some elements
+     */
     public boolean isEmpty() {
         if (this.size() == 0) {
             return true;
@@ -274,6 +365,12 @@ public class LinkedList implements List, Queue {
         return;
     }
 
+    /**
+     * Add one element to the end of the LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @param element
+     */
     public void offer(Object element) {
         this.addLast(element);
     }
@@ -373,6 +470,12 @@ public class LinkedList implements List, Queue {
         return this.lastNode.getElement();
     }
 
+    /**
+     * Get first element from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return first element from LinkedList
+     */
     public Object peek() {
         return this.getFirst();
     }
@@ -396,6 +499,12 @@ public class LinkedList implements List, Queue {
        return result;
     }
 
+    /**
+     * Get first element and delete first node from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return first element from LinkedList
+     */
     public Object poll() {
         return this.removeFirst();
     }

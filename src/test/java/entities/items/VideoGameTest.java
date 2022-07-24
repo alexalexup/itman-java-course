@@ -75,5 +75,4 @@ class VideoGameTest {
             Assertions.assertTrue(firstGame.equals(secondGame));
         }
     }
-
 }

@@ -107,7 +107,7 @@ public class IntArrayList {
      * @cpu O(n), n - this.size
      * @ram O(1)
      * @param index argument
-     * @return array with data from arrayList by index
+     * @return element from arraylist by index
      */
     public int remove(int index) {
         int result = this.numbers[index];

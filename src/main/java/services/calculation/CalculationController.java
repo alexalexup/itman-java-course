@@ -12,17 +12,11 @@ public class CalculationController {
     public double getCalculation(@RequestParam double term1, @RequestParam String operator, @RequestParam double term2) {
         Math math = Math.valueOf(operator);
         math.SetTerms(term1, term2);
-        switch (math){
-            case PLUS: return math.Plus();
-            case MINUS: return math.Minus();
-            case MULTIPLY: return math.Multiply();
-            case DIVIDE: return math.Divide();
-        }
-        return 0;
+        return math.Calculate();
     }
 
     @GetMapping("/calculation/operators")
-    public Math[] getOperators() {
+    public Object[] getOperators() {
         return Math.values();
     }
 }
