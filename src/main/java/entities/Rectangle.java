@@ -26,4 +26,20 @@ public class Rectangle implements Shape {
     public double calcSquare() {
         return this.weight * this.height;
     }
+
+    @Override
+    public String toString() {
+        return "Rectangle{weight=" + this.weight  + ", height=" + this.height +"}";
+    }
+
+    @Override
+    public boolean equals (Object that) {
+        if (that == null || that.getClass() != Square.class) {
+            return false;
+        }
+        if (this.weight != ((Rectangle) that).weight || this.height != ((Rectangle) that).height ) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -20,4 +20,20 @@ public class Circle implements Shape{
     public double calcSquare() {
         return Math.PI * Math.pow(this.radius, 2.0);
     }
+
+    @Override
+    public String toString() {
+        return "Circle{radius=" + this.radius  + "}";
+    }
+
+    @Override
+    public boolean equals (Object that) {
+        if (that == null || that.getClass() != Circle.class) {
+            return false;
+        }
+        if (this.radius != ((Circle) that).radius) {
+            return false;
+        }
+        return true;
+    }
 }

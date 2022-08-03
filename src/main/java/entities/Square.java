@@ -1,7 +1,7 @@
 package entities;
 
 public class Square implements Shape {
-    public double side;
+    private double side;
 
     public Square (double side) {
         this.side = side;
@@ -19,5 +19,21 @@ public class Square implements Shape {
     @Override
     public double calcSquare() {
         return Math.pow(this.side, 2);
+    }
+
+    @Override
+    public String toString() {
+        return "Square{side=" + this.side  + "}";
+    }
+
+    @Override
+    public boolean equals (Object that) {
+        if (that == null || that.getClass() != Square.class) {
+            return false;
+        }
+        if (this.side != ((Square) that).side) {
+            return false;
+        }
+        return true;
     }
 }
