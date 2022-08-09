@@ -26,7 +26,13 @@ public class ListBenchmark {
         System.out.println("ArrayList " + (fifthTime - fourthTime) + "ms");
     }
 
-
+    /**
+     * Create IntArrayList with capacity from argument
+     * @cpu O(n), n - length
+     * @ram O(n), n - length
+     * @param length argument
+     * return IntArrayList
+     */
    public static IntArrayList createIntArrayListWithCapacity(int length) {
         IntArrayList intArrayList = new IntArrayList(length);
         for (int i = 0; i < length;  i++) {
@@ -35,6 +41,13 @@ public class ListBenchmark {
         return intArrayList;
     }
 
+    /**
+     * Create IntArrayList with default capacity
+     * @cpu O(n), n - length
+     * @ram O(n), n - length
+     * @param length argument
+     * return IntArrayList
+     */
    public static IntArrayList createIntArrayList(int length) {
         IntArrayList intArrayList = new IntArrayList();
        for (int i = 0; i < length;  i++) {
@@ -43,6 +56,13 @@ public class ListBenchmark {
        return intArrayList;
    }
 
+    /**
+     * Create LinkedList with capacity from argument
+     * @cpu O(n), n - length
+     * @ram O(n), n - length
+     * @param length argument
+     * return LinkedList
+     */
    public static LinkedList createLinkedList(int length) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < length; i++) {
@@ -51,6 +71,13 @@ public class ListBenchmark {
         return list;
    }
 
+    /**
+     * Create ArrayList with default capacity
+     * @cpu O(n), n - length
+     * @ram O(n), n - length
+     * @param length argument
+     * return ArrayList
+     */
    public static ArrayList createArrayList(int length) {
         ArrayList arrayList = new ArrayList();
        for (int i = 0; i < length;  i++) {

@@ -170,15 +170,9 @@ public class ArrayList implements List {
             return false;
         }
         for (int i = 0; i < this.size; i++) {
-            if (this.objects[i] == null) {
-              if (thatArray.objects[i] != null) {
-                  return false;
-              }
+            if (this.objects[i] != null ? this.objects[i].equals(thatArray.objects[i]) : thatArray.objects[i] == null) {
             } else {
-                if (this.objects[i].equals(thatArray.objects[i])) {
-                } else {
-                    return false;
-                }
+                return false;
             }
         }
         return true;

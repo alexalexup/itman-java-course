@@ -271,14 +271,10 @@ public class LinkedList implements List, Queue {
         Node firstLink = this.node;
         Node secondLink = that.node;
         for (int i = 0; i < this.size(); i++) {
-            if (firstLink.getElement() == null) {
-                if (secondLink.getElement() == null) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-            if (firstLink.getElement().equals(secondLink.getElement()) == false) {
+            if (firstLink.getElement() != null
+                    ? firstLink.getElement().equals(secondLink.getElement())
+                    : secondLink.getElement() == null) {
+            } else {
                 return false;
             }
             firstLink = firstLink.getNext();

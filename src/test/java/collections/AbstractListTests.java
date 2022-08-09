@@ -270,6 +270,13 @@ abstract public  class AbstractListTests {
         }
 
         @Test
+        public void shouldCompareWhenListHaveNotSameElements() {
+            List first = of("Hi", 2, 3.15, null);
+            List second = of ("Hi", 2, 3.15, 10);
+            Assertions.assertNotEquals(first, second);
+        }
+
+        @Test
         public void shouldCompareWhenOneListHaveNotElementsAndSecondHave() {
             List first = of();
             List second = of (100);
