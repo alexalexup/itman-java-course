@@ -59,14 +59,7 @@ public class VideoGame extends Game {
      * return true if  fields from objects are equal, if are not - false
      */
     private boolean compareVideoGameFields(VideoGame that) {
-        if (this.getPlatform() == null) {
-            if (that.getPlatform() == null) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (this.getPlatform().equals(that.getPlatform())) {
+        if (this.getPlatform() == null ? that.getPlatform() == null : this.getPlatform().equals(that.getPlatform())) {
             return true;
         }
         return false;
@@ -81,15 +74,14 @@ public class VideoGame extends Game {
      */
     @Override
     public boolean equals(Object that) {
-        if (that == null || that.getClass() != VideoGame.class ) {
+        if (that == null || that instanceof VideoGame == false) {
             return false;
         }
         if (this == that) {
             return true;
         }
-        if (this.compareItemFields((Item) that)
-                && this.compareGameFields((Game) that)
-                && this.compareVideoGameFields((VideoGame) that)) {
+        if (this.compareVideoGameFields((VideoGame) that)
+                && super.equals(that)) {
             return true;
         }
         return false;

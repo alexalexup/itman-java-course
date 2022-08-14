@@ -65,20 +65,6 @@ public class BoardGame extends Game {
     }
 
     /**
-     * Compare fields from objects by Game class
-     * @cpu O(n), n - this.title.length
-     * @ram O(1)
-     * @param that object by Game class
-     * return true if  fields from objects are equal, if are not - false
-     */
-    protected boolean compareBoardGameFields(BoardGame that) {
-        if (this.getTimeMin() ==  that.getTimeMin() && this.getTimeMax() == that.getTimeMax()) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Compare two objects
      * @cpu O(n), n - this.title.length
      * @ram O(1)
@@ -87,15 +73,15 @@ public class BoardGame extends Game {
      */
     @Override
     public boolean equals(Object that) {
-        if (that == null || that.getClass() != BoardGame.class ) {
+        if (that == null || that instanceof BoardGame == false ) {
             return false;
         }
         if (this == that) {
             return true;
         }
-        if (this.compareItemFields((Item) that)
-                && this.compareGameFields((Game) that)
-                && this.compareBoardGameFields((BoardGame) that)) {
+        if (this.timeMin == ((BoardGame) that).timeMin
+                && this.timeMax == ((BoardGame) that).timeMax
+                && super.equals(that)) {
             return true;
         }
         return false;

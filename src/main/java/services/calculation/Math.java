@@ -9,7 +9,7 @@ public enum Math {
          * @return result plus operation on two numbers
          */
         @Override
-        public double Calculate() {
+        public double calculate() {
             return PLUS.term1 + PLUS.term2;
         }
     },
@@ -21,7 +21,7 @@ public enum Math {
          * @return result minus operation on two numbers
          */
         @Override
-        public double Calculate() {
+        public double calculate() {
             return MINUS.term1 - MINUS.term2;
         }
     },
@@ -33,7 +33,7 @@ public enum Math {
          * @return result multiply operation on two numbers
          */
         @Override
-        public double Calculate() {
+        public double calculate() {
             return MULTIPLY.term1 * MULTIPLY.term2;
         }
     },
@@ -45,7 +45,7 @@ public enum Math {
          * @return result divide operation on two numbers
          */
         @Override
-        public double Calculate() {
+        public double calculate() {
             return DIVIDE.term1 / DIVIDE.term2;
         }
     };
@@ -57,7 +57,7 @@ public enum Math {
         this.term2 = term2;
     }
 
-    public void SetTerms(double term1, double term2) {
+    public void setTerms(double term1, double term2) {
         this.term1 = term1;
         this.term2 = term2;
     }
@@ -68,7 +68,7 @@ public enum Math {
      * @ram O(1)
      * @return 0
      */
-    public double Calculate() {
+    public double calculate() {
         return 0;
     }
 }

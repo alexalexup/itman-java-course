@@ -37,7 +37,8 @@ class ItemTest {
         public void shouldReturnFalseWhenObjectsFromDifferentClassesAndHaveFieldsWithSameValues() {
             Item item = new Item(1,"Chess", 34);
             Book book = new Book(1, "Chess", 34, "Hoking", 32);
-            Assertions.assertFalse(item.equals(book));
+           Assertions.assertFalse(book.equals(item));
+
         }
 
         @Test

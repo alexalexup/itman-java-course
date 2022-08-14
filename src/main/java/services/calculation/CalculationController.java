@@ -20,8 +20,8 @@ public class CalculationController {
     @GetMapping("/calculation")
     public double getCalculation(@RequestParam double term1, @RequestParam String operator, @RequestParam double term2) {
         Math math = Math.valueOf(operator);
-        math.SetTerms(term1, term2);
-        return math.Calculate();
+        math.setTerms(term1, term2);
+        return math.calculate();
     }
 
     /**
