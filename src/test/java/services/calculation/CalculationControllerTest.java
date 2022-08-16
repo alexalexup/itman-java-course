@@ -22,23 +22,31 @@ class CalculationControllerTest {
 
         @Test
         public void shouldWorkCorrectWhenScriptWasCalled() throws Exception {
-            MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/calculation?" +
-                            "term1=20&operator=PLUS&term2=30");
+            MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/calculation?" +
+                            "term1=20&term2=30")
+                    .contentType("application/json")
+                    .content("\"PLUS\"");
             this.mockMvc.perform(request)
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().string("50.0"));
-            request = MockMvcRequestBuilders.get("/calculation?" +
-                    "term1=40&operator=MINUS&term2=10");
+            request = MockMvcRequestBuilders.post("/calculation?" +
+                    "term1=40&term2=10")
+                    .contentType("application/json")
+                    .content("\"MINUS\"");
             this.mockMvc.perform(request)
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().string("30.0"));
-            request = MockMvcRequestBuilders.get("/calculation?" +
-                    "term1=3&operator=MULTIPLY&term2=12");
+            request = MockMvcRequestBuilders.post("/calculation?" +
+                    "term1=3&term2=12")
+                    .contentType("application/json")
+                    .content("\"MULTIPLY\"");
             this.mockMvc.perform(request)
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().string("36.0"));
-            request = MockMvcRequestBuilders.get("/calculation?" +
-                    "term1=5&operator=DIVIDE&term2=2");
+            request = MockMvcRequestBuilders.post("/calculation?" +
+                    "term1=5&term2=2")
+                    .contentType("application/json")
+                    .content("\"DIVIDE\"");
             this.mockMvc.perform(request)
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().string("2.5"));
