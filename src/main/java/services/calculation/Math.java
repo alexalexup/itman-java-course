@@ -58,6 +58,14 @@ public enum Math {
         }
     };
 
+    /**
+     * The method is created to override depending on the value of enum
+     * @cpu O(1)
+     * @ram O(1)
+     * @param term1 argument
+     * @param term2 argument
+     * @return  0
+     */
     public double calculate(double term1, double term2) {
        return 0;
     }
