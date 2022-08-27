@@ -73,7 +73,7 @@ public class Book extends Item {
      */
     @Override
     public boolean equals(Object that) {
-        if (that == null || that.getClass() != Book.class ) {
+        if (that == null || that instanceof Book == false || this.getClass() != that.getClass()) {
             return false;
         }
         if (this == that) {
@@ -81,7 +81,7 @@ public class Book extends Item {
         }
         if (Objects.equals(this.author, ((Book)that).author)
                 && this.getPages() == ((Book) that).getPages()
-                && super.equals((Book)that)) {
+                && super.equals(that)) {
             return true;
         }
         return false;

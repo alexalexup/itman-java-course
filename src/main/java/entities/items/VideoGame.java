@@ -62,13 +62,13 @@ public class VideoGame extends Game {
      */
     @Override
     public boolean equals(Object that) {
-        if (that == null || that.getClass() != VideoGame.class) {
+        if (that == null || that instanceof VideoGame == false || this.getClass() != that.getClass()) {
             return false;
         }
         if (this == that) {
             return true;
         }
-        if (Objects.equals(this.platform, ((VideoGame)that).platform) && super.equals((Game)that)) {
+        if (Objects.equals(this.platform, ((VideoGame)that).platform) && super.equals(that)) {
             return true;
         }
         return false;

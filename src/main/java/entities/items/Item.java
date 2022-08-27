@@ -80,7 +80,7 @@ public class Item {
      */
     @Override
     public boolean equals(Object that) {
-        if (that == null || that.getClass() != Item.class ) {
+        if (that == null || that instanceof Item == false || this.getClass() != that.getClass() ) {
             return false;
         }
         if (this == that) {

@@ -1,85 +1,64 @@
 package services.calculation;
 
-public class Math {
-    private static double term1;
-    private static  double term2;
-    private  Operator operator;
-    public enum Operator {
-        PLUS () {
-            /**
-             * Do math operation plus on two numbers
-             * @cpu O(1)
-             * @ram O(1)
-             * @return result plus operation on two numbers
-             */
-            @Override
-            public double calculate() {
-                return Math.term1 + Math.term2;
-            }
-        },
-        MINUS () {
-            /**
-             * Do math operation minus on two numbers
-             * @cpu O(1)
-             * @ram O(1)
-             * @return result minus operation on two numbers
-             */
-            @Override
-            public double calculate() {
-                return Math.term1 - Math.term2;
-            }
-        },
-        MULTIPLY () {
-            /**
-             * Do math operation multiply on two numbers
-             * @cpu O(1)
-             * @ram O(1)
-             * @return result multiply operation on two numbers
-             */
-            @Override
-            public double calculate() {
-                return Math.term1 * Math.term2;
-            }
-        },
-        DIVIDE () {
-            /**
-             * Do math operation divide on two numbers
-             * @cpu O(1)
-             * @ram O(1)
-             * @return result divide operation on two numbers
-             */
-            @Override
-            public double calculate() {
-                return Math.term1 /Math.term2;
-            }
-        };
-
+public enum Math {
+    PLUS() {
         /**
-         * Method crate fo override them for each constant from Math enum
+         * Do math operation plus with two arguments
          * @cpu O(1)
          * @ram O(1)
-         * @return 0
+         * @param term1 argument
+         * @param term2 argument
+         * @return  the result of addition of two arguments
          */
-        public double calculate() {
-            return 0;
+        @Override
+        public double calculate(double term1, double term2) {
+            return term1 + term2;
         }
+    },
+    MINUS() {
+        /**
+         * Do math operation minus with two arguments
+         * @cpu O(1)
+         * @ram O(1)
+         * @param term1 argument
+         * @param term2 argument
+         * @return  the result of  subtraction of two arguments
+         */
+        @Override
+        public double calculate(double term1, double term2) {
+            return term1 - term2;
+        }
+    },
+    MULTIPLY() {
+        /**
+         * Do math operation multiply with two arguments
+         * @cpu O(1)
+         * @ram O(1)
+         * @param term1 argument
+         * @param term2 argument
+         * @return  the result of  multiplication of two arguments
+         */
+        @Override
+        public double calculate(double term1, double term2) {
+            return term1 * term2;
+        }
+    },
+    DIVIDE() {
+        /**
+         * Do math operation multiply with two arguments
+         * @cpu O(1)
+         * @ram O(1)
+         * @param term1 argument
+         * @param term2 argument
+         * @return  the result of  dividing of two arguments
+         */
+        @Override
+        public double calculate(double term1, double term2) {
+            return term1 / term2;
+        }
+    };
+
+    public double calculate(double term1, double term2) {
+       return 0;
     }
-
-    /**
-     * Method get field operator from Math class
-     * @cpu O(1)
-     * @ram O(1)
-     * @return field operator from Math class
-     */
-    public Operator getOperator() {
-        return operator;
-    }
-
-    public Math(double term1, double term2, Operator operator) {
-        this.term1 = term1;
-        this.term2 = term2;
-        this.operator = operator;
-    }
-
-
 }

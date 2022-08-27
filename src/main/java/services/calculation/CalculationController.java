@@ -16,10 +16,8 @@ public class CalculationController {
      * @return result of the math operation on the numbers that user passed
      */
     @PostMapping("/calculation")
-    public double getCalculation(@RequestBody Math.Operator operator
-            ,@RequestParam double term1
-            ,@RequestParam double term2) {
-       return new Math(term1, term2, operator).getOperator().calculate();
+    public double getCalculation(@RequestParam double term1, @RequestBody Math operator, @RequestParam double term2 ) {
+       return operator.calculate(term1, term2);
     }
 
 
@@ -31,6 +29,6 @@ public class CalculationController {
      */
     @GetMapping("/calculation/operators")
     public Object[] getOperators() {
-        return Math.Operator.values();
+        return Math.values();
     }
 }
