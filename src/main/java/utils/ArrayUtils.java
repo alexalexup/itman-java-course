@@ -2,7 +2,6 @@ package utils;
 
 import collections.ArrayList;
 import entities.Event;
-import collections.IntArrayList;
 
 
 public class ArrayUtils {

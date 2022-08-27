@@ -19,6 +19,12 @@ public class Pair {
         return right;
     }
 
+    /**
+     * Return String with data obout object from Pair class
+     * @cpu O(1)
+     * @ram O(1)
+     * @return String with data obout object from Pair class
+     */
     public String toString() {
         StringBuilder string = new StringBuilder();
         return string.append("Pair{left=")
@@ -29,6 +35,12 @@ public class Pair {
                 .toString();
     }
 
+    /**
+     * Сhecks whether the data in the objects are the same or not
+     * @cpu O(1)
+     * @ram O(1)
+     * @return True when data from objets are same and false when are not
+     */
     public boolean equals(Pair that) {
         if (that == null || this.right != that.right || this.left != that.left) {
             return false;

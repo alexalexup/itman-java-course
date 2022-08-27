@@ -1,6 +1,8 @@
 package entities.items;
 import utils.StringBuilder;
 
+import java.util.Objects;
+
 public class Item {
    protected String title;
    protected int price;
@@ -70,20 +72,6 @@ public class Item {
     }
 
     /**
-     * Compare title fields from objects by Item class
-     * @cpu O(n), n - this.title.length
-     * @ram O(1)
-     * @param that object by Item class
-     * return true if  fields from objects are equal, if are not - false
-     */
-    private boolean compareTitleFields(Item that) {
-        if (this.getTitle() == null ? that.getTitle() == null : this.getTitle().equals(that.getTitle())) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Compare two objects
      * @cpu O(n), n - this.title.length
      * @ram O(1)
@@ -92,13 +80,13 @@ public class Item {
      */
     @Override
     public boolean equals(Object that) {
-        if (that == null || that instanceof Item == false ) {
+        if (that == null || that.getClass() != Item.class ) {
             return false;
         }
         if (this == that) {
             return true;
         }
-        if (this.compareTitleFields((Item)that)
+        if (Objects.equals(this.title, ((Item)that).title)
                 && this.getPrice() == ((Item) that).getPrice()
                 && this.getId() == ((Item) that).getId()) {
             return true;

@@ -73,7 +73,7 @@ public class BoardGame extends Game {
      */
     @Override
     public boolean equals(Object that) {
-        if (that == null || that instanceof BoardGame == false ) {
+        if (that == null || that.getClass() != BoardGame.class ) {
             return false;
         }
         if (this == that) {
@@ -81,7 +81,7 @@ public class BoardGame extends Game {
         }
         if (this.timeMin == ((BoardGame) that).timeMin
                 && this.timeMax == ((BoardGame) that).timeMax
-                && super.equals(that)) {
+                && super.equals((Game)that)) {
             return true;
         }
         return false;
