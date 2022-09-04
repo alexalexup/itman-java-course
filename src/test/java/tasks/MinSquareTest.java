@@ -35,7 +35,20 @@ class MinSquareTest {
             list.addFirst(new Square(5.66));
             list.addFirst(new Rectangle(6.44, 2.43));
             Object result = MinSquare.findMinSquareShape(list);
-            Assertions.assertSame(result, list.get(0));
+           Assertions.assertEquals(list.get(0), result);
+        }
+
+        @Test
+        public void  shouldFindShapeWithMinSquareWhenListHaveOnlySquares() {
+            LinkedList list = new LinkedList();
+            list.addFirst(new Square(5.6));
+            list.addFirst(new Square(4.22));
+            list.addFirst(new Square(4.22));
+            list.addFirst(new Square(2.43));
+            list.addFirst(new Square(5.66));
+            list.addFirst(new Square(6.44));
+            Object result = MinSquare.findMinSquareShape(list);
+            Assertions.assertEquals(list.get(2) , result);
         }
     }
 }

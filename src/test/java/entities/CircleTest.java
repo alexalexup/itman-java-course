@@ -1,0 +1,78 @@
+package entities;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Nested;
+
+
+class CircleTest {
+
+    @Nested
+    public class CalcSquare {
+        @Test
+        public void shouldCalculatePerimeterWhenRadiusIsFractionalNumber() {
+            Circle circle = new Circle(12.5);
+            Assertions.assertEquals(Math.PI * Math.pow(12.5, 2), circle.calcSquare());
+        }
+
+        @Test
+        public void shouldCalculatePerimeterWhenRadiusIsIntegerNumber() {
+            Circle circle = new Circle(24);
+            Assertions.assertEquals(Math.PI * Math.pow(24, 2), circle.calcSquare());
+        }
+    }
+
+    @Nested
+    public class CalcPerimeter {
+        @Test
+        public void shouldCalculateSquareWhenRadiusIsFractionalNumber() {
+            Circle circle = new Circle(104.8);
+            Assertions.assertEquals(Math.PI * 2 * 104.8, circle.calcPerimeter());
+        }
+
+        @Test
+        public void shouldCalculateSquareWhenRadiusIsIntegerNumber() {
+            Circle circle = new Circle(84);
+            Assertions.assertEquals(Math.PI * 2 * 84, circle.calcPerimeter());
+        }
+    }
+
+    @Nested
+    public class ToString {
+        @Test
+        public void shouldReturnStringWithDataOboutObject() {
+            Circle circle = new Circle(3.6);
+            Assertions.assertEquals("Circle{radius=3.6}", circle.toString());
+        }
+    }
+
+    @Nested
+    public class Equals {
+        @Test
+        public void  shouldReturnTrueWhenBothCirclesAreSame() {
+            Circle firstCircle = new Circle(3);
+            Circle secondCircle = new Circle(3);
+            Assertions.assertEquals(firstCircle,secondCircle);
+        }
+
+        @Test
+        public void  shouldReturnFalseWhenCirclesAreNotSame() {
+            Circle firstCircle = new Circle(2);
+            Circle secondCircle = new Circle(3);
+            Assertions.assertNotEquals(firstCircle,secondCircle);
+        }
+
+        @Test
+        public void  shouldReturnFalseWhenObjectFromArgumentIsNotCircle() {
+            Circle firstCircle = new Circle(2);
+            Rectangle rectangle = new Rectangle(3, 2);
+            Assertions.assertNotEquals(firstCircle, rectangle);
+        }
+
+        @Test
+        public void shouldReturnFalseWhenComparedObjectIsNull() {
+            Circle firstCircle = new Circle(12);
+            Assertions.assertNotEquals(firstCircle, null);
+        }
+    }
+}
