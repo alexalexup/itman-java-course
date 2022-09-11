@@ -1,4 +1,4 @@
-package services.calculation;
+package services.example;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class CalculationControllerTest {
+class ExampleCalculationControllerTest {
 
     @Nested
     public class MethodsFromCalendarSpringApplication {
@@ -23,30 +23,26 @@ class CalculationControllerTest {
         @Test
         public void shouldWorkCorrectWhenScriptWasCalled() throws Exception {
             MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/calculation?" +
-                            "term1=20&term2=30")
-                    .contentType("application/json")
-                    .content("\"PLUS\"");
+                            "term1=20&operator=PLUS&term2=30")
+                    .contentType("application/json");
             this.mockMvc.perform(request)
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().string("50.0"));
             request = MockMvcRequestBuilders.post("/calculation?" +
-                    "term1=40&term2=10")
-                    .contentType("application/json")
-                    .content("\"MINUS\"");
+                    "term1=40&operator=MINUS&term2=10")
+                    .contentType("application/json");
             this.mockMvc.perform(request)
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().string("30.0"));
             request = MockMvcRequestBuilders.post("/calculation?" +
-                    "term1=3&term2=12")
-                    .contentType("application/json")
-                    .content("\"MULTIPLY\"");
+                    "term1=3&operator=MULTIPLY&term2=12")
+                    .contentType("application/json");
             this.mockMvc.perform(request)
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().string("36.0"));
             request = MockMvcRequestBuilders.post("/calculation?" +
-                    "term1=5&term2=2")
-                    .contentType("application/json")
-                    .content("\"DIVIDE\"");
+                    "term1=5&operator=DIVIDE&term2=2")
+                    .contentType("application/json");
             this.mockMvc.perform(request)
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().string("2.5"));

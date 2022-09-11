@@ -38,6 +38,7 @@ class GameTest {
             Item item = new Item(1,"Rick", 34);
             Game game = new Game(1, "Rick", 34, 2, 8);
             Assertions.assertFalse(game.equals(item));
+            Assertions.assertFalse(item.equals(game));
         }
 
         @Test

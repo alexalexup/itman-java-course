@@ -1,13 +1,10 @@
-package services.calculation;
+package services.example;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-public class CalculationController {
 
+@RestController
+public class CalculationExampleController {
 
     /**
      * Do math operation on the numbers that method gets
@@ -16,10 +13,9 @@ public class CalculationController {
      * @return result of the math operation on the numbers that user passed
      */
     @PostMapping("/calculation")
-    public double getCalculation(@RequestParam double term1, @RequestBody Math operator, @RequestParam double term2 ) {
-       return operator.calculate(term1, term2);
+    public double getCalculation(@RequestParam double term1, @RequestParam String operator, @RequestParam double term2 ) {
+        return Mth.valueOf(operator).calculate(term1, term2);
     }
-
 
     /**
      * Return all constans from Math enum (all operation that we can do)
@@ -29,6 +25,6 @@ public class CalculationController {
      */
     @GetMapping("/calculation/operators")
     public Object[] getOperators() {
-        return Math.values();
+        return Mth.values();
     }
 }

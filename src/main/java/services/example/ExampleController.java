@@ -1,14 +1,10 @@
 package services.example;
 
-import entities.Event;
-import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
 import utils.StringBuilder;
 
 @RestController
 public class ExampleController {
-
-
 
     /**
      * Return text message
@@ -146,4 +142,10 @@ public class ExampleController {
     public String numbFromVariable(@PathVariable("param1") int from, @PathVariable("param2") int to) {
         return range(from, to);
     }
+    /**
+     * Do math operation on the numbers that method gets
+     * @cpu O(1)
+     * @ram O(1)
+     * @return result of the math operation on the numbers that user passed
+     */
 }

@@ -73,7 +73,7 @@ public class BoardGame extends Game {
      */
     @Override
     public boolean equals(Object that) {
-        if (that == null || that instanceof BoardGame == false || this.getClass() != that.getClass()) {
+        if (that == null || this.getClass() != that.getClass()) {
             return false;
         }
         if (this == that) {

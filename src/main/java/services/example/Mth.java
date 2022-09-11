@@ -1,6 +1,6 @@
-package services.calculation;
+package services.example;
 
-public enum Math {
+public enum Mth {
     PLUS() {
         /**
          * Do math operation plus with two arguments

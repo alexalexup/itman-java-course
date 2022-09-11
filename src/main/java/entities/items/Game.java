@@ -64,7 +64,7 @@ public class Game extends Item {
      */
     @Override
     public boolean equals(Object that) {
-        if (that == null || that instanceof Game == false || this.getClass() != that.getClass()) {
+        if (that == null || this.getClass() != that.getClass()) {
             return false;
         }
         if (this == that) {
