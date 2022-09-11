@@ -2,6 +2,8 @@ package entities.items;
 
 import utils.StringBuilder;
 
+import java.util.Objects;
+
 public class VideoGame extends Game {
     protected String platform;
 
@@ -52,27 +54,6 @@ public class VideoGame extends Game {
     }
 
     /**
-     * Compare fields from objects by VideoGame class
-     * @cpu O(n), n - this.platform.length
-     * @ram O(1)
-     * @param that object by VideoGame class
-     * return true if  fields from objects are equal, if are not - false
-     */
-    private boolean compareVideoGameFields(VideoGame that) {
-        if (this.getPlatform() == null) {
-            if (that.getPlatform() == null) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (this.getPlatform().equals(that.getPlatform())) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Compare two objects
      * @cpu O(n + m), n - this.title.length, m - this.platform.length
      * @ram O(1)
@@ -81,15 +62,13 @@ public class VideoGame extends Game {
      */
     @Override
     public boolean equals(Object that) {
-        if (that == null || that.getClass() != VideoGame.class ) {
+        if (that == null || this.getClass() != that.getClass()) {
             return false;
         }
         if (this == that) {
             return true;
         }
-        if (this.compareItemFields((Item) that)
-                && this.compareGameFields((Game) that)
-                && this.compareVideoGameFields((VideoGame) that)) {
+        if (Objects.equals(this.platform, ((VideoGame)that).platform) && super.equals(that)) {
             return true;
         }
         return false;

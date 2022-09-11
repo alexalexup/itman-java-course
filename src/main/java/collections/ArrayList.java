@@ -2,7 +2,7 @@ package collections;
 
 import utils.StringBuilder;
 
-public class ArrayList implements List {
+public class  ArrayList  implements List {
     private Object[] objects;
     private int size;
 

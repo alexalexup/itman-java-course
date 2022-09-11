@@ -1,6 +1,8 @@
 package entities.items;
 import utils.StringBuilder;
 
+import java.util.Objects;
+
 public class Book extends Item {
     protected String author;
     protected int pages;
@@ -63,42 +65,6 @@ public class Book extends Item {
     }
 
     /**
-     * Compare authors fields from objects by Book class
-     * @cpu O(n), n - this.author.length
-     * @ram O(1)
-     * @param that object by Book class
-     * return true if  fields from objects are equal, if are not - false
-     */
-    private boolean compareAuthorFields(Book that) {
-        if (this.getAuthor() == null) {
-            if (that.getAuthor()  == null) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (this.getAuthor().equals(that.getAuthor())) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Compare fields from objects by Book class
-     * @cpu O(n), n - this.author.length
-     * @ram O(1)
-     * @param that object by Book class
-     * return true if  fields from objects are equal, if are not - false
-     */
-    protected boolean compareBookFields(Book that) {
-        if (this.compareAuthorFields(that)
-                && this.getPages() == that.getPages()) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Compare two objects
      * @cpu O(n + m), n - this.title.length, m - this.author.length
      * @ram O(1)
@@ -107,13 +73,15 @@ public class Book extends Item {
      */
     @Override
     public boolean equals(Object that) {
-        if (that == null || that.getClass() != Book.class ) {
+        if (that == null || that instanceof Book == false || this.getClass() != that.getClass()) {
             return false;
         }
         if (this == that) {
             return true;
         }
-        if (this.compareItemFields((Item)that) && this.compareBookFields((Book)that)) {
+        if (Objects.equals(this.author, ((Book)that).author)
+                && this.getPages() == ((Book) that).getPages()
+                && super.equals(that)) {
             return true;
         }
         return false;
