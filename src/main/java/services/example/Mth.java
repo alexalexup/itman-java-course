@@ -66,7 +66,5 @@ public enum Mth {
      * @param term2 argument
      * @return  0
      */
-    public double calculate(double term1, double term2) {
-       return 0;
-    }
+    public abstract double calculate(double term1, double term2);
 }
