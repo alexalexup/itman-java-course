@@ -15,8 +15,7 @@ class StringBuilderTest {
             StringBuilder s = new StringBuilder();
             String data = "Have a nice day";
             String actualString = s.append(data).toString();
-            boolean actualResult = actualString.equals(data);
-            Assertions.assertTrue(actualResult);
+            Assertions.assertEquals(data, actualString);
         }
 
         @Test
@@ -24,9 +23,7 @@ class StringBuilderTest {
             StringBuilder s = new StringBuilder();
             String data = "One";
             String actualString = s.append(data).toString();
-            String expectedString = "One";
-            boolean actualResult = actualString.equals(expectedString);
-            Assertions.assertTrue(actualResult);
+            Assertions.assertEquals(data, actualString);
         }
 
         @Test
@@ -35,8 +32,7 @@ class StringBuilderTest {
             int data = 245564;
             String actualString = s.append(data).toString();
             String expectedString = "245564";
-            boolean actualResult = actualString.equals(expectedString);
-            Assertions.assertTrue(actualResult);
+            Assertions.assertEquals(expectedString, actualString);
         }
 
         @Test
@@ -45,8 +41,7 @@ class StringBuilderTest {
             double data = 2.1313123;
             String actualString = s.append(data).toString();
             String expectedString = "2.1313123";
-            boolean actualResult = actualString.equals(expectedString);
-            Assertions.assertTrue(actualResult);
+            Assertions.assertEquals(expectedString, actualString);
         }
 
         @Test
@@ -55,8 +50,7 @@ class StringBuilderTest {
             long data = 3232322232323232323L;
             String actualString = s.append(data).toString();
             String expectedString = "3232322232323232323";
-            boolean actualResult = actualString.equals(expectedString);
-            Assertions.assertTrue(actualResult);
+            Assertions.assertEquals(expectedString, actualString);
         }
 
         @Test
@@ -65,8 +59,7 @@ class StringBuilderTest {
             boolean data = false;
             String actualString = s.append(data).toString();
             String expectedString = "false";
-            boolean actualResult = actualString.equals(expectedString);
-            Assertions.assertTrue(actualResult);
+            Assertions.assertEquals(expectedString, actualString);
         }
 
         @Test
@@ -75,8 +68,7 @@ class StringBuilderTest {
             s.append(null);
             String expectedString = "null";
             String actualString = s.toString();
-            boolean actualResult = actualString.equals(expectedString);
-            Assertions.assertTrue(actualResult);
+            Assertions.assertEquals(expectedString, actualString);
         }
 
         @Test

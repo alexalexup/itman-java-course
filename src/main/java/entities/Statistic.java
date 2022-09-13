@@ -52,12 +52,16 @@ public class Statistic {
     }
 
     /**
-     * Compare two statistics
+     * Compare two objects
      * @cpu O(1)
      * @ram O(1)
-     * @return true when both statistics are equal, false are not equal
+     * @return true when both objects are equal, false are not equal
      */
-    public boolean equals(Statistic that) {
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != Statistic.class) {
+            return false;
+        }
+        Statistic that = (Statistic)  obj;
         return that != null && this.min == that.min
                             && this.max == that.max
                             && this.count == that.count

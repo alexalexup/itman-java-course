@@ -1,13 +1,13 @@
 package tasks;
 
 import entities.Ticket;
-import collections.ArrayList;
+import collections.IntArrayList;
 
 public class QueueManagementSystem {
     private int totalTickets;
     private int previousTickets;
     private String place;
-    private ArrayList days;
+    private IntArrayList days;
     private LinkedList tickets;
 
 
@@ -167,7 +167,7 @@ public class QueueManagementSystem {
      */
     public QueueManagementSystem(String place) {
         this.place = place;
-        this.days = new ArrayList();
+        this.days = new IntArrayList();
         this.days.add(totalTickets);
         this.tickets = new LinkedList();
     }
@@ -215,7 +215,7 @@ public class QueueManagementSystem {
      * @ram O(n), n - days.size()
      * return arrayList with visits by day
      */
-    public ArrayList getVisitsByDay() {
-        return new ArrayList(this.days);
+    public IntArrayList getVisitsByDay() {
+        return new IntArrayList(this.days);
     }
 }

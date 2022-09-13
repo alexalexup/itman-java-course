@@ -1,152 +1,109 @@
 package collections;
-import utils.StringBuilder;
-import utils.ArrayUtils;
 
-public class ArrayList {
-    private int[] numbers;
+import utils.StringBuilder;
+
+public class  ArrayList  implements List {
+    private Object[] objects;
     private int size;
 
     /**
-     * Create empty arrayList and set size for field numbers[]
-     * @cpu O(n), n - capacity
-     * @ram O(n), n - capacity
-     * @param capacity argument
-     * return object without logical data by ArrayList class
-     */
-    public ArrayList(int capacity) {
-            this.numbers = new int[capacity];
-    }
-
-    /**
-     * Create arrayList with data from arrayList that
-     * @cpu O(n), n - that.size
-     * @ram O(n), n - that.size
-     * @param that argument
-     * return object by ArrayList class with data from argument
-     */
-    public ArrayList(ArrayList that) {
-        this.numbers = new int[that.size];
-        for (int i = 0 ; i < that.size; i++) {
-            this.add(that.numbers[i]);
-        }
-    }
-
-    /**
-     * Create empty arrayList and set size 16 for field numbers[]
+     * Create empty arrayList and set size 16 for field objects[]
      * @cpu O(1)
      * @ram O(1)
      * return object without logical data by ArrayList class
      */
     public ArrayList() {
-        this.numbers = new int[16];
+        this.objects = new Object[16];
     }
 
     /**
-     * Set the value of the arrayList element
+     * Create empty arrayList and set size with value from argument
+     * @cpu O(n) , n - capacity
+     * @ram O(n), n - capacity
+     * @param capacity argument
+     * return object without logical data by ArrayList class
+     */
+    public ArrayList(int capacity) {
+        this.objects = new Object[capacity];
+    }
+
+    /**
+     * Add element to arrayList
+     * @cpu O(1)
+     * @ram O(n), n - this.numbers.length
+     * @param element argument
+     */
+    public void add(Object element) {
+        this.size++;
+        if (this.size >= this.objects.length) {
+            Object[] newObjects = new Object[this.objects.length * 2];
+            System.arraycopy(this.objects, 0, newObjects, 0, this.objects.length);
+            this.objects = newObjects;
+        }
+        if (element == null) {
+            return;
+        }
+        this.objects[this.size - 1] = element;
+    }
+
+    /**
+     * Set element in arraylist by index
      * @cpu O(1)
      * @ram O(1)
      * @param index argument
      * @param element argument
      */
-    public void set(int index, int element) {
-        this.numbers[index] = element;
+    public void set(int index, Object element) {
+        this.objects[index] = element;
     }
 
     /**
-     * Get value of element from arrayList by index
+     * Get element from arrayList by index
      * @cpu O(1)
      * @ram O(1)
      * @param index argument
      * @return element from arrayList by index
      */
-    public int get(int index) {
-        return this.numbers[index];
+    public Object get(int index) {
+        return this.objects[index];
     }
 
     /**
-     * Get value of the size arrayList
+     * Get size from arrayList
      * @cpu O(1)
      * @ram O(1)
-     * @return value of the size field
+     * @return size from arrayList
      */
     public int size() {
         return this.size;
     }
 
     /**
-     * Add argument to arrayList
-     * @cpu O(1)
-     * @ram O(n), n - this.numbers.length
-     * @param element argument
-     */
-    public void add(int element) {
-        if (this.size >= this.numbers.length) {
-            int[] newNumbers = new int[numbers.length * 2];
-            System.arraycopy(this.numbers, 0, newNumbers, 0, this.numbers.length);
-            this.numbers = newNumbers;
-        }
-        this.size++;
-        this.numbers[this.size -1] = element;
-    }
-
-    /**
-     * Get data in to array from object by ArrayList class
+     * Get data to array from arraylist
      * @cpu O(n), n - this.size
      * @ram O(n), n - this.size
      * @return array with data from arrayList
      */
-    public int[] toArray(){
-        if (this.numbers.length == this.size) {
-            return this.numbers;
-        }
-        int[] logicalNumbers = new int[this.size];
-        System.arraycopy(this.numbers,0,logicalNumbers,0,this.size);
-        this.numbers =logicalNumbers;
-        return this.numbers;
+    public Object[] toArray() {
+        Object[] array = new Object[this.size];
+        System.arraycopy(this.objects, 0, array, 0,this.size);
+        return array;
     }
 
     /**
-     * Remove element from arrayList by index
+     * Remove element from arrayList by index and return this element
      * @cpu O(n), n - this.size
      * @ram O(1)
      * @param index argument
-     * @return array with data from arrayList by index
+     * @return element from arraylist by index
      */
-    public int remove(int index) {
-        int result = this.numbers[index];
+    public Object remove(int index) {
+        Object result = this.objects[index];
         this.size--;
         for (int i = index; i < this.size; i++) {
-            this.numbers[i] = this.numbers[i+1];
+            this.objects[i] = this.objects[i+1];
         }
         return result;
-    }
-
-    /**
-     * Comparing arrayLists
-     * @cpu O(n), n - this.size
-     * @ram O(1)
-     * @param that argument
-     * @return true when arrayLists are equal, false are not equal
-     */
-    public boolean equals(ArrayList that) {
-        if (that == null || this.size != that.size) {
-            return false;
-        }
-        for (int i = 0; i < this.size; i++) {
-            if(this.numbers[i] != that.numbers[i]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Sort elements in arrayList in order of increasing use merge method
-     * @cpu O(n*logn), n - this.size
-     * @ram O(n), n - this.size
-     */
-    public void sort() {
-        ArrayUtils.mergeSort(this.toArray());
     }
 
     /**
@@ -156,19 +113,16 @@ public class ArrayList {
      * @param elements argument
      * @return arrayList with data by argument
      */
-    public static ArrayList of(int... elements) {
-        ArrayList result = new ArrayList();
-        if (elements.length < 1) {
-            return result;
+    public static ArrayList of(Object ... elements) {
+        ArrayList arrayList = new ArrayList();
+        for (int i = 0 ; i < elements.length; i ++) {
+            arrayList.add(elements[i]);
         }
-        for (int i = 0; i < elements.length; i++) {
-            result.add(elements[i]);
-        }
-        return result;
+        return arrayList;
     }
 
     /**
-     * Create and return object by StringBuilder class with logical data from current arrayList
+     * Return String with data from arraylist
      * @cpu O(n), n - this.size
      * @ram O(n), n - this.size
      * @return string with logical data by current object
@@ -177,21 +131,50 @@ public class ArrayList {
         if ( this.size == 0 ) {
             return "[]";
         }
-        if (this.size == 1) {
-            StringBuilder result = new StringBuilder(3);
-            return result.append("[")
-                         .append(this.numbers[0])
-                         .append("]")
-                         .toString();
+        StringBuilder result = new StringBuilder();
+        result.append("[");
+        for (int i = 0; i < this.size; i++) {
+            if (i != this.size - 1) {
+                if (this.objects[i] == null) {
+                    result.append(null)
+                            .append(", ");
+                } else {
+                    result.append(this.objects[i].toString())
+                            .append(", ");
+                }
+            } else {
+                if (this.objects[i] == null) {
+                    result.append(null)
+                            .append("]");
+                } else {
+                    result.append(this.objects[i].toString())
+                            .append("]");
+                }
+            }
         }
-        StringBuilder result = new StringBuilder(this.size * 3);
-        result.append("[")
-              .append(this.numbers[0]);
-        for (int i = 1; i < size; i++) {
-            result.append(", ")
-                  .append(this.numbers[i]);
+        return result.toString();
+    }
+
+    /**
+     * Comparing arrayLists
+     * @cpu O(n), n - this.size
+     * @ram O(1)
+     * @return true when arrayLists are equal, false are not equal
+     */
+    public boolean equals(Object that) {
+        if (that == null || that.getClass() != ArrayList.class) {
+            return false;
         }
-        return result.append("]")
-                     .toString();
+        ArrayList thatArray = (ArrayList) that;
+        if (this.size != thatArray.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.size; i++) {
+            if (this.objects[i] != null ? this.objects[i].equals(thatArray.objects[i]) : thatArray.objects[i] == null) {
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -39,18 +39,18 @@ class LinkedListTest {
     }
 
     @Nested
-    public class GetFirst{
+    public class Peek{
         @Test
         public void shouldReturnFirstElementWhenLinkedListHaveSomeElements() {
             LinkedList list = LinkedList.of(2, 3, 4, 5, 6, 7);
-            int actualResult = list.getFirst();
+            Object actualResult = list.getFirst();
             Assertions.assertEquals(2, actualResult);
         }
 
         @Test
         public void shouldReturnFirstElementWhenLinkedListHaveOneElement() {
             LinkedList list = LinkedList.of(54);
-            int actualResult = list.getFirst();
+            Object actualResult = list.getFirst();
             Assertions.assertEquals(54, actualResult);
         }
     }
@@ -58,54 +58,68 @@ class LinkedListTest {
     @Nested
     public class Equals {
         @Test
-        public void shouldReturnFalseWhenLinkedListHaveDifferentSize() {
+        public void shouldNotBeEqualWhenLinkedListHaveDifferentSize() {
             LinkedList first = LinkedList.of(1, 2, 3, 4);
             LinkedList second = LinkedList.of(1, 2, 3, 4, 5);
-            Assertions.assertFalse(first.equals(second));
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenLinkedListHaveOnlyOneDifferentElement() {
+        public void shouldNotBeEqualWhenLinkedListHaveOnlyOneDifferentElement() {
             LinkedList first = LinkedList.of(1, 2, 1, 4, 5);
             LinkedList second = LinkedList.of(1, 2, 3, 4, 5);
-            Assertions.assertFalse(first.equals(second));
+            Assertions.assertNotEquals(first, second);
         }
 
         @Test
-        public void shouldReturnTrueWhenLinkedListHaveSameElementsAndSize() {
+        public void shouldBeEqualWhenLinkedListHaveSameElementsAndSize() {
             LinkedList first = LinkedList.of(1, 2, 3, 4, 5);
             LinkedList second = LinkedList.of(1, 2, 3, 4, 5);
-            Assertions.assertTrue(first.equals(second));
+            Assertions.assertEquals(first, second);
         }
 
         @Test
-        public void shouldReturnTrueWhenBothLinkedListHaveNotElements() {
+        public void shouldBeEqualWhenBothLinkedListHaveNotElements() {
             LinkedList first = LinkedList.of();
             LinkedList second = LinkedList.of();
-            Assertions.assertTrue(first.equals(second));
+            Assertions.assertEquals(first, second);
         }
 
         @Test
-        public void shouldReturnFalseWhenOneLinkedListHaveNotElementsAndSecondHave() {
+        public void shouldNotBeEqualWhenOneLinkedListHaveNotElementsAndSecondHave() {
             LinkedList first = LinkedList.of(3, 4, 5, 6);
             LinkedList second = LinkedList.of();
-            Assertions.assertFalse(first.equals(second));
+            Assertions.assertNotEquals(first, second);
+        }
+
+        @Test
+        public void shouldNotBeEqualWhenOneObjectIsNotFromLinkedListClass() {
+            LinkedList first = LinkedList.of(3, 4, 5, 6);
+            Object second = new Object();
+            Assertions.assertNotEquals(first, second);
+        }
+
+        @Test
+        public void shouldNotBeEqualWhenOneObjectIsNull() {
+            LinkedList first = LinkedList.of(3, 4, 5, 6);
+            LinkedList second = null;
+            Assertions.assertNotEquals(first, second);
         }
     }
 
     @Nested
-    public class RemoveFirst {
+    public class Poll {
         @Test
         public void shouldReturnFirstElementWhenLinkedListHaveSomeElements() {
             LinkedList list = LinkedList.of(2, 3, 4);
-            int actualResult = list.removeFirst();
+            Object actualResult = list.removeFirst();
             Assertions.assertEquals(2, actualResult);
         }
 
         @Test
         public void shouldReturnFirstElementWhenLinkedListHaveOneElement() {
             LinkedList list = LinkedList.of(4);
-            int actualResult = list.removeFirst();
+            Object actualResult = list.removeFirst();
             Assertions.assertEquals(4, actualResult);
         }
 
@@ -127,32 +141,7 @@ class LinkedListTest {
     }
 
     @Nested
-    public class ToString {
-        @Test
-        public void shouldReturnStringWhenLinkedListHaveOneElement() {
-            LinkedList list = new LinkedList();
-            list.addFirst(4);
-            String actualResult = list.toString();
-            Assertions.assertTrue(actualResult.equals("[4]"));
-        }
-
-        @Test
-        public void shouldReturnStringWhenLinkedListHaveSomeElement() {
-            LinkedList list = LinkedList.of(6, 3, 4, 1, 9);
-            String actualResult = list.toString();
-            Assertions.assertTrue(actualResult.equals("[6, 3, 4, 1, 9]"));
-        }
-
-        @Test
-        public void shouldReturnStringWhenLinkedListHaveNotAnyElement() {
-            LinkedList list = new LinkedList();
-            String actualResult = list.toString();
-            Assertions.assertTrue(actualResult.equals("[]"));
-        }
-    }
-
-    @Nested
-    public class AddLast {
+    public class Offer {
         @Test
         public void shouldAddLastElementWhenListHaveNotElements() {
             LinkedList list = new LinkedList();
@@ -183,7 +172,7 @@ class LinkedListTest {
         @Test
         public void shouldReturnLastElementWhenLinkedListHaveSomeElements() {
             LinkedList list = LinkedList.of(6, 9, 14);
-            int actualResult = list.getLast();
+            Object actualResult = list.getLast();
             Assertions.assertEquals(14, actualResult);
         }
 
@@ -191,57 +180,8 @@ class LinkedListTest {
         public void shouldReturnLastElementWhenListHaveOneElement() {
             LinkedList list = new LinkedList();
             list.addFirst(4);
-            int actualResult = list.getLast();
+            Object actualResult = list.getLast();
             Assertions.assertEquals(4, actualResult);
-        }
-    }
-
-    @Nested
-    public class Remove {
-        @Test
-        public void shouldReturnElementByIndexWhenIndexIsLessThanSizeOfLinkedList() {
-            LinkedList list = LinkedList.of(1, 2, 3, 4, 5, 6, 7);
-            int actualResult = list.remove(1);
-            Assertions.assertEquals(2, actualResult);
-        }
-
-        @Test
-        public void shouldReturnElementByIndexWhenIndexIsMoreThanSizeOfLinkedList() {
-            LinkedList list = LinkedList.of(1, 2, 3, 4, 5, 6, 7);
-            int actualResult = list.remove(5);
-            Assertions.assertEquals(6, actualResult);
-        }
-
-        @Test
-        public void shouldReturnElementByIndexWhenIndexIsHalfOfSizeOfLinkedList() {
-            LinkedList list = LinkedList.of(1, 2, 3, 4, 5, 6, 7, 8);
-            int actualResult = list.remove(3);
-            Assertions.assertEquals(4, actualResult);
-
-        }
-
-        @Test
-        public void shouldDeleteElementByIndexWhenIndexIsLessThanSizeOfLinkedList() {
-            LinkedList list = LinkedList.of(1, 2, 3, 4, 5, 6, 7);
-            list.remove(1);
-            LinkedList expectedResult = LinkedList.of(1, 3, 4, 5, 6, 7);
-            Assertions.assertTrue(list.equals(expectedResult));
-        }
-
-        @Test
-        public void shouldDeleteElementByIndexWhenIndexIsMoreThanSizeOfLinkedList() {
-            LinkedList list = LinkedList.of(1, 2, 3, 4, 5, 6, 7);
-            list.remove(5);
-            LinkedList expectedResult = LinkedList.of(1, 2, 3, 4, 5, 7);
-            Assertions.assertTrue(list.equals(expectedResult));
-        }
-
-        @Test
-        public void shouldDeleteElementByIndexWhenIndexIsHalfOfSizeOfLinkedList() {
-            LinkedList list = LinkedList.of(1, 2, 3, 4, 5, 6, 7, 8);
-            list.remove(3);
-            LinkedList expectedResult = LinkedList.of(1, 2, 3, 5, 6, 7, 8);
-            Assertions.assertTrue(list.equals(expectedResult));
         }
     }
 
@@ -251,14 +191,14 @@ class LinkedListTest {
         public void shouldReturnLastElementWhenListHaveOneElement() {
             LinkedList list = new LinkedList();
             list.addLast(12);
-            int actualResult = list.removeLast();
+            Object actualResult = list.removeLast();
             Assertions.assertEquals(12, actualResult);
         }
 
         @Test
         public void shouldReturnLastElementWhenListHaveSomeElements() {
             LinkedList list = LinkedList.of(3, 6, 11);
-            int actualResult = list.removeLast();
+            Object actualResult = list.removeLast();
             Assertions.assertEquals(11, actualResult);
         }
 
@@ -267,7 +207,7 @@ class LinkedListTest {
             LinkedList list = LinkedList.of(2, 7, 8, 9, 10);
             list.removeLast();
             list.removeLast();
-            int actualResult = list.removeLast();
+            Object actualResult = list.removeLast();
             Assertions.assertEquals(8, actualResult);
         }
 
@@ -285,41 +225,6 @@ class LinkedListTest {
             list.removeLast();
             LinkedList expectedResult = LinkedList.of();
             Assertions.assertTrue(list.equals(expectedResult));
-        }
-    }
-
-    @Nested
-    public class Set {
-        @Test
-        public void shouldSetElementByIndexWhenIndexMoreThanHalfOfSizeLinkedList() {
-            LinkedList list = LinkedList.of(2, 7, 8, 9, 10, 14, 16, 2);
-            list.set(5, -6);
-            LinkedList expected = LinkedList.of(2, 7, 8, 9, 10, -6, 16, 2);
-            Assertions.assertTrue(list.equals(expected));
-        }
-
-        @Test
-        public void shouldSetElementByIndexWhenIndexLessThanHalfOfSizeLinkedList() {
-            LinkedList list = LinkedList.of(2, 7, 8, 9, 10, 14, 16, 2);
-            list.set(1, -6);
-            LinkedList expected = LinkedList.of(2, -6, 8, 9, 10, 14, 16, 2);
-            Assertions.assertTrue(list.equals(expected));
-        }
-
-        @Test
-        public void shouldSetElementByIndexWhenIndexIsFirst() {
-            LinkedList list = LinkedList.of(2, 7, 8, 9, 10, 14, 16, 2);
-            list.set(0, -6);
-            LinkedList expected = LinkedList.of(-6, 7, 8, 9, 10, 14, 16, 2);
-            Assertions.assertTrue(list.equals(expected));
-        }
-
-        @Test
-        public void shouldSetElementByIndexWhenIndexIsLast() {
-            LinkedList list = LinkedList.of(2, 7, 8, 9, 10, 14, 16, 2);
-            list.set(7, -6);
-            LinkedList expected = LinkedList.of(2, 7, 8, 9, 10, 14, 16, -6);
-            Assertions.assertTrue(list.equals(expected));
         }
     }
 

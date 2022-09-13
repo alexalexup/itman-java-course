@@ -3,68 +3,144 @@ package collections;
 import utils.StringBuilder;
 
 
-public class LinkedList {
+public class LinkedList implements List, Queue {
+    private Node node;
+    private Node lastNode;
+    private int size;
 
     private static class Node {
-        private int element;
+        private Object element;
         private Node next;
         private Node prev;
 
-        public Node(int element, Node next, Node prev) {
+        /**
+         * Custom constructor for Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return Node with custom values
+         */
+        public Node(Object element, Node next, Node prev) {
             this.element = element;
             this.next = next;
             this.prev = prev;
         }
 
+        /**
+         * Default constructor for Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return Node with default values
+         */
         public Node() {
         }
 
-        public int getElement() {
+        /**
+         * Get element from Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return element from Node
+         */
+        public Object getElement() {
             return element;
         }
 
-        public void setElement(int element) {
+        /**
+         * Set element in Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @param element argument
+         * @return element from Node
+         */
+        public void setElement(Object element) {
             this.element = element;
         }
 
+        /**
+         * Get nextNode from Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return nextNode from Node
+         */
         public Node getNext() {
             return this.next;
         }
 
+        /**
+         * Get prevNode from Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return prevNode from Node
+         */
         public Node getPrev() {
             return this.prev;
         }
 
+        /**
+         * Set nextNode to Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return nextNode to Node
+         */
         public void setNext(Node next) {
             this.next = next;
         }
 
+        /**
+         * Set prevNode to Node
+         * @cpu O(1)
+         * @ram O(1)
+         * @return prevNode to Node
+         */
         public void setPrev(Node prev) {
             this.prev = prev;
         }
     }
 
-    private Node node;
-    private Node lastNode;
-    private int size;
-
-
-
+    /**
+     * Custom constructor for LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return LinkedList with custom value
+     */
     public LinkedList(Node node) {
         this.node = node;
     }
 
+    /**
+     * Default constructor for LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return LinkedList with default values
+     */
     public LinkedList() {
     }
 
+    /**
+     * Get Node from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return Node from LinkedList
+     */
     public Node getNode() {
         return this.node;
     }
 
+    /**
+     * Get lastNode from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return lastNode from LinkedList
+     */
     public Node getLastNode() {
         return this.lastNode;
     }
 
+    /**
+     * Get size from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return size from LinkedList
+     */
     public int size() {
         return this.size;
     }
@@ -94,7 +170,7 @@ public class LinkedList {
      * @param elements array with numbers
      * @return LinkedList with values from argument
      */
-    public static LinkedList of(int ... elements) {
+    public static LinkedList of(Object ... elements) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < elements.length; i++) {
             list.addLast(elements[i]);
@@ -108,8 +184,8 @@ public class LinkedList {
      * @ram O(n), n - size of LinkedList
      * @return array with numbers from LinkedList
      */
-    public int[] toArray(){
-        int[] result = new int[this.size];
+    public Object[] toArray(){
+        Object[] result = new Object[this.size];
         Node link = this.node;
         for (int i = 0; i < this.size; i++) {
             result[i] = link.getElement();
@@ -125,7 +201,7 @@ public class LinkedList {
      * @param index argument
      * @return number from LinkedList by index
      */
-    public int get(int index) {
+    public Object get(int index) {
         int size = this.size();
         if (index <= size / 2) {
             Node link = this.getNode();
@@ -143,13 +219,24 @@ public class LinkedList {
     }
 
     /**
+     * Add one element to the end of the LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @param element
+     */
+    @Override
+    public void add(Object element) {
+        this.addLast(element);
+    }
+
+    /**
      * Set element in LinkedList by index
      * @cpu O(n), n - size of LinkedList
      * @ram O(1), n - size of LinkedList
      * @param index argument
      * @param element argument
      */
-    public void set(int index, int element) {
+    public void set(int index, Object element) {
         int size = this.size();
         if (index <= size / 2) {
             Node link = this.getNode();
@@ -167,20 +254,27 @@ public class LinkedList {
     }
 
     /**
-     * Compare two LinkedList
+     * Compare two objects
      * @cpu O(n), n - size of LinkedList
      * @ram O(1), n - size of LinkedList
-     * @param  that LinkedList
+     * @param  obj argument
      * @return true when elements and size from LinkedLists are same. In another way - false.
      */
-    public boolean equals(LinkedList that) {
-        if (that == null || this.size() != that.size()) {
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != LinkedList.class) {
+            return false;
+        }
+        LinkedList that = (LinkedList) obj;
+        if (this.size() != that.size()) {
             return false;
         }
         Node firstLink = this.node;
-        Node secondLink =that.node;
+        Node secondLink = that.node;
         for (int i = 0; i < this.size(); i++) {
-            if (firstLink.getElement() != secondLink.getElement()) {
+            if (firstLink.getElement() != null
+                    ? firstLink.getElement().equals(secondLink.getElement())
+                    : secondLink.getElement() == null) {
+            } else {
                 return false;
             }
             firstLink = firstLink.getNext();
@@ -190,13 +284,26 @@ public class LinkedList {
     }
 
     /**
+     * Check LinkedList is empty or isn't
+     * @cpu O(1)
+     * @ram O(1)
+     * @return true if LinkedList is empty, false if LinkedList have some elements
+     */
+    public boolean isEmpty() {
+        if (this.size() == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Get element by the index and delete it
      * @cpu O(n)
      * @ram O(1)
      * @param index argument
      * @return first element from LinkedList
      */
-    public int remove(int index) {
+    public Object remove(int index) {
         if (index == 0) {
             return this.removeFirst();
         }
@@ -228,8 +335,8 @@ public class LinkedList {
      * @param link by node
      * @return element from node
      */
-    private int removeNode(Node link) {
-        int result = link.getElement();
+    private Object removeNode(Node link) {
+        Object result = link.getElement();
         link.getPrev().setNext(link.getNext());
         link.getNext().setPrev(link.getPrev());
         return result;
@@ -241,7 +348,7 @@ public class LinkedList {
      * @ram O(1)
      * @param element argument
      */
-    public  void addFirst(int element) {
+    public  void addFirst(Object element) {
         this.size++;
         Node link = this.getNode();
         if (link == null) {
@@ -255,12 +362,22 @@ public class LinkedList {
     }
 
     /**
+     * Add one element to the end of the LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @param element
+     */
+    public void offer(Object element) {
+        this.addLast(element);
+    }
+
+    /**
      * Get first element from LinkedList
      * @cpu O(1)
      * @ram O(1)
      * @return first element from LinkedList
      */
-    public int getFirst() {
+    public Object getFirst() {
         return this.node.getElement();
     }
 
@@ -270,9 +387,9 @@ public class LinkedList {
      * @ram O(1)
      * @return first element from LinkedList
      */
-    public int removeFirst() {
+    public Object removeFirst() {
         this.size--;
-        int result = this.getFirst();
+        Object result = this.getFirst();
         Node link = this.node;
         if (link.getNext() == null) {
           this.node = null;
@@ -296,13 +413,28 @@ public class LinkedList {
         }
         StringBuilder result = new StringBuilder();
         result.append("[");
+        Object object;
         while (link.getNext() != null) {
-            result.append(link.getElement());
-            result.append(", ");
-            link = link.getNext();
+            object = link.getElement();
+            if (object == null) {
+                result.append(null);
+                result.append(", ");
+                link = link.getNext();
+            } else {
+                result.append(object.toString());
+                result.append(", ");
+                link = link.getNext();
+            }
+
         }
-        result.append(link.getElement());
-        result.append("]");
+        object = link.getElement();
+        if (object == null) {
+            result.append(null)
+                    .append("]");
+        } else {
+            result.append(object.toString());
+            result.append("]");
+        }
         return result.toString();
     }
 
@@ -312,7 +444,7 @@ public class LinkedList {
      * @ram O(1)
      * @param element
      */
-    public void addLast(int element) {
+    public void addLast(Object element) {
         this.size++;
         Node link = this.getNode();
         if (link == null) {
@@ -330,8 +462,18 @@ public class LinkedList {
      * @ram O(1)
      * @return last element from LinkedList
      */
-    public int getLast() {
+    public Object getLast() {
         return this.lastNode.getElement();
+    }
+
+    /**
+     * Get first element from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return first element from LinkedList
+     */
+    public Object peek() {
+        return this.getFirst();
     }
 
     /**
@@ -340,9 +482,9 @@ public class LinkedList {
      * @ram O(1)
      * @return last element from LinkedList
      */
-    public int removeLast(){
+    public Object removeLast(){
         this.size--;
-       int result = this.getLast();
+       Object result = this.getLast();
        if (this.getLastNode().getPrev() == null) {
            this.node = null;
            this.lastNode = null;
@@ -351,5 +493,15 @@ public class LinkedList {
        this.getLastNode().getPrev().setNext(null);
        this.lastNode = this.lastNode.getPrev();
        return result;
+    }
+
+    /**
+     * Get first element and delete first node from LinkedList
+     * @cpu O(1)
+     * @ram O(1)
+     * @return first element from LinkedList
+     */
+    public Object poll() {
+        return this.removeFirst();
     }
 }

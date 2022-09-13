@@ -67,15 +67,18 @@ public class Event {
     }
 
     /**
-     * Determines whether the events are equivalent or not.
+     * Determines whether the Objects are equivalent or not.
      * @cpu O(n) , n - name.length
      * @ram O(1)
-     * @param that Object by class Event
-     * @return true if all fields from Objects are equal, false if are not.
+     * @param obj argument
+     * @return true if Objects are equal, false if are not.
      */
-    public boolean equals(Event that) {
-        return that != null
-                && (this.name == null ? that.name == null : this.name.equals(that.name))
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != Event.class) {
+            return false;
+        }
+        Event that = (Event) obj;
+        return (this.name == null ? that.name == null : this.name.equals(that.name))
                 && (this.compareTo(that) == 0)
                 && (this.id == that.id);
     }

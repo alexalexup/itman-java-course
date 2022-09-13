@@ -1,11 +1,6 @@
 package collections;
 
-public class Queue {
-    private LinkedList list;
-
-    public Queue() {
-        this.list = new LinkedList();
-    }
+public interface Queue {
 
     /**
      * Add one element to the queue
@@ -13,60 +8,47 @@ public class Queue {
      * @ram O(1)
      * @param element argument
      */
-    public void offer(int element) {
-        this.list.addLast(element);
-    }
+    public void offer(Object element);
 
     /**
      * Get first element from the queue
      * @cpu O(1)
      * @ram O(1)
-     * @return first element from the queue
+     * return first element from the queue
      */
-    public int peek() {
-        return this.list.getFirst();
-    }
+    public Object peek();
 
     /**
-     * Get first element from the queue and delete it
+     * Get and delete first element from the queue
      * @cpu O(1)
      * @ram O(1)
-     * @return first element from the queue
+     * return first element from the queue
      */
-    public int poll() {
-        return this.list.removeFirst();
-    }
+    public Object poll();
 
     /**
      * Return size of the queue
      * @cpu O(1)
      * @ram O(1)
-     * @return size of the queue
+     * return size of the queue
      */
-    public int size() {
-        return this.list.size();
-    }
+    public int size();
 
     /**
-     * Check Do have queue elements or not
+     * Check queue is empty or not
      * @cpu O(1)
      * @ram O(1)
-     * @return true if queue have not elements, otherwise - false
+     * return true when queue is empty and false when queue have some elements
      */
-    public boolean isEmpty() {
-        if (this.list.size() == 0) {
-            return true;
-        }
-        return false;
-    }
+    public boolean isEmpty();
 
     /**
-     * Create and return array with elements from the queue
+     * Return array with elements from the queue
      * @cpu O(n), n - size of the queue
      * @ram O(n), n - size of the queue
-     * @return array with elements from the queue
+     * return array with elements from the queue
      */
-    public int[] toArray() {
-        return this.list.toArray();
-    }
+    public Object[] toArray();
 }
+
+
