@@ -2,8 +2,8 @@ package collections;
 
 import utils.StringBuilder;
 
-public class  ArrayList  implements List {
-    private Object[] objects;
+public class  ArrayList <T>  implements List <T> {
+    private T[] objects;
     private int size;
 
     /**
@@ -13,7 +13,7 @@ public class  ArrayList  implements List {
      * return object without logical data by ArrayList class
      */
     public ArrayList() {
-        this.objects = new Object[16];
+        this.objects =(T[]) new Object[16];
     }
 
     /**
@@ -24,7 +24,7 @@ public class  ArrayList  implements List {
      * return object without logical data by ArrayList class
      */
     public ArrayList(int capacity) {
-        this.objects = new Object[capacity];
+        this.objects = (T[])new Object[capacity];
     }
 
     /**
@@ -33,10 +33,10 @@ public class  ArrayList  implements List {
      * @ram O(n), n - this.numbers.length
      * @param element argument
      */
-    public void add(Object element) {
+    public void add(T element) {
         this.size++;
         if (this.size >= this.objects.length) {
-            Object[] newObjects = new Object[this.objects.length * 2];
+            T[] newObjects =(T[]) new Object[this.objects.length * 2];
             System.arraycopy(this.objects, 0, newObjects, 0, this.objects.length);
             this.objects = newObjects;
         }
@@ -53,7 +53,7 @@ public class  ArrayList  implements List {
      * @param index argument
      * @param element argument
      */
-    public void set(int index, Object element) {
+    public void set(int index, T element) {
         this.objects[index] = element;
     }
 
@@ -64,7 +64,7 @@ public class  ArrayList  implements List {
      * @param index argument
      * @return element from arrayList by index
      */
-    public Object get(int index) {
+    public T get(int index) {
         return this.objects[index];
     }
 
@@ -84,8 +84,8 @@ public class  ArrayList  implements List {
      * @ram O(n), n - this.size
      * @return array with data from arrayList
      */
-    public Object[] toArray() {
-        Object[] array = new Object[this.size];
+    public T[] toArray() {
+        T[] array = (T[]) new Object[this.size];
         System.arraycopy(this.objects, 0, array, 0,this.size);
         return array;
     }
@@ -97,8 +97,8 @@ public class  ArrayList  implements List {
      * @param index argument
      * @return element from arraylist by index
      */
-    public Object remove(int index) {
-        Object result = this.objects[index];
+    public T remove(int index) {
+        T result = this.objects[index];
         this.size--;
         for (int i = index; i < this.size; i++) {
             this.objects[i] = this.objects[i+1];
@@ -113,7 +113,7 @@ public class  ArrayList  implements List {
      * @param elements argument
      * @return arrayList with data by argument
      */
-    public static ArrayList of(Object ... elements) {
+    public static <T> ArrayList of(T ... elements) {
         ArrayList arrayList = new ArrayList();
         for (int i = 0 ; i < elements.length; i ++) {
             arrayList.add(elements[i]);

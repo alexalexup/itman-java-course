@@ -271,14 +271,10 @@ public class LinkedList implements List, Queue {
         Node firstLink = this.node;
         Node secondLink = that.node;
         for (int i = 0; i < this.size(); i++) {
-            if (firstLink.getElement() == null) {
-                if (secondLink.getElement() == null) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-            if (firstLink.getElement().equals(secondLink.getElement()) == false) {
+            if (firstLink.getElement() != null
+                    ? firstLink.getElement().equals(secondLink.getElement())
+                    : secondLink.getElement() == null) {
+            } else {
                 return false;
             }
             firstLink = firstLink.getNext();
@@ -396,8 +392,8 @@ public class LinkedList implements List, Queue {
         Object result = this.getFirst();
         Node link = this.node;
         if (link.getNext() == null) {
-          this.node = null;
-          return result;
+            this.node = null;
+            return result;
         }
         this.node = this.node.getNext();
         this.node.setPrev(null);
@@ -488,15 +484,15 @@ public class LinkedList implements List, Queue {
      */
     public Object removeLast(){
         this.size--;
-       Object result = this.getLast();
-       if (this.getLastNode().getPrev() == null) {
-           this.node = null;
-           this.lastNode = null;
-           return result;
-       }
-       this.getLastNode().getPrev().setNext(null);
-       this.lastNode = this.lastNode.getPrev();
-       return result;
+        Object result = this.getLast();
+        if (this.getLastNode().getPrev() == null) {
+            this.node = null;
+            this.lastNode = null;
+            return result;
+        }
+        this.getLastNode().getPrev().setNext(null);
+        this.lastNode = this.lastNode.getPrev();
+        return result;
     }
 
     /**

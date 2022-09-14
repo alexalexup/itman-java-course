@@ -1,0 +1,290 @@
+[33mcommit cc78fc42848df3b1590c6200fd0dbce94316c1bb[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 2e3d8a6 90c7063
+Author: Stas Sviridov <StarWix@users.noreply.github.com>
+Date:   Tue Sep 13 11:23:30 2022 +0400
+
+    Merge pull request #9 from alexalexup/inheritance
+    
+    Add items
+
+[33mcommit 90c7063e570c8aff664b32295f726bc148b5b9cb[m[33m ([m[1;31morigin/inheritance[m[33m, [m[1;32minheritance[m[33m)[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Mon Sep 12 18:11:01 2022 +0300
+
+    edit remarks2
+
+[33mcommit 9abdbca9e66a662edab1db74153a06d31481d0dc[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Sep 11 22:27:42 2022 +0300
+
+    edit remarks
+
+[33mcommit c66ea07d1c5b19bab1ecd06de5e2b37920076e72[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Aug 28 01:51:14 2022 +0300
+
+    small edits
+
+[33mcommit de770964d5c5c0803159a92475179d59f3d576fe[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Aug 28 01:45:59 2022 +0300
+
+    edit remarks5
+
+[33mcommit 6b3606056177132e8781a021f39a733d8701ba58[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Aug 28 00:00:36 2022 +0300
+
+    edit remarks4
+
+[33mcommit a626a17eacdadfa4fa39d272e225d7caf43219a8[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Tue Aug 16 13:01:01 2022 +0300
+
+    edit remarks3
+
+[33mcommit 57e0ce573f8c395a95df287b49c98f29190582ee[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Mon Aug 15 02:18:29 2022 +0300
+
+    edit remarks2
+
+[33mcommit 8dbede5d952dad13937121d25b290f67635080a3[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Wed Aug 10 00:38:28 2022 +0300
+
+    edit remarks
+
+[33mcommit 90c0b69828db4490a216c7234e78151685dc2a03[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jul 24 22:25:34 2022 +0300
+
+    add some edits
+
+[33mcommit d6e5f03156c7dea66c0a9ff5670ddc5907a14d58[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jul 24 21:54:24 2022 +0300
+
+    add some edits
+
+[33mcommit 6130883e65ce30e6e73bd3122f253a111f4bab58[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jul 24 19:37:04 2022 +0300
+
+    edit tests
+
+[33mcommit 94375084050204e7102093c763f320129d753179[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jul 24 19:32:41 2022 +0300
+
+    add Enum Math
+
+[33mcommit 77cc683db99def819e9857a6dd2aae2a16f64ae7[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jul 17 22:32:50 2022 +0300
+
+    add toUndirectedAdjacencyList method
+
+[33mcommit f0a0c43c986d6dc86b9dda1a4d082561b6f0d986[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jul 17 22:07:16 2022 +0300
+
+    add toAdjacencyList method
+
+[33mcommit 985b9aef35c66a307a90aae64e55971d6aa26d9d[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jul 17 20:52:55 2022 +0300
+
+    add Pair Object
+
+[33mcommit 43f35ce6d5185ec8d497f938b772169bd5f689e9[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jul 17 15:07:13 2022 +0300
+
+    add some tests
+
+[33mcommit 2fc9543ab801982def1a405e767f6b344f0c9094[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Fri Jul 15 01:09:50 2022 +0300
+
+    add abstract class
+
+[33mcommit fb0d6733def6c77d3c6136dbdac02147c9638592[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Tue Jul 12 23:48:02 2022 +0300
+
+    fix
+
+[33mcommit e8d76070ddbd8eeb06a68d7e42742803d644286b[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Tue Jul 12 23:36:20 2022 +0300
+
+    add Queue interface
+
+[33mcommit 198e36f026f2a822807458f78aff7a49295ced92[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Tue Jul 12 23:32:46 2022 +0300
+
+    add Queue interface
+
+[33mcommit 7c9852667a309f89cb9c60e7cb32bea499c5fa3d[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Tue Jul 12 23:18:43 2022 +0300
+
+    rename collections.Queue to collectionsLinkedQueue
+
+[33mcommit dbc65aa8721c7a13f2a30e2c9c37fe882f780c9f[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Mon Jul 11 01:56:55 2022 +0300
+
+    fix
+
+[33mcommit caff661f08fb7832b45d2fe2f860c65796375688[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Mon Jul 11 01:49:01 2022 +0300
+
+    add collections.List
+
+[33mcommit bb956ddb14868afd51a6c80db9d292883827b365[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Mon Jul 11 01:25:04 2022 +0300
+
+    collections.LinkedList и collections.Queue
+
+[33mcommit 8dd5819108149420f460478502177f04b3f055d7[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Mon Jul 11 00:53:24 2022 +0300
+
+    fix
+
+[33mcommit d8c90d1b5fdaa5fd6377715d16b70f7002abeb05[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Mon Jul 11 00:47:35 2022 +0300
+
+    add createArrayList to ListBenchmarks
+
+[33mcommit ec67fdec9b92984918681ee434b714bac8eb775e[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jul 10 23:27:37 2022 +0300
+
+    use ArrayList for countingSort
+
+[33mcommit 0622b53d245959fa3f47020b4a8f5fae9bbf2387[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jul 10 22:34:56 2022 +0300
+
+    add methods for ArrayList
+
+[33mcommit 678af9245d12589f5ce211d8dcb15f160f68b526[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Thu Jul 7 21:59:22 2022 +0300
+
+    add ArrayList for Object[]
+
+[33mcommit e6098c41cd51e1c9a05375c084c1dbc65c6a4c47[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Thu Jul 7 01:02:04 2022 +0300
+
+    fix miss click
+
+[33mcommit 248abe81d5c90540b07be5dfacc039c57e5b4fb4[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Thu Jul 7 00:50:03 2022 +0300
+
+    Rename to InArrayList
+
+[33mcommit 1bc39fe1c190ff09ed74a5a46dca841ff3b1b5a0[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Thu Jul 7 00:35:31 2022 +0300
+
+    Override  to equals(Type type)
+
+[33mcommit 769a166a49935d8113f77fcace75ab22f20b7214[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Wed Jul 6 00:38:05 2022 +0300
+
+    fix mistake
+
+[33mcommit c3328519f60dec8fabfec76017f8d86c5c4964b1[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Wed Jul 6 00:04:15 2022 +0300
+
+    fix mistake
+
+[33mcommit 75f48c216e69b218799f402cc31c9f25fdfe91fe[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Tue Jul 5 23:37:51 2022 +0300
+
+    Ovveride methods equals
+
+[33mcommit d651484d9313825776ff952b46e0dc66a8c6f3cc[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sat Jul 2 16:02:29 2022 +0300
+
+    add boardGame and videoGame
+
+[33mcommit 489a60b0efb598a7f8563b84e97b85440ecc74ec[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sat Jul 2 14:50:54 2022 +0300
+
+    add items
+
+[33mcommit 2e3d8a615716a9fdf8502cdc3ab3a7c27b66488e[m[33m ([m[1;32marray-list[m[33m)[m
+Merge: 20e73e0 d8aea34
+Author: Stas Sviridov <StarWix@users.noreply.github.com>
+Date:   Mon Jun 27 23:29:50 2022 +0300
+
+    Merge pull request #8 from alexalexup/list
+    
+    add Node class
+
+[33mcommit d8aea34e459583d2969d0a862cb64a40e364aa72[m[33m ([m[1;31morigin/list[m[33m, [m[1;32mlist[m[33m)[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Wed Jun 22 02:40:43 2022 +0300
+
+    add JavaDocs and Tests 2
+
+[33mcommit 8e5ca9054cd6cf4a9b499cc90d2e4e8dd5ca273b[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Wed Jun 22 02:15:30 2022 +0300
+
+    add JavaDocs and Tests
+
+[33mcommit 71d538aee642b5120e18e78b4a3e5a7a4682f454[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jun 19 01:47:12 2022 +0300
+
+    add methods for QueueSpringApplication
+
+[33mcommit 39a1de6c90897f8cd1ee6d8db729e1b3131157fc[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jun 19 01:33:47 2022 +0300
+
+    fix2
+
+[33mcommit edee24fee8c0b995be4d615b6d8768aa2b7db3f5[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jun 19 01:32:00 2022 +0300
+
+    fix
+
+[33mcommit b46bfe72ac3d7c55dca22eb812afc76f574ee510[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jun 19 01:14:47 2022 +0300
+
+    fix
+
+[33mcommit d6192c6a0d5bb824f59b227292cc9edf5d7d0bb3[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sun Jun 19 00:47:14 2022 +0300
+
+    add Ticket[] getCurrentQueue()
+    and  Ticket callNext()
+
+[33mcommit daf51b3017a09d51a88b2e26c876866034a57376[m
+Author: alexalexup <upvector.by@gmail.com>
+Date:   Sat Jun 18 18:42:03 2022 +0300
+
+    add collections.Queue
+
+[33mcommit e430ae26f971
