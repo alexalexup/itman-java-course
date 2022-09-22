@@ -7,7 +7,7 @@ public interface Shape {
      * @ram O(1)
      * @return perimeter of the shape
      */
-    public  double calcPerimeter();
+    double calcPerimeter();
 
     /**
      * Calculate square for the shape
@@ -15,5 +15,5 @@ public interface Shape {
      * @ram O(1)
      * @return square of the shape
      */
-    public  double calcSquare();
+     double calcSquare();
 }

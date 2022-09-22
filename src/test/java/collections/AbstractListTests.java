@@ -280,6 +280,7 @@ abstract public  class AbstractListTests {
         public void shouldCompareWhenListsHaveDifferentSizes() {
             List first = of(1, 2, null, 5);
             List second = of (2, 3, 3, 3, 3, 3);
+            List<String> third = of ("AAA");
             Assertions.assertNotEquals(first, second);
         }
     }

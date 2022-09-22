@@ -3,15 +3,15 @@ package collections;
 import utils.StringBuilder;
 
 
-public class LinkedList implements List, Queue {
-    private Node node;
-    private Node lastNode;
+public class LinkedList <T> implements List <T> , Queue <T> {
+    private Node<T> node;
+    private Node<T> lastNode;
     private int size;
 
-    private static class Node {
-        private Object element;
-        private Node next;
-        private Node prev;
+    private static class Node <T> {
+        private T element;
+        private Node<T> next;
+        private Node<T> prev;
 
         /**
          * Custom constructor for Node
@@ -19,7 +19,7 @@ public class LinkedList implements List, Queue {
          * @ram O(1)
          * @return Node with custom values
          */
-        public Node(Object element, Node next, Node prev) {
+        public Node(T element, Node<T> next, Node<T> prev) {
             this.element = element;
             this.next = next;
             this.prev = prev;
@@ -40,7 +40,7 @@ public class LinkedList implements List, Queue {
          * @ram O(1)
          * @return element from Node
          */
-        public Object getElement() {
+        public  T getElement() {
             return element;
         }
 
@@ -51,7 +51,7 @@ public class LinkedList implements List, Queue {
          * @param element argument
          * @return element from Node
          */
-        public void setElement(Object element) {
+        public void setElement(T element) {
             this.element = element;
         }
 
@@ -170,7 +170,7 @@ public class LinkedList implements List, Queue {
      * @param elements array with numbers
      * @return LinkedList with values from argument
      */
-    public static LinkedList of(Object ... elements) {
+    public static <T> LinkedList of(T ... elements) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < elements.length; i++) {
             list.addLast(elements[i]);
@@ -184,9 +184,9 @@ public class LinkedList implements List, Queue {
      * @ram O(n), n - size of LinkedList
      * @return array with numbers from LinkedList
      */
-    public Object[] toArray(){
-        Object[] result = new Object[this.size];
-        Node link = this.node;
+    public T[] toArray(){
+        T[] result =(T[]) new Object[this.size];
+        Node<T> link = this.node;
         for (int i = 0; i < this.size; i++) {
             result[i] = link.getElement();
             link = link.getNext();
@@ -201,10 +201,10 @@ public class LinkedList implements List, Queue {
      * @param index argument
      * @return number from LinkedList by index
      */
-    public Object get(int index) {
+    public T get(int index) {
         int size = this.size();
         if (index <= size / 2) {
-            Node link = this.getNode();
+            Node<T> link = this.getNode();
             for (int i = 0; i < index; i++) {
                 link = link.getNext();
             }
@@ -214,7 +214,7 @@ public class LinkedList implements List, Queue {
             for (int i = 0; i < size - index - 1; i++) {
                 link = link.getPrev();
             }
-            return link.getElement();
+            return (T)link.getElement();
         }
     }
 
@@ -225,7 +225,7 @@ public class LinkedList implements List, Queue {
      * @param element
      */
     @Override
-    public void add(Object element) {
+    public void add(T element) {
         this.addLast(element);
     }
 
@@ -236,7 +236,7 @@ public class LinkedList implements List, Queue {
      * @param index argument
      * @param element argument
      */
-    public void set(int index, Object element) {
+    public  void set(int index, T element) {
         int size = this.size();
         if (index <= size / 2) {
             Node link = this.getNode();
@@ -303,23 +303,23 @@ public class LinkedList implements List, Queue {
      * @param index argument
      * @return first element from LinkedList
      */
-    public Object remove(int index) {
+    public T remove(int index) {
         if (index == 0) {
-            return this.removeFirst();
+            return (T)this.removeFirst();
         }
         if (index == (this.size - 1)) {
-            return this.removeLast();
+            return (T)this.removeLast();
         }
         int size = this.size();
         if (index <= size / 2) {
-            Node link = this.getNode();
+            Node<T> link = this.getNode();
             for (int i = 0; i < index; i++) {
                 link = link.getNext();
             }
             this.size--;
             return removeNode(link);
         } else {
-            Node link = this.getLastNode();
+            Node<T> link = this.getLastNode();
             for (int i = 0; i < size - index - 1; i++) {
                 link = link.getPrev();
             }
@@ -335,8 +335,8 @@ public class LinkedList implements List, Queue {
      * @param link by node
      * @return element from node
      */
-    private Object removeNode(Node link) {
-        Object result = link.getElement();
+    private T removeNode(Node<T> link) {
+        T result = link.getElement();
         link.getPrev().setNext(link.getNext());
         link.getNext().setPrev(link.getPrev());
         return result;
@@ -348,9 +348,9 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @param element argument
      */
-    public  void addFirst(Object element) {
+    public <T> void addFirst(T element) {
         this.size++;
-        Node link = this.getNode();
+        Node<T> link = this.getNode();
         if (link == null) {
             this.node = new Node(element, null,null);
             this.lastNode = this.node;
@@ -367,7 +367,7 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @param element
      */
-    public void offer(Object element) {
+    public void offer(T element) {
         this.addLast(element);
     }
 
@@ -377,7 +377,7 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return first element from LinkedList
      */
-    public Object getFirst() {
+    public T getFirst() {
         return this.node.getElement();
     }
 
@@ -387,9 +387,9 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return first element from LinkedList
      */
-    public Object removeFirst() {
+    public T removeFirst() {
         this.size--;
-        Object result = this.getFirst();
+        T result = this.getFirst();
         Node link = this.node;
         if (link.getNext() == null) {
             this.node = null;
@@ -444,9 +444,9 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @param element
      */
-    public void addLast(Object element) {
+    public <T> void addLast(T element) {
         this.size++;
-        Node link = this.getNode();
+        Node<T> link = this.getNode();
         if (link == null) {
             this.node = new Node(element, null, null);
             this.lastNode = this.node;
@@ -462,7 +462,7 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return last element from LinkedList
      */
-    public Object getLast() {
+    public T getLast() {
         return this.lastNode.getElement();
     }
 
@@ -472,7 +472,7 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return first element from LinkedList
      */
-    public Object peek() {
+    public T peek() {
         return this.getFirst();
     }
 
@@ -482,9 +482,9 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return last element from LinkedList
      */
-    public Object removeLast(){
+    public T removeLast(){
         this.size--;
-        Object result = this.getLast();
+        T result = this.getLast();
         if (this.getLastNode().getPrev() == null) {
             this.node = null;
             this.lastNode = null;
@@ -501,7 +501,7 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return first element from LinkedList
      */
-    public Object poll() {
+    public T poll() {
         return this.removeFirst();
     }
 }
