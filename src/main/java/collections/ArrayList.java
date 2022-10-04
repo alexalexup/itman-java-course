@@ -2,9 +2,67 @@ package collections;
 
 import utils.StringBuilder;
 
+import java.util.Iterator;
+
 public class  ArrayList <T>  implements List <T> {
     private T[] objects;
     private int size;
+
+    public class ArrayIterator implements Iterator<T> {
+        private int current;
+
+        @Override
+        public boolean hasNext() {
+            return current < size;
+        }
+
+        @Override
+        public T next() {
+            return objects[current++];
+        }
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayIterator();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.size == 0;
+    }
+
+    @Override
+    public boolean addAll(Collections<T> collection) {
+        if (collection.size() == 0) {
+            return false;
+        }
+        Iterator<T> iterator = collection.iterator();
+        while (iterator.hasNext()) {
+            this.add(iterator.next());
+        }
+        return true;
+    }
+
+    @Override
+    public boolean contains(T element) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(T element) {
+        return false;
+    }
+
+    @Override
+    public boolean containsAll(T collection) {
+        return false;
+    }
+
+    @Override
+    public void removeAll(T element) {
+
+    }
 
     /**
      * Create empty arrayList and set size 16 for field objects[]
@@ -33,17 +91,15 @@ public class  ArrayList <T>  implements List <T> {
      * @ram O(n), n - this.numbers.length
      * @param element argument
      */
-    public void add(T element) {
+    public boolean add(T element) {
         this.size++;
         if (this.size >= this.objects.length) {
             T[] newObjects =(T[]) new Object[this.objects.length * 2];
             System.arraycopy(this.objects, 0, newObjects, 0, this.objects.length);
             this.objects = newObjects;
         }
-        if (element == null) {
-            return;
-        }
         this.objects[this.size - 1] = element;
+        return true;
     }
 
     /**

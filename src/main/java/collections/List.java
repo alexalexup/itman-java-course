@@ -1,14 +1,6 @@
 package collections;
 
-public interface List <T> {
-    /**
-     * Add element to List
-     * @cpu O(1)
-     * @ram O(n), n - size of the List
-     * @param element argument
-     */
-    public void add(T element);
-
+public interface List <T> extends Collections <T> {
     /**
      * Set element in List by index
      * @cpu O(1)
@@ -26,14 +18,6 @@ public interface List <T> {
      * @return element from List by index
      */
     public T get(int index);
-
-    /**
-     * Return size of the List
-     * @cpu O(1)
-     * @ram O(1)
-     * @return size of the List
-     */
-    public int size();
 
     /**
      * Get data to array from list

@@ -17,6 +17,7 @@ public class ExampleController {
         return "I'm your first web-service";
     }
 
+
     /**
      * Return text message
      * @cpu O(1)

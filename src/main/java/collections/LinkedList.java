@@ -2,11 +2,40 @@ package collections;
 
 import utils.StringBuilder;
 
+import java.util.Iterator;
 
-public class LinkedList <T> implements List <T> , Queue <T> {
+
+public class LinkedList <T> implements List <T>, Queue <T> {
     private Node<T> node;
     private Node<T> lastNode;
     private int size;
+
+    public class LinkedListIterator implements Iterator<T> {
+        private Node<T> currentNode;
+        private int currentSize;
+
+        public LinkedListIterator() {
+            this.currentNode = node;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentSize < size;
+        }
+
+        @Override
+        public T next() {
+            T result = currentNode.getElement();
+            currentNode = currentNode.next;
+            currentSize++;
+            return result;
+        }
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+    }
 
     private static class Node <T> {
         private T element;
@@ -224,9 +253,9 @@ public class LinkedList <T> implements List <T> , Queue <T> {
      * @ram O(1)
      * @param element
      */
-    @Override
-    public void add(T element) {
+    public boolean add(T element) {
         this.addLast(element);
+        return true;
     }
 
     /**
@@ -290,10 +319,32 @@ public class LinkedList <T> implements List <T> , Queue <T> {
      * @return true if LinkedList is empty, false if LinkedList have some elements
      */
     public boolean isEmpty() {
-        if (this.size() == 0) {
-            return true;
-        }
+        return this.size == 0;
+    }
+
+    @Override
+    public boolean addAll(Collections<T> collection) {
         return false;
+    }
+
+    @Override
+    public boolean contains(T element) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(T element) {
+        return false;
+    }
+
+    @Override
+    public boolean containsAll(T collection) {
+        return false;
+    }
+
+    @Override
+    public void removeAll(T element) {
+
     }
 
     /**
