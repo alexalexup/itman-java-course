@@ -18,6 +18,14 @@ public class LinkedList <T> implements List <T>, Queue <T> {
             this.currentNode = node;
         }
 
+        public int getCurrentSize() {
+            return currentSize;
+        }
+
+        public void decreaseCurrentSize() {
+            currentSize--;
+        }
+
         @Override
         public boolean hasNext() {
             return currentSize < size;
@@ -33,7 +41,7 @@ public class LinkedList <T> implements List <T>, Queue <T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public LinkedListIterator iterator() {
         return new LinkedListIterator();
     }
 
@@ -324,17 +332,41 @@ public class LinkedList <T> implements List <T>, Queue <T> {
 
     @Override
     public boolean addAll(Collections<T> collection) {
-        return false;
+        if (collection.size() == 0) {
+            return false;
+        }
+        Iterator<T> iterator = collection.iterator();
+        while (iterator.hasNext()) {
+            this.add(iterator.next());
+        }
+        return true;
     }
 
     @Override
     public boolean contains(T element) {
+        Iterator<T> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            T checkItem = iterator.next();
+            if(checkItem != null ? checkItem.equals(element) : element == null) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean remove(T element) {
-        return false;
+        LinkedListIterator iterator = this.iterator();
+        boolean result = false;
+        while (iterator.hasNext()) {
+            T checkItem = iterator.next();
+            if(checkItem != null ? checkItem.equals(element) : element == null) {
+                this.remove(iterator.getCurrentSize() - 1);
+                iterator.decreaseCurrentSize();
+                result = true;
+            }
+        }
+        return result;
     }
 
     @Override

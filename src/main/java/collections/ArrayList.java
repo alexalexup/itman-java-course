@@ -11,6 +11,14 @@ public class  ArrayList <T>  implements List <T> {
     public class ArrayIterator implements Iterator<T> {
         private int current;
 
+        public int getCurrent() {
+            return current;
+        }
+
+        public void decreaseCurrent() {
+            current--;
+        }
+
         @Override
         public boolean hasNext() {
             return current < size;
@@ -23,7 +31,7 @@ public class  ArrayList <T>  implements List <T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public ArrayIterator iterator() {
         return new ArrayIterator();
     }
 
@@ -46,12 +54,29 @@ public class  ArrayList <T>  implements List <T> {
 
     @Override
     public boolean contains(T element) {
+        Iterator<T> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            T checkItem = iterator.next();
+            if(checkItem != null ? checkItem.equals(element) : element == null) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean remove(T element) {
-        return false;
+        ArrayIterator iterator = this.iterator();
+        boolean result = false;
+        while (iterator.hasNext()) {
+            T checkItem = iterator.next();
+            if(checkItem != null ? checkItem.equals(element) : element == null) {
+                this.remove(iterator.getCurrent() - 1);
+                iterator.decreaseCurrent();
+                result = true;
+            }
+        }
+        return result;
     }
 
     @Override
@@ -97,6 +122,9 @@ public class  ArrayList <T>  implements List <T> {
             T[] newObjects =(T[]) new Object[this.objects.length * 2];
             System.arraycopy(this.objects, 0, newObjects, 0, this.objects.length);
             this.objects = newObjects;
+        }
+        if (element == null) {
+            return true;
         }
         this.objects[this.size - 1] = element;
         return true;
