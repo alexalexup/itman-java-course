@@ -370,8 +370,16 @@ public class LinkedList <T> implements List <T>, Queue <T> {
     }
 
     @Override
-    public boolean containsAll(T collection) {
-        return false;
+    public boolean containsAll(Collections<T> collection) {
+        Iterator<T> iterator = collection.iterator();
+        while (iterator.hasNext()) {
+            T checkItem = iterator.next();
+            if (this.contains(checkItem)) {
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
