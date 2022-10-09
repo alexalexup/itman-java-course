@@ -4,25 +4,10 @@ import utils.StringBuilder;
 
 import java.util.Iterator;
 
-public class  ArrayList <T>  implements List <T> {
+public class  ArrayList <T> extends Lists <T>    {
     private T[] objects;
-    private int size;
 
-    public class ArrayIterator implements Iterator<T> {
-        private int current;
-
-        public int getCurrent() {
-            return current;
-        }
-
-        public void decreaseCurrent() {
-            current--;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return current < size;
-        }
+    public class ListIterator extends ListsIterator {
 
         @Override
         public T next() {
@@ -31,42 +16,13 @@ public class  ArrayList <T>  implements List <T> {
     }
 
     @Override
-    public ArrayIterator iterator() {
-        return new ArrayIterator();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return this.size == 0;
-    }
-
-    @Override
-    public boolean addAll(Collections<T> collection) {
-        if (collection.size() == 0) {
-            return false;
-        }
-        Iterator<T> iterator = collection.iterator();
-        while (iterator.hasNext()) {
-            this.add(iterator.next());
-        }
-        return true;
-    }
-
-    @Override
-    public boolean contains(T element) {
-        Iterator<T> iterator = this.iterator();
-        while (iterator.hasNext()) {
-            T checkItem = iterator.next();
-            if(checkItem != null ? checkItem.equals(element) : element == null) {
-                return true;
-            }
-        }
-        return false;
+    public ListIterator iterator() {
+        return new ListIterator();
     }
 
     @Override
     public boolean remove(T element) {
-        ArrayIterator iterator = this.iterator();
+        ListIterator iterator = this.iterator();
         boolean result = false;
         while (iterator.hasNext()) {
             T checkItem = iterator.next();
@@ -79,22 +35,29 @@ public class  ArrayList <T>  implements List <T> {
         return result;
     }
 
-    @Override
-    public boolean containsAll(Collections<T> collection) {
+    public boolean addAll(int index, Collections<T> collection ) {
+        if (collection.size() == 0 || index > this.size() - 1) {
+            return false;
+        }
+        ArrayList<T> list = new ArrayList<>();
+        for (int i = 0; i < index; i ++) {
+            list.add(this.get(i));
+        }
         Iterator<T> iterator = collection.iterator();
         while (iterator.hasNext()) {
-            T checkItem = iterator.next();
-                if (this.contains(checkItem)) {
-                } else {
-                    return false;
-                }
+            list.add(iterator.next());
+        }
+        for (int i = index; i < this.size; i++) {
+            list.add(this.get(i));
+        }
+
+        for (int i = 0; i < this.size; i++) {
+            this.set(i, list.get(i));
+        }
+        for (int i = this.size; i < list.size(); i++) {
+            this.add(list.get(i));
         }
         return true;
-    }
-
-    @Override
-    public void removeAll(T element) {
-
     }
 
     /**
@@ -125,7 +88,7 @@ public class  ArrayList <T>  implements List <T> {
      * @param element argument
      */
     public boolean add(T element) {
-        this.size++;
+        size++;
         if (this.size >= this.objects.length) {
             T[] newObjects =(T[]) new Object[this.objects.length * 2];
             System.arraycopy(this.objects, 0, newObjects, 0, this.objects.length);
@@ -158,16 +121,6 @@ public class  ArrayList <T>  implements List <T> {
      */
     public T get(int index) {
         return this.objects[index];
-    }
-
-    /**
-     * Get size from arrayList
-     * @cpu O(1)
-     * @ram O(1)
-     * @return size from arrayList
-     */
-    public int size() {
-        return this.size;
     }
 
     /**

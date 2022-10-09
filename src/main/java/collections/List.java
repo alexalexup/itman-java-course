@@ -10,6 +10,8 @@ public interface List <T> extends Collections <T> {
      */
     public void set(int index, T element);
 
+    public boolean addAll(int index, Collections<T> collection);
+
     /**
      * Get element from List by index
      * @cpu O(1)

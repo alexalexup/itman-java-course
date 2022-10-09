@@ -4,38 +4,22 @@ import utils.StringBuilder;
 
 import java.util.Iterator;
 
-
-public class LinkedList <T> implements List <T>, Queue <T> {
+public class LinkedList <T> extends Lists <T> implements Queue <T> {
     private Node<T> node;
     private Node<T> lastNode;
-    private int size;
 
-    public class LinkedListIterator implements Iterator<T> {
+    public class LinkedListIterator extends ListsIterator {
         private Node<T> currentNode;
-        private int currentSize;
 
         public LinkedListIterator() {
             this.currentNode = node;
-        }
-
-        public int getCurrentSize() {
-            return currentSize;
-        }
-
-        public void decreaseCurrentSize() {
-            currentSize--;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return currentSize < size;
         }
 
         @Override
         public T next() {
             T result = currentNode.getElement();
             currentNode = currentNode.next;
-            currentSize++;
+            current++;
             return result;
         }
     }
@@ -173,16 +157,6 @@ public class LinkedList <T> implements List <T>, Queue <T> {
     }
 
     /**
-     * Get size from LinkedList
-     * @cpu O(1)
-     * @ram O(1)
-     * @return size from LinkedList
-     */
-    public int size() {
-        return this.size;
-    }
-
-    /**
      * Create LinkedList with numbers from argument LinkedList
      * @cpu O(n), n - size of LinkedList (that)
      * @ram O(n), n - size of LinkedList (that)
@@ -213,6 +187,41 @@ public class LinkedList <T> implements List <T>, Queue <T> {
             list.addLast(elements[i]);
         }
         return list;
+    }
+
+    private void addElement(Node<T> link, Iterator<T> iterator) {
+        while (iterator.hasNext()) {
+            if(link == this.node) {
+                this.addFirst(iterator.next());
+            } else {
+                size++;
+                Node<T> newNode = new Node<>(iterator.next(), link, link.getPrev());
+                link.getPrev().setNext(newNode);
+                link.setPrev(newNode);
+            }
+        }
+    }
+
+    public boolean addAll(int index, Collections<T> collection) {
+        if (collection.size() == 0 || index > this.size() - 1) {
+            return false;
+        }
+        int size = this.size();
+        Iterator<T> iterator = collection.iterator();
+        if (index <= size / 2) {
+        Node<T> link = this.getNode();
+            for (int i = 0; i < index; i++) {
+                link = link.getNext();
+            }
+            this.addElement(link, iterator);
+            return true;
+        }
+        Node link = this.getLastNode();
+        for (int i = 0; i < size - index - 1; i++) {
+            link = link.getPrev();
+        }
+        this.addElement(link, iterator);
+        return true;
     }
 
     /**
@@ -318,73 +327,6 @@ public class LinkedList <T> implements List <T>, Queue <T> {
             secondLink = secondLink.getNext();
         }
         return true;
-    }
-
-    /**
-     * Check LinkedList is empty or isn't
-     * @cpu O(1)
-     * @ram O(1)
-     * @return true if LinkedList is empty, false if LinkedList have some elements
-     */
-    public boolean isEmpty() {
-        return this.size == 0;
-    }
-
-    @Override
-    public boolean addAll(Collections<T> collection) {
-        if (collection.size() == 0) {
-            return false;
-        }
-        Iterator<T> iterator = collection.iterator();
-        while (iterator.hasNext()) {
-            this.add(iterator.next());
-        }
-        return true;
-    }
-
-    @Override
-    public boolean contains(T element) {
-        Iterator<T> iterator = this.iterator();
-        while (iterator.hasNext()) {
-            T checkItem = iterator.next();
-            if(checkItem != null ? checkItem.equals(element) : element == null) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean remove(T element) {
-        LinkedListIterator iterator = this.iterator();
-        boolean result = false;
-        while (iterator.hasNext()) {
-            T checkItem = iterator.next();
-            if(checkItem != null ? checkItem.equals(element) : element == null) {
-                this.remove(iterator.getCurrentSize() - 1);
-                iterator.decreaseCurrentSize();
-                result = true;
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public boolean containsAll(Collections<T> collection) {
-        Iterator<T> iterator = collection.iterator();
-        while (iterator.hasNext()) {
-            T checkItem = iterator.next();
-            if (this.contains(checkItem)) {
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public void removeAll(T element) {
-
     }
 
     /**

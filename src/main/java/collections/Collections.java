@@ -16,7 +16,7 @@ public interface Collections <T> extends java.lang.Iterable {
 
     public boolean containsAll(Collections<T> collection);
 
-    public void removeAll(T element);
+    public void removeAll(Collections<T> element);
 
     public Object[] toArray();
 
