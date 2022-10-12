@@ -37,4 +37,6 @@ public interface List <T> extends Collections <T> {
      * @return element from list by index
      */
     public T remove(int index);
+
+    public ListIterator<T> iterator();
 }
