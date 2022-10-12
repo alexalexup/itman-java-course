@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-abstract public  class AbstractListTests {
+abstract public  class AbstractListTests  {
     abstract protected List of(Object... elements);
 
     @Nested
@@ -124,6 +124,18 @@ abstract public  class AbstractListTests {
         public void shouldReturnSizeWhenListHaveNotElements() {
             List list = of();
             Assertions.assertEquals(0, list.size());
+        }
+
+        @Test
+        public void shouldReturnSizeWhenListHaveNull() {
+            List list = of(null, null, null);
+            Assertions.assertEquals(3, list.size());
+        }
+
+        @Test
+        public void shouldReturnSizeWhenListHaveObjectsFromDifferentClasses() {
+            List list = of(null, 1, "null", 2.25, true);
+            Assertions.assertEquals(5, list.size());
         }
     }
 
@@ -284,16 +296,53 @@ abstract public  class AbstractListTests {
             Assertions.assertNotEquals(first, second);
         }
     }
+
+    @Nested
+    public class IsEmpty {
+
+        @Test
+        public void shouldReturnFalseWhenListHaveSomeElements() {
+            List list = of (1, "A", null , 2.4);
+            Assertions.assertFalse(list.isEmpty());
+        }
+
+        @Test
+        public void shouldReturnTrueWhenListHaveNotAnyElements() {
+            List list = of ();
+            Assertions.assertTrue(list.isEmpty());
+        }
+
+        @Test
+        public void shouldReturnFalseWhenListHaveOneElement() {
+            List list = of ("Hi");
+            Assertions.assertFalse(list.isEmpty());
+        }
+    }
+
+    @Nested
+    public class AddAll {
+        @Test
+        public void shouldAddElementsFromWhenSourceHaveSomeElements() {
+            List firstList = of(1, 2, 3, 4);
+            List secondList = new LinkedList();
+            secondList.add(5);
+            secondList.add(5);
+            secondList.add(5);
+            List expectedResult = of (1, 2, 3, 4, 5, 5, 5);
+            firstList.addAll(secondList);
+            Assertions.assertEquals(firstList, expectedResult);
+        }
+    }
 }
 
-class ArrayListTests extends AbstractListTests {
+class ArrayListTests  extends AbstractListTests  {
     @Override
     protected List of(final Object... elements) {
         return ArrayList.of(elements);
     }
 }
 
-class LinkedListTests extends AbstractListTests {
+class LinkedListTests  extends AbstractListTests  {
     @Override
     protected List of(final Object... elements) {
         return LinkedList.of(elements);

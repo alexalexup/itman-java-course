@@ -300,36 +300,6 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
     }
 
     /**
-     * Compare two objects
-     * @cpu O(n), n - size of LinkedList
-     * @ram O(1), n - size of LinkedList
-     * @param  obj argument
-     * @return true when elements and size from LinkedLists are same. In another way - false.
-     */
-    public boolean equals(Object obj) {
-        if (obj == null || obj.getClass() != LinkedList.class) {
-            return false;
-        }
-        LinkedList that = (LinkedList) obj;
-        if (this.size() != that.size()) {
-            return false;
-        }
-        Node firstLink = this.node;
-        Node secondLink = that.node;
-        for (int i = 0; i < this.size(); i++) {
-            if (firstLink.getElement() != null
-                    ? firstLink.getElement().equals(secondLink.getElement())
-                    : secondLink.getElement() == null) {
-            } else {
-                return false;
-            }
-            firstLink = firstLink.getNext();
-            secondLink = secondLink.getNext();
-        }
-        return true;
-    }
-
-    /**
      * Get element by the index and delete it
      * @cpu O(n)
      * @ram O(1)

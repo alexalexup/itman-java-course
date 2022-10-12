@@ -199,33 +199,4 @@ public class  ArrayList <T> extends Lists <T>    {
         }
         return result.toString();
     }
-
-    /**
-     * Comparing arrayLists
-     * @cpu O(n), n - this.size
-     * @ram O(1)
-     * @return true when arrayLists are equal, false are not equal
-     */
-    public boolean equals(Object that) {
-        if (that == null || that.getClass() != ArrayList.class) {
-            return false;
-        }
-        ArrayList thatArray = (ArrayList) that;
-        if (this.size != thatArray.size()) {
-            return false;
-        }
-        for (int i = 0; i < this.size; i++) {
-            if (this.objects[i] == null) {
-              if (thatArray.objects[i] != null) {
-                  return false;
-              }
-            } else {
-                if (this.objects[i].equals(thatArray.objects[i])) {
-                } else {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 }

@@ -54,7 +54,7 @@ public abstract  class Lists <T> implements List <T> {
     }
 
     @Override
-    public abstract boolean addAll(int index, Collections<T> collection );
+    public abstract boolean addAll(int index, Collections<T> collection);
 
     @Override
     public boolean contains(T element) {
@@ -103,6 +103,26 @@ public abstract  class Lists <T> implements List <T> {
             T item = iterator.next();
             this.remove(item);
         }
+    }
+
+
+    public boolean equals(Object objects) {
+        if (this == objects) {
+            return true;
+        }
+        if ((!(objects instanceof Lists)) || this.size() != ((Lists<?>) objects).size()) {
+            return false;
+        }
+        Iterator<T> firstIterator = this.iterator();
+        Iterator<T> secondIterator =((Lists<T>) objects).iterator();
+        while (firstIterator.hasNext() && secondIterator.hasNext()) {
+            T firstObject = firstIterator.next();
+            T secondObject = secondIterator.next();
+            if (!(firstObject == null ? secondObject == null : firstObject.equals(secondObject))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
