@@ -19,21 +19,21 @@ public class  ArrayList <T> extends Lists <T>    {
 
         @Override
         public void set(T element) {
-            if (current < size) {
-                objects[current] = element;
+            if (current > 0) {
+                objects[current - 1] = element;
             }
         }
 
         @Override
         public void insertBefore(T element) {
             size++;
-            if (size >= objects.length) {
-                T[] newObjects =(T[]) new Object[objects.length * 2];
-                System.arraycopy(objects, 0, newObjects, 0, current);
-                System.arraycopy(objects, current, newObjects, current + 1, size - current);
+            if (current > 0) {
+                T[] newObjects =(T[]) new Object[size];
+                System.arraycopy(objects, 0, newObjects, 0, current - 1);
+                System.arraycopy(objects, current - 1, newObjects, current , size - current);
                 objects = newObjects;
             }
-            objects[current] = element;
+            objects[current - 1] = element;
         }
     }
 

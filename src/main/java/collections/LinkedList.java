@@ -8,7 +8,6 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
     private Node<T> node;
     private Node<T> lastNode;
 
-
     public class LinkedListIterator extends ListsIterator {
         private Node<T> currentNode;
 
@@ -19,8 +18,10 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
         @Override
         public T next() {
             T result = currentNode.getElement();
-            if (current < size - 1) {
-                currentNode = currentNode.next;
+            if (current < size  ) {
+                if (currentNode.next !=null) {
+                    currentNode = currentNode.next;
+                }
                 current++;
                 return result;
             }
@@ -29,20 +30,34 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
 
         @Override
         public void set(T element) {
-            currentNode.getPrev().setElement(element);
+            if (current > 0) {
+                if (current == size) {
+                    currentNode.setElement(element);
+                    return;
+                }
+                currentNode.getPrev().setElement(element);
+            }
         }
 
         @Override
         public void insertBefore(T element) {
-            if (currentNode == node) {
-                node = new Node<>(element, currentNode, null);
-                currentNode.setPrev(node);
-                return;
-            }
-            Node<T> newNode = new Node<>(element, currentNode, currentNode.getPrev());
-            Node<T> buffer = currentNode.getPrev();
-            currentNode.setPrev(newNode);
-            buffer.getPrev().setNext(newNode);
+           if (current > 0) {
+               size++;
+               Node<T> link = currentNode.getPrev();
+               if (link.getPrev() == null) {
+                   node = new Node<>(element, link, null);
+                   return;
+               }
+               if (currentNode.getNext() == null) {
+                   Node<T> newNode = new Node<>(element, currentNode, currentNode.getPrev());
+                   currentNode.getPrev().setNext(newNode);
+                   currentNode.setPrev(newNode);
+                   return;
+               }
+               Node<T> newNode = new Node<>(element, link, link.getPrev());
+               link.getPrev().setNext(newNode);
+               link.setPrev(newNode);
+           }
         }
     }
 

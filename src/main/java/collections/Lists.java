@@ -16,6 +16,10 @@ public abstract  class Lists <T> implements List <T> {
             current--;
         }
 
+        public  abstract void set(T element);
+
+        public  abstract  void  insertBefore(T element);
+
         @Override
         public boolean hasNext() {
             return current < size;
