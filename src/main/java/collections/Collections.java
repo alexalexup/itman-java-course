@@ -1,4 +1,5 @@
 package collections;
+import java.util.function.Predicate;
 
 public interface Collections <T> extends java.lang.Iterable {
 
@@ -19,10 +20,4 @@ public interface Collections <T> extends java.lang.Iterable {
     public void removeAll(Collections<T> element);
 
     public Object[] toArray();
-
-
-
-
-
-
 }

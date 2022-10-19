@@ -5,7 +5,7 @@ import java.util.Iterator;
 public abstract  class Lists <T> implements List <T> {
     protected int size;
 
-    public abstract class ListsIterator implements Iterator<T> {
+    public abstract class ListsIterator implements ListIterator<T> {
         protected int current;
 
         public int getCurrent() {

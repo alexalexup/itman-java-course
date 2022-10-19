@@ -7,22 +7,44 @@ import java.util.Iterator;
 public class  ArrayList <T> extends Lists <T>    {
     private T[] objects;
 
-    public class ListIterator extends ListsIterator {
+    public class ArrayIterator extends ListsIterator {
 
         @Override
         public T next() {
-            return objects[current++];
+            if (current < size) {
+                return objects[current++];
+            }
+            return objects[size - 1];
+        }
+
+        @Override
+        public void set(T element) {
+            if (current < size) {
+                objects[current] = element;
+            }
+        }
+
+        @Override
+        public void insertBefore(T element) {
+            size++;
+            if (size >= objects.length) {
+                T[] newObjects =(T[]) new Object[objects.length * 2];
+                System.arraycopy(objects, 0, newObjects, 0, current);
+                System.arraycopy(objects, current, newObjects, current + 1, size - current);
+                objects = newObjects;
+            }
+            objects[current] = element;
         }
     }
 
     @Override
-    public ListIterator iterator() {
-        return new ListIterator();
+    public ArrayIterator iterator() {
+        return new ArrayIterator();
     }
 
     @Override
     public boolean remove(T element) {
-        ListIterator iterator = this.iterator();
+       ArrayIterator iterator = this.iterator();
         boolean result = false;
         while (iterator.hasNext()) {
             T checkItem = iterator.next();
