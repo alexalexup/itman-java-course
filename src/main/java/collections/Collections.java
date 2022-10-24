@@ -1,5 +1,6 @@
 package collections;
 import java.util.function.Predicate;
+import java.util.function.IntFunction;
 
 public interface Collections <T> extends java.lang.Iterable {
 
@@ -19,5 +20,9 @@ public interface Collections <T> extends java.lang.Iterable {
 
     public void removeAll(Collections<T> element);
 
-    public Object[] toArray();
+    public T[] toArray();
+
+    public void removeIf(Predicate<T> predicate);
+
+    public T[] toArray(IntFunction factory);
 }

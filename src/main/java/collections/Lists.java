@@ -1,6 +1,8 @@
 package collections;
 
 import java.util.Iterator;
+import java.util.function.IntFunction;
+import java.util.function.Predicate;
 
 public abstract  class Lists <T> implements List <T> {
     protected int size;
@@ -140,6 +142,27 @@ public abstract  class Lists <T> implements List <T> {
     public abstract T[] toArray();
 
     @Override
-    public abstract T remove(int index);
+    public void removeIf(Predicate<T> predicate) {
+        ListsIterator iterator = this.iterator();
+        while (iterator.hasNext()) {
+            if (predicate.test(iterator.next())) {
+                this.remove(iterator.getCurrent() - 1);
+                iterator.decreaseCurrent();
+            }
+        }
+    }
 
+    @Override
+    public  T[] toArray(IntFunction factory){
+        T[] result = (T[]) new Object[this.size];
+        ListsIterator iterator = this.iterator();
+        while (iterator.hasNext()) {
+            result[iterator.current] = (T) factory.apply(iterator.current);
+            iterator.next();
+        }
+        return result;
+    }
+
+    @Override
+    public abstract T remove(int index);
 }

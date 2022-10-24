@@ -42,21 +42,25 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
         @Override
         public void insertBefore(T element) {
            if (current > 0) {
-               size++;
                Node<T> link = currentNode.getPrev();
-               if (link.getPrev() == null) {
+               if (current == 1) {
                    node = new Node<>(element, link, null);
+                   size++;
                    return;
                }
-               if (currentNode.getNext() == null) {
+               if (current == size) {
                    Node<T> newNode = new Node<>(element, currentNode, currentNode.getPrev());
                    currentNode.getPrev().setNext(newNode);
+                   System.out.println("current: " + current + "size: " + size + "1111");
                    currentNode.setPrev(newNode);
+                   size++;
                    return;
                }
                Node<T> newNode = new Node<>(element, link, link.getPrev());
                link.getPrev().setNext(newNode);
                link.setPrev(newNode);
+               size++;
+               System.out.println("current: " + current + "size: " + size +"2222");
            }
         }
     }

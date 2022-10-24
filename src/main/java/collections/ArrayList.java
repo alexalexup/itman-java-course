@@ -3,6 +3,7 @@ package collections;
 import utils.StringBuilder;
 
 import java.util.Iterator;
+import java.util.function.IntFunction;
 
 public class  ArrayList <T> extends Lists <T>    {
     private T[] objects;

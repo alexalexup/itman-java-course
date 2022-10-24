@@ -21,6 +21,7 @@ public interface List <T> extends Collections <T> {
      */
     public T get(int index);
 
+
     /**
      * Get data to array from list
      * @cpu O(n), n - size of the List
@@ -29,13 +30,13 @@ public interface List <T> extends Collections <T> {
      */
     public T[] toArray();
 
-    /**
-     * Remove element from List by index and return this element
-     * @cpu O(n), n -size of the List
-     * @ram O(1)
-     * @param index argument
-     * @return element from list by index
-     */
+      /**
+       * Remove element from List by index and return this element
+       * @cpu O(n), n -size of the List
+       * @ram O(1)
+       * @param index argument
+       * @return element from list by index
+       */
     public T remove(int index);
 
     public ListIterator<T> iterator();
