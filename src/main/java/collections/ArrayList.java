@@ -2,10 +2,10 @@ package collections;
 
 import utils.StringBuilder;
 
+import java.util.Comparator;
 import java.util.Iterator;
-import java.util.function.IntFunction;
 
-public class  ArrayList <T> extends Lists <T>    {
+public class  ArrayList <T> extends Lists <T>  {
     private T[] objects;
 
     public class ArrayIterator extends ListsIterator {
@@ -222,4 +222,5 @@ public class  ArrayList <T> extends Lists <T>    {
         }
         return result.toString();
     }
+
 }

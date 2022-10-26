@@ -1,5 +1,7 @@
 package collections;
 
+import java.util.Comparator;
+
 public interface List <T> extends Collections <T> {
     /**
      * Set element in List by index
@@ -40,4 +42,6 @@ public interface List <T> extends Collections <T> {
     public T remove(int index);
 
     public ListIterator<T> iterator();
+
+    public <T> void sort(Comparator<T> comparator);
 }

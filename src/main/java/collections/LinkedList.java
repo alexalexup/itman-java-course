@@ -2,6 +2,7 @@ package collections;
 
 import utils.StringBuilder;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 public class LinkedList <T> extends Lists <T> implements Queue <T> {

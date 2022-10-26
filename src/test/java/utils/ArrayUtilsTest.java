@@ -6,8 +6,12 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import benchmarks.SortBenchmark;
 
+import java.util.Comparator;
+import java.util.function.ToIntFunction;
 
-class ArrayUtilsTest {
+
+class ArrayUtilsTest<T> {
+    private  Comparator<Event> comparator = (a, b) -> a.compareTo(b);
 
     public void checkEqualsValues(Event[] events, Event[] expectedValues) {
         for (int i = 0; i < events.length; i++) {
@@ -33,7 +37,7 @@ class ArrayUtilsTest {
                     events[0],
                     events[3]
             };
-            ArrayUtils.bubbleSort(events);
+            ArrayUtils.bubbleSort(events, comparator);
             Assertions.assertArrayEquals(expectedLinks, events);
             Assertions.assertSame(expectedEvents, events);
         }
@@ -52,7 +56,7 @@ class ArrayUtilsTest {
                     new entities.Event(2010, 4, 8, "jodOffer"),
                     new entities.Event(2012, 3, 12, "birthday")
             };
-            ArrayUtils.bubbleSort(events);
+            ArrayUtils.bubbleSort(events, comparator);
             checkEqualsValues(events, expectedValues);
         }
 
@@ -70,7 +74,7 @@ class ArrayUtilsTest {
                     new entities.Event(2018, 6, 12, "birthday"),
                     new entities.Event(2018, 7, 8, "jodOffer")
             };
-            ArrayUtils.bubbleSort(events);
+            ArrayUtils.bubbleSort(events, comparator);
             checkEqualsValues(events, expectedValues);
         }
 
@@ -88,7 +92,7 @@ class ArrayUtilsTest {
                     new entities.Event(2018, 8, 24, "holidays"),
                     new entities.Event(2018, 8, 25, "wedding")
             };
-            ArrayUtils.bubbleSort(events);
+            ArrayUtils.bubbleSort(events, comparator);
             checkEqualsValues(events, expectedValues);
         }
 
@@ -106,7 +110,7 @@ class ArrayUtilsTest {
                     new entities.Event(2018, 8, 25, "birthday"),
                     new entities.Event(2018, 8, 25, "holidays")
             };
-            ArrayUtils.bubbleSort(events);
+            ArrayUtils.bubbleSort(events, comparator);
             checkEqualsValues(events, expectedValues);
         }
 
@@ -124,7 +128,7 @@ class ArrayUtilsTest {
                     new entities.Event(2018, 8, 25, "wedding"),
                     new entities.Event(2018, 8, 25, "holidays")
             };
-            ArrayUtils.bubbleSort(events);
+            ArrayUtils.bubbleSort(events, comparator);
             checkEqualsValues(events, expectedValues);
         }
 
@@ -132,7 +136,7 @@ class ArrayUtilsTest {
         public void shouldNotChangeEventsWhenEventsHaveOneEvent() {
             entities.Event[] events = new entities.Event[]{new entities.Event(2018, 8, 25, "jodOffer")};
             entities.Event[] expectedValues = new entities.Event[]{new entities.Event(2018, 8, 25, "jodOffer")};
-            ArrayUtils.bubbleSort(events);
+            ArrayUtils.bubbleSort(events, comparator);
             checkEqualsValues(events, expectedValues);
         }
 
@@ -140,7 +144,7 @@ class ArrayUtilsTest {
         public void shouldNotChangeEventsWhenEventsWithoutElements() {
             entities.Event[] events = new entities.Event[]{};
             entities.Event[] expectedValues = new entities.Event[]{};
-            ArrayUtils.bubbleSort(events);
+            ArrayUtils.bubbleSort(events, comparator);
             checkEqualsValues(events, expectedValues);
         }
 
@@ -160,7 +164,7 @@ class ArrayUtilsTest {
                     new entities.Event(2014, 6, 5, "jodOffer"),
                     new entities.Event(2016, 6, 6, "wedding")
             };
-            ArrayUtils.bubbleSort(events);
+            ArrayUtils.bubbleSort(events, comparator);
             checkEqualsValues(events, expectedValues);
         }
 
@@ -180,7 +184,7 @@ class ArrayUtilsTest {
                     new entities.Event(2020, 10, 25, "A"),
                     new entities.Event(2021, 1, 1, "D")
             };
-            ArrayUtils.bubbleSort(events);
+            ArrayUtils.bubbleSort(events, comparator);
             checkEqualsValues(events, expectedValues);
         }
 
@@ -211,6 +215,7 @@ class ArrayUtilsTest {
 
     @Nested
     public class CountingSort {
+        private ToIntFunction<Event> function = a -> a.getDay() + a.getMonth() * 31 + a.getYear() * 12 * 31;
         @Test
         public void shouldSortSortArrayWhenArrayHaveSomeElements() {
             int[] actualArray = new int[]{4, 2, 2, 10, 1, 3, 5, 2, 7};
@@ -284,7 +289,7 @@ class ArrayUtilsTest {
                     new Event(2014, 5, 14 , "startHolidays")
             };
             Event[] expectedEvents = new Event[]{events[2], events[1], events[0], events[3]};
-            ArrayUtils.countingSort(events);
+            ArrayUtils.countingSort(events, function);
             Assertions.assertArrayEquals(expectedEvents, events);
         }
 
@@ -297,7 +302,7 @@ class ArrayUtilsTest {
                     new Event(2021, 1, 1, "d"),
                     new Event(2020, 7, 15, "e")};
             Event[] expectedEvents = new Event[]{events[1], events[2], events[4], events[0], events[3]};
-            ArrayUtils.countingSort(events);
+            ArrayUtils.countingSort(events, function);
             Assertions.assertArrayEquals(expectedEvents, events);
         }
 
@@ -305,7 +310,7 @@ class ArrayUtilsTest {
         public void shouldWorkWhenEventsHaveNotData() {
             Event[] events = new Event[]{};
             Event[] expectedEvents = new Event[]{};
-            ArrayUtils.countingSort(events);
+            ArrayUtils.countingSort(events, function);
             Assertions.assertArrayEquals(expectedEvents, events);
         }
 
@@ -318,7 +323,7 @@ class ArrayUtilsTest {
                     new Event(2020, 10, 25, "d"),
             };
             Event[] expectedEvents = new Event[]{events[0], events[1], events[2], events[3]};
-            ArrayUtils.countingSort(events);
+            ArrayUtils.countingSort(events, function);
             Assertions.assertArrayEquals(expectedEvents, events);
         }
     }
@@ -449,6 +454,7 @@ class ArrayUtilsTest {
 
     @Nested
     public class Merge {
+        private  Comparator<Event> comparator = (a, b) -> a.compareTo(b);
         @Test
         public void shouldWorkWhenTwoArraysHaveDataThatNeedToMergeToFinalArray() {
             int a[] = new int[]{100, 2, 4, 5, -7};
@@ -530,7 +536,7 @@ class ArrayUtilsTest {
                     new Event(2014, 1, 1, "R"),
                     new Event(2014, 1, 1, "R"),
             };
-            ArrayUtils.merge(a,0,2, b,2, 4, result, 0);
+            ArrayUtils.merge(a,0,2, b,2, 4, result, 0, comparator);
             Event[] expectedResult = new Event[]{
                     new Event(2019,6, 4,"H"),
                     new Event(2019, 6, 24, "J"),
@@ -564,7 +570,7 @@ class ArrayUtilsTest {
                     new Event(2017, 4, 21, "F"),
                     new Event(2020, 8, 1, "J")
             };
-            ArrayUtils.merge(a,0,0, b,1, 4, result, 2);
+            ArrayUtils.merge(a,0,0, b,1, 4, result, 2, comparator);
             checkEqualsValues(expectedResult, result);
         }
 
@@ -596,7 +602,7 @@ class ArrayUtilsTest {
                     new Event(2014, 1, 1, "R"),
                     new Event(2014, 1, 1, "R")
             };
-            ArrayUtils.merge(a,0,0, b,3, 3, result, 3);
+            ArrayUtils.merge(a,0,0, b,3, 3, result, 3, comparator);
             checkEqualsValues(expectedResult, result);
         }
     }
@@ -647,7 +653,7 @@ class ArrayUtilsTest {
                     new Event(2019,7, 2,"E")
             };
             Event[] expectedResult = new Event[]{events[3], events[4], events[0], events[2], events[1]};
-            ArrayUtils.mergeSort(events);
+            ArrayUtils.mergeSort(events, comparator);
             checkEqualsValues(expectedResult, events);
         }
 
@@ -671,7 +677,7 @@ class ArrayUtilsTest {
                     new Event(2020,8, 3,"D"),
                     new Event(2021, 12, 21, "B")
             };
-            ArrayUtils.mergeSort(events);
+            ArrayUtils.mergeSort(events, comparator);
             checkEqualsValues(expectedResult, events);
         }
 
@@ -679,7 +685,7 @@ class ArrayUtilsTest {
         public void shouldWorkWhenEventsHaveNotData() {
             Event[] events = new Event[]{};
             Event[] expectedResult = new Event[]{};
-            ArrayUtils.mergeSort(events);
+            ArrayUtils.mergeSort(events, comparator);
             checkEqualsValues(expectedResult, events);
         }
 
@@ -687,7 +693,7 @@ class ArrayUtilsTest {
         public void shouldWorkLessThanOneSecond() {
             Event[] events = SortBenchmark.randomEvents(36000, 1, 3000);
             long firstTime = System.currentTimeMillis();
-            ArrayUtils.mergeSort(events);
+            ArrayUtils.mergeSort(events, comparator);
             long secondTime = System.currentTimeMillis();
             long result = secondTime - firstTime;
             Assertions.assertTrue(result < 1000);
@@ -760,7 +766,7 @@ class ArrayUtilsTest {
                     new Event (2014, 4, 3, "D"),
                     new Event (2015, 2, 12, "E")
             };
-            ArrayUtils.mergeSort(events, 2, 5);
+            ArrayUtils.mergeSort(events, 2, 5, comparator);
             Event[] expectedEvents = new Event[]{
                     new Event (2019, 12, 3, "A"),
                     new Event (2018, 4, 2, "B"),
@@ -780,7 +786,7 @@ class ArrayUtilsTest {
                     new Event (2014, 4, 3, "D"),
                     new Event (2015, 2, 12, "E")
             };
-            ArrayUtils.mergeSort(events, 4, 5);
+            ArrayUtils.mergeSort(events, 4, 5, comparator);
             Event[] expectedEvents = new Event[]{
                     new Event (2019, 12, 3, "A"),
                     new Event (2018, 4, 2, "B"),
@@ -795,7 +801,7 @@ class ArrayUtilsTest {
         public void shouldWorkLessThanOneSecondWithBigData() {
             Event[] events = SortBenchmark.randomEvents(36000, 2000, 2022);
             long firstTime = System.currentTimeMillis();
-            ArrayUtils.mergeSort(events, 22, 34521);
+            ArrayUtils.mergeSort(events, 22, 34521, comparator);
             long secondTime = System.currentTimeMillis();
             long result = secondTime - firstTime;
             Assertions.assertTrue(result < 1000);

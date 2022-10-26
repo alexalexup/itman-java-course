@@ -1,5 +1,6 @@
 package collections;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
@@ -165,4 +166,19 @@ public abstract  class Lists <T> implements List <T> {
 
     @Override
     public abstract T remove(int index);
+
+    @Override
+    public void sort(Comparator comparator) {
+        for (int i = 0; i < size; i++) {
+            int min = i;
+            for (int j = i; j <size; j++ ) {
+                if (comparator.compare(this.get(min), this.get(j)) > 0) {
+                    min = j;
+                }
+            }
+            T t = this.get(i);
+            this.set(i, this.get(min));
+            this.set(min, t);
+        }
+    }
 }
