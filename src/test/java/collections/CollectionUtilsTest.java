@@ -1,13 +1,11 @@
 package collections;
 
-import entities.Event;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CollectionUtilsTest {
 
@@ -178,5 +176,4 @@ class CollectionUtilsTest {
             Assertions.assertEquals(expected, list);
         }
     }
-
 }

@@ -16,7 +16,7 @@ public class ArrayUtils {
      * @param objects array
      * @param comparator argument
      */
-    public static <T> void bubbleSort(T[] objects, Comparator comparator) {
+    public static <T> void bubbleSort(T[] objects, Comparator<? super T> comparator) {
         int n = objects.length;
         if (n < 1) {
            return;
@@ -309,7 +309,7 @@ public class ArrayUtils {
      * @param objects array with elements
      * @param comparator argument
      */
-    public static <T> void mergeSort(T[] objects, Comparator comparator) {
+    public static <T> void mergeSort(T[] objects, Comparator<? super T> comparator) {
         mergeSort(objects, 0, objects.length, comparator);
     }
 
