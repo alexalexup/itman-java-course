@@ -154,11 +154,11 @@ public abstract  class Lists <T> implements List <T> {
     }
 
     @Override
-    public  T[] toArray(IntFunction factory){
+    public  T[] toArray(IntFunction<T> factory){
         T[] result = (T[]) new Object[this.size];
         ListsIterator iterator = this.iterator();
         while (iterator.hasNext()) {
-            result[iterator.current] = (T) factory.apply(iterator.current);
+            result[iterator.current] =  factory.apply(iterator.current);
             iterator.next();
         }
         return result;

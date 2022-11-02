@@ -52,7 +52,6 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
                if (current == size) {
                    Node<T> newNode = new Node<>(element, currentNode, currentNode.getPrev());
                    currentNode.getPrev().setNext(newNode);
-                   System.out.println("current: " + current + "size: " + size + "1111");
                    currentNode.setPrev(newNode);
                    size++;
                    return;
@@ -61,7 +60,6 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
                link.getPrev().setNext(newNode);
                link.setPrev(newNode);
                size++;
-               System.out.println("current: " + current + "size: " + size +"2222");
            }
         }
     }

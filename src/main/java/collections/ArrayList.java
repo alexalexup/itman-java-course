@@ -2,7 +2,6 @@ package collections;
 
 import utils.StringBuilder;
 
-import java.util.Comparator;
 import java.util.Iterator;
 
 public class  ArrayList <T> extends Lists <T>  {
