@@ -23,7 +23,7 @@ public abstract  class Lists <T> implements List <T> {
 
         public  abstract  void  insertBefore(T element);
 
-        @Override
+
         public boolean hasNext() {
             return current < size;
         }
