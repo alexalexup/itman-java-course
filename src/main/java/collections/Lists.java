@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 public abstract  class Lists <T> implements List <T> {
     protected int size;
-
+ /*
     public abstract class ListsIterator<T> implements ListIterator<T>   {
         protected int current;
 
@@ -31,25 +31,9 @@ public abstract  class Lists <T> implements List <T> {
         public abstract T next();
     }
 
+  */
 
-    public   ListsIterator iterator() {
-        return new ListsIterator() {
-            @Override
-            public void set(Object element) {
-
-            }
-
-            @Override
-            public void insertBefore(Object element) {
-
-            }
-
-            @Override
-            public Object next() {
-                return null;
-            }
-        };
-    }
+    public abstract ListIterator iterator();
 
 
     @Override
@@ -95,13 +79,13 @@ public abstract  class Lists <T> implements List <T> {
 
     @Override
     public boolean remove(T element) {
-        ListsIterator iterator = this.iterator();
+        ListIterator iterator = this.iterator();
         boolean result = false;
         while (iterator.hasNext()) {
             T checkItem = (T) iterator.next();
             if(checkItem != null ? checkItem.equals(element) : element == null) {
-                this.remove(iterator.getCurrent() - 1);
-                iterator.decreaseCurrent();
+                this.remove(iterator.getIteratorSize() - 1);
+                iterator.decreaseIteratorSize();
                 result = true;
             }
         }
@@ -162,11 +146,11 @@ public abstract  class Lists <T> implements List <T> {
 
     @Override
     public void removeIf(Predicate<T> predicate) {
-        ListsIterator iterator = this.iterator();
+        ListIterator iterator = this.iterator();
         while (iterator.hasNext()) {
             if (predicate.test((T) iterator.next())) {
-                this.remove(iterator.getCurrent() - 1);
-                iterator.decreaseCurrent();
+                this.remove(iterator.getIteratorSize() - 1);
+                iterator.decreaseIteratorSize();
             }
         }
     }
@@ -174,9 +158,9 @@ public abstract  class Lists <T> implements List <T> {
     @Override
     public  T[] toArray(IntFunction<T> factory){
         T[] result = (T[]) new Object[this.size];
-        ListsIterator iterator = this.iterator();
+        ListIterator iterator = this.iterator();
         while (iterator.hasNext()) {
-            result[iterator.current] =  factory.apply(iterator.current);
+            result[iterator.getIteratorSize()] =  factory.apply(iterator.getIteratorSize());
             iterator.next();
         }
         return result;

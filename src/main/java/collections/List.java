@@ -42,7 +42,7 @@ public interface List <T> extends Collections <T> {
      * Create and return object by the ListIterator class
      * @return  object by the ListIterator class
      */
-    public ListIterator iterator();
+    public  ListIterator <T> iterator();
 
     /**
      * Method sort elements in the List use comparator

@@ -7,6 +7,7 @@ import java.util.Iterator;
 public class  ArrayList <T> extends Lists <T>  {
     private T[] objects;
 
+    /*
     public class ArrayIterator extends ListsIterator<T> {
 
         @Override
@@ -37,20 +38,64 @@ public class  ArrayList <T> extends Lists <T>  {
         }
     }
 
-    @Override
-    public ArrayIterator iterator() {
-        return new ArrayIterator();
+     */
+
+    public ListIterator iterator() {
+        return new ListIterator<T>() {
+           private int iteratorSize;
+
+            public int getIteratorSize() {
+                return iteratorSize;
+            }
+
+            public void decreaseIteratorSize() {
+                iteratorSize--;
+            }
+
+            @Override
+            public void set(T element) {
+                if (iteratorSize > 0) {
+                    objects[iteratorSize - 1] = element;
+                }
+            }
+
+            @Override
+            public void insertBefore(T element) {
+                size++;
+                if (iteratorSize> 0) {
+                    T[] newObjects =(T[]) new Object[size];
+                    System.arraycopy(objects, 0, newObjects, 0, iteratorSize - 1);
+                    System.arraycopy(objects, iteratorSize- 1, newObjects, iteratorSize , size - iteratorSize);
+                    objects = newObjects;
+                }
+                objects[iteratorSize - 1] = element;
+
+            }
+
+            @Override
+            public boolean hasNext() {
+                return iteratorSize < size;
+            }
+
+            @Override
+            public T next() {
+                if (iteratorSize < size) {
+                    return objects[iteratorSize++];
+                }
+                return objects[size - 1];
+            }
+        };
     }
 
     @Override
     public boolean remove(T element) {
-       ArrayIterator iterator = this.iterator();
+        ListIterator<T> iterator = this.iterator();
         boolean result = false;
         while (iterator.hasNext()) {
             T checkItem = iterator.next();
             if(checkItem != null ? checkItem.equals(element) : element == null) {
-                this.remove(iterator.getCurrent() - 1);
-                iterator.decreaseCurrent();
+                this.remove(iterator.getIteratorSize() - 1);
+                iterator.decreaseIteratorSize();
                 result = true;
             }
         }

@@ -324,6 +324,7 @@ abstract public  class AbstractListTests  {
         @Test
         public void shouldAddElementsFromWhenSourceHaveSomeElements() {
             List firstList = of(1, 2, 3, 4);
+            System.out.println("firstList");
             List secondList = new LinkedList();
             secondList.add(5);
             secondList.add(5);

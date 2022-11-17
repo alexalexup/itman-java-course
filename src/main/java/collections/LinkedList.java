@@ -1,5 +1,6 @@
 package collections;
 
+import tasks.Task551;
 import utils.StringBuilder;
 
 import java.util.Comparator;
@@ -8,9 +9,10 @@ import java.util.Iterator;
 public class LinkedList <T> extends Lists <T> implements Queue <T> {
     private Node<T> node;
     private Node<T> lastNode;
-
+ /*
     public class LinkedListIterator extends ListsIterator<T> {
         private Node<T> currentNode;
+
 
         public LinkedListIterator() {
             this.currentNode = node;
@@ -64,9 +66,76 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
         }
     }
 
-    @Override
-    public LinkedListIterator iterator() {
-        return new LinkedListIterator();
+         */
+
+    public ListIterator iterator() {
+        return new ListIterator<T>() {
+            private Node<T> currentNode = node;
+            private int iteratorSize;
+
+            @Override
+            public void set(T element) {
+                if (iteratorSize > 0) {
+                    if (iteratorSize == size) {
+                        currentNode.setElement(element);
+                        return;
+                    }
+                    currentNode.getPrev().setElement(element);
+                }
+
+            }
+
+            @Override
+            public void insertBefore(T element) {
+               if (iteratorSize > 0) {
+                   Node<T> link = currentNode.getPrev();
+                   if (iteratorSize == 0) {
+                       node = new Node<>(element, link, null);
+                       size++;
+                       return;
+                   }
+                   if (iteratorSize == size) {
+                       Node<T> newNode = new Node<>(element, currentNode, currentNode.getPrev());
+                       currentNode.setPrev(newNode);
+                       size++;
+                       return;
+                   }
+                   Node<T> newNode = new Node<>(element, link, link.getPrev());
+                   link.getPrev().setNext(newNode);
+                   link.setPrev(newNode);
+                   size++;
+               }
+            }
+
+            @Override
+            public int getIteratorSize() {
+                return iteratorSize;
+            }
+
+            @Override
+            public void decreaseIteratorSize() {
+                iteratorSize--;
+
+            }
+
+            @Override
+            public boolean hasNext() {
+                return iteratorSize < size;
+            }
+
+            @Override
+            public T next() {
+                T result = currentNode.getElement();
+                if (iteratorSize < size  ) {
+                    if (currentNode.next !=null) {
+                        currentNode = currentNode.next;
+                    }
+                    iteratorSize++;
+                    return result;
+                }
+                return result;
+            }
+        };
     }
 
     private static class Node <T> {
