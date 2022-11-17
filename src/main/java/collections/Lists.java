@@ -33,7 +33,9 @@ public abstract  class Lists <T> implements List <T> {
 
   */
 
-    public abstract ListIterator iterator();
+    public  ListIterator <T> iterator() {
+        return null;
+    }
 
 
     @Override
