@@ -7,7 +7,7 @@ import java.util.Iterator;
 public class  ArrayList <T> extends Lists <T>  {
     private T[] objects;
 
-    public class ArrayIterator extends ListsIterator {
+    public class ArrayIterator extends ListsIterator<T> {
 
         @Override
         public T next() {

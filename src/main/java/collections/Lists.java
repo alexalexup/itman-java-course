@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 public abstract  class Lists <T> implements List <T> {
     protected int size;
 
-    public abstract class ListsIterator implements ListIterator<T> {
+    public abstract class ListsIterator<T> implements ListIterator<T>   {
         protected int current;
 
         public int getCurrent() {
@@ -28,11 +28,29 @@ public abstract  class Lists <T> implements List <T> {
             return current < size;
         }
 
-        @Override
         public abstract T next();
     }
 
-    public abstract ListsIterator iterator();
+
+    public   ListsIterator iterator() {
+        return new ListsIterator() {
+            @Override
+            public void set(Object element) {
+
+            }
+
+            @Override
+            public void insertBefore(Object element) {
+
+            }
+
+            @Override
+            public Object next() {
+                return null;
+            }
+        };
+    }
+
 
     @Override
     public int size() {
@@ -80,7 +98,7 @@ public abstract  class Lists <T> implements List <T> {
         ListsIterator iterator = this.iterator();
         boolean result = false;
         while (iterator.hasNext()) {
-            T checkItem = iterator.next();
+            T checkItem = (T) iterator.next();
             if(checkItem != null ? checkItem.equals(element) : element == null) {
                 this.remove(iterator.getCurrent() - 1);
                 iterator.decreaseCurrent();
@@ -146,7 +164,7 @@ public abstract  class Lists <T> implements List <T> {
     public void removeIf(Predicate<T> predicate) {
         ListsIterator iterator = this.iterator();
         while (iterator.hasNext()) {
-            if (predicate.test(iterator.next())) {
+            if (predicate.test((T) iterator.next())) {
                 this.remove(iterator.getCurrent() - 1);
                 iterator.decreaseCurrent();
             }

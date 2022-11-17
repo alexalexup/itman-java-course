@@ -9,7 +9,7 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
     private Node<T> node;
     private Node<T> lastNode;
 
-    public class LinkedListIterator extends ListsIterator {
+    public class LinkedListIterator extends ListsIterator<T> {
         private Node<T> currentNode;
 
         public LinkedListIterator() {
