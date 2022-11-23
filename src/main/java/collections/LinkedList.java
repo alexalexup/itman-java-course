@@ -280,6 +280,13 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
         return list;
     }
 
+    /**
+     * Add Node to the LinkedList from the ListIterator
+     * @cpu O(n),  n - iterator.hasNext() == true;
+     * @ram O(n),  n - iterator.hasNext() == true;
+     * @param link argument
+     * @param iterator argument
+     */
     private void addElement(Node<T> link, Iterator<T> iterator) {
         while (iterator.hasNext()) {
             if(link == this.node) {
@@ -293,6 +300,14 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
         }
     }
 
+    /**
+     * Add all elements from the collection to the current LinkedList by the index
+     * @cpu O(n + m),  n- this.size(), m - collection.size()
+     * @ram O(m),  m - collection. size()
+     * @param index argument
+     * @param collection argument
+     * @return true when some elements was added, false when was not
+     */
     public boolean addAll(int index, Collections<T> collection) {
         if (collection.size() == 0 || index > this.size() - 1) {
             return false;
@@ -301,7 +316,7 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
         Iterator<T> iterator = collection.iterator();
         if (index <= size / 2) {
         Node<T> link = this.getNode();
-            for (int i = 0; i < index; i++) {
+        for (int i = 0; i < index; i++) {
                 link = link.getNext();
             }
             this.addElement(link, iterator);

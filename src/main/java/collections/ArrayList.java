@@ -7,18 +7,41 @@ import java.util.Iterator;
 public class  ArrayList <T> extends Lists <T>  {
     private T[] objects;
 
+    /**
+     * Create object from the ListIterator class
+     * @cpu O(1)
+     * @ram O(1)
+     * return object from the ListIterator class
+     */
     public ListIterator iterator() {
         return new ListIterator<T>() {
            private int iteratorSize;
 
+            /**
+             * Return count of the elements that was called by the ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @return count of the elements that was called by the ListIterator
+             */
             public int getIteratorSize() {
                 return iteratorSize;
             }
 
+            /**
+             * Decrease by one count of the elements that was called by the iterator
+             * @cpu O(1)
+             * @ram O(1)
+             */
             public void decreaseIteratorSize() {
                 iteratorSize--;
             }
 
+            /**
+             * Set element to the current position to the ArrayList that was called from ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @param  element argument
+             */
             @Override
             public void set(T element) {
                 if (iteratorSize > 0) {
@@ -26,6 +49,12 @@ public class  ArrayList <T> extends Lists <T>  {
                 }
             }
 
+            /**
+             * Set element before the current position to the ArrayList that was called from ListIterator
+             * @cpu O(n), n - size
+             * @ram O(n), n - size
+             * @param  element argument
+             */
             @Override
             public void insertBefore(T element) {
                 size++;
@@ -39,11 +68,23 @@ public class  ArrayList <T> extends Lists <T>  {
 
             }
 
+            /**
+             * Checks have  or not ListIterator one more element
+             * @cpu O(1)
+             * @ram O(1)
+             * @return true when ListIterator have one more element and false when have not
+             */
             @Override
             public boolean hasNext() {
                 return iteratorSize < size;
             }
 
+            /**
+             * Call next element from the ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @return next element from the ListIterato
+             */
             @Override
             public T next() {
                 if (iteratorSize < size) {
@@ -54,6 +95,13 @@ public class  ArrayList <T> extends Lists <T>  {
         };
     }
 
+    /**
+     * Remove element from the ArrayList
+     * @cpu O(n), n -size
+     * @ram O(1)
+     * @param element argument
+     * @return true when element was removed, false when was not
+     */
     @Override
     public boolean remove(T element) {
         ListIterator<T> iterator = this.iterator();
@@ -69,6 +117,14 @@ public class  ArrayList <T> extends Lists <T>  {
         return result;
     }
 
+    /**
+     * Add elements from the collection to the ArrayList by the index
+     * @cpu O(n + m), n -size, m - collection.size()
+     * @ram O(n + m), n -size, m - collection.size()
+     * @param index argument
+     * @param collection argument
+     * @return true when element was added, false when was not
+     */
     public boolean addAll(int index, Collections<T> collection ) {
         if (collection.size() == 0 || index > this.size() - 1) {
             return false;
