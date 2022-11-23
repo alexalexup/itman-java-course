@@ -9,64 +9,6 @@ import java.util.Iterator;
 public class LinkedList <T> extends Lists <T> implements Queue <T> {
     private Node<T> node;
     private Node<T> lastNode;
- /*
-    public class LinkedListIterator extends ListsIterator<T> {
-        private Node<T> currentNode;
-
-
-        public LinkedListIterator() {
-            this.currentNode = node;
-        }
-
-        @Override
-        public T next() {
-            T result = currentNode.getElement();
-            if (current < size  ) {
-                if (currentNode.next !=null) {
-                    currentNode = currentNode.next;
-                }
-                current++;
-                return result;
-            }
-           return result;
-        }
-
-        @Override
-        public void set(T element) {
-            if (current > 0) {
-                if (current == size) {
-                    currentNode.setElement(element);
-                    return;
-                }
-                currentNode.getPrev().setElement(element);
-            }
-        }
-
-        @Override
-        public void insertBefore(T element) {
-           if (current > 0) {
-               Node<T> link = currentNode.getPrev();
-               if (current == 1) {
-                   node = new Node<>(element, link, null);
-                   size++;
-                   return;
-               }
-               if (current == size) {
-                   Node<T> newNode = new Node<>(element, currentNode, currentNode.getPrev());
-                   currentNode.getPrev().setNext(newNode);
-                   currentNode.setPrev(newNode);
-                   size++;
-                   return;
-               }
-               Node<T> newNode = new Node<>(element, link, link.getPrev());
-               link.getPrev().setNext(newNode);
-               link.setPrev(newNode);
-               size++;
-           }
-        }
-    }
-
-         */
 
     public ListIterator iterator() {
         return new ListIterator<T>() {

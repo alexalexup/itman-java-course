@@ -7,39 +7,6 @@ import java.util.Iterator;
 public class  ArrayList <T> extends Lists <T>  {
     private T[] objects;
 
-    /*
-    public class ArrayIterator extends ListsIterator<T> {
-
-        @Override
-        public T next() {
-            if (current < size) {
-                return objects[current++];
-            }
-            return objects[size - 1];
-        }
-
-        @Override
-        public void set(T element) {
-            if (current > 0) {
-                objects[current - 1] = element;
-            }
-        }
-
-        @Override
-        public void insertBefore(T element) {
-            size++;
-            if (current > 0) {
-                T[] newObjects =(T[]) new Object[size];
-                System.arraycopy(objects, 0, newObjects, 0, current - 1);
-                System.arraycopy(objects, current - 1, newObjects, current , size - current);
-                objects = newObjects;
-            }
-            objects[current - 1] = element;
-        }
-    }
-
-     */
-
     public ListIterator iterator() {
         return new ListIterator<T>() {
            private int iteratorSize;
