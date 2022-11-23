@@ -18,7 +18,13 @@ public interface ListIterator<T> extends Iterator<T> {
      */
     public void insertBefore(T element);
 
+    /**
+     * @return count of the elements that was called by the iterator
+     */
     public int getIteratorSize();
 
+    /**
+     * Decrease by one count of the elements that was called by the iterator
+     */
     public void decreaseIteratorSize();
 }

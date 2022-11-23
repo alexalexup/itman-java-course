@@ -10,11 +10,23 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
     private Node<T> node;
     private Node<T> lastNode;
 
+    /**
+     * Create object from the ListIterator class
+     * @cpu O(1)
+     * @ram O(1)
+     * return object from the ListIterator class
+     */
     public ListIterator iterator() {
         return new ListIterator<T>() {
             private Node<T> currentNode = node;
             private int iteratorSize;
 
+            /**
+             * Set element to the current position to the LinkedList that was called from ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @param  element argument
+             */
             @Override
             public void set(T element) {
                 if (iteratorSize > 0) {
@@ -24,9 +36,14 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
                     }
                     currentNode.getPrev().setElement(element);
                 }
-
             }
 
+            /**
+             * Set element before the current position to the LinkedList that was called from ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @param  element argument
+             */
             @Override
             public void insertBefore(T element) {
                if (iteratorSize > 0) {
@@ -49,22 +66,45 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
                }
             }
 
+            /**
+             * Return count of the elements that was called by the ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @return count of the elements that was called by the ListIterator
+             */
             @Override
             public int getIteratorSize() {
                 return iteratorSize;
             }
 
+            /**
+             * Decrease by one count of the elements that was called by the iterator
+             * @cpu O(1)
+             * @ram O(1)
+             */
             @Override
             public void decreaseIteratorSize() {
                 iteratorSize--;
 
             }
 
+            /**
+             * Checks have  or not ListIterator one more element
+             * @cpu O(1)
+             * @ram O(1)
+             * @return true when ListIterator have one more element and false when have not
+             */
             @Override
             public boolean hasNext() {
                 return iteratorSize < size;
             }
 
+            /**
+             * Call next element from the ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @return next element from the ListIterato
+             */
             @Override
             public T next() {
                 T result = currentNode.getElement();
