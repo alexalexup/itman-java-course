@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ListsTest {
     @Nested
     public class Equals {
@@ -157,6 +155,186 @@ class ListsTest {
             Lists firsList = ArrayList.of(1,"HI", null , 2,  -1, 2.34);
             Lists secondList = LinkedList.of(1,"HI", null , 2,  -1, 2.34);
             Assertions.assertTrue(firsList.contains(null) && secondList.contains(null));
+        }
+
+        @Nested
+        public class insertBefore{
+            @Test
+            public void shouldInsertElementToTheArrayListFromIteratorBeforeCurrentIndex() {
+                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                ListIterator<Integer> iterator = list.iterator();
+                iterator.next();
+                iterator.insertBefore(100);
+                Assertions.assertEquals(ArrayList.of(1, 100, 2, 3, 4, 5), list);
+            }
+
+            @Test
+            public void shouldInsertElementToTheArrayListFromIteratorWhenArrayListHaveNotElements() {
+                Lists<Integer> list = new ArrayList<>();
+                ListIterator<Integer> iterator = list.iterator();
+                iterator.insertBefore(100);
+                Assertions.assertEquals(ArrayList.of(100), list);
+            }
+
+            @Test
+            public void shouldInsertElementToTheArrayListFromIteratorBeforeCurrentIndexWhenIndexIsFirst() {
+                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                ListIterator<Integer> iterator = list.iterator();
+                iterator.insertBefore(100);
+                Assertions.assertEquals(ArrayList.of(100, 1, 2, 3, 4, 5), list);
+            }
+
+            @Test
+            public void shouldInsertElementToTheArrayListFromIteratorBeforeCurrentIndexWhenIndexIsPenultimate() {
+                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                ListIterator<Integer> iterator = list.iterator();
+                iterator.next();
+                iterator.next();
+                iterator.next();
+                iterator.insertBefore(100);
+                Assertions.assertEquals(ArrayList.of(1, 2, 3, 100, 4, 5), list);
+            }
+
+            @Test
+            public void shouldInsertElementToTheArrayListFromIteratorBeforeCurrentIndexWhenIndexIsLast() {
+                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                ListIterator<Integer> iterator = list.iterator();
+                while (iterator.hasNext()) {
+                    iterator.next();
+                }
+                iterator.insertBefore(100);
+                Assertions.assertEquals(ArrayList.of(1, 2, 3, 4, 100, 5), list);
+            }
+
+            @Test
+            public void shouldInsertElementToTheLinkedListFromIteratorBeforeCurrentIndex() {
+                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                ListIterator<Integer> iterator = list.iterator();
+                iterator.next();
+                iterator.insertBefore(100);
+                Assertions.assertEquals(LinkedList.of(1, 100, 2, 3, 4, 5), list);
+            }
+
+            @Test
+            public void shouldInsertElementToTheLinkedListFromIteratorWhenArrayListHaveNotElements() {
+                Lists<Integer> list = new LinkedList<>();
+                ListIterator<Integer> iterator = list.iterator();
+                iterator.insertBefore(100);
+                Assertions.assertEquals(LinkedList.of(100), list);
+            }
+
+            @Test
+            public void shouldInsertElementToTheLinkedListFromIteratorBeforeCurrentIndexWhenIndexIsFirst() {
+                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                ListIterator<Integer> iterator = list.iterator();
+                iterator.insertBefore(100);
+                Assertions.assertEquals(LinkedList.of(100, 1, 2, 3, 4, 5), list);
+            }
+
+            @Test
+            public void shouldInsertElementToTheLinkedListFromIteratorBeforeCurrentIndexWhenIndexIsPenultimate() {
+                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                ListIterator<Integer> iterator = list.iterator();
+                iterator.next();
+                iterator.next();
+                iterator.next();
+                iterator.insertBefore(100);
+                Assertions.assertEquals(LinkedList.of(1, 2, 3, 100, 4, 5), list);
+            }
+
+            @Test
+            public void shouldInsertElementToTheLinkedListFromIteratorBeforeCurrentIndexWhenIndexIsLast() {
+                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                ListIterator<Integer> iterator = list.iterator();
+                while (iterator.hasNext()) {
+                    iterator.next();
+                }
+                iterator.insertBefore(100);
+                Assertions.assertEquals(LinkedList.of(1, 2, 3, 4, 100, 5), list);
+            }
+        }
+
+        @Nested
+        public class add {
+            @Test
+            public void shouldAddElementByIndexToTheListWhenIndexIsFirstAndListIsArrayList(){
+                Lists<Integer> list = ArrayList.of(1, 2, 3, 4);
+                list.add(0,100);
+                Assertions.assertEquals(ArrayList.of(100, 1, 2, 3, 4), list);
+            }
+
+            @Test
+            public void shouldAddElementByIndexToTheListWhenIndexIsFirstAndListIsLinkedList(){
+                Lists<Integer> list = LinkedList.of(1, 2, 3, 4);
+                list.add(0,100);
+                Assertions.assertEquals(ArrayList.of(100, 1, 2, 3, 4), list);
+            }
+
+            @Test
+            public void shouldAddElementByIndexToTheListWhenIndexIsLastAndListIsArrayList(){
+                Lists<Integer> list = ArrayList.of(1, 2, 3, 4);
+                list.add(3,100);
+                Assertions.assertEquals(ArrayList.of(1, 2, 3, 100, 4), list);
+            }
+
+            @Test
+            public void shouldAddElementByIndexToTheListWhenIndexIsLastAndListIsLinkedList(){
+                Lists<Integer> list = LinkedList.of(1, 2, 3, 4);
+                list.add(3,100);
+                Assertions.assertEquals(ArrayList.of(1, 2, 3, 100, 4), list);
+            }
+
+            @Test
+            public void shouldAddElementByIndexToTheListWhenIndexInTheMiddletAndListIsArrayList(){
+                Lists<Integer> list = ArrayList.of(1, 2, 3, 4);
+                list.add(2,100);
+                Assertions.assertEquals(ArrayList.of(1, 2, 100, 3, 4), list);
+            }
+
+            @Test
+            public void shouldAddElementByIndexToTheListWhenIndexInTheMiddletAndListIsLinkedList(){
+                Lists<Integer> list = LinkedList.of(1, 2, 3, 4);
+                list.add(2,100);
+                Assertions.assertEquals(ArrayList.of(1, 2, 100, 3, 4), list);
+            }
+
+            @Test
+            public void shouldReturnTrueWhenAddElementToTheArrayList(){
+                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                Assertions.assertTrue(list.add(3,100));
+            }
+
+            @Test
+            public void shouldReturnTrueWhenAddElementToTheLinkedList(){
+                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                Assertions.assertTrue(list.add(3,100));
+            }
+
+            @Test
+            public void shouldNotAddElementToTheLinkedListWhenIndexIsOutOfRange() {
+                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                list.add(6,100);
+                Assertions.assertEquals(ArrayList.of(1, 2, 3, 4, 5), list);
+            }
+
+            @Test
+            public void shouldNotAddElementToTheArrayListWhenIndexIsOutOfRange() {
+                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                list.add(20,100);
+                Assertions.assertEquals(ArrayList.of(1, 2, 3, 4, 5), list);
+            }
+
+            @Test
+            public void shouldReturnFalseWhenElementWasNotAddedToTheLinkedList() {
+                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                Assertions.assertFalse(list.add(25,100));
+            }
+
+            @Test
+            public void shouldReturnFalseWhenElementWasNotAddedToTheArrayList() {
+                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                Assertions.assertFalse(list.add(18,100));
+            }
         }
     }
 }

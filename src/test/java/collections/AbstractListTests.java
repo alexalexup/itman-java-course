@@ -169,7 +169,7 @@ abstract public  class AbstractListTests  {
 
 
     @Nested
-    public class Remove {
+    public class RemoveByIndex {
         @Test
         public void shouldReturnElementByIndexWhenListHaveSomeElements() {
             List list = of (1, 2, 3, 4);
@@ -324,7 +324,6 @@ abstract public  class AbstractListTests  {
         @Test
         public void shouldAddElementsFromWhenSourceHaveSomeElements() {
             List firstList = of(1, 2, 3, 4);
-            System.out.println("firstList");
             List secondList = new LinkedList();
             secondList.add(5);
             secondList.add(5);
@@ -332,6 +331,37 @@ abstract public  class AbstractListTests  {
             List expectedResult = of (1, 2, 3, 4, 5, 5, 5);
             firstList.addAll(secondList);
             Assertions.assertEquals(firstList, expectedResult);
+        }
+    }
+
+    @Nested
+    public class RemoveByElement {
+        @Test
+        public void shouldRemoveElementWhenElementIsRepeatedSeveralTimes() {
+            List list = of(1, 2, 2, 3, 4, 2, 5);
+            list.remove(new Integer(2));
+            Assertions.assertEquals(of(1, 3, 4, 5), list);
+        }
+
+        @Test
+        public void shouldRemoveElementWhenElementMeetsOnce() {
+            List list = of(1, 2, 2, 3, 4, 2, 5);
+            list.remove(new Integer(4));
+            Assertions.assertEquals(of(1, 2, 2, 3, 2, 5), list);
+        }
+
+        @Test
+        public void shouldNotRemoveElementWhenListHaveNotElementFromArgument() {
+            List list = of(1, 2, 2, 3, 4, 2, 5);
+            list.remove(new Integer(23));
+            Assertions.assertEquals(of(1, 2, 2, 3, 4, 2, 5), list);
+        }
+
+        @Test
+        public void shouldNotRemoveElementWhenListHaveNotElements() {
+            List list = of();
+            list.remove(new Integer(4));
+            Assertions.assertEquals(of(), list);
         }
     }
 }

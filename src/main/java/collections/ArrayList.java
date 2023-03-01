@@ -4,7 +4,7 @@ import utils.StringBuilder;
 
 import java.util.Iterator;
 
-public class  ArrayList <T> extends Lists <T>  {
+public class  ArrayList<T> extends Lists<T>  {
     private T[] objects;
 
     /**
@@ -13,7 +13,7 @@ public class  ArrayList <T> extends Lists <T>  {
      * @ram O(1)
      * return object from the ListIterator class
      */
-    public ListIterator iterator() {
+    public ListIterator<T> iterator() {
         return new ListIterator<T>() {
            private int iteratorSize;
 
@@ -50,6 +50,16 @@ public class  ArrayList <T> extends Lists <T>  {
             }
 
             /**
+             * Increase size of ArrayList and Iterator by one
+             * @cpu O(1)
+             * @ram O(1)
+             */
+            private void increase() {
+                size++;
+                iteratorSize++;
+            }
+
+            /**
              * Set element before the current position to the ArrayList that was called from ListIterator
              * @cpu O(n), n - size
              * @ram O(n), n - size
@@ -57,15 +67,21 @@ public class  ArrayList <T> extends Lists <T>  {
              */
             @Override
             public void insertBefore(T element) {
-                size++;
-                if (iteratorSize> 0) {
-                    T[] newObjects =(T[]) new Object[size];
-                    System.arraycopy(objects, 0, newObjects, 0, iteratorSize - 1);
-                    System.arraycopy(objects, iteratorSize- 1, newObjects, iteratorSize , size - iteratorSize);
-                    objects = newObjects;
+                if (size == 0) {
+                    objects[0] = element;
+                    increase();
+                    return;
                 }
+                if (size != iteratorSize) {
+                    increase();
+                } else {
+                    size++;
+                }
+                T[] newObjects =(T[]) new Object[size];
+                System.arraycopy(objects, 0, newObjects, 0, iteratorSize - 1);
+                System.arraycopy(objects, iteratorSize - 1, newObjects, iteratorSize , size - iteratorSize);
+                objects = newObjects;
                 objects[iteratorSize - 1] = element;
-
             }
 
             /**
@@ -83,7 +99,7 @@ public class  ArrayList <T> extends Lists <T>  {
              * Call next element from the ListIterator
              * @cpu O(1)
              * @ram O(1)
-             * @return next element from the ListIterato
+             * @return next element from the ListIterator
              */
             @Override
             public T next() {
@@ -93,28 +109,6 @@ public class  ArrayList <T> extends Lists <T>  {
                 return objects[size - 1];
             }
         };
-    }
-
-    /**
-     * Remove element from the ArrayList
-     * @cpu O(n), n -size
-     * @ram O(1)
-     * @param element argument
-     * @return true when element was removed, false when was not
-     */
-    @Override
-    public boolean remove(T element) {
-        ListIterator<T> iterator = this.iterator();
-        boolean result = false;
-        while (iterator.hasNext()) {
-            T checkItem = iterator.next();
-            if(checkItem != null ? checkItem.equals(element) : element == null) {
-                this.remove(iterator.getIteratorSize() - 1);
-                iterator.decreaseIteratorSize();
-                result = true;
-            }
-        }
-        return result;
     }
 
     /**
@@ -162,7 +156,7 @@ public class  ArrayList <T> extends Lists <T>  {
 
     /**
      * Create empty arrayList and set size with value from argument
-     * @cpu O(n) , n - capacity
+     * @cpu O(n), n - capacity
      * @ram O(n), n - capacity
      * @param capacity argument
      * return object without logical data by ArrayList class
@@ -174,8 +168,9 @@ public class  ArrayList <T> extends Lists <T>  {
     /**
      * Add element to arrayList
      * @cpu O(1)
-     * @ram O(n), n - this.numbers.length
+     * @ram O(n), n - this.objects.length
      * @param element argument
+     * return true when element was added and false when was not
      */
     public boolean add(T element) {
         size++;
@@ -248,7 +243,7 @@ public class  ArrayList <T> extends Lists <T>  {
      * @param elements argument
      * @return arrayList with data by argument
      */
-    public static <T> ArrayList of(T ... elements) {
+    public static<T> ArrayList of(T ... elements) {
         ArrayList arrayList = new ArrayList();
         for (int i = 0 ; i < elements.length; i ++) {
             arrayList.add(elements[i]);

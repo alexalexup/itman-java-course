@@ -10,7 +10,6 @@ public class ListBenchmark {
     // LinkedList takes 0.86 sec
     // ArrayList 0.518 sec
     public static void main(String[] args) {
-
         long firstTime = System.currentTimeMillis();
         createIntArrayListWithCapacity(10000000);
         long secondTime = System.currentTimeMillis();
@@ -26,7 +25,14 @@ public class ListBenchmark {
         System.out.println("ArrayList " + (fifthTime - fourthTime) + "ms");
     }
 
-
+    /**
+     * Creates IntArrayList with a capacity from the argument and
+     adds elements in an amount equal to the value of the argument
+     * @cpu O(n), n - length
+     * @ram O(n), n - length
+     * @param length argument
+     * return IntArrayList
+     */
    public static IntArrayList createIntArrayListWithCapacity(int length) {
         IntArrayList intArrayList = new IntArrayList(length);
         for (int i = 0; i < length;  i++) {
@@ -35,6 +41,13 @@ public class ListBenchmark {
         return intArrayList;
     }
 
+    /**
+     * Creates IntArrayList  and adds elements in an amount equal to the value of the argument
+     * @cpu O(n), n - length
+     * @ram O(n), n - length
+     * @param length argument
+     * return IntArrayList
+     */
    public static IntArrayList createIntArrayList(int length) {
         IntArrayList intArrayList = new IntArrayList();
        for (int i = 0; i < length;  i++) {
@@ -43,6 +56,13 @@ public class ListBenchmark {
        return intArrayList;
    }
 
+    /**
+     * Creates LinkedList and adds elements in an amount equal to the value of the argument
+     * @cpu O(n), n - length
+     * @ram O(n), n - length
+     * @param length argument
+     * return LinkedList
+     */
    public static LinkedList createLinkedList(int length) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < length; i++) {
@@ -51,6 +71,13 @@ public class ListBenchmark {
         return list;
    }
 
+    /**
+     * Creates ArrayList and adds elements in an amount equal to the value of the argument
+     * @cpu O(n), n - length
+     * @ram O(n), n - length
+     * @param length argument
+     * return ArrayList
+     */
    public static ArrayList createArrayList(int length) {
         ArrayList arrayList = new ArrayList();
        for (int i = 0; i < length;  i++) {

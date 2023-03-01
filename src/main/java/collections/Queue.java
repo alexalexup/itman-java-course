@@ -1,6 +1,6 @@
 package collections;
 
-public interface Queue <T> {
+public interface Queue<T> {
     /**
      * Add one element to the end of the Queue
      * @param element

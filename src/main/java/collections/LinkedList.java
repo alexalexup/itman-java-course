@@ -1,12 +1,10 @@
 package collections;
 
-import tasks.Task551;
 import utils.StringBuilder;
 
-import java.util.Comparator;
 import java.util.Iterator;
 
-public class LinkedList <T> extends Lists <T> implements Queue <T> {
+public class LinkedList<T> extends Lists<T> implements Queue <T> {
     private Node<T> node;
     private Node<T> lastNode;
 
@@ -39,6 +37,16 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
             }
 
             /**
+             * Increase size of LinkedList and Iterator by one
+             * @cpu O(1)
+             * @ram O(1)
+             */
+            private void increase() {
+                size++;
+                iteratorSize++;
+            }
+
+            /**
              * Set element before the current position to the LinkedList that was called from ListIterator
              * @cpu O(1)
              * @ram O(1)
@@ -46,24 +54,23 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
              */
             @Override
             public void insertBefore(T element) {
-               if (iteratorSize > 0) {
-                   Node<T> link = currentNode.getPrev();
-                   if (iteratorSize == 0) {
-                       node = new Node<>(element, link, null);
-                       size++;
-                       return;
-                   }
-                   if (iteratorSize == size) {
-                       Node<T> newNode = new Node<>(element, currentNode, currentNode.getPrev());
-                       currentNode.setPrev(newNode);
-                       size++;
-                       return;
-                   }
-                   Node<T> newNode = new Node<>(element, link, link.getPrev());
-                   link.getPrev().setNext(newNode);
-                   link.setPrev(newNode);
-                   size++;
-               }
+                if (size == 0) {
+                    node = new Node<>(element, null, null);
+                    increase();
+                    return;
+                }
+                if (iteratorSize == 0) {
+                    Node<T> newNode = new Node<>(element, currentNode,null);
+                    currentNode.setPrev(newNode);
+                    node = newNode;
+                    increase();
+                    return;
+                }
+                Node<T> newNode = new Node<>(element, currentNode, currentNode.getPrev());
+                Node<T> link = currentNode.getPrev();
+                currentNode.setPrev(newNode);
+                link.setNext(newNode);
+                increase();
             }
 
             /**
@@ -85,7 +92,6 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
             @Override
             public void decreaseIteratorSize() {
                 iteratorSize--;
-
             }
 
             /**
@@ -120,7 +126,7 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
         };
     }
 
-    private static class Node <T> {
+    private static class Node<T> {
         private T element;
         private Node<T> next;
         private Node<T> prev;
@@ -272,7 +278,7 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
      * @param elements array with numbers
      * @return LinkedList with values from argument
      */
-    public static <T> LinkedList of(T ... elements) {
+    public static<T> LinkedList of(T ... elements) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < elements.length; i++) {
             list.addLast(elements[i]);
@@ -457,7 +463,7 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
      * @ram O(1)
      * @param element argument
      */
-    public <T> void addFirst(T element) {
+    public<T> void addFirst(T element) {
         this.size++;
         Node<T> link = this.getNode();
         if (link == null) {
@@ -553,7 +559,7 @@ public class LinkedList <T> extends Lists <T> implements Queue <T> {
      * @ram O(1)
      * @param element
      */
-    public <T> void addLast(T element) {
+    public<T> void addLast(T element) {
         this.size++;
         Node<T> link = this.getNode();
         if (link == null) {

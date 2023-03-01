@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 
-public abstract  class Lists <T> implements List <T> {
+public abstract  class Lists<T> implements List<T> {
     protected int size;
 
     /**
@@ -13,7 +13,7 @@ public abstract  class Lists <T> implements List <T> {
      for objects from Lists class.
      * @return object from ListIterator class
      */
-    public abstract   ListIterator <T> iterator();
+    public abstract   ListIterator<T> iterator();
 
     /**
      *@cpu O(1)
@@ -43,6 +43,25 @@ public abstract  class Lists <T> implements List <T> {
      */
     @Override
     public abstract boolean add(T element);
+
+    /**
+     * Add element to the List by the index
+     * @param index argument
+     * @param element argument
+     * return true when element added to the List and false when didn't
+     */
+    @Override
+    public boolean add(int index, T element) {
+        if (index < 0 || index >= this.size) {
+            return false;
+        }
+        ListIterator<T> iterator = this.iterator();
+        for (int i =0; i < index ; i++) {
+           iterator.next();
+        }
+        iterator.insertBefore(element);
+        return true;
+    }
 
     /**
      * Add elements from collection to the current list
@@ -103,7 +122,7 @@ public abstract  class Lists <T> implements List <T> {
         boolean result = false;
         while (iterator.hasNext()) {
             T checkItem = (T) iterator.next();
-            if(checkItem != null ? checkItem.equals(element) : element == null) {
+            if(element.equals(checkItem)) {
                 this.remove(iterator.getIteratorSize() - 1);
                 iterator.decreaseIteratorSize();
                 result = true;
