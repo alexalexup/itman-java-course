@@ -4,7 +4,7 @@ import utils.StringBuilder;
 
 import java.util.Iterator;
 
-public class LinkedList<T> extends Lists<T> implements Queue <T> {
+public class LinkedList<T> extends Lists<T> implements Queue<T>, List<T> {
     private Node<T> node;
     private Node<T> lastNode;
 
@@ -17,6 +17,7 @@ public class LinkedList<T> extends Lists<T> implements Queue <T> {
     public ListIterator iterator() {
         return new ListIterator<T>() {
             private Node<T> currentNode = node;
+            private Node<T> reverseCurrentNode = lastNode;
             private int iteratorSize;
 
             /**
@@ -33,6 +34,19 @@ public class LinkedList<T> extends Lists<T> implements Queue <T> {
                         return;
                     }
                     currentNode.getPrev().setElement(element);
+                }
+            }
+
+            /**
+             * Set element to the current position to the LinkedList that was called from ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @param  element argument
+             */
+            @Override
+            public void setReverse(T element) {
+                if (iteratorSize > 0) {
+                    reverseCurrentNode.getNext().setElement(element);
                 }
             }
 
@@ -84,6 +98,10 @@ public class LinkedList<T> extends Lists<T> implements Queue <T> {
                 return iteratorSize;
             }
 
+            public void setIteratorSize(int size) {
+                iteratorSize = size;
+            }
+
             /**
              * Decrease by one count of the elements that was called by the iterator
              * @cpu O(1)
@@ -115,10 +133,28 @@ public class LinkedList<T> extends Lists<T> implements Queue <T> {
             public T next() {
                 T result = currentNode.getElement();
                 if (iteratorSize < size  ) {
-                    if (currentNode.next !=null) {
+                    if (currentNode.next != null) {
                         currentNode = currentNode.next;
                     }
                     iteratorSize++;
+                    return result;
+                }
+                return result;
+            }
+
+            /**
+             * Call next element from the ListIterator in reverse direction
+             * @cpu O(1)
+             * @ram O(1)
+             * @return next element from the ListIterator in reverse direction
+             */
+            public T nextReverse() {
+                T result = reverseCurrentNode.getElement();
+                if (iteratorSize > 0  ) {
+                    if (reverseCurrentNode.prev != null) {
+                        reverseCurrentNode = reverseCurrentNode.prev;
+                    }
+                    iteratorSize--;
                     return result;
                 }
                 return result;

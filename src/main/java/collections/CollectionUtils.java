@@ -94,11 +94,13 @@ public class CollectionUtils {
         if (list == null || list.size() == 1) {
             return;
         }
-        int size = list.size();
-        for (int i = 0; i < size / 2; i++) {
-            T buffer = list.get(size - i - 1);
-            list.set(size - i - 1, list.get(i));
-            list.set(i, buffer);
+        ListIterator<T> iterator = list.iterator();
+        ListIterator<T> reverseIterator = list.iterator();
+        reverseIterator.setIteratorSize(list.size());
+        for(int i = 0; i < list.size() / 2; i++) {
+            T buffer = iterator.next();
+            iterator.set(reverseIterator.nextReverse());
+            reverseIterator.setReverse(buffer);
         }
     }
 }

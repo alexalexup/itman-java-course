@@ -12,6 +12,13 @@ public interface ListIterator<T> extends Iterator<T> {
     public void set(T element);
 
     /**
+     * Method uses for set element to the current position that was  called from ListIterator Class for reverse operation
+     * @param element argument
+     * @return element from list by index
+     */
+    public void setReverse(T element);
+
+    /**
      * Method uses for set element to the before current position that was  called from ListIterator Class
      * @param element argument
      * @return element from list by index
@@ -27,4 +34,14 @@ public interface ListIterator<T> extends Iterator<T> {
      * Decrease by one count of the elements that was called by the iterator
      */
     public void decreaseIteratorSize();
+
+    /**
+     * Return next element from the iterator in reverse direction
+     */
+    public T nextReverse();
+
+    /**
+     * Set iterator size
+     */
+    public void setIteratorSize(int size);
 }
