@@ -29,10 +29,6 @@ public class LinkedList<T> extends Lists<T> implements Queue<T>, List<T> {
             @Override
             public void set(T element) {
                 if (iteratorSize > 0) {
-                    if (iteratorSize == size) {
-                        currentNode.setElement(element);
-                        return;
-                    }
                     currentNode.getPrev().setElement(element);
                 }
             }
