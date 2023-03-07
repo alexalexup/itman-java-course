@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 
-public abstract  class Lists<T> implements List<T> {
+public abstract  class AbstractList<T> implements List<T> {
     protected int size;
 
     /**
@@ -102,7 +102,7 @@ public abstract  class Lists<T> implements List<T> {
         Iterator<T> iterator = this.iterator();
         while (iterator.hasNext()) {
             T checkItem = iterator.next();
-            if(checkItem != null ? checkItem.equals(element) : element == null) {
+            if(checkItem != null && checkItem.equals(element)) {
                 return true;
             }
         }
@@ -118,10 +118,10 @@ public abstract  class Lists<T> implements List<T> {
      */
     @Override
     public boolean remove(T element) {
-        ListIterator iterator = this.iterator();
+        ListIterator<T> iterator = this.iterator();
         boolean result = false;
         while (iterator.hasNext()) {
-            T checkItem = (T) iterator.next();
+            T checkItem = iterator.next();
             if(element.equals(checkItem)) {
                 this.remove(iterator.getIteratorSize() - 1);
                 iterator.decreaseIteratorSize();
@@ -180,11 +180,11 @@ public abstract  class Lists<T> implements List<T> {
         if (this == objects) {
             return true;
         }
-        if ((!(objects instanceof Lists)) || this.size() != ((Lists<?>) objects).size()) {
+        if ((!(objects instanceof AbstractList)) || this.size() != ((AbstractList<?>) objects).size()) {
             return false;
         }
         Iterator<T> firstIterator = this.iterator();
-        Iterator<T> secondIterator =((Lists<T>) objects).iterator();
+        Iterator<T> secondIterator =((AbstractList<T>) objects).iterator();
         while (firstIterator.hasNext() && secondIterator.hasNext()) {
             T firstObject = firstIterator.next();
             T secondObject = secondIterator.next();

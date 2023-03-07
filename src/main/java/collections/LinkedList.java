@@ -4,7 +4,7 @@ import utils.StringBuilder;
 
 import java.util.Iterator;
 
-public class LinkedList<T> extends Lists<T> implements Queue<T>, List<T> {
+public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> {
     private Node<T> node;
     private Node<T> lastNode;
 
@@ -94,6 +94,11 @@ public class LinkedList<T> extends Lists<T> implements Queue<T>, List<T> {
                 return iteratorSize;
             }
 
+            /**
+             * Set size for ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             */
             public void setIteratorSize(int size) {
                 iteratorSize = size;
             }
@@ -133,7 +138,6 @@ public class LinkedList<T> extends Lists<T> implements Queue<T>, List<T> {
                         currentNode = currentNode.next;
                     }
                     iteratorSize++;
-                    return result;
                 }
                 return result;
             }
@@ -151,7 +155,6 @@ public class LinkedList<T> extends Lists<T> implements Queue<T>, List<T> {
                         reverseCurrentNode = reverseCurrentNode.prev;
                     }
                     iteratorSize--;
-                    return result;
                 }
                 return result;
             }
@@ -201,7 +204,7 @@ public class LinkedList<T> extends Lists<T> implements Queue<T>, List<T> {
          * @param element argument
          * @return element from Node
          */
-        public void setElement(T element) {
+        public void  setElement(T element) {
             this.element = element;
         }
 
@@ -271,7 +274,7 @@ public class LinkedList<T> extends Lists<T> implements Queue<T>, List<T> {
      * @ram O(1)
      * @return Node from LinkedList
      */
-    public Node getNode() {
+    public  Node getNode() {
         return this.node;
     }
 
@@ -292,11 +295,11 @@ public class LinkedList<T> extends Lists<T> implements Queue<T>, List<T> {
      * @param that LinkedList from argument
      * @return LinkedList with values from argument
      */
-    public LinkedList(LinkedList that) {
+    public LinkedList(LinkedList<T> that) {
         if (that == null) {
             return;
         }
-        Node link = that.node;
+        Node<T> link = that.node;
         while (link != null) {
             this.addLast(link.getElement());
             link = link.getNext();
@@ -400,11 +403,11 @@ public class LinkedList<T> extends Lists<T> implements Queue<T>, List<T> {
             }
             return link.getElement();
         } else {
-            Node link = this.getLastNode();
+            Node<T> link = this.getLastNode();
             for (int i = 0; i < size - index - 1; i++) {
                 link = link.getPrev();
             }
-            return (T)link.getElement();
+            return link.getElement();
         }
     }
 
@@ -452,27 +455,25 @@ public class LinkedList<T> extends Lists<T> implements Queue<T>, List<T> {
      */
     public T remove(int index) {
         if (index == 0) {
-            return (T)this.removeFirst();
+            return this.removeFirst();
         }
         if (index == (this.size - 1)) {
-            return (T)this.removeLast();
+            return this.removeLast();
         }
         int size = this.size();
+        Node<T> link = this.getNode();;
         if (index <= size / 2) {
-            Node<T> link = this.getNode();
             for (int i = 0; i < index; i++) {
                 link = link.getNext();
             }
-            this.size--;
-            return removeNode(link);
         } else {
-            Node<T> link = this.getLastNode();
+            link = this.getLastNode();
             for (int i = 0; i < size - index - 1; i++) {
                 link = link.getPrev();
             }
-            this.size--;
-            return removeNode(link);
         }
+        this.size--;
+        return removeNode(link);
     }
 
     /**
@@ -537,8 +538,7 @@ public class LinkedList<T> extends Lists<T> implements Queue<T>, List<T> {
     public T removeFirst() {
         this.size--;
         T result = this.getFirst();
-        Node link = this.node;
-        if (link.getNext() == null) {
+        if (this.node.getNext() == null) {
             this.node = null;
             return result;
         }

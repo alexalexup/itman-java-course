@@ -4,48 +4,48 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-class ListsTest {
+class AbstractListTest {
     @Nested
     public class Equals {
         @Test
         public void shouldReturnTrueWhenListsAreDifferentClassesAndHaveEqualsElements() {
-            Lists firstList = ArrayList.of("Hi,", null, false, 2.34, 2, 3);
-            Lists secondList = LinkedList.of("Hi,", null, false, 2.34, 2, 3);
+            AbstractList firstList = ArrayList.of("Hi,", null, false, 2.34, 2, 3);
+            AbstractList secondList = LinkedList.of("Hi,", null, false, 2.34, 2, 3);
             Assertions.assertTrue(firstList.equals(secondList));
         }
 
         @Test
         public void shouldReturnTrueWhenListsAreDifferentClassesAndHaveEqualsElementsFromSameClass() {
-            Lists<String> firstList = ArrayList.of("Hi,", "null", "false", "2.34", "2", "3");
-            Lists<String> secondList = LinkedList.of("Hi,", "null", "false", "2.34", "2", "3");
+            AbstractList<String> firstList = ArrayList.of("Hi,", "null", "false", "2.34", "2", "3");
+            AbstractList<String> secondList = LinkedList.of("Hi,", "null", "false", "2.34", "2", "3");
             Assertions.assertTrue(firstList.equals(secondList));
         }
 
         @Test
         public void shouldReturnTrueWhenListsAreSameClassesAndHaveEqualsElementsFromSameClass() {
-            Lists<String> firstList = ArrayList.of("Hi,", "null", "false", "2.34", "2", "3");
-            Lists<String> secondList = ArrayList.of("Hi,", "null", "false", "2.34", "2", "3");
+            AbstractList<String> firstList = ArrayList.of("Hi,", "null", "false", "2.34", "2", "3");
+            AbstractList<String> secondList = ArrayList.of("Hi,", "null", "false", "2.34", "2", "3");
             Assertions.assertTrue(firstList.equals(secondList));
         }
 
         @Test
         public void shouldReturnFalseWhenListsAreDifferentClassesAndHaveEqualsElementsAndHaveDifferentSizes() {
-            Lists firstList = ArrayList.of("Hi,", null, false, 2.34, 2);
-            Lists secondList = LinkedList.of("Hi,", null, false, 2.34, 2, 3);
+            AbstractList firstList = ArrayList.of("Hi,", null, false, 2.34, 2);
+            AbstractList secondList = LinkedList.of("Hi,", null, false, 2.34, 2, 3);
             Assertions.assertFalse(firstList.equals(secondList));
         }
 
         @Test
         public void shouldReturnFalseWhenListsAreSameClassesAndHaveEqualsElementsAndHaveDifferentSizes() {
-            Lists firstList = LinkedList.of("Hi,", null, false, 2.34, 2);
-            Lists secondList = LinkedList.of("Hi,", null, false, 2.34, 2, 3);
+            AbstractList firstList = LinkedList.of("Hi,", null, false, 2.34, 2);
+            AbstractList secondList = LinkedList.of("Hi,", null, false, 2.34, 2, 3);
             Assertions.assertFalse(firstList.equals(secondList));
         }
 
         @Test
         public void shouldReturnFalseWhenListsAreDifferentClassesAndHaveNotEqualsElements() {
-            Lists firstList = ArrayList.of("Hi,", "Harry", false, 2.34, 2, 3);
-            Lists secondList = LinkedList.of("Hi,", null, 100, 2.34, 2, 3);
+            AbstractList firstList = ArrayList.of("Hi,", "Harry", false, 2.34, 2, 3);
+            AbstractList secondList = LinkedList.of("Hi,", null, 100, 2.34, 2, 3);
             Assertions.assertFalse(firstList.equals(secondList));
         }
     }
@@ -54,39 +54,39 @@ class ListsTest {
     public class AddAll {
         @Test
         public void shouldAddAllElementsToListFromSourceWhenSourceIsDifferentClass() {
-            Lists firstList = ArrayList.of("Hi", true, 2, 2.34);
-            Lists secondList = LinkedList.of(5, 5, null);
+            AbstractList firstList = ArrayList.of("Hi", true, 2, 2.34);
+            AbstractList secondList = LinkedList.of(5, 5, null);
             firstList.addAll(secondList);
             Assertions.assertEquals(firstList, LinkedList.of("Hi", true, 2, 2.34, 5, 5, null));
         }
 
         @Test
         public void shouldAddAllElementsToListFromSourceWhenSourceIsSameClass() {
-            Lists firstList = ArrayList.of("Hi", true, 2, 2.34);
-            Lists secondList = ArrayList.of(5, 5, null);
+            AbstractList firstList = ArrayList.of("Hi", true, 2, 2.34);
+            AbstractList secondList = ArrayList.of(5, 5, null);
             firstList.addAll(secondList);
             Assertions.assertEquals(firstList, ArrayList.of("Hi", true, 2, 2.34, 5, 5, null));
         }
 
         @Test
         public void shouldAddAllElementsToListFromSourceWhenSourceAndDestinationAreLinkedList() {
-            Lists firstList = LinkedList.of("Hi", true, 2, 2.34);
-            Lists secondList = LinkedList.of(5, 5, null);
+            AbstractList firstList = LinkedList.of("Hi", true, 2, 2.34);
+            AbstractList secondList = LinkedList.of(5, 5, null);
             firstList.addAll(secondList);
             Assertions.assertEquals(firstList, LinkedList.of("Hi", true, 2, 2.34, 5, 5, null));
         }
 
         @Test
         public void shouldReturnFalseWhenSourceHaveNotElements() {
-            Lists firstList = LinkedList.of("Hi", true, 2, 2.34);
-            Lists secondList = ArrayList.of();
+            AbstractList firstList = LinkedList.of("Hi", true, 2, 2.34);
+            AbstractList secondList = ArrayList.of();
             Assertions.assertFalse(firstList.addAll(secondList));
         }
 
         @Test
         public void shouldReturnTrueWhenSourceHaveSomeElements() {
-            Lists firstList = LinkedList.of("Hi", true, 2, 2.34);
-            Lists secondList = ArrayList.of(4.4, null, true, true);
+            AbstractList firstList = LinkedList.of("Hi", true, 2, 2.34);
+            AbstractList secondList = ArrayList.of(4.4, null, true, true);
             Assertions.assertTrue(firstList.addAll(secondList));
         }
     }
@@ -95,40 +95,40 @@ class ListsTest {
     public class AddAllByIndex {
         @Test
         public void shouldAddAllElementsByIndexToListFromSourceWhenSourceIsDifferentClass() {
-            Lists firstList = ArrayList.of("Hi", true, 2, 2.34);
-            Lists secondList = LinkedList.of(5, 5, null, 6, 8, "Hello");
+            AbstractList firstList = ArrayList.of("Hi", true, 2, 2.34);
+            AbstractList secondList = LinkedList.of(5, 5, null, 6, 8, "Hello");
             firstList.addAll(3, secondList);
             Assertions.assertEquals(firstList, LinkedList.of("Hi", true, 2, 5, 5, null, 6, 8, "Hello", 2.34));
         }
 
         @Test
         public void shouldAddAllElementsByIndexToListFromSourceWhenSourceIsSameClass() {
-            Lists firstList = ArrayList.of("Hi", true, 2, 2.34);
-            Lists secondList = ArrayList.of(5, 5, null, 6, 8, "Hello");
+            AbstractList firstList = ArrayList.of("Hi", true, 2, 2.34);
+            AbstractList secondList = ArrayList.of(5, 5, null, 6, 8, "Hello");
             firstList.addAll(3, secondList);
             Assertions.assertEquals(firstList, LinkedList.of("Hi", true, 2, 5, 5, null, 6, 8, "Hello", 2.34));
         }
 
         @Test
         public void shouldAddAllElementsByIndexToListWhenSourceAndDestinationAreLinkedList() {
-            Lists firstList = LinkedList.of("Hi", true, 2, 2.34);
-            Lists secondList = LinkedList.of(5, 5, null, 6, 8, "Hello");
+            AbstractList firstList = LinkedList.of("Hi", true, 2, 2.34);
+            AbstractList secondList = LinkedList.of(5, 5, null, 6, 8, "Hello");
             firstList.addAll(0, secondList);
             Assertions.assertEquals(firstList, LinkedList.of(5, 5, null, 6, 8, "Hello", "Hi", true, 2, 2.34));
         }
 
         @Test
         public void shouldReturnFalseWhenSourceHaveNotElements() {
-            Lists firstList = LinkedList.of("Hi", true, 2, 2.34);
-            Lists secondList = LinkedList.of();
+            AbstractList firstList = LinkedList.of("Hi", true, 2, 2.34);
+            AbstractList secondList = LinkedList.of();
             firstList.addAll(0, secondList);
             Assertions.assertFalse(firstList.addAll(0, secondList));
         }
 
         @Test
         public void shouldReturnTrueWhenSourceHaveSomeElements() {
-            Lists firstList = LinkedList.of("Hi", true, 2, 2.34);
-            Lists secondList = LinkedList.of(null, "B", 4, 4);
+            AbstractList firstList = LinkedList.of("Hi", true, 2, 2.34);
+            AbstractList secondList = LinkedList.of(null, "B", 4, 4);
             firstList.addAll(0, secondList);
             Assertions.assertTrue(firstList.addAll(1, secondList));
         }
@@ -138,30 +138,30 @@ class ListsTest {
     public class Contains {
         @Test
         public void shouldReturnTrueWhenListHaveElementFromSource() {
-            Lists firsList = ArrayList.of(1, "HI", null, 2, -1, 2.34);
-            Lists secondList = LinkedList.of(1, "HI", null, 2, -1, 2.34);
+            AbstractList firsList = ArrayList.of(1, "HI", null, 2, -1, 2.34);
+            AbstractList secondList = LinkedList.of(1, "HI", null, 2, -1, 2.34);
             Assertions.assertTrue(firsList.contains("HI") && secondList.contains(2.34));
         }
 
         @Test
         public void shouldReturnFalseWhenListHaveNotElementFromSource() {
-            Lists firsList = ArrayList.of(1, "HI", null, 2, -1, 2.34);
-            Lists secondList = LinkedList.of(1, "HI", null, 2, -1, 2.34);
+            AbstractList firsList = ArrayList.of(1, "HI", null, 2, -1, 2.34);
+            AbstractList secondList = LinkedList.of(1, "HI", null, 2, -1, 2.34);
             Assertions.assertFalse(firsList.contains(55) || secondList.contains(102));
         }
 
         @Test
-        public void shouldReturnTrueWhenListHaveElementFromSourceAndThisElementIsNull() {
-            Lists firsList = ArrayList.of(1,"HI", null , 2,  -1, 2.34);
-            Lists secondList = LinkedList.of(1,"HI", null , 2,  -1, 2.34);
-            Assertions.assertTrue(firsList.contains(null) && secondList.contains(null));
+        public void shouldReturnTrueWhenListHaveElementFromSourceSecondOption() {
+            AbstractList firsList = ArrayList.of(1,"HI", null , 2,  -1, 2.34);
+            AbstractList secondList = LinkedList.of(1,"HI", null , 2,  -1, 2.34);
+            Assertions.assertTrue(firsList.contains(2) && secondList.contains(-1));
         }
 
         @Nested
         public class insertBefore{
             @Test
             public void shouldInsertElementToTheArrayListFromIteratorBeforeCurrentIndex() {
-                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
                 ListIterator<Integer> iterator = list.iterator();
                 iterator.next();
                 iterator.insertBefore(100);
@@ -170,7 +170,7 @@ class ListsTest {
 
             @Test
             public void shouldInsertElementToTheArrayListFromIteratorWhenArrayListHaveNotElements() {
-                Lists<Integer> list = new ArrayList<>();
+                AbstractList<Integer> list = new ArrayList<>();
                 ListIterator<Integer> iterator = list.iterator();
                 iterator.insertBefore(100);
                 Assertions.assertEquals(ArrayList.of(100), list);
@@ -178,7 +178,7 @@ class ListsTest {
 
             @Test
             public void shouldInsertElementToTheArrayListFromIteratorBeforeCurrentIndexWhenIndexIsFirst() {
-                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
                 ListIterator<Integer> iterator = list.iterator();
                 iterator.insertBefore(100);
                 Assertions.assertEquals(ArrayList.of(100, 1, 2, 3, 4, 5), list);
@@ -186,7 +186,7 @@ class ListsTest {
 
             @Test
             public void shouldInsertElementToTheArrayListFromIteratorBeforeCurrentIndexWhenIndexIsPenultimate() {
-                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
                 ListIterator<Integer> iterator = list.iterator();
                 iterator.next();
                 iterator.next();
@@ -197,7 +197,7 @@ class ListsTest {
 
             @Test
             public void shouldInsertElementToTheArrayListFromIteratorBeforeCurrentIndexWhenIndexIsLast() {
-                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
                 ListIterator<Integer> iterator = list.iterator();
                 while (iterator.hasNext()) {
                     iterator.next();
@@ -208,7 +208,7 @@ class ListsTest {
 
             @Test
             public void shouldInsertElementToTheLinkedListFromIteratorBeforeCurrentIndex() {
-                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
                 ListIterator<Integer> iterator = list.iterator();
                 iterator.next();
                 iterator.insertBefore(100);
@@ -217,7 +217,7 @@ class ListsTest {
 
             @Test
             public void shouldInsertElementToTheLinkedListFromIteratorWhenArrayListHaveNotElements() {
-                Lists<Integer> list = new LinkedList<>();
+                AbstractList<Integer> list = new LinkedList<>();
                 ListIterator<Integer> iterator = list.iterator();
                 iterator.insertBefore(100);
                 Assertions.assertEquals(LinkedList.of(100), list);
@@ -225,7 +225,7 @@ class ListsTest {
 
             @Test
             public void shouldInsertElementToTheLinkedListFromIteratorBeforeCurrentIndexWhenIndexIsFirst() {
-                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
                 ListIterator<Integer> iterator = list.iterator();
                 iterator.insertBefore(100);
                 Assertions.assertEquals(LinkedList.of(100, 1, 2, 3, 4, 5), list);
@@ -233,7 +233,7 @@ class ListsTest {
 
             @Test
             public void shouldInsertElementToTheLinkedListFromIteratorBeforeCurrentIndexWhenIndexIsPenultimate() {
-                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
                 ListIterator<Integer> iterator = list.iterator();
                 iterator.next();
                 iterator.next();
@@ -244,7 +244,7 @@ class ListsTest {
 
             @Test
             public void shouldInsertElementToTheLinkedListFromIteratorBeforeCurrentIndexWhenIndexIsLast() {
-                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
                 ListIterator<Integer> iterator = list.iterator();
                 while (iterator.hasNext()) {
                     iterator.next();
@@ -258,81 +258,81 @@ class ListsTest {
         public class add {
             @Test
             public void shouldAddElementByIndexToTheListWhenIndexIsFirstAndListIsArrayList(){
-                Lists<Integer> list = ArrayList.of(1, 2, 3, 4);
+                AbstractList<Integer> list = ArrayList.of(1, 2, 3, 4);
                 list.add(0,100);
                 Assertions.assertEquals(ArrayList.of(100, 1, 2, 3, 4), list);
             }
 
             @Test
             public void shouldAddElementByIndexToTheListWhenIndexIsFirstAndListIsLinkedList(){
-                Lists<Integer> list = LinkedList.of(1, 2, 3, 4);
+                AbstractList<Integer> list = LinkedList.of(1, 2, 3, 4);
                 list.add(0,100);
                 Assertions.assertEquals(ArrayList.of(100, 1, 2, 3, 4), list);
             }
 
             @Test
             public void shouldAddElementByIndexToTheListWhenIndexIsLastAndListIsArrayList(){
-                Lists<Integer> list = ArrayList.of(1, 2, 3, 4);
+                AbstractList<Integer> list = ArrayList.of(1, 2, 3, 4);
                 list.add(3,100);
                 Assertions.assertEquals(ArrayList.of(1, 2, 3, 100, 4), list);
             }
 
             @Test
             public void shouldAddElementByIndexToTheListWhenIndexIsLastAndListIsLinkedList(){
-                Lists<Integer> list = LinkedList.of(1, 2, 3, 4);
+                AbstractList<Integer> list = LinkedList.of(1, 2, 3, 4);
                 list.add(3,100);
                 Assertions.assertEquals(ArrayList.of(1, 2, 3, 100, 4), list);
             }
 
             @Test
             public void shouldAddElementByIndexToTheListWhenIndexInTheMiddletAndListIsArrayList(){
-                Lists<Integer> list = ArrayList.of(1, 2, 3, 4);
+                AbstractList<Integer> list = ArrayList.of(1, 2, 3, 4);
                 list.add(2,100);
                 Assertions.assertEquals(ArrayList.of(1, 2, 100, 3, 4), list);
             }
 
             @Test
             public void shouldAddElementByIndexToTheListWhenIndexInTheMiddletAndListIsLinkedList(){
-                Lists<Integer> list = LinkedList.of(1, 2, 3, 4);
+                AbstractList<Integer> list = LinkedList.of(1, 2, 3, 4);
                 list.add(2,100);
                 Assertions.assertEquals(ArrayList.of(1, 2, 100, 3, 4), list);
             }
 
             @Test
             public void shouldReturnTrueWhenAddElementToTheArrayList(){
-                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
                 Assertions.assertTrue(list.add(3,100));
             }
 
             @Test
             public void shouldReturnTrueWhenAddElementToTheLinkedList(){
-                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
                 Assertions.assertTrue(list.add(3,100));
             }
 
             @Test
             public void shouldNotAddElementToTheLinkedListWhenIndexIsOutOfRange() {
-                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
                 list.add(6,100);
                 Assertions.assertEquals(ArrayList.of(1, 2, 3, 4, 5), list);
             }
 
             @Test
             public void shouldNotAddElementToTheArrayListWhenIndexIsOutOfRange() {
-                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
                 list.add(20,100);
                 Assertions.assertEquals(ArrayList.of(1, 2, 3, 4, 5), list);
             }
 
             @Test
             public void shouldReturnFalseWhenElementWasNotAddedToTheLinkedList() {
-                Lists<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
                 Assertions.assertFalse(list.add(25,100));
             }
 
             @Test
             public void shouldReturnFalseWhenElementWasNotAddedToTheArrayList() {
-                Lists<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
+                AbstractList<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
                 Assertions.assertFalse(list.add(18,100));
             }
         }

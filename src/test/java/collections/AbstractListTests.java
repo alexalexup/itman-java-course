@@ -364,6 +364,156 @@ abstract public  class AbstractListTests  {
             Assertions.assertEquals(of(), list);
         }
     }
+
+    @Nested
+    public class Next{
+        @Test
+        public void shouldReturnFirstElementWhenMethodWasCalleOnce() {
+            List list = of(4, 3, 2, 1, 1);
+            ListIterator  iterator = list.iterator();
+            Assertions.assertEquals(4, iterator.next());
+        }
+
+        @Test
+        public void shouldReturnThirdElementWhenMethodWasCalleThreeTimes() {
+            List list = of(4, 3, 2, 1, 1);
+            ListIterator  iterator = list.iterator();
+            iterator.next();
+            iterator.next();
+            Assertions.assertEquals(2, iterator.next());
+        }
+
+        @Test
+        public void shouldReturnLastElementWhenMethodWasCalledByTheNumberOfElements() {
+            List lists = of(4, 3, 2, 10, 1);
+            ListIterator  iterator = lists.iterator();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            Assertions.assertEquals(1, iterator.next());
+        }
+
+        @Test
+        public void shouldReturnLastElementWhenMethodWasCalledMoreTheNumberOfElements() {
+            List lists = of(4, 3, 2, 10, 1);
+            ListIterator  iterator = lists.iterator();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            Assertions.assertEquals(1, iterator.next());
+        }
+    }
+
+    @Nested
+    public class HasNext{
+        @Test
+        public void shouldReturnTrueWhenIteratorHaveElements() {
+            List list = of(1, 2, 3, 4);
+            ListIterator iterator = list.iterator();
+            iterator.next();
+            iterator.next();
+            Assertions.assertTrue(iterator.hasNext());
+        }
+
+        @Test
+        public void shouldReturnTrueWhenIteratorHaveNotElements() {
+            List list = of(1, 2, 3, 4);
+            ListIterator iterator = list.iterator();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            Assertions.assertFalse(iterator.hasNext());
+        }
+    }
+
+    @Nested
+    public class SetIterator{
+        @Test
+        public void shouldSetElementToFirstPositionWhenNextWasCalledOnceFromTheIterator(){
+            List list = of(1, 2, 3, 4);
+            ListIterator iterator = list.iterator();
+            iterator.next();
+            iterator.set(100);
+            Assertions.assertEquals(of(100,2, 3, 4), list);
+        }
+
+        @Test
+        public void shouldSetElementToThePositionThatWasCalledFromTheIterator(){
+            List list = of(1, 2, 3, 4);
+            ListIterator iterator = list.iterator();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.set(100);
+            Assertions.assertEquals(of(1 ,2, 100, 4), list);
+        }
+
+        @Test
+        public void shouldSetElementToTheLastPositionWhenIteratorWasCalledLastPosition(){
+            List list = of(1, 2, 3, 4);
+            ListIterator iterator = list.iterator();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.set(100);
+            Assertions.assertEquals(of(1 ,2, 100, 4), list);
+        }
+    }
+
+    @Nested
+    public class InsertBefore{
+        @Test
+        public void shouldInsertElementToTheListFromIteratorBeforeCurrentIndex() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            ListIterator<Integer> iterator = list.iterator();
+            iterator.next();
+            iterator.insertBefore(100);
+            Assertions.assertEquals(of(1, 100, 2, 3, 4, 5), list);
+        }
+
+        @Test
+        public void shouldInsertElementToTheListFromIteratorWhenArrayListHaveNotElements() {
+            List<Integer> list = of();
+            ListIterator<Integer> iterator = list.iterator();
+            iterator.insertBefore(100);
+            Assertions.assertEquals(ArrayList.of(100), list);
+        }
+
+        @Test
+        public void shouldInsertElementToTheListFromIteratorBeforeCurrentIndexWhenIndexIsFirst() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            ListIterator<Integer> iterator = list.iterator();
+            iterator.insertBefore(100);
+            Assertions.assertEquals(ArrayList.of(100, 1, 2, 3, 4, 5), list);
+        }
+
+        @Test
+        public void shouldInsertElementToTheListFromIteratorBeforeCurrentIndexWhenIndexIsPenultimate() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            ListIterator<Integer> iterator = list.iterator();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.insertBefore(100);
+            Assertions.assertEquals(of(1, 2, 3, 100, 4, 5), list);
+        }
+
+        @Test
+        public void shouldInsertElementToTheListFromIteratorBeforeCurrentIndexWhenIndexIsLast() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            ListIterator<Integer> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                iterator.next();
+            }
+            iterator.insertBefore(100);
+            Assertions.assertEquals(of(1, 2, 3, 4, 100, 5), list);
+        }
+    }
 }
 
 class ArrayListTests  extends AbstractListTests  {

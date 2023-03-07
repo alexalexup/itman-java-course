@@ -4,7 +4,7 @@ import utils.StringBuilder;
 
 import java.util.Iterator;
 
-public class  ArrayList<T> extends Lists<T>  {
+public class  ArrayList<T> extends AbstractList<T> {
     private T[] objects;
 
     /**

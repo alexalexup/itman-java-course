@@ -13,51 +13,51 @@ class CollectionUtilsTest {
     public class FindMin {
         @Test
         public void shouldFindMinElementInTheListWhenListHaveSomeElements() {
-             Lists<Integer> lists = new ArrayList<>();
-             lists.add(4);
-             lists.add(2);
-             lists.add(-3);
-             lists.add(10);
-             lists.add(4);
-             lists.add(2);
-             lists.add(0);
+             AbstractList<Integer> abstractList = new ArrayList<>();
+             abstractList.add(4);
+             abstractList.add(2);
+             abstractList.add(-3);
+             abstractList.add(10);
+             abstractList.add(4);
+             abstractList.add(2);
+             abstractList.add(0);
              Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
-             Integer result =  CollectionUtils.findMin(lists, comparator);
+             Integer result =  CollectionUtils.findMin(abstractList, comparator);
              Assertions.assertEquals(result,-3);
         }
 
         @Test
         public void shouldFindMinElementInTheListWhenListHaveOneElement() {
-            Lists<Double> lists = new ArrayList<>();
-            lists.add(4.22);
+            AbstractList<Double> abstractList = new ArrayList<>();
+            abstractList.add(4.22);
             Comparator<Double> comparator = (a, b) -> a.compareTo(b);
-            Double result =  CollectionUtils.findMin(lists, comparator);
+            Double result =  CollectionUtils.findMin(abstractList, comparator);
             Assertions.assertEquals(result,4.22);
         }
 
         @Test
         public void shouldFindMinElementInTheListWhenListHaveNullElements() {
-            Lists<Integer> lists = new LinkedList<>();
-            lists.add(null);
-            lists.add(10);
-            lists.add(4);
-            lists.add(2);
-            lists.add(null);
+            AbstractList<Integer> abstractList = new LinkedList<>();
+            abstractList.add(null);
+            abstractList.add(10);
+            abstractList.add(4);
+            abstractList.add(2);
+            abstractList.add(null);
             Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
-            Integer result =  CollectionUtils.findMin(lists, comparator);
+            Integer result =  CollectionUtils.findMin(abstractList, comparator);
             Assertions.assertEquals(result,2);
         }
 
         @Test
         public void shouldWorkWhenListHaveOnlyNullElements() {
-            Lists<Integer> lists = new ArrayList<>();
-            lists.add(null);
-            lists.add(null);
-            lists.add(null);
-            lists.add(null);
-            lists.add(null);
+            AbstractList<Integer> abstractList = new ArrayList<>();
+            abstractList.add(null);
+            abstractList.add(null);
+            abstractList.add(null);
+            abstractList.add(null);
+            abstractList.add(null);
             Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
-            Integer result =  CollectionUtils.findMin(lists, comparator);
+            Integer result =  CollectionUtils.findMin(abstractList, comparator);
             Assertions.assertEquals(result,null);
         }
     }
@@ -66,51 +66,51 @@ class CollectionUtilsTest {
     public class FindMax {
         @Test
         public void shouldFindMaxElementInTheListWhenListHaveSomeElements() {
-            Lists<Integer> lists = new LinkedList<>();
-            lists.add(4);
-            lists.add(2);
-            lists.add(-3);
-            lists.add(10);
-            lists.add(4);
-            lists.add(2);
-            lists.add(0);
+            AbstractList<Integer> abstractList = new LinkedList<>();
+            abstractList.add(4);
+            abstractList.add(2);
+            abstractList.add(-3);
+            abstractList.add(10);
+            abstractList.add(4);
+            abstractList.add(2);
+            abstractList.add(0);
             Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
-            Integer result =  CollectionUtils.findMax(lists, comparator);
+            Integer result =  CollectionUtils.findMax(abstractList, comparator);
             Assertions.assertEquals(result,10);
         }
 
         @Test
         public void shouldFindMaxElementInTheListWhenListHaveOneElement() {
-            Lists<Double> lists = new ArrayList<>();
-            lists.add(2.22);
+            AbstractList<Double> abstractList = new ArrayList<>();
+            abstractList.add(2.22);
             Comparator<Double> comparator = (a, b) -> a.compareTo(b);
-            Double result =  CollectionUtils.findMax(lists, comparator);
+            Double result =  CollectionUtils.findMax(abstractList, comparator);
             Assertions.assertEquals(result,2.22);
         }
 
         @Test
         public void shouldFindMaxElementInTheListWhenListHaveNullElements() {
-            Lists<Integer> lists = new LinkedList<>();
-            lists.add(null);
-            lists.add(10);
-            lists.add(4);
-            lists.add(2);
-            lists.add(null);
+            AbstractList<Integer> abstractList = new LinkedList<>();
+            abstractList.add(null);
+            abstractList.add(10);
+            abstractList.add(4);
+            abstractList.add(2);
+            abstractList.add(null);
             Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
-            Integer result =  CollectionUtils.findMax(lists, comparator);
+            Integer result =  CollectionUtils.findMax(abstractList, comparator);
             //Assertions.assertEquals(result,10);
         }
 
         @Test
         public void shouldWorkWhenListHaveOnlyNullElements() {
-            Lists<Integer> lists = new ArrayList<>();
-            lists.add(null);
-            lists.add(null);
-            lists.add(null);
-            lists.add(null);
-            lists.add(null);
+            AbstractList<Integer> abstractList = new ArrayList<>();
+            abstractList.add(null);
+            abstractList.add(null);
+            abstractList.add(null);
+            abstractList.add(null);
+            abstractList.add(null);
             Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
-            Integer result =  CollectionUtils.findMax(lists, comparator);
+            Integer result =  CollectionUtils.findMax(abstractList, comparator);
             Assertions.assertEquals(result,null);
         }
     }
@@ -119,34 +119,34 @@ class CollectionUtilsTest {
     public class Sort {
         @Test
         public void shouldSortElementWhenListHaveSomeElements() {
-            Lists<Integer> lists = LinkedList.of(4, 2, -3, 10, 4, 2, 0);
-            CollectionUtils.sort(lists);
-            Lists<Integer>  expected = LinkedList.of(-3, 0, 2, 2, 4, 4, 10);
-            Assertions.assertTrue(lists.equals(expected));
+            AbstractList<Integer> abstractList = LinkedList.of(4, 2, -3, 10, 4, 2, 0);
+            CollectionUtils.sort(abstractList);
+            AbstractList<Integer> expected = LinkedList.of(-3, 0, 2, 2, 4, 4, 10);
+            Assertions.assertTrue(abstractList.equals(expected));
         }
 
         @Test
         public void shouldSortElementWhenListHaveOneElement() {
-            Lists<Integer> lists = LinkedList.of(5);
-            CollectionUtils.sort(lists);
-            Lists<Integer>  expected = LinkedList.of(5);
-            Assertions.assertTrue(lists.equals(expected));
+            AbstractList<Integer> abstractList = LinkedList.of(5);
+            CollectionUtils.sort(abstractList);
+            AbstractList<Integer> expected = LinkedList.of(5);
+            Assertions.assertTrue(abstractList.equals(expected));
         }
 
         @Test
         public void shouldSortElementWhenListHaveSomeEqualsElements() {
-            Lists<Integer> lists = LinkedList.of(5, 4, 4, 2, 2, 1);
-            CollectionUtils.sort(lists);
-            Lists<Integer>  expected = LinkedList.of(1, 2, 2, 4, 4, 5);
-            Assertions.assertTrue(lists.equals(expected));
+            AbstractList<Integer> abstractList = LinkedList.of(5, 4, 4, 2, 2, 1);
+            CollectionUtils.sort(abstractList);
+            AbstractList<Integer> expected = LinkedList.of(1, 2, 2, 4, 4, 5);
+            Assertions.assertTrue(abstractList.equals(expected));
         }
 
         @Test
         public void shouldWorkWhenListHaveNotAnyElements() {
-            Lists<Integer> lists = LinkedList.of();
-            CollectionUtils.sort(lists);
-            Lists<Integer>  expected = LinkedList.of();
-            Assertions.assertTrue(lists.equals(expected));
+            AbstractList<Integer> abstractList = LinkedList.of();
+            CollectionUtils.sort(abstractList);
+            AbstractList<Integer> expected = LinkedList.of();
+            Assertions.assertTrue(abstractList.equals(expected));
         }
     }
 
@@ -154,39 +154,39 @@ class CollectionUtilsTest {
     public class Reverse {
         @Test
         public void shouldReverseListWhenListIsArrayListAndHaveEvenElements() {
-            Lists<Double> list =  ArrayList.of(3.12, 4.22, 5.66, 0);
+            AbstractList<Double> list =  ArrayList.of(3.12, 4.22, 5.66, 0);
             CollectionUtils.reverse(list);
-            Lists<Double> expected = LinkedList.of(0, 5.66, 4.22, 3.12);
+            AbstractList<Double> expected = LinkedList.of(0, 5.66, 4.22, 3.12);
             Assertions.assertEquals(expected, list);
         }
 
         @Test
         public void shouldReverseListWhenListIsArrayListAndHaveOddElements() {
-            Lists<Double> list =  ArrayList.of(3.12, 4.22, 88.0,  5.66, 0);
+            AbstractList<Double> list =  ArrayList.of(3.12, 4.22, 88.0,  5.66, 0);
             CollectionUtils.reverse(list);
-            Lists<Double> expected = LinkedList.of(0, 5.66, 88.0, 4.22, 3.12);
+            AbstractList<Double> expected = LinkedList.of(0, 5.66, 88.0, 4.22, 3.12);
             Assertions.assertEquals(expected, list);
         }
 
         @Test
         public void shouldReverseListWhenListIsArrayListAndHaveOneElements() {
-            Lists<Double> list =  ArrayList.of(34);
+            AbstractList<Double> list =  ArrayList.of(34);
             CollectionUtils.reverse(list);
-            Lists<Double> expected = LinkedList.of(34);
+            AbstractList<Double> expected = LinkedList.of(34);
             Assertions.assertEquals(expected, list);
         }
 
         @Test
         public void shouldReverseListWhenListIsArrayListAndHaveNotElements() {
-            Lists<Double> list =  ArrayList.of();
+            AbstractList<Double> list =  ArrayList.of();
             CollectionUtils.reverse(list);
-            Lists<Double> expected = LinkedList.of();
+            AbstractList<Double> expected = LinkedList.of();
             Assertions.assertEquals(expected, list);
         }
 
         @Test
         public void shouldReverseListWhenListIsLinkedListAndHaveEvenElements() {
-            Lists list = LinkedList.of(1, 2, 3, 4, 5, 6);
+            AbstractList list = LinkedList.of(1, 2, 3, 4, 5, 6);
             List expected = LinkedList.of(6, 5, 4, 3, 2, 1);
             CollectionUtils.reverse(list);
             Assertions.assertEquals(expected, list);
@@ -194,7 +194,7 @@ class CollectionUtilsTest {
 
         @Test
         public void shouldReverseListWhenListIsLinkedListAndHaveOddElements() {
-            Lists list = LinkedList.of("HI", null, 3, 6.66, 2);
+            AbstractList list = LinkedList.of("HI", null, 3, 6.66, 2);
             List expected = LinkedList.of(2, 6.66, 3, null, "HI");
             CollectionUtils.reverse(list);
             Assertions.assertEquals(expected, list);
@@ -202,7 +202,7 @@ class CollectionUtilsTest {
 
         @Test
         public void shouldReverseListWhenListIsLinkedListAndHaveOneElement() {
-            Lists list = LinkedList.of("Hi");
+            AbstractList list = LinkedList.of("Hi");
             List expected = LinkedList.of("Hi");
             CollectionUtils.reverse(list);
             Assertions.assertEquals(expected, list);
@@ -210,7 +210,7 @@ class CollectionUtilsTest {
 
         @Test
         public void shouldReverseListWhenListIsLinkedListAndHaveNotElements() {
-            Lists list = LinkedList.of();
+            AbstractList list = LinkedList.of();
             List expected = LinkedList.of();
             CollectionUtils.reverse(list);
             Assertions.assertEquals(expected, list);
