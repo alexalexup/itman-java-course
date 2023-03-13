@@ -37,7 +37,7 @@ public interface List<T> extends Collections<T> {
      * Get data to array from the list
      * @return array with data from List
      */
-    public T[] toArray();
+    public Object[] toArray();
 
       /**
        * Remove element from List by index and return this element

@@ -73,7 +73,7 @@ public class CollectionUtils {
         }
         for (int i = 0; i < list.size(); i++) {
             int min = i;
-            for (int j = i; j <list.size(); j++) {
+            for (int j = i; j < list.size(); j++) {
                 if (((Comparable) list.get(min)).compareTo(list.get(j)) > 0) {
                     min = j;
                 }
@@ -83,6 +83,7 @@ public class CollectionUtils {
             list.set(i, buffer);
         }
     }
+
 
     /**
      * Reverse order of elements in the list

@@ -1,7 +1,5 @@
 package collections;
 
-import utils.StringBuilder;
-
 import java.util.Iterator;
 
 public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> {
@@ -176,15 +174,6 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
             this.element = element;
             this.next = next;
             this.prev = prev;
-        }
-
-        /**
-         * Default constructor for Node
-         * @cpu O(1)
-         * @ram O(1)
-         * @return Node with default values
-         */
-        public Node() {
         }
 
         /**
@@ -545,44 +534,6 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
         this.node = this.node.getNext();
         this.node.setPrev(null);
         return result;
-    }
-
-    /**
-     * Return String with values of elements from LinkedList
-     * @cpu O(n), n - size of LinkedList
-     * @ram O(n), n - size of LinkedList
-     * @return String with values of elements from LinkedList
-     */
-    public String toString() {
-        Node link = this.node;
-        if (link == null) {
-            return "[]";
-        }
-        StringBuilder result = new StringBuilder();
-        result.append("[");
-        Object object;
-        while (link.getNext() != null) {
-            object = link.getElement();
-            if (object == null) {
-                result.append(null);
-                result.append(", ");
-                link = link.getNext();
-            } else {
-                result.append(object.toString());
-                result.append(", ");
-                link = link.getNext();
-            }
-
-        }
-        object = link.getElement();
-        if (object == null) {
-            result.append(null)
-                    .append("]");
-        } else {
-            result.append(object.toString());
-            result.append("]");
-        }
-        return result.toString();
     }
 
     /**

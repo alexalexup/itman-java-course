@@ -48,6 +48,16 @@ class AbstractListTest {
             AbstractList secondList = LinkedList.of("Hi,", null, 100, 2.34, 2, 3);
             Assertions.assertFalse(firstList.equals(secondList));
         }
+
+        @Test
+        public void shouldReturnFalseWhenCompareDifferentElementsFomArrayListAndObject() {
+           Assertions.assertFalse(ArrayList.of(1).equals("a"));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenCompareDifferentElementsFomLinkedListAndObject() {
+            Assertions.assertFalse(LinkedList.of(1).equals("a"));
+        }
     }
 
     @Nested

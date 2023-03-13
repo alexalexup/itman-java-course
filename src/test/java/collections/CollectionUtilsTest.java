@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
+import tasks.ShapeUtils;
 
 class CollectionUtilsTest {
 
@@ -24,7 +25,9 @@ class CollectionUtilsTest {
              Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
              Integer result =  CollectionUtils.findMin(abstractList, comparator);
              Assertions.assertEquals(result,-3);
+             CollectionUtils.findMax(abstractList,comparator);
         }
+
 
         @Test
         public void shouldFindMinElementInTheListWhenListHaveOneElement() {
@@ -98,7 +101,7 @@ class CollectionUtilsTest {
             abstractList.add(null);
             Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
             Integer result =  CollectionUtils.findMax(abstractList, comparator);
-            //Assertions.assertEquals(result,10);
+            Assertions.assertEquals(result,10);
         }
 
         @Test

@@ -1,19 +1,19 @@
 package entities;
 
 public class Rectangle implements Shape {
-    private double weight;
-    private double height;
+    private Double width;
+    private Double height;
 
     /**
      * Set height and weight for the rectangle
      * @cpu O(1)
      * @ram O(1)
-     * @param weight argument
+     * @param width argument
      * @param height argument
      */
-    public Rectangle(double weight, double height) {
+    public Rectangle(Double width, Double height) {
         this.height = height;
-        this.weight = weight;
+        this.width = width;
     }
 
     /**
@@ -22,8 +22,8 @@ public class Rectangle implements Shape {
      * @ram O(1)
      * @return  weight from the rectangle
      */
-    public double getWeight() {
-        return weight;
+    public Double getWeight() {
+        return width;
     }
 
     /**
@@ -32,7 +32,7 @@ public class Rectangle implements Shape {
      * @ram O(1)
      * @return height from the rectangle
      */
-    public double getHeight() {
+    public Double getHeight() {
         return height;
     }
 
@@ -43,8 +43,8 @@ public class Rectangle implements Shape {
      * @return perimeter of the rectangle
      */
     @Override
-    public double calcPerimeter() {
-        return this.weight * 2 + this.height * 2;
+    public Double calcPerimeter() {
+        return this.width * 2 + this.height * 2;
     }
 
     /**
@@ -54,8 +54,8 @@ public class Rectangle implements Shape {
      * @return square of the rectangle
      */
     @Override
-    public double calcSquare() {
-        return this.weight * this.height;
+    public Double calcSquare() {
+        return this.width * this.height;
     }
 
     /**
@@ -66,7 +66,7 @@ public class Rectangle implements Shape {
      */
     @Override
     public String toString() {
-        return "Rectangle{weight=" + this.weight  + ", height=" + this.height +"}";
+        return "Rectangle{weight=" + this.width  + ", height=" + this.height +"}";
     }
 
     /**
@@ -80,9 +80,7 @@ public class Rectangle implements Shape {
         if (that == null || that.getClass() != Rectangle.class) {
             return false;
         }
-        if (this.weight != ((Rectangle) that).weight || this.height != ((Rectangle) that).height ) {
-            return false;
-        }
-        return true;
+        Rectangle check = (Rectangle) that;
+        return this.width.equals(check.width) && this.height.equals(check.height);
     }
 }

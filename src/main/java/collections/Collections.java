@@ -2,7 +2,7 @@ package collections;
 import java.util.function.Predicate;
 import java.util.function.IntFunction;
 
-public interface Collections <T> extends java.lang.Iterable {
+public interface Collections <T> extends Iterable {
 
     /**
      * @return  return size of the collection
@@ -61,7 +61,7 @@ public interface Collections <T> extends java.lang.Iterable {
      * Create and return array with elements from the collection
      * @return array with elements from the collection
      */
-    public T[] toArray();
+    public Object[] toArray();
 
     /**
      * Remove  element from the collection if element correspond to predicate

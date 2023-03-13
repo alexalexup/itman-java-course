@@ -292,8 +292,12 @@ abstract public  class AbstractListTests  {
         public void shouldCompareWhenListsHaveDifferentSizes() {
             List first = of(1, 2, null, 5);
             List second = of (2, 3, 3, 3, 3, 3);
-            List<String> third = of ("AAA");
             Assertions.assertNotEquals(first, second);
+        }
+
+        @Test
+        public void shouldReturnFalseWhenCompareDifferentElementsFromObjectAndList() {
+            Assertions.assertFalse(of(1).equals("a"));
         }
     }
 
@@ -512,6 +516,49 @@ abstract public  class AbstractListTests  {
             }
             iterator.insertBefore(100);
             Assertions.assertEquals(of(1, 2, 3, 4, 100, 5), list);
+        }
+    }
+
+    @Nested
+    public class AddForAbstractList {
+        @Test
+        public void shouldAddElementByIndexToTheListWhenIndexIsFirst(){
+            List<Integer> list = of(1, 2, 3, 4);
+            list.add(0,100);
+            Assertions.assertEquals(ArrayList.of(100, 1, 2, 3, 4), list);
+        }
+
+        @Test
+        public void shouldAddElementByIndexToTheListWhenIndexIsLast(){
+            List<Integer> list = of(1, 2, 3, 4);
+            list.add(3,100);
+            Assertions.assertEquals(ArrayList.of(1, 2, 3, 100, 4), list);
+        }
+
+        @Test
+        public void shouldAddElementByIndexToTheListWhenIndexInTheMiddle(){
+            List<Integer> list = of(1, 2, 3, 4);
+            list.add(2,100);
+            Assertions.assertEquals(ArrayList.of(1, 2, 100, 3, 4), list);
+        }
+
+        @Test
+        public void shouldReturnTrueWhenAddElementToTheArrayList(){
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            Assertions.assertTrue(list.add(3,100));
+        }
+
+        @Test
+        public void shouldNotAddElementToTheListWhenIndexIsOutOfRange() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            list.add(20,100);
+            Assertions.assertEquals(ArrayList.of(1, 2, 3, 4, 5), list);
+        }
+
+        @Test
+        public void shouldReturnFalseWhenElementWasNotAddedToTheList() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            Assertions.assertFalse(list.add(18,100));
         }
     }
 }

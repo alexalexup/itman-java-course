@@ -17,7 +17,7 @@ class CircleTest {
 
         @Test
         public void shouldCalculatePerimeterWhenRadiusIsIntegerNumber() {
-            Circle circle = new Circle(24);
+            Circle circle = new Circle(24.0);
             Assertions.assertEquals(Math.PI * Math.pow(24, 2), circle.calcSquare());
         }
     }
@@ -32,7 +32,7 @@ class CircleTest {
 
         @Test
         public void shouldCalculateSquareWhenRadiusIsIntegerNumber() {
-            Circle circle = new Circle(84);
+            Circle circle = new Circle(84.0);
             Assertions.assertEquals(Math.PI * 2 * 84, circle.calcPerimeter());
         }
     }
@@ -50,28 +50,29 @@ class CircleTest {
     public class Equals {
         @Test
         public void  shouldReturnTrueWhenBothCirclesAreSame() {
-            Circle firstCircle = new Circle(3);
-            Circle secondCircle = new Circle(3);
+            Circle firstCircle = new Circle(3.0);
+            Circle secondCircle = new Circle(3.0);
+            firstCircle.equals(new StringBuilder());
             Assertions.assertEquals(firstCircle,secondCircle);
         }
 
         @Test
         public void  shouldReturnFalseWhenCirclesAreNotSame() {
-            Circle firstCircle = new Circle(2);
-            Circle secondCircle = new Circle(3);
+            Circle firstCircle = new Circle(2.0);
+            Circle secondCircle = new Circle(3.0);
             Assertions.assertNotEquals(firstCircle,secondCircle);
         }
 
         @Test
         public void  shouldReturnFalseWhenObjectFromArgumentIsNotCircle() {
-            Circle firstCircle = new Circle(2);
-            Rectangle rectangle = new Rectangle(3, 2);
+            Circle firstCircle = new Circle(2.0);
+            Rectangle rectangle = new Rectangle(3.0, 2.0);
             Assertions.assertNotEquals(firstCircle, rectangle);
         }
 
         @Test
         public void shouldReturnFalseWhenComparedObjectIsNull() {
-            Circle firstCircle = new Circle(12);
+            Circle firstCircle = new Circle(12.0);
             Assertions.assertNotEquals(firstCircle, null);
         }
     }

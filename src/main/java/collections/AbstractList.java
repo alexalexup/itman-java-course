@@ -1,5 +1,7 @@
 package collections;
 
+import utils.StringBuilder;
+
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.function.IntFunction;
@@ -111,7 +113,7 @@ public abstract  class AbstractList<T> implements List<T> {
 
     /**
      * Remove element from the list
-     * @cpu O(n) , n - this.size
+     * @cpu O(n^2) , n - this.size
      * @ram O(1)
      * @param element argument
      * @return true when element was removed and false when was not
@@ -143,8 +145,7 @@ public abstract  class AbstractList<T> implements List<T> {
         Iterator<T> iterator = collection.iterator();
         while (iterator.hasNext()) {
             T item = iterator.next();
-            if (this.contains(item)) {
-            } else {
+            if (this.contains(item) != true) {
                 return false;
             }
         }
@@ -152,11 +153,10 @@ public abstract  class AbstractList<T> implements List<T> {
     }
 
     /**
-     * Сhecks contains or not list all elements from the argument
-     * @cpu O(n) , n - collection.size
+     * Remove all elements from current collection that includes in collection from argument
+     * @cpu O(n^2 * m) , n - this.size, m - collection.size
      * @ram O(1)
      * @param collection argument
-     * @return true when list contain all elements from the argument, false when does not
      */
     @Override
     public void removeAll(Collections<T> collection) {
@@ -166,7 +166,6 @@ public abstract  class AbstractList<T> implements List<T> {
             this.remove(item);
         }
     }
-
 
     /**
      * Compare current list with object from the argument
@@ -215,7 +214,7 @@ public abstract  class AbstractList<T> implements List<T> {
      * @return Array with data from the list
      */
     @Override
-    public abstract T[] toArray();
+    public abstract Object[] toArray();
 
 
     /**
@@ -226,9 +225,9 @@ public abstract  class AbstractList<T> implements List<T> {
      */
     @Override
     public void removeIf(Predicate<T> predicate) {
-        ListIterator iterator = this.iterator();
+        ListIterator<T> iterator = this.iterator();
         while (iterator.hasNext()) {
-            if (predicate.test((T) iterator.next())) {
+            if (predicate.test( iterator.next())) {
                 this.remove(iterator.getIteratorSize() - 1);
                 iterator.decreaseIteratorSize();
             }
@@ -244,7 +243,7 @@ public abstract  class AbstractList<T> implements List<T> {
     @Override
     public  T[] toArray(IntFunction<T> factory){
         T[] result = (T[]) new Object[this.size];
-        ListIterator iterator = this.iterator();
+        ListIterator<T> iterator = this.iterator();
         while (iterator.hasNext()) {
             result[iterator.getIteratorSize()] =  factory.apply(iterator.getIteratorSize());
             iterator.next();
@@ -277,5 +276,41 @@ public abstract  class AbstractList<T> implements List<T> {
             this.set(i, this.get(min));
             this.set(min, t);
         }
+    }
+
+    /**
+     * Return String with values of elements from List
+     * @cpu O(n), n - size of List
+     * @ram O(n), n - size of List
+     * @return String with values of elements from List
+     */
+    public String toString() {
+        if (this.size == 0) {
+            return "[]";
+        }
+        ListIterator iterator = this.iterator();
+        StringBuilder result = new StringBuilder();
+        result.append("[");
+        while (iterator.hasNext()) {
+            Object object = iterator.next();
+            if (iterator.getIteratorSize() < this.size) {
+                if (object == null) {
+                    result.append(null);
+                    result.append(", ");
+                } else {
+                    result.append(object.toString());
+                    result.append(", ");
+                }
+            } else {
+                if (object == null) {
+                    result.append(null);
+                    result.append("]");
+                } else {
+                    result.append(object.toString());
+                    result.append("]");
+                }
+            }
+        }
+        return result.toString();
     }
 }

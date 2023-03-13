@@ -287,38 +287,4 @@ public class  ArrayList<T> extends AbstractList<T> {
         }
         return arrayList;
     }
-
-    /**
-     * Return String with data from arraylist
-     * @cpu O(n), n - this.size
-     * @ram O(n), n - this.size
-     * @return string with logical data by current object
-     */
-    public String toString() {
-        if ( this.size == 0 ) {
-            return "[]";
-        }
-        StringBuilder result = new StringBuilder();
-        result.append("[");
-        for (int i = 0; i < this.size; i++) {
-            if (i != this.size - 1) {
-                if (this.objects[i] == null) {
-                    result.append(null)
-                            .append(", ");
-                } else {
-                    result.append(this.objects[i].toString())
-                            .append(", ");
-                }
-            } else {
-                if (this.objects[i] == null) {
-                    result.append(null)
-                            .append("]");
-                } else {
-                    result.append(this.objects[i].toString())
-                            .append("]");
-                }
-            }
-        }
-        return result.toString();
-    }
 }

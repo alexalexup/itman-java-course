@@ -1,7 +1,7 @@
 package entities;
 
-public class Circle implements Shape{
-    private double radius;
+public class Circle implements Shape {
+    private Double radius;
 
     /**
      * Get radius from the circle
@@ -9,7 +9,7 @@ public class Circle implements Shape{
      * @ram O(1)
      * @return radius from the circle
      */
-    public double getRadius() {
+    public Double getRadius() {
         return this.radius;
     }
 
@@ -19,7 +19,7 @@ public class Circle implements Shape{
      * @ram O(1)
      * @param radius argument
      */
-    public Circle (double radius) {
+    public Circle (Double radius) {
         this.radius = radius;
     }
 
@@ -30,7 +30,7 @@ public class Circle implements Shape{
      * @return  perimeter of the circle
      */
     @Override
-    public double calcPerimeter() {
+    public Double calcPerimeter() {
         return Math.PI * 2 * this.radius;
     }
 
@@ -41,7 +41,7 @@ public class Circle implements Shape{
      * @return  square of the circle
      */
     @Override
-    public double calcSquare() {
+    public Double calcSquare() {
         return Math.PI * Math.pow(this.radius, 2.0);
     }
 
@@ -67,9 +67,7 @@ public class Circle implements Shape{
         if (that == null || that.getClass() != Circle.class) {
             return false;
         }
-        if (this.radius != ((Circle) that).radius) {
-            return false;
-        }
-        return true;
+        Circle check = (Circle)that;
+        return this.radius.equals(check.radius);
     }
 }

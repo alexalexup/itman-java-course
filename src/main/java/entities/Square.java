@@ -1,14 +1,14 @@
 package entities;
 
 public class Square implements Shape {
-    private double side;
+    private Double side;
     /**
      * Set side for the square
      * @cpu O(1)
      * @ram O(1)
      * @param side argument
      */
-    public Square (double side) {
+    public Square (Double side) {
         this.side = side;
     }
 
@@ -18,7 +18,7 @@ public class Square implements Shape {
      * @ram O(1)
      * @return side of the square
      */
-    public double getSide() {
+    public Double getSide() {
         return this.side;
     }
 
@@ -29,7 +29,7 @@ public class Square implements Shape {
      * @return perimeter of the square
      */
     @Override
-    public double calcPerimeter() {
+    public Double calcPerimeter() {
         return this.side * 4;
     }
 
@@ -40,7 +40,7 @@ public class Square implements Shape {
      * @return square
      */
     @Override
-    public double calcSquare() {
+    public Double calcSquare() {
         return Math.pow(this.side, 2);
     }
 
@@ -66,9 +66,7 @@ public class Square implements Shape {
         if (that == null || that.getClass() != Square.class) {
             return false;
         }
-        if (this.side != ((Square) that).side) {
-            return false;
-        }
-        return  true;
+        Square check = (Square) that;
+        return this.side.equals(check.side);
     }
 }
