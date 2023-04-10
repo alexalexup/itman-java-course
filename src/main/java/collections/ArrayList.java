@@ -1,9 +1,5 @@
 package collections;
 
-import utils.StringBuilder;
-
-import java.util.Iterator;
-
 public class  ArrayList<T> extends AbstractList<T> {
     private T[] objects;
 
@@ -72,16 +68,6 @@ public class  ArrayList<T> extends AbstractList<T> {
             }
 
             /**
-             * Increase size of ArrayList and Iterator by one
-             * @cpu O(1)
-             * @ram O(1)
-             */
-            private void increase() {
-                size++;
-                iteratorSize++;
-            }
-
-            /**
              * Set element before the current position to the ArrayList that was called from ListIterator
              * @cpu O(n), n - size
              * @ram O(n), n - size
@@ -89,17 +75,10 @@ public class  ArrayList<T> extends AbstractList<T> {
              */
             @Override
             public void insertBefore(T element) {
-                if (size == 0) {
-                    objects[0] = element;
-                    increase();
+                if (iteratorSize == 0) {
                     return;
                 }
-                if (size != iteratorSize) {
-                    increase();
-                } else {
-                    size++;
-                }
-                T[] newObjects =(T[]) new Object[size];
+                T[] newObjects =(T[]) new Object[++size];
                 System.arraycopy(objects, 0, newObjects, 0, iteratorSize - 1);
                 System.arraycopy(objects, iteratorSize - 1, newObjects, iteratorSize , size - iteratorSize);
                 objects = newObjects;
@@ -125,10 +104,7 @@ public class  ArrayList<T> extends AbstractList<T> {
              */
             @Override
             public T next() {
-                if (iteratorSize < size) {
-                    return objects[iteratorSize++];
-                }
-                return objects[size - 1];
+                return get(iteratorSize++);
             }
 
             /**
@@ -156,7 +132,7 @@ public class  ArrayList<T> extends AbstractList<T> {
      * @param collection argument
      * @return true when element was added, false when was not
      */
-    public boolean addAll(int index, Collections<T> collection ) {
+    public  boolean addAll(int index, Collections<? extends T> collection ) {
         if (collection.size() == 0 || index > this.size() - 1) {
             return false;
         }
@@ -164,9 +140,8 @@ public class  ArrayList<T> extends AbstractList<T> {
         for (int i = 0; i < index; i ++) {
             list.add(this.get(i));
         }
-        Iterator<T> iterator = collection.iterator();
-        while (iterator.hasNext()) {
-            list.add(iterator.next());
+        for (T n: collection) {
+            list.add(n);
         }
         for (int i = index; i < this.size; i++) {
             list.add(this.get(i));
@@ -220,6 +195,38 @@ public class  ArrayList<T> extends AbstractList<T> {
             return true;
         }
         this.objects[this.size - 1] = element;
+        return true;
+    }
+
+    /**
+     * Add element to arrayList by the index
+     * @cpu O(n), n - this.objects.length
+     * @ram O(n), n - this.objects.length
+     * @param index argument
+     * @param element argument
+     * return true when element was added and false when was not
+     */
+    @Override
+    public  boolean add(int index, T element) {
+        if (index < 0 || index > size - 1) {
+            return false;
+        }
+        size++;
+        if (this.size >= this.objects.length) {
+            T[] newObjects =(T[]) new Object[this.objects.length * 2];
+            System.arraycopy(this.objects, 0, newObjects,0, index);
+            System.arraycopy(this.objects, index, newObjects,index + 1, size - index);
+            this.objects = newObjects;
+            this.objects[index] = element;
+            return true;
+        }
+        T firstBuffer = this.objects[index];
+        for (int i = index; i < size - 1; i ++) {
+            T secondBuffer = this.objects[i + 1];
+            this.objects[i + 1] = firstBuffer;
+            firstBuffer = secondBuffer;
+        }
+        this.objects[index] = element;
         return true;
     }
 
@@ -281,7 +288,7 @@ public class  ArrayList<T> extends AbstractList<T> {
      * @return arrayList with data by argument
      */
     public static<T> ArrayList of(T ... elements) {
-        ArrayList arrayList = new ArrayList();
+        ArrayList<T> arrayList = new ArrayList<>();
         for (int i = 0 ; i < elements.length; i ++) {
             arrayList.add(elements[i]);
         }

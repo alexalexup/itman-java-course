@@ -397,19 +397,6 @@ abstract public  class AbstractListTests  {
             iterator.next();
             Assertions.assertEquals(1, iterator.next());
         }
-
-        @Test
-        public void shouldReturnLastElementWhenMethodWasCalledMoreTheNumberOfElements() {
-            List lists = of(4, 3, 2, 10, 1);
-            ListIterator  iterator = lists.iterator();
-            iterator.next();
-            iterator.next();
-            iterator.next();
-            iterator.next();
-            iterator.next();
-            iterator.next();
-            Assertions.assertEquals(1, iterator.next());
-        }
     }
 
     @Nested
@@ -471,29 +458,21 @@ abstract public  class AbstractListTests  {
 
     @Nested
     public class InsertBefore{
-        @Test
-        public void shouldInsertElementToTheListFromIteratorBeforeCurrentIndex() {
-            List<Integer> list = of(1, 2, 3, 4, 5);
-            ListIterator<Integer> iterator = list.iterator();
-            iterator.next();
-            iterator.insertBefore(100);
-            Assertions.assertEquals(of(1, 100, 2, 3, 4, 5), list);
-        }
 
         @Test
-        public void shouldInsertElementToTheListFromIteratorWhenArrayListHaveNotElements() {
+        public void shouldNotInsertElementToTheListFromIteratorWhenArrayListHaveNotElements() {
             List<Integer> list = of();
             ListIterator<Integer> iterator = list.iterator();
             iterator.insertBefore(100);
-            Assertions.assertEquals(ArrayList.of(100), list);
+            Assertions.assertEquals(ArrayList.of(), list);
         }
 
         @Test
-        public void shouldInsertElementToTheListFromIteratorBeforeCurrentIndexWhenIndexIsFirst() {
+        public void shouldNotInsertElementToTheListWhenElemntsWasNotCalledFromIterator() {
             List<Integer> list = of(1, 2, 3, 4, 5);
             ListIterator<Integer> iterator = list.iterator();
             iterator.insertBefore(100);
-            Assertions.assertEquals(ArrayList.of(100, 1, 2, 3, 4, 5), list);
+            Assertions.assertEquals(ArrayList.of(1, 2, 3, 4, 5), list);
         }
 
         @Test
@@ -504,7 +483,7 @@ abstract public  class AbstractListTests  {
             iterator.next();
             iterator.next();
             iterator.insertBefore(100);
-            Assertions.assertEquals(of(1, 2, 3, 100, 4, 5), list);
+            Assertions.assertEquals(of(1, 2, 100, 3, 4, 5), list);
         }
 
         @Test

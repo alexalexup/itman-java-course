@@ -53,17 +53,8 @@ public abstract  class AbstractList<T> implements List<T> {
      * return true when element added to the List and false when didn't
      */
     @Override
-    public boolean add(int index, T element) {
-        if (index < 0 || index >= this.size) {
-            return false;
-        }
-        ListIterator<T> iterator = this.iterator();
-        for (int i =0; i < index ; i++) {
-           iterator.next();
-        }
-        iterator.insertBefore(element);
-        return true;
-    }
+    public abstract boolean add(int index, T element);
+
 
     /**
      * Add elements from collection to the current list
@@ -90,7 +81,7 @@ public abstract  class AbstractList<T> implements List<T> {
      * @return true when elements was added and false when was not
      */
     @Override
-    public abstract boolean addAll(int index, Collections<T> collection);
+    public abstract boolean addAll(int index, Collections<? extends T> collection);
 
     /**
      * Сhecks whether the current list contains an element from the argument

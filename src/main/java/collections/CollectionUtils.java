@@ -5,13 +5,14 @@ import java.util.Iterator;
 
 
 public class CollectionUtils {
+
     /**
      * Find first index when element is not Null
      * @cpu O(n), list.size()
      * @ram O(1)
      * @param list List with elements
      * @return first index without null value
-     */
+    */
     private static<T> T findFirstNotNullElement(List<T> list) {
         ListIterator<T> iterator = list.iterator();
         T element = list.get(0);
@@ -20,6 +21,7 @@ public class CollectionUtils {
         }
         return element;
     }
+
 
     /**
      * Finds the minimum element in the List
@@ -30,11 +32,14 @@ public class CollectionUtils {
      * @return minimum element from the List
      */
     public static <T> T findMin(List<T> list, Comparator<? super T> comparator){
-        T min = findFirstNotNullElement(list);
+        T min = list.get(0);
         Iterator<T> iterator = list.iterator();
         while (iterator.hasNext()) {
             T element = iterator.next();
-            if (element != null && comparator.compare(min, element) > 0 ) {
+            if (element == null) {
+                return null;
+            }
+            if (comparator.compare(min, element) > 0 ) {
                 min = element;
             }
         }
@@ -50,7 +55,7 @@ public class CollectionUtils {
      * @return minimum element from the List
      */
     public static <T> T findMax(List<T> list, Comparator<? super T> comparator) {
-        T max = findFirstNotNullElement(list);
+        T max = list.get(0);
         Iterator<T> iterator = list.iterator();
         while (iterator.hasNext()) {
             T element = iterator.next();
@@ -67,21 +72,22 @@ public class CollectionUtils {
      * @ram O(1)
      * @param list List with elements
      */
-    public static <T> void sort(List<T> list) {
+    public static void sort(List<Comparable> list) {
         if (list == null || list.size() == 1) {
             return;
         }
         for (int i = 0; i < list.size(); i++) {
             int min = i;
             for (int j = i; j < list.size(); j++) {
-                if (((Comparable) list.get(min)).compareTo(list.get(j)) > 0) {
+                if (list.get(min).compareTo(list.get(j)) > 0) {
                     min = j;
                 }
             }
-            T buffer = list.get(min);
+            Comparable buffer = list.get(min);
             list.set(min, list.get(i));
             list.set(i, buffer);
         }
+
     }
 
 

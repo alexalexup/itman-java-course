@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
-import tasks.ShapeUtils;
 
 class CollectionUtilsTest {
 
@@ -22,7 +21,7 @@ class CollectionUtilsTest {
              abstractList.add(4);
              abstractList.add(2);
              abstractList.add(0);
-             Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
+             Comparator<Integer> comparator = Integer::compareTo;
              Integer result =  CollectionUtils.findMin(abstractList, comparator);
              Assertions.assertEquals(result,-3);
              CollectionUtils.findMax(abstractList,comparator);
@@ -33,7 +32,7 @@ class CollectionUtilsTest {
         public void shouldFindMinElementInTheListWhenListHaveOneElement() {
             AbstractList<Double> abstractList = new ArrayList<>();
             abstractList.add(4.22);
-            Comparator<Double> comparator = (a, b) -> a.compareTo(b);
+            Comparator<Double> comparator = Double::compareTo;
             Double result =  CollectionUtils.findMin(abstractList, comparator);
             Assertions.assertEquals(result,4.22);
         }
@@ -41,14 +40,14 @@ class CollectionUtilsTest {
         @Test
         public void shouldFindMinElementInTheListWhenListHaveNullElements() {
             AbstractList<Integer> abstractList = new LinkedList<>();
-            abstractList.add(null);
+            abstractList.add(-8);
             abstractList.add(10);
             abstractList.add(4);
             abstractList.add(2);
             abstractList.add(null);
-            Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
+            Comparator<Integer> comparator = Integer::compareTo;
             Integer result =  CollectionUtils.findMin(abstractList, comparator);
-            Assertions.assertEquals(result,2);
+            Assertions.assertEquals(result,null);
         }
 
         @Test
@@ -59,7 +58,7 @@ class CollectionUtilsTest {
             abstractList.add(null);
             abstractList.add(null);
             abstractList.add(null);
-            Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
+            Comparator<Integer> comparator = Integer::compareTo;
             Integer result =  CollectionUtils.findMin(abstractList, comparator);
             Assertions.assertEquals(result,null);
         }
@@ -77,7 +76,7 @@ class CollectionUtilsTest {
             abstractList.add(4);
             abstractList.add(2);
             abstractList.add(0);
-            Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
+            Comparator<Integer> comparator = Integer::compareTo;
             Integer result =  CollectionUtils.findMax(abstractList, comparator);
             Assertions.assertEquals(result,10);
         }
@@ -86,7 +85,7 @@ class CollectionUtilsTest {
         public void shouldFindMaxElementInTheListWhenListHaveOneElement() {
             AbstractList<Double> abstractList = new ArrayList<>();
             abstractList.add(2.22);
-            Comparator<Double> comparator = (a, b) -> a.compareTo(b);
+            Comparator<Double> comparator = Double::compareTo;
             Double result =  CollectionUtils.findMax(abstractList, comparator);
             Assertions.assertEquals(result,2.22);
         }
@@ -99,7 +98,7 @@ class CollectionUtilsTest {
             abstractList.add(4);
             abstractList.add(2);
             abstractList.add(null);
-            Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
+            Comparator<Integer> comparator = Integer::compareTo;
             Integer result =  CollectionUtils.findMax(abstractList, comparator);
             Assertions.assertEquals(result,10);
         }
@@ -112,7 +111,7 @@ class CollectionUtilsTest {
             abstractList.add(null);
             abstractList.add(null);
             abstractList.add(null);
-            Comparator<Integer> comparator = (a, b) -> a.compareTo(b);
+            Comparator<Integer> comparator = Comparator.naturalOrder();
             Integer result =  CollectionUtils.findMax(abstractList, comparator);
             Assertions.assertEquals(result,null);
         }
@@ -122,15 +121,15 @@ class CollectionUtilsTest {
     public class Sort {
         @Test
         public void shouldSortElementWhenListHaveSomeElements() {
-            AbstractList<Integer> abstractList = LinkedList.of(4, 2, -3, 10, 4, 2, 0);
+            AbstractList<Comparable> abstractList = LinkedList.of(4, 2, -3, 10, 4, 2, 0);
             CollectionUtils.sort(abstractList);
-            AbstractList<Integer> expected = LinkedList.of(-3, 0, 2, 2, 4, 4, 10);
+            AbstractList<Comparable> expected = LinkedList.of(-3, 0, 2, 2, 4, 4, 10);
             Assertions.assertTrue(abstractList.equals(expected));
         }
 
         @Test
         public void shouldSortElementWhenListHaveOneElement() {
-            AbstractList<Integer> abstractList = LinkedList.of(5);
+            AbstractList<Comparable> abstractList = LinkedList.of(5);
             CollectionUtils.sort(abstractList);
             AbstractList<Integer> expected = LinkedList.of(5);
             Assertions.assertTrue(abstractList.equals(expected));
@@ -138,7 +137,7 @@ class CollectionUtilsTest {
 
         @Test
         public void shouldSortElementWhenListHaveSomeEqualsElements() {
-            AbstractList<Integer> abstractList = LinkedList.of(5, 4, 4, 2, 2, 1);
+            AbstractList<Comparable> abstractList = LinkedList.of(5, 4, 4, 2, 2, 1);
             CollectionUtils.sort(abstractList);
             AbstractList<Integer> expected = LinkedList.of(1, 2, 2, 4, 4, 5);
             Assertions.assertTrue(abstractList.equals(expected));
@@ -146,7 +145,7 @@ class CollectionUtilsTest {
 
         @Test
         public void shouldWorkWhenListHaveNotAnyElements() {
-            AbstractList<Integer> abstractList = LinkedList.of();
+            AbstractList<Comparable> abstractList = LinkedList.of();
             CollectionUtils.sort(abstractList);
             AbstractList<Integer> expected = LinkedList.of();
             Assertions.assertTrue(abstractList.equals(expected));

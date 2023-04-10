@@ -3,6 +3,8 @@ package collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import train.Animal;
+import train.Cat;
 
 class AbstractListTest {
     @Nested
@@ -115,18 +117,18 @@ class AbstractListTest {
         public void shouldAddAllElementsByIndexToListFromSourceWhenSourceIsSameClass() {
             AbstractList firstList = ArrayList.of("Hi", true, 2, 2.34);
             AbstractList secondList = ArrayList.of(5, 5, null, 6, 8, "Hello");
-            firstList.addAll(3, secondList);
-            Assertions.assertEquals(firstList, LinkedList.of("Hi", true, 2, 5, 5, null, 6, 8, "Hello", 2.34));
-        }
-
-        @Test
-        public void shouldAddAllElementsByIndexToListWhenSourceAndDestinationAreLinkedList() {
-            AbstractList firstList = LinkedList.of("Hi", true, 2, 2.34);
-            AbstractList secondList = LinkedList.of(5, 5, null, 6, 8, "Hello");
             firstList.addAll(0, secondList);
             Assertions.assertEquals(firstList, LinkedList.of(5, 5, null, 6, 8, "Hello", "Hi", true, 2, 2.34));
         }
 
+        @Test
+        public void shouldAddAllElementsByIndexToListWhenSourceAndDestinationAreLinkedList() {
+            AbstractList firstList = LinkedList.of("Hi", true, 2, 2.34, 9, 9, 9, 9, 9, 9, 9);
+            AbstractList secondList = LinkedList.of(5, 5, null, 6, 8, "Hello");
+            firstList.addAll(4, secondList);
+            Assertions.assertEquals(firstList, LinkedList.of("Hi", true, 2, 2.34, 5, 5, null, 6, 8, "Hello", 9, 9, 9, 9, 9, 9, 9));
+        }
+        
         @Test
         public void shouldReturnFalseWhenSourceHaveNotElements() {
             AbstractList firstList = LinkedList.of("Hi", true, 2, 2.34);
@@ -175,23 +177,15 @@ class AbstractListTest {
                 ListIterator<Integer> iterator = list.iterator();
                 iterator.next();
                 iterator.insertBefore(100);
-                Assertions.assertEquals(ArrayList.of(1, 100, 2, 3, 4, 5), list);
+                Assertions.assertEquals(ArrayList.of(100, 1, 2, 3, 4, 5), list);
             }
 
             @Test
-            public void shouldInsertElementToTheArrayListFromIteratorWhenArrayListHaveNotElements() {
+            public void shouldNotInsertElementToTheArrayListFromIteratorWhenElemntsWasNotCalledFromIterator() {
                 AbstractList<Integer> list = new ArrayList<>();
                 ListIterator<Integer> iterator = list.iterator();
                 iterator.insertBefore(100);
-                Assertions.assertEquals(ArrayList.of(100), list);
-            }
-
-            @Test
-            public void shouldInsertElementToTheArrayListFromIteratorBeforeCurrentIndexWhenIndexIsFirst() {
-                AbstractList<Integer> list = ArrayList.of(1, 2, 3, 4, 5);
-                ListIterator<Integer> iterator = list.iterator();
-                iterator.insertBefore(100);
-                Assertions.assertEquals(ArrayList.of(100, 1, 2, 3, 4, 5), list);
+                Assertions.assertEquals(ArrayList.of(), list);
             }
 
             @Test
@@ -202,7 +196,7 @@ class AbstractListTest {
                 iterator.next();
                 iterator.next();
                 iterator.insertBefore(100);
-                Assertions.assertEquals(ArrayList.of(1, 2, 3, 100, 4, 5), list);
+                Assertions.assertEquals(ArrayList.of(1, 2, 100, 3, 4, 5), list);
             }
 
             @Test
@@ -222,23 +216,15 @@ class AbstractListTest {
                 ListIterator<Integer> iterator = list.iterator();
                 iterator.next();
                 iterator.insertBefore(100);
-                Assertions.assertEquals(LinkedList.of(1, 100, 2, 3, 4, 5), list);
+                Assertions.assertEquals(LinkedList.of(100, 1, 2, 3, 4, 5), list);
             }
 
             @Test
-            public void shouldInsertElementToTheLinkedListFromIteratorWhenArrayListHaveNotElements() {
+            public void shouldNotInsertElementToTheLinkedListFromIteratorWhenElemntsWasNotCalledFromIterator() {
                 AbstractList<Integer> list = new LinkedList<>();
                 ListIterator<Integer> iterator = list.iterator();
                 iterator.insertBefore(100);
-                Assertions.assertEquals(LinkedList.of(100), list);
-            }
-
-            @Test
-            public void shouldInsertElementToTheLinkedListFromIteratorBeforeCurrentIndexWhenIndexIsFirst() {
-                AbstractList<Integer> list = LinkedList.of(1, 2, 3, 4, 5);
-                ListIterator<Integer> iterator = list.iterator();
-                iterator.insertBefore(100);
-                Assertions.assertEquals(LinkedList.of(100, 1, 2, 3, 4, 5), list);
+                Assertions.assertEquals(LinkedList.of(), list);
             }
 
             @Test
@@ -249,7 +235,7 @@ class AbstractListTest {
                 iterator.next();
                 iterator.next();
                 iterator.insertBefore(100);
-                Assertions.assertEquals(LinkedList.of(1, 2, 3, 100, 4, 5), list);
+                Assertions.assertEquals(LinkedList.of(1, 2, 100, 3, 4, 5), list);
             }
 
             @Test

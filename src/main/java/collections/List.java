@@ -8,7 +8,7 @@ public interface List<T> extends Collections<T> {
      * @param index argument
      * @param element argument
      */
-    public void set(int index, T element);
+    void set(int index, T element);
 
     /**
      * Add element to the List by the index
@@ -16,7 +16,7 @@ public interface List<T> extends Collections<T> {
      * @param element argument
      * return true when element added to the List and false when didn't
      */
-    public boolean add(int index, T element);
+    boolean add(int index, T element);
 
     /**
      * Add elements from collection to the List since index
@@ -24,37 +24,37 @@ public interface List<T> extends Collections<T> {
      * @param collection argument
      * return true when elements added to the List and false when didn't
      */
-    public boolean addAll(int index, Collections<T> collection);
+    boolean addAll(int index, Collections<? extends T> collection);
 
     /**
      * Get element from List by index
      * @param index argument
      * @return element from List by index
      */
-    public T get(int index);
+    T get(int index);
 
     /**
      * Get data to array from the list
      * @return array with data from List
      */
-    public Object[] toArray();
+    Object[] toArray();
 
       /**
        * Remove element from List by index and return this element
        * @param index argument
        * @return element from list by index
        */
-    public T remove(int index);
+    T remove(int index);
 
     /**
      * Create and return object by the ListIterator class
      * @return  object by the ListIterator class
      */
-    public  ListIterator<T> iterator();
+    ListIterator<T> iterator();
 
     /**
      * Method sort elements in the List use comparator
      * @param comparator argument
      */
-    public<T> void sort(Comparator<T> comparator);
+    <T> void sort(Comparator<T> comparator);
 }

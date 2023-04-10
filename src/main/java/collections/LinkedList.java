@@ -27,7 +27,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
             @Override
             public void set(T element) {
                 if (iteratorSize > 0) {
-                    currentNode.getPrev().setElement(element);
+                    currentNode.setElement(element);
                 }
             }
 
@@ -45,16 +45,6 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
             }
 
             /**
-             * Increase size of LinkedList and Iterator by one
-             * @cpu O(1)
-             * @ram O(1)
-             */
-            private void increase() {
-                size++;
-                iteratorSize++;
-            }
-
-            /**
              * Set element before the current position to the LinkedList that was called from ListIterator
              * @cpu O(1)
              * @ram O(1)
@@ -62,23 +52,21 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
              */
             @Override
             public void insertBefore(T element) {
-                if (size == 0) {
-                    node = new Node<>(element, null, null);
-                    increase();
+                if (iteratorSize == 0) {
                     return;
                 }
-                if (iteratorSize == 0) {
-                    Node<T> newNode = new Node<>(element, currentNode,null);
-                    currentNode.setPrev(newNode);
+                if (iteratorSize == 1) {
+                    Node<T> newNode = new Node<>(element, node,null);
+                    node.setPrev(newNode);
                     node = newNode;
-                    increase();
+                    size++;
                     return;
                 }
                 Node<T> newNode = new Node<>(element, currentNode, currentNode.getPrev());
                 Node<T> link = currentNode.getPrev();
                 currentNode.setPrev(newNode);
                 link.setNext(newNode);
-                increase();
+                size++;
             }
 
             /**
@@ -130,14 +118,13 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
              */
             @Override
             public T next() {
-                T result = currentNode.getElement();
-                if (iteratorSize < size  ) {
-                    if (currentNode.next != null) {
-                        currentNode = currentNode.next;
-                    }
+                if (iteratorSize == 0) {
                     iteratorSize++;
+                    return currentNode.getElement();
                 }
-                return result;
+                currentNode = currentNode.next;
+                iteratorSize++;
+                return currentNode.getElement();
             }
 
             /**
@@ -338,25 +325,39 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @param collection argument
      * @return true when some elements was added, false when was not
      */
-    public boolean addAll(int index, Collections<T> collection) {
+    public boolean addAll(int index, Collections<? extends T> collection) {
         if (collection.size() == 0 || index > this.size() - 1) {
             return false;
         }
-        int size = this.size();
-        Iterator<T> iterator = collection.iterator();
-        if (index <= size / 2) {
-        Node<T> link = this.getNode();
-        for (int i = 0; i < index; i++) {
-                link = link.getNext();
+        if (index == this.size - 1) {
+            for (T n : collection) {
+                this.addLast(n);
             }
-            this.addElement(link, iterator);
             return true;
         }
-        Node link = this.getLastNode();
-        for (int i = 0; i < size - index - 1; i++) {
-            link = link.getPrev();
+        Node<T> link;
+        if (index <= this.size / 2) {
+            link = this.node;
+            for (int i = 0; i < index; i++) {
+                link = link.getNext();
+            }
+        } else {
+            link = getLastNode();
+            for (int i = 0; i < size - index - 1; i++) {
+                link = link.getPrev();
+            }
         }
-        this.addElement(link, iterator);
+        for (T n: collection) {
+            this.size++;
+            if (link.getPrev() == null) {
+                this.node = new Node(n, link, null);
+                link.setPrev(this.node);
+            } else {
+                Node<T> newNode = new Node(n, link, link.getPrev());
+                link.setPrev(newNode);
+                newNode.getPrev().setNext(newNode);
+            }
+        }
         return true;
     }
 
@@ -408,6 +409,34 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      */
     public boolean add(T element) {
         this.addLast(element);
+        return true;
+    }
+
+    /**
+     * Add one element to the LinkedList by the index
+     * @cpu O(n), n - index
+     * @ram O(1)
+     * @param index argument
+     * @param element argument
+     * @return true when element was added and false when was not
+     */
+    @Override
+    public boolean add(int index, T element) {
+        if (index < 0 || index > size - 1) {
+            return false;
+        }
+        if (index == 0) {
+            this.addFirst(element);
+            return true;
+        }
+        size++;
+        Node<T> link = this.getNode();
+        for (int i = 0; i < index; i++) {
+            link = link.getNext();
+        }
+        Node<T> newNode = new Node<>(element, link, link.getPrev());
+        link.getPrev().setNext(newNode);
+        link.setPrev(newNode);
         return true;
     }
 
