@@ -87,7 +87,6 @@ public class CollectionUtils {
             list.set(min, list.get(i));
             list.set(i, buffer);
         }
-
     }
 
 

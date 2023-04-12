@@ -64,6 +64,30 @@ abstract public  class AbstractListTests  {
     }
 
     @Nested
+    public class Contains {
+        @Test
+        public void shouldReturnTrueWhenListHaveElementFromSource() {
+            List firsList = of(1, "HI", null, 2, -1, 2.34);
+            List secondList = of(1, "HI", null, 2, -1, 2.34);
+            Assertions.assertTrue(firsList.contains("HI") && secondList.contains(2.34));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenListHaveNotElementFromSource() {
+            List firsList = of(1, "HI", null, 2, -1, 2.34);
+            List secondList = of(1, "HI", null, 2, -1, 2.34);
+            Assertions.assertFalse(firsList.contains(55) || secondList.contains(102));
+        }
+
+        @Test
+        public void shouldReturnTrueWhenListHaveElementFromSourceSecondOption() {
+            List firsList = of(1,"HI", null , 2,  -1, 2.34);
+            List secondList = of(1,"HI", null , 2,  -1, 2.34);
+            Assertions.assertTrue(firsList.contains(2) && secondList.contains(-1));
+        }
+    }
+
+    @Nested
     public class Set {
         @Test
         public void shouldSetElementWhenListHaveSomeElement() {
@@ -141,7 +165,6 @@ abstract public  class AbstractListTests  {
 
     @Nested
     public class ToArray {
-
         @Test
         public void shouldReturnArrayWhenListHaveSomeElementsFromDifferentTypes() {
             List list = of(1, null, "hi", true, 3.14);
@@ -166,7 +189,6 @@ abstract public  class AbstractListTests  {
             Assertions.assertArrayEquals(new Object[]{}, list.toArray());
         }
     }
-
 
     @Nested
     public class RemoveByIndex {
@@ -336,6 +358,86 @@ abstract public  class AbstractListTests  {
             firstList.addAll(secondList);
             Assertions.assertEquals(firstList, expectedResult);
         }
+        @Test
+        public void shouldAddAllElementsToListFromSourceWhenSourceIsDifferentClass() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of(5, 5, null);
+            firstList.addAll(secondList);
+            Assertions.assertEquals(firstList, LinkedList.of("Hi", true, 2, 2.34, 5, 5, null));
+        }
+
+        @Test
+        public void shouldAddAllElementsToListFromSourceWhenSourceIsSameClass() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of(5, 5, null);
+            firstList.addAll(secondList);
+            Assertions.assertEquals(firstList, ArrayList.of("Hi", true, 2, 2.34, 5, 5, null));
+        }
+
+        @Test
+        public void shouldAddAllElementsToListFromSourceWhenSourceAndDestinationAreLinkedList() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of(5, 5, null);
+            firstList.addAll(secondList);
+            Assertions.assertEquals(firstList, LinkedList.of("Hi", true, 2, 2.34, 5, 5, null));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenSourceHaveNotElements() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of();
+            Assertions.assertFalse(firstList.addAll(secondList));
+        }
+
+        @Test
+        public void shouldReturnTrueWhenSourceHaveSomeElements() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of(4.4, null, true, true);
+            Assertions.assertTrue(firstList.addAll(secondList));
+        }
+    }
+
+    @Nested
+    public class AddAllByIndex {
+        @Test
+        public void shouldAddAllElementsByIndexToListFromSourceWhenIndexIsTwo() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of(5, 5, null, 6, 8, "Hello");
+            firstList.addAll(2, secondList);
+            Assertions.assertEquals(firstList, of("Hi", true, 5, 5, null, 6, 8, "Hello", 2, 2.34));
+        }
+
+        @Test
+        public void shouldAddAllElementsByIndexToListFromSourceWhenSourceIsSameClass() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of(5, 5, null, 6, 8, "Hello");
+            firstList.addAll(0, secondList);
+            Assertions.assertEquals(firstList, of(5, 5, null, 6, 8, "Hello", "Hi", true, 2, 2.34));
+        }
+
+        @Test
+        public void shouldAddAllElementsByIndexToList() {
+            List firstList = of("Hi", true, 2, 2.34, 9, 9, 9, 9, 9, 9, 9);
+            List secondList = of(5, 5, null, 6, 8, "Hello");
+            firstList.addAll(4, secondList);
+            Assertions.assertEquals(firstList, of("Hi", true, 2, 2.34, 5, 5, null, 6, 8, "Hello", 9, 9, 9, 9, 9, 9, 9));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenSourceHaveNotElements() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of();
+            firstList.addAll(0, secondList);
+            Assertions.assertFalse(firstList.addAll(0, secondList));
+        }
+
+        @Test
+        public void shouldReturnTrueWhenSourceHaveSomeElements() {
+            List  firstList =  of("Hi", true, 2, 2.34);
+            List  secondList = of(null, "B", 4, 4);
+            firstList.addAll(0, secondList);
+            Assertions.assertTrue(firstList.addAll(1, secondList));
+        }
     }
 
     @Nested
@@ -457,8 +559,7 @@ abstract public  class AbstractListTests  {
     }
 
     @Nested
-    public class InsertBefore{
-
+    public class InsertBefore {
         @Test
         public void shouldNotInsertElementToTheListFromIteratorWhenArrayListHaveNotElements() {
             List<Integer> list = of();

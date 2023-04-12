@@ -93,9 +93,9 @@ class CollectionUtilsTest {
         @Test
         public void shouldFindMaxElementInTheListWhenListHaveNullElements() {
             AbstractList<Integer> abstractList = new LinkedList<>();
-            abstractList.add(null);
+            abstractList.add(3);
             abstractList.add(10);
-            abstractList.add(4);
+            abstractList.add(null);
             abstractList.add(2);
             abstractList.add(null);
             Comparator<Integer> comparator = Integer::compareTo;
