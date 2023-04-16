@@ -1,5 +1,9 @@
 package collections;
 
+import utils.ArrayUtils;
+
+import java.util.Comparator;
+
 public class  ArrayList<T> extends AbstractList<T> {
     private T[] objects;
 
@@ -175,6 +179,16 @@ public class  ArrayList<T> extends AbstractList<T> {
      */
     public ArrayList(int capacity) {
         this.objects = (T[])new Object[capacity];
+    }
+
+    /**
+     * Sort part of array with events use merge method
+     * @cpu O(n * logn), n = size
+     * @ram O(n), n =  size
+     * @param comparator argument
+     */
+    public void sort(Comparator<T> comparator) {
+        ArrayUtils.mergeSort(objects, 0, size, comparator);
     }
 
     /**

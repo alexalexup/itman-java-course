@@ -1,6 +1,6 @@
 package entities;
 
-public class Event implements Comparable<Event>{
+public class Event {
     private int year;
     private int month;
     private int day;

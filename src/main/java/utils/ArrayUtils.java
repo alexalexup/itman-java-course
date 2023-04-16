@@ -309,7 +309,7 @@ public class ArrayUtils {
      * @param objects array with elements
      * @param comparator argument
      */
-    public static <T> void mergeSort(T[] objects, Comparator<? super T> comparator) {
+    public static <T> void mergeSort(T[] objects, Comparator<T> comparator) {
         mergeSort(objects, 0, objects.length, comparator);
     }
 

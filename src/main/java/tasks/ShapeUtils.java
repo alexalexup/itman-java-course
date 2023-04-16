@@ -29,7 +29,7 @@ public class ShapeUtils {
      * @param list LinkedList with shapes
      * @return shape with minimum square
      */
-    public static Shape findMinSquareShape (AbstractList<Shape> list) {
+    public static Shape findMinSquareShape (AbstractList<? extends Shape> list) {
         Comparator<Shape> comparator = Comparator.comparing(Shape::calcSquare);
         return CollectionUtils.findMin(list, comparator);
     }

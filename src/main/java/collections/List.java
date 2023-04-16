@@ -56,5 +56,5 @@ public interface List<T> extends Collections<T> {
      * Method sort elements in the List use comparator
      * @param comparator argument
      */
-    <T> void sort(Comparator<T> comparator);
+     void sort(Comparator<T> comparator);
 }

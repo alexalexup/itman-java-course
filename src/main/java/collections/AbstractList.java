@@ -62,11 +62,11 @@ public abstract  class AbstractList<T> implements List<T> {
      * @return true when elements was added and false when was not
      */
     @Override
-    public  boolean addAll(Collections<T> collection) {
+    public  boolean addAll(Collections<? extends T> collection) {
         if (collection.size() == 0) {
             return false;
         }
-        Iterator<T> iterator = collection.iterator();
+        Iterator<? extends T> iterator = collection.iterator();
         while (iterator.hasNext()) {
             this.add(iterator.next());
 
@@ -132,11 +132,11 @@ public abstract  class AbstractList<T> implements List<T> {
      * @return true when list have all elements from the argument, false when have not
      */
     @Override
-    public boolean containsAll(Collections<T> collection) {
-        Iterator<T> iterator = collection.iterator();
+    public boolean containsAll(Collections<? extends T> collection) {
+        Iterator<? extends T> iterator = collection.iterator();
         while (iterator.hasNext()) {
             T item = iterator.next();
-            if (this.contains(item) != true) {
+            if (!this.contains(item)) {
                 return false;
             }
         }
@@ -150,10 +150,8 @@ public abstract  class AbstractList<T> implements List<T> {
      * @param collection argument
      */
     @Override
-    public void removeAll(Collections<T> collection) {
-        Iterator<T> iterator = collection.iterator();
-        while (iterator.hasNext()) {
-            T item = iterator.next();
+    public void removeAll(Collections<? extends T> collection) {
+        for (T item : collection) {
             this.remove(item);
         }
     }
@@ -218,7 +216,7 @@ public abstract  class AbstractList<T> implements List<T> {
     public void removeIf(Predicate<T> predicate) {
         ListIterator<T> iterator = this.iterator();
         while (iterator.hasNext()) {
-            if (predicate.test( iterator.next())) {
+            if (predicate.test(iterator.next())) {
                 this.remove(iterator.getIteratorSize() - 1);
                 iterator.decreaseIteratorSize();
             }
@@ -255,19 +253,7 @@ public abstract  class AbstractList<T> implements List<T> {
      * @param comparator argument, this is condition by which the sorting
      */
     @Override
-    public void sort(Comparator comparator) {
-        for (int i = 0; i < size; i++) {
-            int min = i;
-            for (int j = i; j <size; j++ ) {
-                if (comparator.compare(this.get(min), this.get(j)) > 0) {
-                    min = j;
-                }
-            }
-            T t = this.get(i);
-            this.set(i, this.get(min));
-            this.set(min, t);
-        }
-    }
+    public abstract void sort(Comparator<T> comparator);
 
     /**
      * Return String with values of elements from List

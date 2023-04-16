@@ -1,11 +1,75 @@
 package collections;
 
+import entities.Event;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+
 abstract public  class AbstractListTests  {
     abstract protected List of(Object... elements);
+
+    @Nested
+    public class Sort {
+        @Test
+        public void shouldSortWhenListHaveDifferentComparingElements() {
+            List<Event> list = of(
+                    new Event(1985, 2, 3, "E"),
+                    new Event(1974, 2, 3, "J"),
+                    new Event(1999, 2, 3, "K"),
+                    new Event(1962, 2, 3, "L")
+            );
+            list.sort(Comparator.comparingInt(Event::getYear));
+            List<Event> expected = of(
+                    new Event(1962, 2, 3, "L"),
+                    new Event(1974, 2, 3, "J"),
+                    new Event(1985, 2, 3, "E"),
+                    new Event(1999, 2, 3, "K")
+            );
+            Assertions.assertEquals(expected, list);
+        }
+
+        @Test
+        public void shouldSortWhenListHaveSomeSameComparingElements() {
+            List<Event> list = of(
+                    new Event(1985, 5, 3, "E"),
+                    new Event(1974, 2, 3, "J"),
+                    new Event(1999, 2, 3, "K"),
+                    new Event(1962, 4, 3, "L"),
+                    new Event(1962, 2, 3, "L")
+            );
+            list.sort(Comparator.comparingInt(Event::getMonth));
+            List<Event> expected = of(
+                    new Event(1974, 2, 3, "J"),
+                    new Event(1999, 2, 3, "K"),
+                    new Event(1962, 2, 3, "L"),
+                    new Event(1962, 4, 3, "L"),
+                    new Event(1985, 5, 3, "E")
+            );
+            Assertions.assertEquals(expected, list);
+        }
+
+        @Test
+        public void shouldNotSortWhenComparingElementsAreEquals() {
+            List<Event> list = of(
+                    new Event(1985, 5, 3, "E"),
+                    new Event(1974, 2, 3, "J"),
+                    new Event(1999, 2, 3, "K"),
+                    new Event(1962, 4, 3, "L"),
+                    new Event(1962, 2, 3, "L")
+            );
+            list.sort(Comparator.comparingInt(Event::getDay));
+            List<Event> expected = of(
+                    new Event(1985, 5, 3, "E"),
+                    new Event(1974, 2, 3, "J"),
+                    new Event(1999, 2, 3, "K"),
+                    new Event(1962, 4, 3, "L"),
+                    new Event(1962, 2, 3, "L")
+            );
+            Assertions.assertEquals(expected, list);
+        }
+    }
 
     @Nested
     public class Add {

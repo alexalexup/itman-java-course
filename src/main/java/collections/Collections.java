@@ -27,7 +27,7 @@ public interface Collections<T> extends Iterable<T> {
      * @param collection argument
      * @return true when elements was added to the collection and false when was not
      */
-    boolean addAll(Collections<T> collection);
+    boolean addAll(Collections<? extends T> collection);
 
     /**
      * Checks whether the collection contains an element from the argument
@@ -48,14 +48,14 @@ public interface Collections<T> extends Iterable<T> {
      * @param collection argument
      * @return true when collection contains elements from the argument and false when doesn't
      */
-    boolean containsAll(Collections<T> collection);
+    boolean containsAll(Collections<? extends T> collection);
 
     /**
      * Remove all elements from the collection that correspond to argument
      * @param element argument
      * @return true when elemnt(s) was removed and false when was not
      */
-    void removeAll(Collections<T> element);
+    void removeAll(Collections<? extends T> element);
 
     /**
      * Create and return array with elements from the collection

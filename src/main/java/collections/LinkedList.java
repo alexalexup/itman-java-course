@@ -1,5 +1,8 @@
 package collections;
 
+import utils.ArrayUtils;
+
+import java.util.Comparator;
 import java.util.Iterator;
 
 public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> {
@@ -314,6 +317,22 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
                 link.getPrev().setNext(newNode);
                 link.setPrev(newNode);
             }
+        }
+    }
+
+    /**
+     * Sort part of array with events use merge method
+     * @cpu O(n * logn), n = size
+     * @ram O(n), n =  size
+     * @param comparator argument
+     */
+    public void sort(Comparator<T> comparator) {
+        T[] items =  this.toArray();
+        ArrayUtils.mergeSort(items, 0, size, comparator);
+        Node<T> link = this.node;
+        for(T item: items) {
+            link.setElement(item);
+            link = link.getNext();
         }
     }
 
