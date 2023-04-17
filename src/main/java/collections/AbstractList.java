@@ -104,25 +104,11 @@ public abstract  class AbstractList<T> implements List<T> {
 
     /**
      * Remove element from the list
-     * @cpu O(n^2) , n - this.size
-     * @ram O(1)
      * @param element argument
      * @return true when element was removed and false when was not
      */
     @Override
-    public boolean remove(T element) {
-        ListIterator<T> iterator = this.iterator();
-        boolean result = false;
-        while (iterator.hasNext()) {
-            T checkItem = iterator.next();
-            if(element.equals(checkItem)) {
-                this.remove(iterator.getIteratorSize() - 1);
-                iterator.decreaseIteratorSize();
-                result = true;
-            }
-        }
-        return result;
-    }
+    public abstract boolean remove(T element);
 
     /**
      * Сhecks contains or not list all elements from the argument
@@ -168,7 +154,7 @@ public abstract  class AbstractList<T> implements List<T> {
         if (this == objects) {
             return true;
         }
-        if ((!(objects instanceof AbstractList)) || this.size() != ((AbstractList<?>) objects).size()) {
+        if ((!(objects instanceof AbstractList)) || this.size() != ((AbstractList<T>) objects).size()) {
             return false;
         }
         Iterator<T> firstIterator = this.iterator();
@@ -208,8 +194,6 @@ public abstract  class AbstractList<T> implements List<T> {
 
     /**
      * Remove element from the list when element meets the requirements of the argument
-     * @cpu O(n) , n - this.size
-     * @ram O(1)
      * @param predicate argument
      */
     @Override

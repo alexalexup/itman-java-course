@@ -533,6 +533,70 @@ abstract public  class AbstractListTests  {
             list.remove(new Integer(4));
             Assertions.assertEquals(of(), list);
         }
+
+        @Test
+        public void shouldRemoveWhenElementsAreDifferentTypes() {
+            List list = of(new Event(1, 2, 3, ""), "Hi", 2, 5.5, 2);
+            list.remove(new Integer(2));
+            Assertions.assertEquals(of(new Event(1, 2, 3, ""), "Hi", 5.5), list);
+        }
+
+        @Test
+        public void shouldRemoveWhenElementsAreString() {
+            List list = of("Hi", "Go", "Harry", "When we will be rich" );
+            list.remove("Go");
+            Assertions.assertEquals(of("Hi", "Harry", "When we will be rich"), list);
+        }
+    }
+
+    @Nested
+    public class RemoveAll {
+        @Test
+        public void shouldRemoveWhenElementsAreDifferentTypes() {
+            List list = of(4, 3, "Hi", "Go", new Event(2, 2, 2022, "A"), 2.2);
+            Collections collection = new ArrayList();
+            collection.add(4);
+            collection.add(3);
+            collection.add(2.2);
+            list.removeAll(collection);
+            Assertions.assertEquals(of(  "Hi", "Go", new Event(2, 2, 2022, "A")), list);
+        }
+
+        @Test
+        public void shouldRemoveWhenCollectionContainOneElementThatIncludesInTheList() {
+            List list = of(4, 3, "Hi", "Go", new Event(2, 2, 2022, "A"), 2.2);
+            Collections collection = new ArrayList();
+            collection.add(4);
+            collection.add("KKK");
+            collection.add(100);
+            collection.add(5.5);
+            list.removeAll(collection);
+            Assertions.assertEquals(of( 3, "Hi", "Go", new Event(2, 2, 2022, "A"), 2.2), list);
+        }
+
+        @Test
+        public void shouldNotRemoveWhenCollectionDoesNotContainElementsFromTheList() {
+            List list = of(4, 3, "Hi", "Go", new Event(2, 2, 2022, "A"), 2.2);
+            Collections collection = new ArrayList();
+            collection.add(105);
+            collection.add("KKK");
+            collection.add(100);
+            collection.add(5.5);
+            list.removeAll(collection);
+            Assertions.assertEquals(of( 4, 3, "Hi", "Go", new Event(2, 2, 2022, "A"), 2.2), list);
+        }
+
+        @Test
+        public void shouldRemoveWhenListHaveOneElement() {
+            List list = of(4);
+            Collections collection = new ArrayList();
+            collection.add(105);
+            collection.add("KKK");
+            collection.add(4);
+            collection.add(5.5);
+            list.removeAll(collection);
+            Assertions.assertEquals(of(), list);
+        }
     }
 
     @Nested

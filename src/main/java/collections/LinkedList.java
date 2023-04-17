@@ -4,6 +4,7 @@ import utils.ArrayUtils;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> {
     private Node<T> node;
@@ -128,6 +129,34 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
                 currentNode = currentNode.next;
                 iteratorSize++;
                 return currentNode.getElement();
+            }
+
+            /**
+             * Delete current Node from the iterator and Linked List
+             * @cpu O(1)
+             * @ram O(1)
+             */
+            public void remove() {
+                if (iteratorSize == 0 || iteratorSize > size) {
+                    return;
+                }
+                if (size == 1) {
+                    node = null;
+                    lastNode = null;
+                } else if (iteratorSize == 1) {
+                    node = node.getNext();
+                    node.setPrev(null);
+                    currentNode = node;
+                } else if (iteratorSize == size) {
+                    lastNode = lastNode.getPrev();
+                    lastNode.setNext(null);
+                } else {
+                    currentNode.getPrev().setNext(currentNode.getNext());
+                    currentNode.getNext().setPrev(currentNode.getPrev());
+                }
+                iteratorSize--;
+                size--;
+                return;
             }
 
             /**
@@ -485,10 +514,10 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
 
     /**
      * Get element by the index and delete it
-     * @cpu O(n)
+     * @cpu O(n), n - index
      * @ram O(1)
      * @param index argument
-     * @return first element from LinkedList
+     * @return element by index from LinkedList
      */
     public T remove(int index) {
         if (index == 0) {
@@ -511,6 +540,27 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
         }
         this.size--;
         return removeNode(link);
+    }
+
+    /**
+     * Remove element from the list
+     * @cpu O(n) , n - this.size
+     * @ram O(1)
+     * @param element argument
+     * @return true when element was removed and false when was not
+     */
+    @Override
+    public boolean remove(T element) {
+        ListIterator<T> iterator = this.iterator();
+        boolean result = false;
+        while (iterator.hasNext()) {
+            T checkItem = iterator.next();
+            if(element.equals(checkItem)) {
+                iterator.remove();
+                result = true;
+            }
+        }
+        return result;
     }
 
     /**
@@ -567,6 +617,19 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
     }
 
     /**
+     * Remove all elements from current collection that includes in collection from argument
+     * @cpu O(n * m) , n - this.size, m - collection.size
+     * @ram O(1)
+     * @param collection argument
+     */
+    @Override
+    public void removeAll(Collections<? extends T> collection) {
+        for (T item : collection) {
+            this.remove(item);
+        }
+    }
+
+    /**
      * Get first element and delete first node from LinkedList
      * @cpu O(1)
      * @ram O(1)
@@ -600,6 +663,23 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
         }
         this.lastNode.setNext(new Node(element, null, this.lastNode));
         this.lastNode = this.lastNode.getNext();
+    }
+
+    /**
+     * Remove element from the list when element meets the requirements of the argument
+     * @cpu O(n) , n - this.size
+     * @ram O(1)
+     * @param predicate argument
+     */
+    @Override
+    public void removeIf(Predicate<T> predicate) {
+        ListIterator<T> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            if (predicate.test(iterator.next())) {
+                this.remove(iterator.getIteratorSize() - 1);
+                iterator.decreaseIteratorSize();
+            }
+        }
     }
 
     /**

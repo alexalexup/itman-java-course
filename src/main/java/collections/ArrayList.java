@@ -3,6 +3,7 @@ package collections;
 import utils.ArrayUtils;
 
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public class  ArrayList<T> extends AbstractList<T> {
     private T[] objects;
@@ -292,6 +293,58 @@ public class  ArrayList<T> extends AbstractList<T> {
             this.objects[i] = this.objects[i+1];
         }
         return result;
+    }
+
+    /**
+     * Remove all elements from current collection that includes in collection from argument
+     * @cpu O(n^2 * m) , n - this.size, m - collection.size
+     * @ram O(1)
+     * @param collection argument
+     */
+    @Override
+    public void removeAll(Collections<? extends T> collection) {
+        for (T item : collection) {
+            this.remove(item);
+        }
+    }
+
+    /**
+     * Remove element from the list
+     * @cpu O(n^2) , n - this.size
+     * @ram O(1)
+     * @param element argument
+     * @return true when element was removed and false when was not
+     */
+    @Override
+    public boolean remove(T element) {
+        ListIterator<T> iterator = this.iterator();
+        boolean result = false;
+        while (iterator.hasNext()) {
+            T checkItem = iterator.next();
+            if(element.equals(checkItem)) {
+                this.remove(iterator.getIteratorSize() - 1);
+                iterator.decreaseIteratorSize();
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Remove element from the list when element meets the requirements of the argument
+     * @cpu O(n^2) , n - this.size
+     * @ram O(1)
+     * @param predicate argument
+     */
+    @Override
+    public void removeIf(Predicate<T> predicate) {
+        ListIterator<T> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            if (predicate.test(iterator.next())) {
+                this.remove(iterator.getIteratorSize() - 1);
+                iterator.decreaseIteratorSize();
+            }
+        }
     }
 
     /**
