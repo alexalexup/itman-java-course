@@ -1,6 +1,7 @@
 package collections;
 
 
+import entities.Event;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,9 +25,26 @@ class CollectionUtilsTest {
              Comparator<Integer> comparator = Integer::compareTo;
              Integer result =  CollectionUtils.findMin(abstractList, comparator);
              Assertions.assertEquals(result,-3);
-             CollectionUtils.findMax(abstractList,comparator);
         }
 
+        @Test
+        public void shouldFindMinElementInTheListWhenListHaveSomeEvents()  {
+            List <Event> events = new ArrayList<>();
+            events.add(new Event(1086, 3, 4, "A"));
+            events.add(new Event(6, 4, 4, "A"));
+            events.add(new Event(333, 2, 4, "A"));
+            events.add(new Event(22, 1, 4, "A"));
+            Comparator<Event> comparator = (o1, o2) -> {
+                if (o1.getYear() > o2.getYear()) {
+                    return 1;
+                }  else if  (o1.getYear() < o2.getYear()) {
+                    return -1;
+                }
+                return 0;
+            };
+            Event result = CollectionUtils.findMin(events, comparator);
+            Assertions.assertEquals(result,events.get(1));
+        }
 
         @Test
         public void shouldFindMinElementInTheListWhenListHaveOneElement() {
@@ -79,6 +97,40 @@ class CollectionUtilsTest {
             Comparator<Integer> comparator = Integer::compareTo;
             Integer result =  CollectionUtils.findMax(abstractList, comparator);
             Assertions.assertEquals(result,10);
+        }
+
+        @Test
+        public void shouldFindMaxElementInTheListWhenFirstElementIsNull() {
+            AbstractList<Integer> abstractList = new LinkedList<>();
+            abstractList.add(null);
+            abstractList.add(2);
+            abstractList.add(null);
+            abstractList.add(10);
+            abstractList.add(4);
+            abstractList.add(2);
+            abstractList.add(0);
+            Comparator<Integer> comparator = Integer::compareTo;
+            Integer result =  CollectionUtils.findMax(abstractList, comparator);
+            Assertions.assertEquals(result,10);
+        }
+
+        @Test
+        public void shouldFindMaxElementInTheListWhenListHaveSomeEvents()  {
+            List <Event> events = new ArrayList<>();
+            events.add(new Event(1086, 3, 4, "A"));
+            events.add(new Event(6, 4, 4, "A"));
+            events.add(new Event(333, 2, 4, "A"));
+            events.add(new Event(22, 1, 4, "A"));
+            Comparator<Event> comparator = (o1, o2) -> {
+                if (o1.getYear() > o2.getYear()) {
+                    return -1;
+                }  else if  (o1.getYear() < o2.getYear()) {
+                    return 1;
+                }
+                return 0;
+            };
+            Event result = CollectionUtils.findMin(events, comparator);
+            Assertions.assertEquals(result,events.get(0));
         }
 
         @Test

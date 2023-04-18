@@ -54,7 +54,7 @@ public class CollectionUtils {
      * @return minimum element from the List
      */
     public static <T> T findMax(List<T> list, Comparator<? super T> comparator) {
-        T max = list.get(0);
+        T max = findFirstNotNullElement(list);
         ListIterator<T> iterator = list.iterator();
         while (iterator.hasNext()) {
             T element = iterator.next();

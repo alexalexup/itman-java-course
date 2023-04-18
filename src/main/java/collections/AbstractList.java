@@ -194,7 +194,6 @@ public abstract  class AbstractList<T> implements List<T> {
     @Override
     public abstract Object[] toArray();
 
-
     /**
      * Remove element from the list when element meets the requirements of the argument
      * @param predicate argument
