@@ -29,15 +29,6 @@ public class  ArrayList<T> extends AbstractList<T> {
             }
 
             /**
-             * Set iterator size
-             * @cpu O(1)
-             * @ram O(1)
-             */
-            public void setIteratorSize(int size) {
-                iteratorSize = size;
-            }
-
-            /**
              * Decrease by one count of the elements that was called by the iterator
              * @cpu O(1)
              * @ram O(1)
@@ -56,19 +47,6 @@ public class  ArrayList<T> extends AbstractList<T> {
             public void set(T element) {
                 if (iteratorSize > 0) {
                     objects[iteratorSize - 1] = element;
-                }
-            }
-
-            /**
-             * Set element to the current position to the ArrayList that was called from ListIterator for reverse direction
-             * @cpu O(1)
-             * @ram O(1)
-             * @param  element argument
-             */
-            @Override
-            public void setReverse(T element) {
-                if (iteratorSize > 0) {
-                    objects[iteratorSize] = element;
                 }
             }
 
@@ -110,21 +88,6 @@ public class  ArrayList<T> extends AbstractList<T> {
             @Override
             public T next() {
                 return get(iteratorSize++);
-            }
-
-            /**
-             * Call next element from the ListIterator in reverse direction
-             * @cpu O(1)
-             * @ram O(1)
-             * @return next element from the ListIterator in reverse direction
-             */
-            public T nextReverse() {
-                if (iteratorSize > 0 ) {
-                    T result = objects[iteratorSize - 1];
-                    iteratorSize--;
-                    return result;
-                }
-                return objects[0];
             }
         };
     }

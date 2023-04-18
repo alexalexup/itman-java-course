@@ -36,19 +36,6 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
             }
 
             /**
-             * Set element to the current position to the LinkedList that was called from ListIterator
-             * @cpu O(1)
-             * @ram O(1)
-             * @param  element argument
-             */
-            @Override
-            public void setReverse(T element) {
-                if (iteratorSize > 0) {
-                    reverseCurrentNode.getNext().setElement(element);
-                }
-            }
-
-            /**
              * Set element before the current position to the LinkedList that was called from ListIterator
              * @cpu O(1)
              * @ram O(1)
@@ -82,15 +69,6 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
             @Override
             public int getIteratorSize() {
                 return iteratorSize;
-            }
-
-            /**
-             * Set size for ListIterator
-             * @cpu O(1)
-             * @ram O(1)
-             */
-            public void setIteratorSize(int size) {
-                iteratorSize = size;
             }
 
             /**
@@ -157,23 +135,6 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
                 iteratorSize--;
                 size--;
                 return;
-            }
-
-            /**
-             * Call next element from the ListIterator in reverse direction
-             * @cpu O(1)
-             * @ram O(1)
-             * @return next element from the ListIterator in reverse direction
-             */
-            public T nextReverse() {
-                T result = reverseCurrentNode.getElement();
-                if (iteratorSize > 0  ) {
-                    if (reverseCurrentNode.prev != null) {
-                        reverseCurrentNode = reverseCurrentNode.prev;
-                    }
-                    iteratorSize--;
-                }
-                return result;
             }
         };
     }
@@ -331,8 +292,8 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
 
     /**
      * Add Node to the LinkedList from the ListIterator
-     * @cpu O(n),  n - iterator.hasNext() == true;
-     * @ram O(n),  n - iterator.hasNext() == true;
+     * @cpu O(n),  n - iterator.size
+     * @ram O(n),  n - iterator.size
      * @param link argument
      * @param iterator argument
      */

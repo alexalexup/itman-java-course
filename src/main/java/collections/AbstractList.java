@@ -55,7 +55,6 @@ public abstract  class AbstractList<T> implements List<T> {
     @Override
     public abstract boolean add(int index, T element);
 
-
     /**
      * Add elements from collection to the current list
      * @param collection argument
@@ -154,11 +153,15 @@ public abstract  class AbstractList<T> implements List<T> {
         if (this == objects) {
             return true;
         }
-        if ((!(objects instanceof AbstractList)) || this.size() != ((AbstractList<T>) objects).size()) {
+        if (!(objects instanceof AbstractList)){
+           return false;
+        }
+        AbstractList<T> that = (AbstractList<T>) objects;
+        if (this.size != that.size) {
             return false;
         }
         Iterator<T> firstIterator = this.iterator();
-        Iterator<T> secondIterator =((AbstractList<T>) objects).iterator();
+        Iterator<T> secondIterator =that.iterator();
         while (firstIterator.hasNext() && secondIterator.hasNext()) {
             T firstObject = firstIterator.next();
             T secondObject = secondIterator.next();
