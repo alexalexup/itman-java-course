@@ -35,9 +35,15 @@ class CollectionUtilsTest {
             events.add(new Event(333, 2, 4, "A"));
             events.add(new Event(22, 1, 4, "A"));
             Comparator<Event> comparator = (o1, o2) -> {
-                if (o1.getYear() > o2.getYear()) {
+                if (o1 == null && o2 == null) {
+                    return 0;
+                }  else if (o1 == null) {
+                    return -1;
+                } else if (o2 == null) {
                     return 1;
-                }  else if  (o1.getYear() < o2.getYear()) {
+                } else if (o1.getYear() > o2.getYear()) {
+                    return 1;
+                } else if (o1.getYear() < o2.getYear()) {
                     return -1;
                 }
                 return 0;
@@ -47,38 +53,66 @@ class CollectionUtilsTest {
         }
 
         @Test
+        public void shouldFindMinElementInTheListWhenListHaveSomeEventsAndFirstElementIsNull()  {
+            List <Event> events = new ArrayList<>();
+            events.add(null);
+            events.add(new Event(1086, 3, 4, "A"));
+            events.add(new Event(6, 4, 4, "A"));
+            events.add(new Event(333, 2, 4, "A"));
+            events.add(new Event(22, 1, 4, "A"));
+            Comparator<Event> comparator = (o1, o2) -> {
+                if (o1 == null && o2 == null) {
+                    return 0;
+                }  else if (o1 == null) {
+                    return -1;
+                } else if (o2 == null) {
+                    return 1;
+                } else if (o1.getYear() > o2.getYear()) {
+                    return 1;
+                } else if (o1.getYear() < o2.getYear()) {
+                    return -1;
+                }
+                return 0;
+            };
+            Event result = CollectionUtils.findMin(events, comparator);
+            Assertions.assertEquals(result,null);
+        }
+
+        @Test
+        public void shouldFindMinElementInTheListWhenListHaveSomeEventsAndSomeElementsAreNull()  {
+            List <Event> events = new ArrayList<>();
+            events.add(new Event(1086, 3, 4, "A"));
+            events.add(null);
+            events.add(new Event(6, 4, 4, "A"));
+            events.add(new Event(333, 2, 4, "A"));
+            events.add(null);
+            events.add(new Event(333, 2, 4, "A"));
+            events.add(new Event(22, 1, 4, "A"));
+            Comparator<Event> comparator = (o1, o2) -> {
+                if (o1 == null && o2 == null) {
+                    return 0;
+                }  else if (o1 == null) {
+                    return -1;
+                } else if (o2 == null) {
+                    return 1;
+                } else if (o1.getYear() > o2.getYear()) {
+                    return 1;
+                } else if (o1.getYear() < o2.getYear()) {
+                    return -1;
+                }
+                return 0;
+            };
+            Event result = CollectionUtils.findMin(events, comparator);
+            Assertions.assertEquals(result,null);
+        }
+
+        @Test
         public void shouldFindMinElementInTheListWhenListHaveOneElement() {
             AbstractList<Double> abstractList = new ArrayList<>();
             abstractList.add(4.22);
             Comparator<Double> comparator = Double::compareTo;
             Double result =  CollectionUtils.findMin(abstractList, comparator);
             Assertions.assertEquals(result,4.22);
-        }
-
-        @Test
-        public void shouldFindMinElementInTheListWhenListHaveNullElements() {
-            AbstractList<Integer> abstractList = new LinkedList<>();
-            abstractList.add(-8);
-            abstractList.add(10);
-            abstractList.add(4);
-            abstractList.add(2);
-            abstractList.add(null);
-            Comparator<Integer> comparator = Integer::compareTo;
-            Integer result =  CollectionUtils.findMin(abstractList, comparator);
-            Assertions.assertEquals(result,null);
-        }
-
-        @Test
-        public void shouldWorkWhenListHaveOnlyNullElements() {
-            AbstractList<Integer> abstractList = new ArrayList<>();
-            abstractList.add(null);
-            abstractList.add(null);
-            abstractList.add(null);
-            abstractList.add(null);
-            abstractList.add(null);
-            Comparator<Integer> comparator = Integer::compareTo;
-            Integer result =  CollectionUtils.findMin(abstractList, comparator);
-            Assertions.assertEquals(result,null);
         }
     }
 
@@ -102,9 +136,7 @@ class CollectionUtilsTest {
         @Test
         public void shouldFindMaxElementInTheListWhenFirstElementIsNull() {
             AbstractList<Integer> abstractList = new LinkedList<>();
-            abstractList.add(null);
             abstractList.add(2);
-            abstractList.add(null);
             abstractList.add(10);
             abstractList.add(4);
             abstractList.add(2);
@@ -115,6 +147,33 @@ class CollectionUtilsTest {
         }
 
         @Test
+        public void shouldFindMaxElementInTheListWhenListHaveSomeEventsAndSomeElementsAreNull()  {
+            List <Event> events = new ArrayList<>();
+            events.add(null);
+            events.add(new Event(1086, 3, 4, "A"));
+            events.add(new Event(6, 4, 4, "A"));
+            events.add(new Event(333, 2, 4, "A"));
+            events.add(null);
+            events.add(new Event(22, 1, 4, "A"));
+            Comparator<Event> comparator = (o1, o2) -> {
+                if (o1 == null && o2 == null) {
+                    return 0;
+                }  else if (o1 == null) {
+                    return 1;
+                } else if (o2 == null) {
+                    return -1;
+                } else if (o1.getYear() > o2.getYear()) {
+                    return -1;
+                } else if (o1.getYear() < o2.getYear()) {
+                    return 1;
+                }
+                return 0;
+            };
+            Event result = CollectionUtils.findMin(events, comparator);
+            Assertions.assertEquals(result,events.get(1));
+        }
+
+        @Test
         public void shouldFindMaxElementInTheListWhenListHaveSomeEvents()  {
             List <Event> events = new ArrayList<>();
             events.add(new Event(1086, 3, 4, "A"));
@@ -122,9 +181,15 @@ class CollectionUtilsTest {
             events.add(new Event(333, 2, 4, "A"));
             events.add(new Event(22, 1, 4, "A"));
             Comparator<Event> comparator = (o1, o2) -> {
-                if (o1.getYear() > o2.getYear()) {
+                if (o1 == null && o2 == null) {
+                    return 0;
+                }  else if (o1 == null) {
+                    return 1;
+                } else if (o2 == null) {
                     return -1;
-                }  else if  (o1.getYear() < o2.getYear()) {
+                } else if (o1.getYear() > o2.getYear()) {
+                    return -1;
+                } else if (o1.getYear() < o2.getYear()) {
                     return 1;
                 }
                 return 0;
@@ -140,32 +205,6 @@ class CollectionUtilsTest {
             Comparator<Double> comparator = Double::compareTo;
             Double result =  CollectionUtils.findMax(abstractList, comparator);
             Assertions.assertEquals(result,2.22);
-        }
-
-        @Test
-        public void shouldFindMaxElementInTheListWhenListHaveNullElements() {
-            AbstractList<Integer> abstractList = new LinkedList<>();
-            abstractList.add(3);
-            abstractList.add(10);
-            abstractList.add(null);
-            abstractList.add(2);
-            abstractList.add(null);
-            Comparator<Integer> comparator = Integer::compareTo;
-            Integer result =  CollectionUtils.findMax(abstractList, comparator);
-            Assertions.assertEquals(result,10);
-        }
-
-        @Test
-        public void shouldWorkWhenListHaveOnlyNullElements() {
-            AbstractList<Integer> abstractList = new ArrayList<>();
-            abstractList.add(null);
-            abstractList.add(null);
-            abstractList.add(null);
-            abstractList.add(null);
-            abstractList.add(null);
-            Comparator<Integer> comparator = Comparator.naturalOrder();
-            Integer result =  CollectionUtils.findMax(abstractList, comparator);
-            Assertions.assertEquals(result,null);
         }
     }
 

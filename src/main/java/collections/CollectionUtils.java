@@ -35,9 +35,6 @@ public class CollectionUtils {
         ListIterator<T> iterator = list.iterator();
         while (iterator.hasNext()) {
             T element = iterator.next();
-            if (element == null) {
-                return null;
-            }
             if (comparator.compare(min, element) > 0 ) {
                 min = element;
             }
@@ -54,15 +51,8 @@ public class CollectionUtils {
      * @return minimum element from the List
      */
     public static <T> T findMax(List<T> list, Comparator<? super T> comparator) {
-        T max = findFirstNotNullElement(list);
-        ListIterator<T> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            T element = iterator.next();
-            if (element != null && comparator.compare(max, element) < 0 ) {
-                max = element;
-            }
-        }
-        return max;
+        comparator = comparator.reversed();
+        return findMin(list,comparator);
     }
 
     /**
