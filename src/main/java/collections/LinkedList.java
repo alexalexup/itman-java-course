@@ -10,135 +10,6 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
     private Node<T> node;
     private Node<T> lastNode;
 
-    /**
-     * Create object from the ListIterator class
-     * @cpu O(1)
-     * @ram O(1)
-     * return object from the ListIterator class
-     */
-    public ListIterator iterator() {
-        return new ListIterator<T>() {
-            private Node<T> currentNode = node;
-            private Node<T> reverseCurrentNode = lastNode;
-            private int iteratorSize;
-
-            /**
-             * Set element to the current position to the LinkedList that was called from ListIterator
-             * @cpu O(1)
-             * @ram O(1)
-             * @param  element argument
-             */
-            @Override
-            public void set(T element) {
-                if (iteratorSize > 0) {
-                    currentNode.setElement(element);
-                }
-            }
-
-            /**
-             * Set element before the current position to the LinkedList that was called from ListIterator
-             * @cpu O(1)
-             * @ram O(1)
-             * @param  element argument
-             */
-            @Override
-            public void insertBefore(T element) {
-                if (iteratorSize == 0) {
-                    return;
-                }
-                if (iteratorSize == 1) {
-                    Node<T> newNode = new Node<>(element, node,null);
-                    node.setPrev(newNode);
-                    node = newNode;
-                    size++;
-                    return;
-                }
-                Node<T> newNode = new Node<>(element, currentNode, currentNode.getPrev());
-                Node<T> link = currentNode.getPrev();
-                currentNode.setPrev(newNode);
-                link.setNext(newNode);
-                size++;
-            }
-
-            /**
-             * Return count of the elements that was called by the ListIterator
-             * @cpu O(1)
-             * @ram O(1)
-             * @return count of the elements that was called by the ListIterator
-             */
-            @Override
-            public int getIteratorSize() {
-                return iteratorSize;
-            }
-
-            /**
-             * Decrease by one count of the elements that was called by the iterator
-             * @cpu O(1)
-             * @ram O(1)
-             */
-            @Override
-            public void decreaseIteratorSize() {
-                iteratorSize--;
-            }
-
-            /**
-             * Checks have  or not ListIterator one more element
-             * @cpu O(1)
-             * @ram O(1)
-             * @return true when ListIterator have one more element and false when have not
-             */
-            @Override
-            public boolean hasNext() {
-                return iteratorSize < size;
-            }
-
-            /**
-             * Call next element from the ListIterator
-             * @cpu O(1)
-             * @ram O(1)
-             * @return next element from the ListIterato
-             */
-            @Override
-            public T next() {
-                if (iteratorSize == 0) {
-                    iteratorSize++;
-                    return currentNode.getElement();
-                }
-                currentNode = currentNode.next;
-                iteratorSize++;
-                return currentNode.getElement();
-            }
-
-            /**
-             * Delete current Node from the iterator and Linked List
-             * @cpu O(1)
-             * @ram O(1)
-             */
-            public void remove() {
-                if (iteratorSize == 0 || iteratorSize > size) {
-                    return;
-                }
-                if (size == 1) {
-                    node = null;
-                    lastNode = null;
-                } else if (iteratorSize == 1) {
-                    node = node.getNext();
-                    node.setPrev(null);
-                    currentNode = node;
-                } else if (iteratorSize == size) {
-                    lastNode = lastNode.getPrev();
-                    lastNode.setNext(null);
-                } else {
-                    currentNode.getPrev().setNext(currentNode.getNext());
-                    currentNode.getNext().setPrev(currentNode.getPrev());
-                }
-                iteratorSize--;
-                size--;
-                return;
-            }
-        };
-    }
-
     private static class Node<T> {
         private T element;
         private Node<T> next;
@@ -307,22 +178,6 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
                 link.getPrev().setNext(newNode);
                 link.setPrev(newNode);
             }
-        }
-    }
-
-    /**
-     * Sort part of array with events use merge method
-     * @cpu O(n * logn), n = size
-     * @ram O(n), n =  size
-     * @param comparator argument
-     */
-    public void sort(Comparator<T> comparator) {
-        T[] items =  this.toArray();
-        ArrayUtils.mergeSort(items, 0, size, comparator);
-        Node<T> link = this.node;
-        for(T item: items) {
-            link.setElement(item);
-            link = link.getNext();
         }
     }
 
@@ -518,7 +373,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
             T checkItem = iterator.next();
             if(element.equals(checkItem)) {
                 iterator.remove();
-                result = true;
+                return true;
             }
         }
         return result;
@@ -633,12 +488,11 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @param predicate argument
      */
     @Override
-    public void removeIf(Predicate<T> predicate) {
+    public void removeIf(Predicate<? super T> predicate) {
         ListIterator<T> iterator = this.iterator();
         while (iterator.hasNext()) {
             if (predicate.test(iterator.next())) {
-                this.remove(iterator.getIteratorSize() - 1);
-                iterator.decreaseIteratorSize();
+                iterator.remove();
             }
         }
     }
@@ -690,5 +544,111 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      */
     public T poll() {
         return this.removeFirst();
+    }
+    /**
+     * Create object from the ListIterator class
+     * @cpu O(1)
+     * @ram O(1)
+     * return object from the ListIterator class
+     */
+    public ListIterator<T> iterator() {
+        return new ListIterator<T>() {
+            private Node<T> currentNode;
+            private int  nextIndex;
+
+
+            /**
+             * Set element to the current position to the LinkedList that was called from ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @param  element argument
+             */
+            @Override
+            public void set(T element) {
+                currentNode.setElement(element);
+            }
+
+            /**
+             * Set element before the current position to the LinkedList that was called from ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @param  element argument
+             */
+            @Override
+            public void insertBefore(T element) {
+                if (size == 0) {
+                    return;
+                }
+                if (size == 1) {
+                    Node<T> newNode = new Node<>(element, node,null);
+                    node.setPrev(newNode);
+                    node = newNode;
+                    size++;
+                    return;
+                }
+                Node<T> newNode = new Node<>(element, currentNode, currentNode.getPrev());
+                Node<T> link = currentNode.getPrev();
+                currentNode.setPrev(newNode);
+                link.setNext(newNode);
+                size++;
+            }
+
+            /**
+             * Checks have  or not ListIterator one more element
+             * @cpu O(1)
+             * @ram O(1)
+             * @return true when ListIterator have one more element and false when have not
+             */
+            @Override
+            public boolean hasNext() {
+                return nextIndex < size;
+            }
+
+            /**
+             * Call next element from the ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @return next element from the ListIterato
+             */
+            @Override
+            public T next() {
+                if (nextIndex == 0) {
+                    currentNode = node;
+                    nextIndex++;
+                    return currentNode.getElement();
+                } else {
+                  currentNode = currentNode.getNext();
+                  nextIndex++;
+                  return currentNode.getElement();
+                }
+            }
+
+            /**
+             * Delete current Node from the iterator and Linked List
+             * @cpu O(1)
+             * @ram O(1)
+             */
+            public void remove() {
+                if (currentNode == null) {
+                    return;
+                }
+                if (size == 1) {
+                    node = null;
+                    lastNode = null;
+                } else if (currentNode.getPrev() == null) {
+                    node = node.getNext();
+                    node.setPrev(null);
+                    currentNode = node;
+                } else if (currentNode.getNext() == null) {
+                    lastNode = lastNode.getPrev();
+                    lastNode.setNext(null);
+                } else {
+                    currentNode.getPrev().setNext(currentNode.getNext());
+                    currentNode.getNext().setPrev(currentNode.getPrev());
+                }
+                size--;
+                return;
+            }
+        };
     }
 }

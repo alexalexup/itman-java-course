@@ -5,6 +5,7 @@ import entities.Event;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import utils.CollectionUtils;
 
 import java.util.Comparator;
 

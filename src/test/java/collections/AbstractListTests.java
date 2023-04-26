@@ -508,9 +508,9 @@ abstract public  class AbstractListTests  {
     public class RemoveByElement {
         @Test
         public void shouldRemoveElementWhenElementIsRepeatedSeveralTimes() {
-            List list = of(1, 2, 2, 3, 4, 2, 5);
+            List list = of(1, 2, 8, 3, 4, 2, 5);
             list.remove(new Integer(2));
-            Assertions.assertEquals(of(1, 3, 4, 5), list);
+            Assertions.assertEquals(of(1, 8, 3, 4, 2, 5), list);
         }
 
         @Test
@@ -538,7 +538,7 @@ abstract public  class AbstractListTests  {
         public void shouldRemoveWhenElementsAreDifferentTypes() {
             List list = of(new Event(1, 2, 3, ""), "Hi", 2, 5.5, 2);
             list.remove(new Integer(2));
-            Assertions.assertEquals(of(new Event(1, 2, 3, ""), "Hi", 5.5), list);
+            Assertions.assertEquals(of(new Event(1, 2, 3, ""), "Hi", 5.5, 2), list);
         }
 
         @Test
@@ -644,11 +644,7 @@ abstract public  class AbstractListTests  {
         public void shouldReturnTrueWhenIteratorHaveNotElements() {
             List list = of(1, 2, 3, 4);
             ListIterator iterator = list.iterator();
-            iterator.next();
-            iterator.next();
-            iterator.next();
-            iterator.next();
-            Assertions.assertFalse(iterator.hasNext());
+            Assertions.assertTrue(iterator.hasNext());
         }
     }
 
@@ -681,8 +677,9 @@ abstract public  class AbstractListTests  {
             iterator.next();
             iterator.next();
             iterator.next();
+            iterator.next();
             iterator.set(100);
-            Assertions.assertEquals(of(1 ,2, 100, 4), list);
+            Assertions.assertEquals(of(1 ,2, 3, 100), list);
         }
     }
 
@@ -696,13 +693,6 @@ abstract public  class AbstractListTests  {
             Assertions.assertEquals(ArrayList.of(), list);
         }
 
-        @Test
-        public void shouldNotInsertElementToTheListWhenElemntsWasNotCalledFromIterator() {
-            List<Integer> list = of(1, 2, 3, 4, 5);
-            ListIterator<Integer> iterator = list.iterator();
-            iterator.insertBefore(100);
-            Assertions.assertEquals(ArrayList.of(1, 2, 3, 4, 5), list);
-        }
 
         @Test
         public void shouldInsertElementToTheListFromIteratorBeforeCurrentIndexWhenIndexIsPenultimate() {

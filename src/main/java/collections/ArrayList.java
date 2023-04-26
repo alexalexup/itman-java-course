@@ -9,90 +9,6 @@ public class  ArrayList<T> extends AbstractList<T> {
     private T[] objects;
 
     /**
-     * Create object from the ListIterator class
-     * @cpu O(1)
-     * @ram O(1)
-     * return object from the ListIterator class
-     */
-    public ListIterator<T> iterator() {
-        return new ListIterator<T>() {
-           private int iteratorSize;
-
-            /**
-             * Return count of the elements that was called by the ListIterator
-             * @cpu O(1)
-             * @ram O(1)
-             * @return count of the elements that was called by the ListIterator
-             */
-            public int getIteratorSize() {
-                return iteratorSize;
-            }
-
-            /**
-             * Decrease by one count of the elements that was called by the iterator
-             * @cpu O(1)
-             * @ram O(1)
-             */
-            public void decreaseIteratorSize() {
-                iteratorSize--;
-            }
-
-            /**
-             * Set element to the current position to the ArrayList that was called from ListIterator
-             * @cpu O(1)
-             * @ram O(1)
-             * @param  element argument
-             */
-            @Override
-            public void set(T element) {
-                if (iteratorSize > 0) {
-                    objects[iteratorSize - 1] = element;
-                }
-            }
-
-            /**
-             * Set element before the current position to the ArrayList that was called from ListIterator
-             * @cpu O(n), n - size
-             * @ram O(n), n - size
-             * @param  element argument
-             */
-            @Override
-            public void insertBefore(T element) {
-                if (iteratorSize == 0) {
-                    return;
-                }
-                T[] newObjects =(T[]) new Object[++size];
-                System.arraycopy(objects, 0, newObjects, 0, iteratorSize - 1);
-                System.arraycopy(objects, iteratorSize - 1, newObjects, iteratorSize , size - iteratorSize);
-                objects = newObjects;
-                objects[iteratorSize - 1] = element;
-            }
-
-            /**
-             * Checks have  or not ListIterator one more element
-             * @cpu O(1)
-             * @ram O(1)
-             * @return true when ListIterator have one more element and false when have not
-             */
-            @Override
-            public boolean hasNext() {
-                return iteratorSize < size;
-            }
-
-            /**
-             * Call next element from the ListIterator
-             * @cpu O(1)
-             * @ram O(1)
-             * @return next element from the ListIterator
-             */
-            @Override
-            public T next() {
-                return get(iteratorSize++);
-            }
-        };
-    }
-
-    /**
      * Add elements from the collection to the ArrayList by the index
      * @cpu O(n + m), n -size, m - collection.size()
      * @ram O(n + m), n -size, m - collection.size()
@@ -143,16 +59,6 @@ public class  ArrayList<T> extends AbstractList<T> {
      */
     public ArrayList(int capacity) {
         this.objects = (T[])new Object[capacity];
-    }
-
-    /**
-     * Sort part of array with events use merge method
-     * @cpu O(n * logn), n = size
-     * @ram O(n), n =  size
-     * @param comparator argument
-     */
-    public void sort(Comparator<T> comparator) {
-        ArrayUtils.mergeSort(objects, 0, size, comparator);
     }
 
     /**
@@ -282,13 +188,14 @@ public class  ArrayList<T> extends AbstractList<T> {
     public boolean remove(T element) {
         ListIterator<T> iterator = this.iterator();
         boolean result = false;
+        int i = 0;
         while (iterator.hasNext()) {
             T checkItem = iterator.next();
             if(element.equals(checkItem)) {
-                this.remove(iterator.getIteratorSize() - 1);
-                iterator.decreaseIteratorSize();
-                result = true;
+                this.remove(i);
+                return true;
             }
+            i++;
         }
         return result;
     }
@@ -300,13 +207,16 @@ public class  ArrayList<T> extends AbstractList<T> {
      * @param predicate argument
      */
     @Override
-    public void removeIf(Predicate<T> predicate) {
+    public void removeIf(Predicate<? super T> predicate) {
         ListIterator<T> iterator = this.iterator();
+        int i = 0;
         while (iterator.hasNext()) {
             if (predicate.test(iterator.next())) {
-                this.remove(iterator.getIteratorSize() - 1);
-                iterator.decreaseIteratorSize();
+                this.remove(i);
+                i++;
+                size--;
             }
+            i++;
         }
     }
 
@@ -323,5 +233,70 @@ public class  ArrayList<T> extends AbstractList<T> {
             arrayList.add(elements[i]);
         }
         return arrayList;
+    }
+
+    /**
+     * Create object from the ListIterator class
+     * @cpu O(1)
+     * @ram O(1)
+     * return object from the ListIterator class
+     */
+    public ListIterator<T> iterator() {
+        return new ListIterator<T>() {
+            private int iteratorSize;
+
+            /**
+             * Set element to the current position to the ArrayList that was called from ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @param  element argument
+             */
+            @Override
+            public void set(T element) {
+                if (iteratorSize > 0) {
+                    objects[iteratorSize - 1] = element;
+                }
+            }
+
+            /**
+             * Set element before the current position to the ArrayList that was called from ListIterator
+             * @cpu O(n), n - size
+             * @ram O(n), n - size
+             * @param  element argument
+             */
+            @Override
+            public void insertBefore(T element) {
+                if (iteratorSize == 0) {
+                    return;
+                }
+                T[] newObjects =(T[]) new Object[++size];
+                System.arraycopy(objects, 0, newObjects, 0, iteratorSize - 1);
+                System.arraycopy(objects, iteratorSize - 1, newObjects, iteratorSize , size - iteratorSize);
+                objects = newObjects;
+                objects[iteratorSize - 1] = element;
+            }
+
+            /**
+             * Checks have  or not ListIterator one more element
+             * @cpu O(1)
+             * @ram O(1)
+             * @return true when ListIterator have one more element and false when have not
+             */
+            @Override
+            public boolean hasNext() {
+                return iteratorSize < size;
+            }
+
+            /**
+             * Call next element from the ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @return next element from the ListIterator
+             */
+            @Override
+            public T next() {
+                return get(iteratorSize++);
+            }
+        };
     }
 }

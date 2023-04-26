@@ -1,7 +1,7 @@
-package tasks;
+package utils;
 
 import collections.AbstractList;
-import collections.CollectionUtils;
+import utils.CollectionUtils;
 import entities.Shape;
 
 import java.util.Comparator;
@@ -30,7 +30,7 @@ public class ShapeUtils {
      * @return shape with minimum square
      */
     public static Shape findMinSquareShape (AbstractList<? extends Shape> list) {
-        Comparator<Shape> comparator = Comparator.comparing(Shape::calcSquare);
+        Comparator<? super Shape> comparator = (o1, o2) -> o1.calcSquare().compareTo(o2.calcSquare());
         return CollectionUtils.findMin(list, comparator);
     }
 }

@@ -17,14 +17,4 @@ public interface ListIterator<T> extends Iterator<T> {
      * @return element from list by index
      */
     void insertBefore(T element);
-
-    /**
-     * @return count of the elements that was called by the iterator
-     */
-    int getIteratorSize();
-
-    /**
-     * Decrease by one count of the elements that was called by the iterator
-     */
-    void decreaseIteratorSize();
 }

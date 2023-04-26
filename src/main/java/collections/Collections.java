@@ -67,7 +67,7 @@ public interface Collections<T> extends Iterable<T> {
      * Remove  element from the collection if element correspond to predicate
      * @param predicate argument
      */
-    void removeIf(Predicate<T> predicate);
+    void  removeIf(Predicate<? super T> predicate);
 
     /**
      * Create and return array with elements from the collection that

@@ -1,5 +1,6 @@
 package collections;
 
+import utils.ArrayUtils;
 import utils.StringBuilder;
 
 import java.util.Comparator;
@@ -15,7 +16,7 @@ public abstract  class AbstractList<T> implements List<T> {
      for objects from Lists class.
      * @return object from ListIterator class
      */
-    public abstract   ListIterator<T> iterator();
+    public abstract ListIterator<T> iterator();
 
     /**
      *@cpu O(1)
@@ -130,8 +131,6 @@ public abstract  class AbstractList<T> implements List<T> {
 
     /**
      * Remove all elements from current collection that includes in collection from argument
-     * @cpu O(n^2 * m) , n - this.size, m - collection.size
-     * @ram O(1)
      * @param collection argument
      */
     @Override
@@ -199,12 +198,11 @@ public abstract  class AbstractList<T> implements List<T> {
      * @param predicate argument
      */
     @Override
-    public void removeIf(Predicate<T> predicate) {
+    public void removeIf(Predicate<? super T> predicate) {
         ListIterator<T> iterator = this.iterator();
         while (iterator.hasNext()) {
             if (predicate.test(iterator.next())) {
-                this.remove(iterator.getIteratorSize() - 1);
-                iterator.decreaseIteratorSize();
+                iterator.remove();
             }
         }
     }
@@ -219,9 +217,11 @@ public abstract  class AbstractList<T> implements List<T> {
     public  T[] toArray(IntFunction<T> factory){
         T[] result = (T[]) new Object[this.size];
         ListIterator<T> iterator = this.iterator();
+        int i = 0;
         while (iterator.hasNext()) {
-            result[iterator.getIteratorSize()] =  factory.apply(iterator.getIteratorSize());
+            result[i] =  factory.apply(i);
             iterator.next();
+            i++;
         }
         return result;
     }
@@ -236,10 +236,20 @@ public abstract  class AbstractList<T> implements List<T> {
 
     /**
      * Sort elements in the list
+     * @cpu O(n * log(n) , n - this.size
+     * @ram O(n), n - this.size
      * @param comparator argument, this is condition by which the sorting
      */
     @Override
-    public abstract void sort(Comparator<T> comparator);
+    public void sort(Comparator<T> comparator) {
+        T[] items = (T[]) this.toArray();
+        ArrayUtils.mergeSort(items, 0, size, comparator);
+        ListIterator<T> iterator = this.iterator();
+        for (T item : items) {
+            iterator.next();
+            iterator.set(item);
+        }
+    }
 
     /**
      * Return String with values of elements from List
@@ -254,9 +264,10 @@ public abstract  class AbstractList<T> implements List<T> {
         ListIterator iterator = this.iterator();
         StringBuilder result = new StringBuilder();
         result.append("[");
+        int i =0;
         while (iterator.hasNext()) {
             Object object = iterator.next();
-            if (iterator.getIteratorSize() < this.size) {
+            if (i < this.size -1) {
                 if (object == null) {
                     result.append(null);
                     result.append(", ");
@@ -273,6 +284,7 @@ public abstract  class AbstractList<T> implements List<T> {
                     result.append("]");
                 }
             }
+            i++;
         }
         return result.toString();
     }

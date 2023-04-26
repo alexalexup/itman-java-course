@@ -3,7 +3,6 @@ package tasks;
 import collections.AbstractList;
 import collections.ArrayList;
 import collections.LinkedList;
-import collections.List;
 import entities.Circle;
 import entities.Rectangle;
 import entities.Shape;
@@ -11,6 +10,7 @@ import entities.Square;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import utils.ShapeUtils;
 
 class ShapeUtilsTest {
     private double sumPerimeter(AbstractList<Shape> list) {
@@ -57,12 +57,12 @@ class ShapeUtilsTest {
         @Test
         public void  shouldFindShapeWithMinSquareWhenListHaveSomeDifferentShapes() {
             LinkedList<Shape> list = new LinkedList<>();
-            list.addFirst(new Circle(5.6));
-            list.addFirst(new Square(4.22));
-            list.addFirst(new Square(5.66));
-            list.addFirst(new Rectangle(6.44, 2.43));
+            list.add(new Circle(5.6));
+            list.add(new Square(4.22));
+            list.add(new Square(0.66));
+            list.add(new Rectangle(6.44, 2.43));
             Shape result = ShapeUtils.findMinSquareShape(list);
-            Assertions.assertSame(result, list.get(0));
+            Assertions.assertSame(result, list.get(2));
         }
 
         @Test
@@ -79,27 +79,29 @@ class ShapeUtilsTest {
         @Test
         public void  shouldFindShapeWithMinSquareWhenListHaveSomeEqualShapes() {
             LinkedList<Shape> list = new LinkedList<>();
-            list.addFirst(new Circle(5.6));
-            list.addFirst(new Square(4.22));
-            list.addFirst(new Square(4.22));
-            list.addFirst(new Rectangle(6.44, 2.43));
-            list.addFirst(new Square(5.66));
-            list.addFirst(new Rectangle(6.44, 2.43));
+            list.add(new Circle(25.6));
+            list.add(new Square(4.22));
+            list.add(new Square(4.22));
+            list.add(new Circle(5.6));
+            list.add(new Rectangle(6.44, 2.43));
+            list.add(new Square(5.66));
+            list.add(new Rectangle(6.44, 2.43));
             Shape result = ShapeUtils.findMinSquareShape(list);
-            Assertions.assertEquals(list.get(0), result);
+            Assertions.assertEquals(list.get(6), result);
         }
 
         @Test
         public void  shouldFindShapeWithMinSquareWhenListHaveOnlySquares() {
-            LinkedList<Shape> list = new LinkedList<>();
-            list.addFirst(new Square(5.6));
-            list.addFirst(new Square(4.22));
-            list.addFirst(new Square(4.22));
-            list.addFirst(new Square(2.43));
-            list.addFirst(new Square(5.66));
-            list.addFirst(new Square(6.44));
+            AbstractList<Shape> list = new LinkedList<>();
+            list.add(new Square(5.6));
+            list.add(new Square(4.22));
+            list.add(new Square(4.22));
+            list.add(new Square(2.43));
+            list.add(new Square(5.66));
+            list.add(new Square(6.44));
             Shape result = ShapeUtils.findMinSquareShape(list);
-            Assertions.assertEquals(list.get(2) , result);
+            Assertions.assertEquals(list.get(3), result);
+
         }
     }
 }
