@@ -338,12 +338,7 @@ public class ArrayUtils {
                 if (bTo > toIndex) {
                     bTo = toIndex;
                 }
-                if (comparator == null) {
-                    merge((Comparable[]) objects, aFrom, aTo,(Comparable[])  objects, bFrom, bTo,(Comparable[])  bufferEvents, i - fromIndex);
-                } else {
-                    merge(objects, aFrom, aTo, objects, bFrom, bTo, bufferEvents, i - fromIndex, comparator);
-                }
-
+                merge(objects, aFrom, aTo, objects, bFrom, bTo, bufferEvents, i - fromIndex, comparator);
             }
             size = size * 2;
             System.arraycopy(bufferEvents, 0, objects, fromIndex, bufferEvents.length);
@@ -384,7 +379,7 @@ public class ArrayUtils {
      * @ram O(n), n- a.length
      * @param objects array with elements
      */
-    public static void mergeSort(Comparable[] objects) {
+    public static<T extends Comparable<T>> void mergeSort(T[] objects) {
         mergeSort(objects, 0, objects.length);
     }
 
@@ -396,8 +391,8 @@ public class ArrayUtils {
      * @param fromIndex argument
      * @param toIndex argument
      */
-    public static void mergeSort(Comparable[] objects, int fromIndex, int toIndex) {
-        Comparable[] bufferEvents = (Comparable[]) new Object[toIndex - fromIndex];
+    public static<T extends Comparable<T>>  void mergeSort(T[] objects, int fromIndex, int toIndex) {
+        Comparable[] bufferEvents = new Comparable[toIndex - fromIndex];
         int size = 1;
         while (size < bufferEvents.length) {
             for (int i = fromIndex; i < toIndex; i = i + 2 * size) {

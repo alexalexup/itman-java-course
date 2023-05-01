@@ -47,14 +47,6 @@ public abstract  class AbstractList<T> implements List<T> {
     @Override
     public abstract boolean add(T element);
 
-    /**
-     * Add element to the List by the index
-     * @param index argument
-     * @param element argument
-     * return true when element added to the List and false when didn't
-     */
-    @Override
-    public abstract boolean add(int index, T element);
 
     /**
      * Add elements from collection to the current list
@@ -241,7 +233,7 @@ public abstract  class AbstractList<T> implements List<T> {
      * @param comparator argument, this is condition by which the sorting
      */
     @Override
-    public void sort(Comparator<T> comparator) {
+    public void sort(Comparator<? super T> comparator) {
         T[] items = (T[]) this.toArray();
         ArrayUtils.mergeSort(items, 0, size, comparator);
         ListIterator<T> iterator = this.iterator();

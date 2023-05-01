@@ -1,8 +1,4 @@
 package collections;
-
-import utils.ArrayUtils;
-
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
@@ -54,7 +50,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
          * @ram O(1)
          * @return nextNode from Node
          */
-        public Node getNext() {
+        public Node<T> getNext() {
             return this.next;
         }
 
@@ -64,7 +60,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
          * @ram O(1)
          * @return prevNode from Node
          */
-        public Node getPrev() {
+        public Node<T> getPrev() {
             return this.prev;
         }
 
@@ -74,7 +70,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
          * @ram O(1)
          * @return nextNode to Node
          */
-        public void setNext(Node next) {
+        public void setNext(Node<T> next) {
             this.next = next;
         }
 
@@ -84,7 +80,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
          * @ram O(1)
          * @return prevNode to Node
          */
-        public void setPrev(Node prev) {
+        public void setPrev(Node<T> prev) {
             this.prev = prev;
         }
     }
@@ -95,7 +91,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @ram O(1)
      * @return LinkedList with custom value
      */
-    public LinkedList(Node node) {
+    public LinkedList(Node<T> node) {
         this.node = node;
     }
 
@@ -114,7 +110,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @ram O(1)
      * @return Node from LinkedList
      */
-    public  Node getNode() {
+    public  Node<T> getNode() {
         return this.node;
     }
 
@@ -124,7 +120,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @ram O(1)
      * @return lastNode from LinkedList
      */
-    public Node getLastNode() {
+    public Node<T> getLastNode() {
         return this.lastNode;
     }
 
@@ -399,17 +395,16 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @ram O(1)
      * @param element argument
      */
-    public<T> void addFirst(T element) {
+    public void addFirst(T element) {
         this.size++;
         Node<T> link = this.getNode();
         if (link == null) {
-            this.node = new Node(element, null,null);
+            this.node = new Node<T>(element, null,null);
             this.lastNode = this.node;
             return;
         }
-        this.node = new Node(element, link, null);
+        this.node = new Node<T>(element, link, null);
         link.setPrev(this.node);
-        return;
     }
 
     /**
@@ -469,15 +464,15 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @ram O(1)
      * @param element
      */
-    public<T> void addLast(T element) {
+    public void addLast(T element) {
         this.size++;
         Node<T> link = this.getNode();
         if (link == null) {
-            this.node = new Node(element, null, null);
+            this.node = new Node<T>(element, null, null);
             this.lastNode = this.node;
             return;
         }
-        this.lastNode.setNext(new Node(element, null, this.lastNode));
+        this.lastNode.setNext(new Node<T>(element, null, this.lastNode));
         this.lastNode = this.lastNode.getNext();
     }
 

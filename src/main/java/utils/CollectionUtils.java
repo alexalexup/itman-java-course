@@ -49,17 +49,17 @@ public class CollectionUtils {
      * @ram O(n), list.size()
      * @param list List with elements
      */
-    public static void sort(List<? super Comparable> list) {
+    public static<T extends Comparable<T>> void sort(List<T> list) {
         Comparable[] objects = new Comparable[list.size()];
-        ListIterator<Comparable> firstIterator = list.iterator();
+        ListIterator<T> firstIterator = list.iterator();
         for (int i = 0; i <objects.length; i ++) {
             objects[i] = firstIterator.next();
         }
         mergeSort(objects);
-        ListIterator<Comparable> secondIterator = list.iterator();
+        ListIterator<T> secondIterator = list.iterator();
         for (int k = 0; k <objects.length; k ++) {
             secondIterator.next();
-            secondIterator.set((objects[k]));
+            secondIterator.set((T) objects[k]);
         }
     }
 
