@@ -1,8 +1,5 @@
 package collections;
 
-import utils.ArrayUtils;
-
-import java.util.Comparator;
 import java.util.function.Predicate;
 
 public class  ArrayList<T> extends AbstractList<T> {
@@ -186,12 +183,10 @@ public class  ArrayList<T> extends AbstractList<T> {
      */
     @Override
     public boolean remove(T element) {
-        ListIterator<T> iterator = this.iterator();
         boolean result = false;
         int i = 0;
-        while (iterator.hasNext()) {
-            T checkItem = iterator.next();
-            if(element.equals(checkItem)) {
+        for (T item : this) {
+            if(element.equals(item)) {
                 this.remove(i);
                 return true;
             }
@@ -208,10 +203,9 @@ public class  ArrayList<T> extends AbstractList<T> {
      */
     @Override
     public void removeIf(Predicate<? super T> predicate) {
-        ListIterator<T> iterator = this.iterator();
         int i = 0;
-        while (iterator.hasNext()) {
-            if (predicate.test(iterator.next())) {
+        for (T item : this) {
+            if (predicate.test(item)) {
                 this.remove(i);
                 i++;
                 size--;
@@ -269,11 +263,7 @@ public class  ArrayList<T> extends AbstractList<T> {
                 if (iteratorSize == 0) {
                     return;
                 }
-                T[] newObjects =(T[]) new Object[++size];
-                System.arraycopy(objects, 0, newObjects, 0, iteratorSize - 1);
-                System.arraycopy(objects, iteratorSize - 1, newObjects, iteratorSize , size - iteratorSize);
-                objects = newObjects;
-                objects[iteratorSize - 1] = element;
+                add(iteratorSize - 1, element);
             }
 
             /**

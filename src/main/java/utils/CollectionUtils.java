@@ -19,9 +19,7 @@ public class CollectionUtils {
      */
     public static <T> T findMin(List<T> list, Comparator<? super T> comparator){
         T min = list.get(0);
-        ListIterator<T> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            T element = iterator.next();
+        for (T element: list) {
             if (comparator.compare(min, element) > 0 ) {
                 min = element;
             }

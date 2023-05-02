@@ -2,7 +2,6 @@ package collections;
 
 import utils.ArrayUtils;
 import utils.StringBuilder;
-
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.function.IntFunction;
@@ -10,13 +9,6 @@ import java.util.function.Predicate;
 
 public abstract  class AbstractList<T> implements List<T> {
     protected int size;
-
-    /**
-     * Create object from ListIterator class. This object uses for call some method that are general
-     for objects from Lists class.
-     * @return object from ListIterator class
-     */
-    public abstract ListIterator<T> iterator();
 
     /**
      *@cpu O(1)
@@ -40,15 +32,6 @@ public abstract  class AbstractList<T> implements List<T> {
     }
 
     /**
-     * Add element to the list
-     * @param element argument
-     * @return true when element was added and false when was not
-     */
-    @Override
-    public abstract boolean add(T element);
-
-
-    /**
      * Add elements from collection to the current list
      * @param collection argument
      * @return true when elements was added and false when was not
@@ -58,22 +41,11 @@ public abstract  class AbstractList<T> implements List<T> {
         if (collection.size() == 0) {
             return false;
         }
-        Iterator<? extends T> iterator = collection.iterator();
-        while (iterator.hasNext()) {
-            this.add(iterator.next());
-
+        for (T item: collection) {
+            this.add(item);
         }
         return true;
     }
-
-    /**
-     * Add elements from collection to the current list starting since index from argument
-     * @param index argument
-     * @param collection argument
-     * @return true when elements was added and false when was not
-     */
-    @Override
-    public abstract boolean addAll(int index, Collections<? extends T> collection);
 
     /**
      * Сhecks whether the current list contains an element from the argument
@@ -84,23 +56,13 @@ public abstract  class AbstractList<T> implements List<T> {
      */
     @Override
     public boolean contains(T element) {
-        Iterator<T> iterator = this.iterator();
-        while (iterator.hasNext()) {
-            T checkItem = iterator.next();
-            if(checkItem != null && checkItem.equals(element)) {
+        for (T item: this) {
+            if(item != null && item.equals(element)) {
                 return true;
             }
         }
         return false;
     }
-
-    /**
-     * Remove element from the list
-     * @param element argument
-     * @return true when element was removed and false when was not
-     */
-    @Override
-    public abstract boolean remove(T element);
 
     /**
      * Сhecks contains or not list all elements from the argument
@@ -111,9 +73,7 @@ public abstract  class AbstractList<T> implements List<T> {
      */
     @Override
     public boolean containsAll(Collections<? extends T> collection) {
-        Iterator<? extends T> iterator = collection.iterator();
-        while (iterator.hasNext()) {
-            T item = iterator.next();
+        for(T item: collection) {
             if (!this.contains(item)) {
                 return false;
             }
@@ -151,39 +111,15 @@ public abstract  class AbstractList<T> implements List<T> {
         if (this.size != that.size) {
             return false;
         }
-        Iterator<T> firstIterator = this.iterator();
-        Iterator<T> secondIterator =that.iterator();
-        while (firstIterator.hasNext() && secondIterator.hasNext()) {
-            T firstObject = firstIterator.next();
-            T secondObject = secondIterator.next();
-            if (!(firstObject == null ? secondObject == null : firstObject.equals(secondObject))) {
+        Iterator<T> iterator = that.iterator();
+        for (T firstItem: this) {
+            T secondItem = iterator.next();
+            if (!(firstItem == null ? secondItem == null : firstItem.equals(secondItem))) {
                 return false;
             }
         }
         return true;
     }
-
-    /**
-     * Set element by index to the list
-     * @param index argument
-     * @param element argument
-     */
-    @Override
-    public abstract void  set(int index, T element);
-
-    /**
-     * Get element from the list by index
-     * @param index argument
-     */
-    @Override
-    public abstract T get(int index);
-
-    /**
-     * Create Array with data from the list
-     * @return Array with data from the list
-     */
-    @Override
-    public abstract Object[] toArray();
 
     /**
      * Remove element from the list when element meets the requirements of the argument
@@ -208,23 +144,13 @@ public abstract  class AbstractList<T> implements List<T> {
     @Override
     public  T[] toArray(IntFunction<T> factory){
         T[] result = (T[]) new Object[this.size];
-        ListIterator<T> iterator = this.iterator();
         int i = 0;
-        while (iterator.hasNext()) {
+        for (T item: this) {
             result[i] =  factory.apply(i);
-            iterator.next();
             i++;
         }
         return result;
     }
-
-    /**
-     * Remove and return element from the list by the index
-     * @param index argument
-     * @return element from the list by the index
-     */
-    @Override
-    public abstract T remove(int index);
 
     /**
      * Sort elements in the list
@@ -253,26 +179,24 @@ public abstract  class AbstractList<T> implements List<T> {
         if (this.size == 0) {
             return "[]";
         }
-        ListIterator iterator = this.iterator();
         StringBuilder result = new StringBuilder();
         result.append("[");
         int i =0;
-        while (iterator.hasNext()) {
-            Object object = iterator.next();
+        for (Object item: this) {
             if (i < this.size -1) {
-                if (object == null) {
+                if (item == null) {
                     result.append(null);
                     result.append(", ");
                 } else {
-                    result.append(object.toString());
+                    result.append(item.toString());
                     result.append(", ");
                 }
             } else {
-                if (object == null) {
+                if (item == null) {
                     result.append(null);
                     result.append("]");
                 } else {
-                    result.append(object.toString());
+                    result.append(item.toString());
                     result.append("]");
                 }
             }

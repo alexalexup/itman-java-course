@@ -12,11 +12,13 @@ public interface List<T> extends Collections<T> {
 
     /**
      * Add element to the List by the index
-     * @param index argument
+     *
+     * @param index   argument
      * @param element argument
-     * return true when element added to the List and false when didn't
+     *                return true when element added to the List and false when didn't
      */
     boolean add(int index, T element);
+
 
     /**
      * Add elements from collection to the List since index
