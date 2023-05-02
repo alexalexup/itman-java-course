@@ -1,11 +1,14 @@
-package collections;
+package utils;
 
 
+import collections.AbstractList;
+import collections.ArrayList;
+import collections.LinkedList;
+import collections.List;
 import entities.Event;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import utils.CollectionUtils;
 
 import java.util.Comparator;
 
@@ -30,7 +33,7 @@ class CollectionUtilsTest {
 
         @Test
         public void shouldFindMinElementInTheListWhenListHaveSomeEvents()  {
-            List <Event> events = new ArrayList<>();
+            List<Event> events = new ArrayList<>();
             events.add(new Event(1086, 3, 4, "A"));
             events.add(new Event(6, 4, 4, "A"));
             events.add(new Event(333, 2, 4, "A"));
@@ -213,15 +216,15 @@ class CollectionUtilsTest {
     public class Sort {
         @Test
         public void shouldSortElementWhenListHaveSomeElements() {
-            AbstractList<Comparable> abstractList = LinkedList.of(4, 2, -3, 10, 4, 2, 0);
+            AbstractList<Integer> abstractList = LinkedList.of(4, 2, -3, 10, 4, 2, 0);
             CollectionUtils.sort(abstractList);
-            AbstractList<Comparable> expected = LinkedList.of(-3, 0, 2, 2, 4, 4, 10);
+            AbstractList<Integer> expected = LinkedList.of(-3, 0, 2, 2, 4, 4, 10);
             Assertions.assertTrue(abstractList.equals(expected));
         }
 
         @Test
         public void shouldSortElementWhenListHaveOneElement() {
-            AbstractList<Comparable> abstractList = LinkedList.of(5);
+            AbstractList<Integer> abstractList = LinkedList.of(5);
             CollectionUtils.sort(abstractList);
             AbstractList<Integer> expected = LinkedList.of(5);
             Assertions.assertTrue(abstractList.equals(expected));
@@ -229,7 +232,7 @@ class CollectionUtilsTest {
 
         @Test
         public void shouldSortElementWhenListHaveSomeEqualsElements() {
-            AbstractList<Comparable> abstractList = LinkedList.of(5, 4, 4, 2, 2, 1);
+            AbstractList<Integer> abstractList = LinkedList.of(5, 4, 4, 2, 2, 1);
             CollectionUtils.sort(abstractList);
             AbstractList<Integer> expected = LinkedList.of(1, 2, 2, 4, 4, 5);
             Assertions.assertTrue(abstractList.equals(expected));
@@ -237,10 +240,22 @@ class CollectionUtilsTest {
 
         @Test
         public void shouldWorkWhenListHaveNotAnyElements() {
-            AbstractList<Comparable> abstractList = LinkedList.of();
+            AbstractList<Integer> abstractList = LinkedList.of();
             CollectionUtils.sort(abstractList);
             AbstractList<Integer> expected = LinkedList.of();
             Assertions.assertTrue(abstractList.equals(expected));
+        }
+
+        @Test
+        public void shouldWorkWhenListHaveSomeEvents() {
+            List<Event> events = ArrayList
+                    .of(new Event(23,3,2, "A"),
+                            new Event(19,3,2, "B"),
+                            new Event(22,3,2, "C"),
+                            new Event(23,3,1, "D"));
+            List<Event> expected = ArrayList.of(events.get(1), events.get(2), events.get(3), events.get(0));
+            CollectionUtils.sort(events);
+            Assertions.assertTrue(events.equals(expected));
         }
     }
 

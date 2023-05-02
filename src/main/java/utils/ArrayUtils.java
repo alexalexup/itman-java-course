@@ -380,64 +380,7 @@ public class ArrayUtils {
      * @param objects array with elements
      */
     public static<T extends Comparable<T>> void mergeSort(T[] objects) {
-        mergeSort(objects, 0, objects.length);
-    }
-
-    /**
-     * Sort part of array with events use merge method
-     * @cpu O(n * logn), n = toIndex - fromIndex
-     * @ram O(n), n = toIndex - fromIndex
-     * @param objects array with elements
-     * @param fromIndex argument
-     * @param toIndex argument
-     */
-    public static<T extends Comparable<T>>  void mergeSort(T[] objects, int fromIndex, int toIndex) {
-        Comparable[] bufferEvents = new Comparable[toIndex - fromIndex];
-        int size = 1;
-        while (size < bufferEvents.length) {
-            for (int i = fromIndex; i < toIndex; i = i + 2 * size) {
-                int aFrom = i;
-                int aTo = i + size;
-                if (aTo > toIndex) {
-                    aTo = toIndex;
-                }
-                int bFrom = aTo;
-                int bTo = bFrom + size;
-                if (bTo > toIndex) {
-                    bTo = toIndex;
-                }
-
-                merge(objects, aFrom, aTo, objects, bFrom, bTo, bufferEvents, i - fromIndex);
-            }
-            size = size * 2;
-            System.arraycopy(bufferEvents, 0, objects, fromIndex, bufferEvents.length);
-        }
-    }
-
-    /**
-     * Merge two arrays with events in increasing order of numbers
-     * @cpu O(n + m), n = aTo - aFrom, m = bTo - bFrom
-     * @ram O(1)
-     * @param a array with elements
-     * @param aFrom argument
-     * @param aTo argument
-     * @param b array with elements
-     * @param bFrom argument
-     * @param bTo argument
-     * @param r array with elements
-     * @param rFrom argument
-     */
-    public static void merge(Comparable[] a, int aFrom, int aTo, Comparable[] b, int bFrom, int bTo, Comparable[] r, int rFrom) {
-        int length = rFrom + aTo - aFrom + bTo - bFrom;
-        for (int i = rFrom, j = aFrom, k = bFrom; i < length; i++) {
-            if (k < bTo  && (j >= aTo || a[j].compareTo(b[k]) > 0)) {
-                r[i] = b[k];
-                k++;
-            } else {
-                r[i] = a[j];
-                j++;
-            }
-        }
+        mergeSort(objects, Comparable::compareTo);
     }
 }
 
