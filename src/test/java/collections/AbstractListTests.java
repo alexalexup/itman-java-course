@@ -149,6 +149,18 @@ abstract public  class AbstractListTests  {
             List secondList = of(1,"HI", null , 2,  -1, 2.34);
             Assertions.assertTrue(firsList.contains(2) && secondList.contains(-1));
         }
+
+        @Test
+        public void shouldReturnTrueWhenListHaveNullAndElementFromArgumentIsNull() {
+            List list = of(null, 3, 2);
+            Assertions.assertTrue(list.contains(null));
+        }
+
+        @Test
+        public void shouldReturnTrueWhenListHaveOnlyNullsAndElementFromArgumentIsNull() {
+            List list = of(null, null, null);
+            Assertions.assertTrue(list.contains(null));
+        }
     }
 
     @Nested
@@ -596,6 +608,17 @@ abstract public  class AbstractListTests  {
             collection.add(5.5);
             list.removeAll(collection);
             Assertions.assertEquals(of(), list);
+        }
+
+        @Test
+        public void shouldRemoveWhenListHaveRepeatedElementsThatContainsInCollectionFromArgument() {
+            List<Integer> list = of(1, 1, 1, 1, 2, 3, 2, 5, 2, 4, 5, 5, 7);
+            Collections<Integer> collection = new ArrayList();
+            collection.add(1);
+            collection.add(2);
+            collection.add(5);
+            list.removeAll(collection);
+            Assertions.assertEquals(of(3, 4, 7), list);
         }
     }
 

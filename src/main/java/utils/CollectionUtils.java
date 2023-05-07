@@ -48,17 +48,7 @@ public class CollectionUtils {
      * @param list List with elements
      */
     public static<T extends Comparable<T>> void sort(List<T> list) {
-        Comparable[] objects = new Comparable[list.size()];
-        ListIterator<T> firstIterator = list.iterator();
-        for (int i = 0; i <objects.length; i ++) {
-            objects[i] = firstIterator.next();
-        }
-        mergeSort(objects);
-        ListIterator<T> secondIterator = list.iterator();
-        for (int k = 0; k <objects.length; k ++) {
-            secondIterator.next();
-            secondIterator.set((T) objects[k]);
-        }
+        list.sort(Comparable::compareTo);
     }
 
     /**

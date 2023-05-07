@@ -1,9 +1,43 @@
 package collections;
 
+import java.util.Iterator;
 import java.util.function.Predicate;
 
 public class  ArrayList<T> extends AbstractList<T> {
     private T[] objects;
+
+    /**
+     *@cpu O(1)
+     *@ram O(1)
+     * @return size of the  ArrayList
+     */
+    @Override
+    public int size() {
+        return super.size();
+    }
+
+    /**
+     * Check have or not ArrayList any elements
+     * @cpu O(1)
+     * @ram O(1)
+     * @return true when ArrayList have not any elements and false in other cases
+     */
+    @Override
+    public boolean isEmpty() {
+        return super.isEmpty();
+    }
+
+    /**
+     * Add elements from collection to the current list
+     * @cpu O(n), n - collection.size;
+     * @ram O(m), m - this.objects.length
+     * @param collection argument
+     * @return true when elements was added and false when was not
+     */
+    @Override
+    public  boolean addAll(Collections<? extends T> collection) {
+      return super.addAll(collection);
+    }
 
     /**
      * Add elements from the collection to the ArrayList by the index
@@ -112,6 +146,42 @@ public class  ArrayList<T> extends AbstractList<T> {
     }
 
     /**
+     * Сhecks whether the current ArrayList contains an element from the argument
+     * @cpu O(n * m) , n - super.size, m - asymptotic of the element.equals() function
+     * @ram O(1)
+     * @param element argument
+     * @return true when ArrayList have element from argument and false when have not
+     */
+    @Override
+    public boolean contains(T element) {
+        return super.contains(element);
+    }
+
+    /**
+     * Сhecks contains or not ArrayList all elements from the argument
+     * @cpu O(n * m * k) , n - super.size, m - collection.size, k - asymptotic of the T item.equals() function
+     * @ram O(1)
+     * @param collection argument
+     * @return true when ArrayList have all elements from the argument, false when have not
+     */
+    @Override
+    public boolean containsAll(Collections<? extends T> collection) {
+      return super.containsAll(collection);
+    }
+
+    /**
+     * Compare current ArrayList with object from the argument
+     * @cpu O(n) , n - super.size
+     * @ram O(1)
+     * @param objects argument
+     * @return true when both objects are same( from the list class and have same elements), false
+    when are not
+     */
+    public boolean equals(Object objects) {
+        return super.equals(objects);
+    }
+
+    /**
      * Set element in arraylist by index
      * @cpu O(1)
      * @ram O(1)
@@ -163,20 +233,36 @@ public class  ArrayList<T> extends AbstractList<T> {
 
     /**
      * Remove all elements from current collection that includes in collection from argument
-     * @cpu O(n^2 * m) , n - this.size, m - collection.size
+     * @cpu O(n * m * k) , n - this.size, m - collection.size, m - asymptotic of the item.equals() function
      * @ram O(1)
      * @param collection argument
      */
     @Override
     public void removeAll(Collections<? extends T> collection) {
         for (T item : collection) {
-            this.remove(item);
+          this.removeAll(item);
         }
     }
 
     /**
      * Remove element from the list
-     * @cpu O(n^2) , n - this.size
+     * @cpu O(n * m) , n - this.size, m - asymptotic of the element.equals() function
+     * @ram O(1)
+     * @param element argument
+     * @return true when element was removed and false when was not
+     */
+    private void removeAll(T element) {
+       Iterator<T> iterator = this.iterator();
+       while (iterator.hasNext()) {
+           if (iterator.next().equals(element)){
+            iterator.remove();
+           }
+       }
+    }
+
+    /**
+     * Remove element from the list
+     * @cpu O(n * m) , n - this.size, m - asymptotic of the element.equals() function
      * @ram O(1)
      * @param element argument
      * @return true when element was removed and false when was not
@@ -197,21 +283,20 @@ public class  ArrayList<T> extends AbstractList<T> {
 
     /**
      * Remove element from the list when element meets the requirements of the argument
-     * @cpu O(n^2) , n - this.size
+     * @cpu O(n * m * k * l) , n - this.size, m - asymptotic of the predicate.test(item) function
+     *
      * @ram O(1)
      * @param predicate argument
      */
     @Override
     public void removeIf(Predicate<? super T> predicate) {
-        int i = 0;
+        ArrayList<T>  list = new ArrayList<>();
         for (T item : this) {
             if (predicate.test(item)) {
-                this.remove(i);
-                i++;
-                size--;
+              list.add(item);
             }
-            i++;
         }
+        this.removeAll(list);
     }
 
     /**
@@ -286,6 +371,19 @@ public class  ArrayList<T> extends AbstractList<T> {
             @Override
             public T next() {
                 return get(iteratorSize++);
+            }
+
+            /**
+             * Delete current element from the Iterator
+             * @cpu O(n), n - size
+             * @ram O(1)
+             */
+            public void remove() {
+                size--;
+                for (int i = iteratorSize - 1; i < size; i++) {
+                    objects[i] = objects[i+1];
+                }
+                iteratorSize--;
             }
         };
     }

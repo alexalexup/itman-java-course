@@ -15,8 +15,8 @@ public class ShapeUtils {
      */
     public static double calcAvrPerimeter(AbstractList<? extends Shape> list) {
         double sum = 0;
-        for (int i = 0; i < list.size(); i++) {
-            sum = sum + list.get(i).calcPerimeter();
+        for (Shape shape: list) {
+            sum = sum + shape.calcPerimeter();
         }
         return sum / list.size();
     }

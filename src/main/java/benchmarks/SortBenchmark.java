@@ -103,10 +103,8 @@ public class SortBenchmark {
                 "mso4"
         };
         long[] time = new long[48];
-        Comparator<Event> comparator;
-        ToIntFunction<Event> function;
-        function = a -> a.getDay() + a.getMonth() * 31 + a.getYear() * 12 * 31;
-        comparator = (a, b) -> a.compareTo(b);
+        Comparator<Event> comparator = Event::compareTo;
+        ToIntFunction<Event> function = a -> a.getDay() + a.getMonth() * 31 + a.getYear() * 12 * 31;
         int[] numbersArray = randomArray(10000, -10000, 10000);
         time[0] = System.currentTimeMillis();
         ArrayUtils.bubbleSort(numbersArray);

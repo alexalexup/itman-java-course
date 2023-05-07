@@ -11,8 +11,6 @@ public abstract  class AbstractList<T> implements List<T> {
     protected int size;
 
     /**
-     *@cpu O(1)
-     *@ram O(1)
      * @return size of the  Lists
      */
     @Override
@@ -22,8 +20,6 @@ public abstract  class AbstractList<T> implements List<T> {
 
     /**
      * Check have or not list any elements
-     * @cpu O(1)
-     * @ram O(1)
      * @return true when list have not any elements and false in other cases
      */
     @Override
@@ -49,15 +45,13 @@ public abstract  class AbstractList<T> implements List<T> {
 
     /**
      * Сhecks whether the current list contains an element from the argument
-     * @cpu O(n) , n - this.size
-     * @ram O(1)
      * @param element argument
      * @return true when list have element from argument and false when have not
      */
     @Override
     public boolean contains(T element) {
         for (T item: this) {
-            if(item != null && item.equals(element)) {
+            if(item == null ? element == null : item.equals(element)) {
                 return true;
             }
         }
@@ -66,8 +60,6 @@ public abstract  class AbstractList<T> implements List<T> {
 
     /**
      * Сhecks contains or not list all elements from the argument
-     * @cpu O(n * m) , n - this.size, m - collection.size
-     * @ram O(1)
      * @param collection argument
      * @return true when list have all elements from the argument, false when have not
      */
@@ -94,8 +86,6 @@ public abstract  class AbstractList<T> implements List<T> {
 
     /**
      * Compare current list with object from the argument
-     * @cpu O(n) , n - this.size
-     * @ram O(1)
      * @param objects argument
      * @return true when both objects are same( from the list class and have same elements), false
      when are not
@@ -104,7 +94,7 @@ public abstract  class AbstractList<T> implements List<T> {
         if (this == objects) {
             return true;
         }
-        if (!(objects instanceof AbstractList)){
+        if (!(objects instanceof List)){
            return false;
         }
         AbstractList<T> that = (AbstractList<T>) objects;
@@ -154,7 +144,7 @@ public abstract  class AbstractList<T> implements List<T> {
 
     /**
      * Sort elements in the list
-     * @cpu O(n * log(n) , n - this.size
+     * @cpu O(n * log(n)) , n - this.size
      * @ram O(n), n - this.size
      * @param comparator argument, this is condition by which the sorting
      */
