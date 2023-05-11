@@ -1,6 +1,11 @@
 package collections;
 
+import utils.ArrayUtils;
+import utils.StringBuilder;
+
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.function.IntFunction;
 import java.util.function.Predicate;
 
 public class  ArrayList<T> extends AbstractList<T> {
@@ -153,7 +158,7 @@ public class  ArrayList<T> extends AbstractList<T> {
      * @return true when ArrayList have element from argument and false when have not
      */
     @Override
-    public boolean contains(T element) {
+    public boolean contains(Object element) {
         return super.contains(element);
     }
 
@@ -165,7 +170,7 @@ public class  ArrayList<T> extends AbstractList<T> {
      * @return true when ArrayList have all elements from the argument, false when have not
      */
     @Override
-    public boolean containsAll(Collections<? extends T> collection) {
+    public boolean containsAll(Collections<?> collection) {
       return super.containsAll(collection);
     }
 
@@ -210,9 +215,19 @@ public class  ArrayList<T> extends AbstractList<T> {
      * @return array with data from arrayList
      */
     public T[] toArray() {
-        T[] array = (T[]) new Object[this.size];
-        System.arraycopy(this.objects, 0, array, 0,this.size);
-        return array;
+        return super.toArray();
+    }
+
+    /**
+     * Converts the data from the list according to the requirements from the argument and passes
+     the data to the array
+     * @cpu O(n), n - argument from the factory.apply(n) function
+     * @ram O(n), n - argument from the factory.apply(n) function
+     * @param factory argument
+     * @return array with  data that was converted with requirements from the argument
+     */
+    public <T> T[] toArray(IntFunction<T[]> factory){
+        return super.toArray(factory);
     }
 
     /**
@@ -238,10 +253,8 @@ public class  ArrayList<T> extends AbstractList<T> {
      * @param collection argument
      */
     @Override
-    public void removeAll(Collections<? extends T> collection) {
-        for (T item : collection) {
-          this.removeAll(item);
-        }
+    public void removeAll(Collections<?> collection) {
+       super.removeAll(collection);
     }
 
     /**
@@ -251,13 +264,8 @@ public class  ArrayList<T> extends AbstractList<T> {
      * @param element argument
      * @return true when element was removed and false when was not
      */
-    private void removeAll(T element) {
-       Iterator<T> iterator = this.iterator();
-       while (iterator.hasNext()) {
-           if (iterator.next().equals(element)){
-            iterator.remove();
-           }
-       }
+    protected void removeAll(Object element) {
+       super.removeAll(element);
     }
 
     /**
@@ -268,35 +276,40 @@ public class  ArrayList<T> extends AbstractList<T> {
      * @return true when element was removed and false when was not
      */
     @Override
-    public boolean remove(T element) {
-        boolean result = false;
-        int i = 0;
-        for (T item : this) {
-            if(element.equals(item)) {
-                this.remove(i);
-                return true;
-            }
-            i++;
-        }
-        return result;
+    public boolean remove(Object element) {
+        return super.remove(element);
     }
 
     /**
      * Remove element from the list when element meets the requirements of the argument
-     * @cpu O(n * m * k * l) , n - this.size, m - asymptotic of the predicate.test(item) function
-     *
+     * @cpu O(n * m), n - this.size, m - asymptotic of the predicate.test(item) function
      * @ram O(1)
      * @param predicate argument
      */
     @Override
     public void removeIf(Predicate<? super T> predicate) {
-        ArrayList<T>  list = new ArrayList<>();
-        for (T item : this) {
-            if (predicate.test(item)) {
-              list.add(item);
-            }
-        }
-        this.removeAll(list);
+        super.removeIf(predicate);
+    }
+
+    /**
+     * Sort elements in the list
+     * @cpu O(n * log(n)) , n - this.size
+     * @ram O(n), n - this.size
+     * @param comparator argument, this is condition by which the sorting
+     */
+    @Override
+    public void sort(Comparator<? super T> comparator) {
+       super.sort(comparator);
+    }
+
+    /**
+     * Return String with values of elements from List
+     * @cpu O(n), n - size of List
+     * @ram O(n), n - size of List
+     * @return String with values of elements from List
+     */
+    public String toString() {
+       return super.toString();
     }
 
     /**

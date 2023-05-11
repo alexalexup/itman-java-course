@@ -41,21 +41,21 @@ public interface Collections<T> extends Iterable<T> {
      * @param element argument
      * @return true when elemnt(s) was removed and false when was not
      */
-    boolean remove(T element);
+    boolean remove(Object element);
 
     /**
      * Checks whether the collection contains  elements from the argument
      * @param collection argument
      * @return true when collection contains elements from the argument and false when doesn't
      */
-    boolean containsAll(Collections<? extends T> collection);
+    boolean containsAll(Collections<?> collection);
 
     /**
      * Remove all elements from the collection that correspond to argument
      * @param element argument
      * @return true when elemnt(s) was removed and false when was not
      */
-    void removeAll(Collections<? extends T> element);
+    void removeAll(Collections<?> element);
 
     /**
      * Create and return array with elements from the collection
@@ -74,5 +74,5 @@ public interface Collections<T> extends Iterable<T> {
        was converted used IntFunction object
      * @return array with edit elements from the collection
      */
-    T[] toArray(IntFunction<T> factory);
+    <T> T[] toArray(IntFunction<T[]> factory);
 }

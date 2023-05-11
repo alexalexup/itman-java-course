@@ -1,5 +1,7 @@
 package collections;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.function.IntFunction;
 import java.util.function.Predicate;
 
 public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> {
@@ -261,13 +263,19 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @return array with numbers from LinkedList
      */
     public T[] toArray(){
-        T[] result =(T[]) new Object[this.size];
-        Node<T> link = this.node;
-        for (int i = 0; i < this.size; i++) {
-            result[i] = link.getElement();
-            link = link.getNext();
-        }
-        return result;
+       return super.toArray();
+    }
+
+    /**
+     * Converts the data from the list according to the requirements from the argument and passes
+     the data to the array
+     * @cpu O(n), n - argument from the factory.apply(n) function
+     * @ram O(n), n - argument from the factory.apply(n) function
+     * @param factory argument
+     * @return array with  data that was converted with requirements from the argument
+     */
+    public <T> T[] toArray(IntFunction<T[]> factory){
+        return super.toArray(factory);
     }
 
     /**
@@ -395,17 +403,8 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @return true when element was removed and false when was not
      */
     @Override
-    public boolean remove(T element) {
-        ListIterator<T> iterator = this.iterator();
-        boolean result = false;
-        while (iterator.hasNext()) {
-            T checkItem = iterator.next();
-            if(element.equals(checkItem)) {
-                iterator.remove();
-                return true;
-            }
-        }
-        return result;
+    public boolean remove(Object element) {
+       return super.remove(element);
     }
 
     /**
@@ -415,13 +414,8 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @param element argument
      * @return true when element was removed and false when was not
      */
-    private void removeAll(T element) {
-        Iterator<T> iterator = this.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().equals(element)){
-                iterator.remove();
-            }
-        }
+    protected void removeAll(Object element) {
+        super.removeAll(element);
     }
 
     /**
@@ -483,10 +477,8 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @param collection argument
      */
     @Override
-    public void removeAll(Collections<? extends T> collection) {
-        for (T item : collection) {
-            this.removeAll(item);
-        }
+    public void removeAll(Collections<?> collection) {
+        super.removeAll(collection);
     }
 
     /**
@@ -533,7 +525,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @return true when LinkedList have element from argument and false when have not
      */
     @Override
-    public boolean contains(T element) {
+    public boolean contains(Object element) {
         return super.contains(element);
     }
 
@@ -545,8 +537,29 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @return true when LinkedList have all elements from the argument, false when have not
      */
     @Override
-    public boolean containsAll(Collections<? extends T> collection) {
+    public boolean containsAll(Collections<?> collection) {
         return super.containsAll(collection);
+    }
+
+    /**
+     * Sort elements in the list
+     * @cpu O(n * log(n)) , n - this.size
+     * @ram O(n), n - this.size
+     * @param comparator argument, this is condition by which the sorting
+     */
+    @Override
+    public void sort(Comparator<? super T> comparator) {
+        super.sort(comparator);
+    }
+
+    /**
+     * Return String with values of elements from List
+     * @cpu O(n), n - size of List
+     * @ram O(n), n - size of List
+     * @return String with values of elements from List
+     */
+    public String toString() {
+        return super.toString();
     }
 
     /**
@@ -569,12 +582,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      */
     @Override
     public void removeIf(Predicate<? super T> predicate) {
-        ListIterator<T> iterator = this.iterator();
-        while (iterator.hasNext()) {
-            if (predicate.test(iterator.next())) {
-                iterator.remove();
-            }
-        }
+        super.removeIf(predicate);
     }
 
     /**

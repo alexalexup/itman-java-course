@@ -1,6 +1,8 @@
 package collections;
 
+import entities.Circle;
 import entities.Event;
+import entities.Shape;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -68,6 +70,30 @@ abstract public  class AbstractListTests  {
                     new Event(1962, 2, 3, "L")
             );
             Assertions.assertEquals(expected, list);
+        }
+    }
+
+    @Nested
+    public class Intfunction {
+        @Test
+        public void shouldReturnArrayWithSameSizeAndElementsFromTheList() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            Integer[] actual = list.toArray(size -> new Integer[size]);
+            Assertions.assertArrayEquals(actual, new Integer[]{1, 2, 3, 4, 5});
+        }
+
+        @Test
+        public void shouldReturnArrayWithSameElementsFromTheListAndSizeFromTheArguments() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            Integer[] actual = list.toArray(size -> new Integer[3]);
+            Assertions.assertArrayEquals(actual, new Integer[]{1, 2, 3});
+        }
+
+        @Test
+        public void shouldReturnArrayWithSameElementsFromTheListWhenElementsAreShapes() {
+            List<Shape> list = of(new Circle(3.0), new Circle(2.0), new Circle(1.0));
+            Shape[] actual = list.toArray(size -> new Shape[size]);
+            Assertions.assertArrayEquals(actual, new Shape[]{new Circle(3.0), new Circle(2.0), new Circle(1.0)});
         }
     }
 
