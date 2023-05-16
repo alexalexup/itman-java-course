@@ -36,15 +36,17 @@ public class CollectionUtils {
      * @param comparator argument
      * @return minimum element from the List
      */
-    public static <T> T findMax(List<? extends T> list, Comparator<? super T> comparator) {
+    public static <T> T findMax (List<? extends T> list, Comparator<? super T> comparator) {
         T max = list.get(0);
         for (T element: list) {
-            if (comparator.compare(max, element) < 0 ) {
-                max = element;
+            if (comparator.compare(element, max) > 0 ) {
+                max= element;
             }
         }
         return max;
     }
+
+
 
     /**
      * Sort in increase order elements in the List

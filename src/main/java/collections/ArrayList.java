@@ -292,7 +292,7 @@ public class  ArrayList<T> extends AbstractList<T> {
 
     /**
      * Remove element from the list when element meets the requirements of the argument
-     * @cpu O(n * m), n - this.size, m - asymptotic of the predicate.test(item) function
+     * @cpu O(n^2 * m), n - this.size, m - asymptotic of the predicate.test(item) function
      * @ram O(1)
      * @param predicate argument
      */
