@@ -23,7 +23,6 @@ public class CollectionUtils {
             if (comparator.compare(min, element) > 0 ) {
                 min = element;
             }
-
         }
         return min;
     }
@@ -45,8 +44,6 @@ public class CollectionUtils {
         }
         return max;
     }
-
-
 
     /**
      * Sort in increase order elements in the List
