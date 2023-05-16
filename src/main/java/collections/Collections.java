@@ -74,5 +74,5 @@ public interface Collections<T> extends Iterable<T> {
        was converted used IntFunction object
      * @return array with edit elements from the collection
      */
-    <T> T[] toArray(IntFunction<T[]> factory);
+     T[] toArray(IntFunction<T[]> factory);
 }

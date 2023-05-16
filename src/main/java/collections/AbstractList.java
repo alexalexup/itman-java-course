@@ -86,13 +86,13 @@ public abstract  class AbstractList<T> implements List<T> {
         if (!(objects instanceof List)){
            return false;
         }
-        AbstractList<T> that = (AbstractList<T>) objects;
+        AbstractList that = (AbstractList) objects;
         if (this.size != that.size) {
             return false;
         }
-        Iterator<T> iterator = that.iterator();
-        for (T firstItem: this) {
-            T secondItem = iterator.next();
+        Iterator iterator = that.iterator();
+        for (Object firstItem: this) {
+            Object secondItem = iterator.next();
             if (!(firstItem == null ? secondItem == null : firstItem.equals(secondItem))) {
                 return false;
             }
@@ -153,13 +153,11 @@ public abstract  class AbstractList<T> implements List<T> {
      * @param factory argument
      * @return array with  data that was converted with requirements from the argument
      */
-    public <T> T[] toArray(IntFunction<T[]> factory){
+    public  T[] toArray(IntFunction<T[]> factory){
         T[] result = factory.apply(this.size);
-        Iterator iterator = this.iterator();
-        int i = 0;
-        for (T item: result) {
-            result[i] = (T)iterator.next();
-            i++;
+        Iterator<T> iterator = this.iterator();
+        for (int i = 0; i <result.length; i++) {
+            result[i] = iterator.next();
         }
         return result;
     }
@@ -195,7 +193,7 @@ public abstract  class AbstractList<T> implements List<T> {
      */
     @Override
     public void sort(Comparator<? super T> comparator) {
-        T[] items = (T[]) this.toArray();
+        T[] items =  this.toArray();
         ArrayUtils.mergeSort(items, 0, size, comparator);
         ListIterator<T> iterator = this.iterator();
         for (T item : items) {

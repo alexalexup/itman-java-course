@@ -269,12 +269,12 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
     /**
      * Converts the data from the list according to the requirements from the argument and passes
      the data to the array
-     * @cpu O(n), n - argument from the factory.apply(n) function
-     * @ram O(n), n - argument from the factory.apply(n) function
+     * @cpu O(n + m), n - super.size; m - asymptotic of the factory.apply() function
+     * @ram O(n), n - super.size
      * @param factory argument
      * @return array with  data that was converted with requirements from the argument
      */
-    public <T> T[] toArray(IntFunction<T[]> factory){
+    public  T[] toArray(IntFunction<T[]> factory){
         return super.toArray(factory);
     }
 
@@ -472,7 +472,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
 
     /**
      * Remove all elements from current collection that includes in collection from argument
-     * @cpu O(n * m) , n - this.size, m - collection.size
+     * @cpu O(n * (m + k)) , n - this.size, m - collection.size, k -  asymptotic of the element.equals() function
      * @ram O(1)
      * @param collection argument
      */
@@ -564,7 +564,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
 
     /**
      * Compare current LinkedList with object from the argument
-     * @cpu O(n) , n - super.size
+     * @cpu O(n + m) , n - super.size; m -
      * @ram O(1)
      * @param objects argument
      * @return true when both objects are same( from the list class and have same elements), false
@@ -736,7 +736,6 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
                 }
                 size--;
                 nextIndex--;
-
             }
         };
     }

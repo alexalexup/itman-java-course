@@ -17,7 +17,7 @@ public class CollectionUtils {
      * @param comparator argument
      * @return minimum element from the List
      */
-    public static <T> T findMin(List<? extends T> list, Comparator<? super T> comparator){
+    public static <T> T findMin(List<? extends T> list, Comparator<? super T> comparator) {
         T min = list.get(0);
         for (T element: list) {
             if (comparator.compare(min, element) > 0 ) {
@@ -42,7 +42,6 @@ public class CollectionUtils {
             if (comparator.compare(max, element) < 0 ) {
                 max = element;
             }
-
         }
         return max;
     }

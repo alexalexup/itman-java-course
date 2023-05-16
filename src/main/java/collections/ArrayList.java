@@ -35,7 +35,7 @@ public class  ArrayList<T> extends AbstractList<T> {
     /**
      * Add elements from collection to the current list
      * @cpu O(n), n - collection.size;
-     * @ram O(m), m - this.objects.length
+     * @ram O(n + m), n - collection.size; m - this.objects.length
      * @param collection argument
      * @return true when elements was added and false when was not
      */
@@ -176,7 +176,7 @@ public class  ArrayList<T> extends AbstractList<T> {
 
     /**
      * Compare current ArrayList with object from the argument
-     * @cpu O(n) , n - super.size
+     * @cpu O(n * m) , n - super.size, asymptotic of the  object.equals() function
      * @ram O(1)
      * @param objects argument
      * @return true when both objects are same( from the list class and have same elements), false
@@ -221,12 +221,12 @@ public class  ArrayList<T> extends AbstractList<T> {
     /**
      * Converts the data from the list according to the requirements from the argument and passes
      the data to the array
-     * @cpu O(n), n - argument from the factory.apply(n) function
+     * @cpu O(n + m), n - this.size(); m - argument from the factory.apply(n) function
      * @ram O(n), n - argument from the factory.apply(n) function
      * @param factory argument
      * @return array with  data that was converted with requirements from the argument
      */
-    public <T> T[] toArray(IntFunction<T[]> factory){
+    public  T[] toArray(IntFunction<T[]> factory){
         return super.toArray(factory);
     }
 
@@ -259,13 +259,23 @@ public class  ArrayList<T> extends AbstractList<T> {
 
     /**
      * Remove element from the list
-     * @cpu O(n * m) , n - this.size, m - asymptotic of the element.equals() function
-     * @ram O(1)
+     * @cpu O(n * m) , n - super.size; m - asymptotic of the object.equals() function
+     * @ram O(n), n - super.size
      * @param element argument
      * @return true when element was removed and false when was not
      */
     protected void removeAll(Object element) {
-       super.removeAll(element);
+       ArrayList<T> list = new ArrayList();
+       int count = 0;
+       for (T object: this) {
+           if (!object.equals(element)) {
+               list.add(object);
+           } else {
+               count++;
+           }
+       }
+       size = size - count;
+       this.objects = list.toArray();
     }
 
     /**
@@ -393,10 +403,8 @@ public class  ArrayList<T> extends AbstractList<T> {
              */
             public void remove() {
                 size--;
-                for (int i = iteratorSize - 1; i < size; i++) {
-                    objects[i] = objects[i+1];
-                }
                 iteratorSize--;
+                System.arraycopy(objects, iteratorSize + 1, objects, iteratorSize, size - iteratorSize);
             }
         };
     }
