@@ -323,8 +323,8 @@ public class ArrayUtils {
      * @param fromIndex argument
      * @param toIndex argument
      */
-    public static<T> void mergeSort(T[] objects, int fromIndex, int toIndex, Comparator<? super T> comparator) {
-        T[] bufferEvents = (T[]) new Object[toIndex - fromIndex];
+    public static void mergeSort(Object[] objects, int fromIndex, int toIndex, Comparator comparator) {
+        Object[] bufferEvents =  new Object[toIndex - fromIndex];
         int size = 1;
         while (size < bufferEvents.length) {
             for (int i = fromIndex; i < toIndex; i = i + 2 * size) {

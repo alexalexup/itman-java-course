@@ -164,7 +164,7 @@ public class  ArrayList<T> extends AbstractList<T> {
 
     /**
      * Сhecks contains or not ArrayList all elements from the argument
-     * @cpu O(n * m * k) , n - super.size, m - collection.size, k - asymptotic of the T item.equals() function
+     * @cpu O(n * m * k) , n - super.size, m - collection.size, k - asymptotic of the object.equals() function
      * @ram O(1)
      * @param collection argument
      * @return true when ArrayList have all elements from the argument, false when have not
@@ -176,7 +176,7 @@ public class  ArrayList<T> extends AbstractList<T> {
 
     /**
      * Compare current ArrayList with object from the argument
-     * @cpu O(n * m) , n - super.size, asymptotic of the  object.equals() function
+     * @cpu O(n * m) , n - super.size, asymptotic of the object.equals() function
      * @ram O(1)
      * @param objects argument
      * @return true when both objects are same( from the list class and have same elements), false
@@ -214,7 +214,7 @@ public class  ArrayList<T> extends AbstractList<T> {
      * @ram O(n), n - this.size
      * @return array with data from arrayList
      */
-    public T[] toArray() {
+    public Object[] toArray() {
         return super.toArray();
     }
 
@@ -248,7 +248,7 @@ public class  ArrayList<T> extends AbstractList<T> {
 
     /**
      * Remove all elements from current collection that includes in collection from argument
-     * @cpu O(n * m * k) , n - this.size, m - collection.size, m - asymptotic of the item.equals() function
+     * @cpu O(n * m * k) , n - this.size, m - collection.size, k - asymptotic of the item.equals() function
      * @ram O(1)
      * @param collection argument
      */
@@ -265,9 +265,9 @@ public class  ArrayList<T> extends AbstractList<T> {
      * @return true when element was removed and false when was not
      */
     protected void removeAll(Object element) {
-       ArrayList<T> list = new ArrayList();
+       ArrayList list = new ArrayList();
        int count = 0;
-       for (T object: this) {
+       for (Object object: this) {
            if (!object.equals(element)) {
                list.add(object);
            } else {
@@ -275,7 +275,7 @@ public class  ArrayList<T> extends AbstractList<T> {
            }
        }
        size = size - count;
-       this.objects = list.toArray();
+       this.objects = (T[]) list.toArray();
     }
 
     /**
@@ -292,13 +292,23 @@ public class  ArrayList<T> extends AbstractList<T> {
 
     /**
      * Remove element from the list when element meets the requirements of the argument
-     * @cpu O(n^2 * m), n - this.size, m - asymptotic of the predicate.test(item) function
+     * @cpu O(n * m), n - this.size, m - asymptotic of the predicate.test(object) function
      * @ram O(1)
      * @param predicate argument
      */
     @Override
     public void removeIf(Predicate<? super T> predicate) {
-        super.removeIf(predicate);
+        ArrayList list = new ArrayList();
+        int count = 0;
+        for (T object: this) {
+            if (!predicate.test(object)) {
+                list.add(object);
+            } else {
+                count++;
+            }
+        }
+        size = size - count;
+        this.objects = (T[]) list.toArray();
     }
 
     /**

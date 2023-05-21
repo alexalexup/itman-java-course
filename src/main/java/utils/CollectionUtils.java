@@ -4,6 +4,7 @@ import collections.List;
 import collections.ListIterator;
 
 import java.util.Comparator;
+import java.util.Iterator;
 
 import static utils.ArrayUtils.mergeSort;
 
@@ -36,14 +37,13 @@ public class CollectionUtils {
      * @return minimum element from the List
      */
     public static <T> T findMax (List<? extends T> list, Comparator<? super T> comparator) {
-        T max = list.get(0);
-        for (T element: list) {
-            if (comparator.compare(element, max) > 0 ) {
-                max= element;
-            }
-        }
-        return max;
+        Comparator<? super T> comparatorFindMax = (o1, o2) -> {
+            int result = (comparator.compare(o1, o2)) * -1;
+            return result;
+        };
+        return findMin(list, comparatorFindMax);
     }
+
 
     /**
      * Sort in increase order elements in the List

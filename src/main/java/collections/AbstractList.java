@@ -59,6 +59,21 @@ public abstract  class AbstractList<T> implements List<T> {
     }
 
     /**
+     * Get data to array from the list
+     * @cpu O(n), n - this.size
+     * @ram O(n), n - this.size
+     * @return array with data from the List
+     */
+    public Object[] toArray() {
+        Object[] result = new Object[this.size];
+        int i = 0;
+        for (T item: this) {
+            result[i++] = item;
+        }
+        return result;
+    }
+
+    /**
      * Сhecks contains or not list all elements from the argument
      * @param collection argument
      * @return true when list have all elements from the argument, false when have not
@@ -86,18 +101,16 @@ public abstract  class AbstractList<T> implements List<T> {
         if (!(objects instanceof List)){
            return false;
         }
-        AbstractList that = (AbstractList) objects;
-        if (this.size != that.size) {
-            return false;
-        }
-        Iterator iterator = that.iterator();
-        for (Object firstItem: this) {
-            Object secondItem = iterator.next();
-            if (!(firstItem == null ? secondItem == null : firstItem.equals(secondItem))) {
+        Iterator<T> first = this.iterator();
+        Iterator<?> second = ((List<?>) objects).iterator();
+        while (first.hasNext() && second.hasNext()) {
+            T o1 = first.next();
+            Object o2 = second.next();
+            if (!(o1==null ? o2==null : o1.equals(o2))) {
                 return false;
             }
         }
-        return true;
+        return !(first.hasNext() || second.hasNext());
     }
 
     /**
@@ -114,34 +127,6 @@ public abstract  class AbstractList<T> implements List<T> {
                 this.remove(i);
                 return true;
             }
-            i++;
-        }
-        return result;
-    }
-
-    /**
-     * Remove element from the list when element meets the requirements of the argument
-     * @param predicate argument
-     */
-    @Override
-    public void removeIf(Predicate<? super T> predicate) {
-        ListIterator<T> iterator = this.iterator();
-        while (iterator.hasNext()) {
-            if (predicate.test(iterator.next())) {
-                iterator.remove();
-            }
-        }
-    }
-
-    /**
-     * Create array with numbers from LinkedList
-     * @return array with numbers from LinkedList
-     */
-    public T[] toArray(){
-        T[] result =(T[]) new Object[this.size];
-        int i = 0;
-        for (T item: this) {
-            result[i] = item;
             i++;
         }
         return result;
@@ -193,10 +178,10 @@ public abstract  class AbstractList<T> implements List<T> {
      */
     @Override
     public void sort(Comparator<? super T> comparator) {
-        T[] items =  this.toArray();
+        Object[] items =  this.toArray();
         ArrayUtils.mergeSort(items, 0, size, comparator);
-        ListIterator<T> iterator = this.iterator();
-        for (T item : items) {
+        ListIterator iterator = this.iterator();
+        for (Object item : items) {
             iterator.next();
             iterator.set(item);
         }

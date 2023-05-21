@@ -262,8 +262,8 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @ram O(n), n - size of LinkedList
      * @return array with numbers from LinkedList
      */
-    public T[] toArray(){
-       return super.toArray();
+    public Object[] toArray(){
+        return super.toArray();
     }
 
     /**
@@ -397,7 +397,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
 
     /**
      * Remove element from the list
-     * @cpu O(n) , n - this.size
+     * @cpu O(n * m) , n - this.size, asymptotic of the element.equals() function
      * @ram O(1)
      * @param element argument
      * @return true when element was removed and false when was not
@@ -415,7 +415,12 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
      * @return true when element was removed and false when was not
      */
     protected void removeAll(Object element) {
-        super.removeAll(element);
+        Iterator iterator = this.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().equals(element)){
+                iterator.remove();
+            }
+        }
     }
 
     /**
@@ -472,7 +477,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
 
     /**
      * Remove all elements from current collection that includes in collection from argument
-     * @cpu O(n * (m + k)) , n - this.size, m - collection.size, k -  asymptotic of the element.equals() function
+     * @cpu O(n * m * k) , n - this.size, m - collection.size, k -  asymptotic of the element.equals() function
      * @ram O(1)
      * @param collection argument
      */
@@ -564,7 +569,7 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
 
     /**
      * Compare current LinkedList with object from the argument
-     * @cpu O(n + m) , n - super.size; m -
+     * @cpu O(n * m) , n - super.size; m - asymptotic of the object.equals() function
      * @ram O(1)
      * @param objects argument
      * @return true when both objects are same( from the list class and have same elements), false
@@ -576,13 +581,18 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
 
     /**
      * Remove element from the list when element meets the requirements of the argument
-     * @cpu O(n) , n - this.size
+     * @cpu O(n * m) , n - this.size, m - asymptotic of the predicate.test(item) function
      * @ram O(1)
      * @param predicate argument
      */
     @Override
     public void removeIf(Predicate<? super T> predicate) {
-        super.removeIf(predicate);
+        ListIterator<T> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            if (predicate.test(iterator.next())) {
+                iterator.remove();
+            }
+        }
     }
 
     /**
@@ -643,7 +653,6 @@ public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> 
         return new ListIterator<T>() {
             private Node<T> currentNode;
             private int  nextIndex;
-
 
             /**
              * Set element to the current position to the LinkedList that was called from ListIterator

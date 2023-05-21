@@ -35,7 +35,7 @@ public interface Queue<T> {
      * Create and return array with elements from the Queue
      * @return array with elements from the Queue
      */
-    T[] toArray();
+    Object[] toArray();
 }
 
 
