@@ -37,13 +37,8 @@ public class CollectionUtils {
      * @return minimum element from the List
      */
     public static <T> T findMax (List<? extends T> list, Comparator<? super T> comparator) {
-        Comparator<? super T> comparatorFindMax = (o1, o2) -> {
-            int result = (comparator.compare(o1, o2)) * -1;
-            return result;
-        };
-        return findMin(list, comparatorFindMax);
+        return findMin(list, (o1, o2) -> comparator.compare(o2, o1));
     }
-
 
     /**
      * Sort in increase order elements in the List

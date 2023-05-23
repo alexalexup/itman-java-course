@@ -4,6 +4,7 @@ import utils.ArrayUtils;
 import utils.StringBuilder;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 
@@ -101,16 +102,18 @@ public abstract  class AbstractList<T> implements List<T> {
         if (!(objects instanceof List)){
            return false;
         }
-        Iterator<T> first = this.iterator();
-        Iterator<?> second = ((List<?>) objects).iterator();
-        while (first.hasNext() && second.hasNext()) {
-            T o1 = first.next();
-            Object o2 = second.next();
-            if (!(o1==null ? o2==null : o1.equals(o2))) {
+        AbstractList that = (AbstractList) objects;
+        if (this.size != that.size ) {
+            return false;
+        }
+        Iterator iterator = that.iterator();
+        for(Object firstItem: this) {
+            Object secondItem = iterator.next();
+            if (!Objects.equals(firstItem, secondItem)) {
                 return false;
             }
         }
-        return !(first.hasNext() || second.hasNext());
+        return true;
     }
 
     /**
