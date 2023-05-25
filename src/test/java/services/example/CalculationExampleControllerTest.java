@@ -29,19 +29,19 @@ class ExampleCalculationControllerTest {
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().string("50.0"));
             request = MockMvcRequestBuilders.post("/calculation?" +
-                    "term1=40&operator=MINUS&term2=10")
+                            "term1=40&operator=MINUS&term2=10")
                     .contentType("application/json");
             this.mockMvc.perform(request)
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().string("30.0"));
             request = MockMvcRequestBuilders.post("/calculation?" +
-                    "term1=3&operator=MULTIPLY&term2=12")
+                            "term1=3&operator=MULTIPLY&term2=12")
                     .contentType("application/json");
             this.mockMvc.perform(request)
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().string("36.0"));
             request = MockMvcRequestBuilders.post("/calculation?" +
-                    "term1=5&operator=DIVIDE&term2=2")
+                            "term1=5&operator=DIVIDE&term2=2")
                     .contentType("application/json");
             this.mockMvc.perform(request)
                     .andExpect(MockMvcResultMatchers.status().isOk())

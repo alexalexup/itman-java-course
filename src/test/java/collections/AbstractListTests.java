@@ -1,11 +1,101 @@
 package collections;
 
+import entities.Circle;
+import entities.Event;
+import entities.Shape;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-abstract public  class AbstractListTests {
+import java.util.Comparator;
+
+abstract public  class AbstractListTests  {
     abstract protected List of(Object... elements);
+
+    @Nested
+    public class Sort {
+        @Test
+        public void shouldSortWhenListHaveDifferentComparingElements() {
+            List<Event> list = of(
+                    new Event(1985, 2, 3, "E"),
+                    new Event(1974, 2, 3, "J"),
+                    new Event(1999, 2, 3, "K"),
+                    new Event(1962, 2, 3, "L")
+            );
+            list.sort(Comparator.comparingInt(Event::getYear));
+            List<Event> expected = of(
+                    new Event(1962, 2, 3, "L"),
+                    new Event(1974, 2, 3, "J"),
+                    new Event(1985, 2, 3, "E"),
+                    new Event(1999, 2, 3, "K")
+            );
+            Assertions.assertEquals(expected, list);
+        }
+
+        @Test
+        public void shouldSortWhenListHaveSomeSameComparingElements() {
+            List<Event> list = of(
+                    new Event(1985, 5, 3, "E"),
+                    new Event(1974, 2, 3, "J"),
+                    new Event(1999, 2, 3, "K"),
+                    new Event(1962, 4, 3, "L"),
+                    new Event(1962, 2, 3, "L")
+            );
+            list.sort(Comparator.comparingInt(Event::getMonth));
+            List<Event> expected = of(
+                    new Event(1974, 2, 3, "J"),
+                    new Event(1999, 2, 3, "K"),
+                    new Event(1962, 2, 3, "L"),
+                    new Event(1962, 4, 3, "L"),
+                    new Event(1985, 5, 3, "E")
+            );
+            Assertions.assertEquals(expected, list);
+        }
+
+        @Test
+        public void shouldNotSortWhenComparingElementsAreEquals() {
+            List<Event> list = of(
+                    new Event(1985, 5, 3, "E"),
+                    new Event(1974, 2, 3, "J"),
+                    new Event(1999, 2, 3, "K"),
+                    new Event(1962, 4, 3, "L"),
+                    new Event(1962, 2, 3, "L")
+            );
+            list.sort(Comparator.comparingInt(Event::getDay));
+            List<Event> expected = of(
+                    new Event(1985, 5, 3, "E"),
+                    new Event(1974, 2, 3, "J"),
+                    new Event(1999, 2, 3, "K"),
+                    new Event(1962, 4, 3, "L"),
+                    new Event(1962, 2, 3, "L")
+            );
+            Assertions.assertEquals(expected, list);
+        }
+    }
+
+    @Nested
+    public class Intfunction {
+        @Test
+        public void shouldReturnArrayWithSameSizeAndElementsFromTheList() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            Integer[] actual = list.toArray(size -> new Integer[size]);
+            Assertions.assertArrayEquals(actual, new Integer[]{1, 2, 3, 4, 5});
+        }
+
+        @Test
+        public void shouldReturnArrayWithSameElementsFromTheListAndSizeFromTheArguments() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            Integer[] actual = list.toArray(size -> new Integer[3]);
+            Assertions.assertArrayEquals(actual, new Integer[]{1, 2, 3});
+        }
+
+        @Test
+        public void shouldReturnArrayWithSameElementsFromTheListWhenElementsAreShapes() {
+            List<Shape> list = of(new Circle(3.0), new Circle(2.0), new Circle(1.0));
+            Shape[] actual = list.toArray(size -> new Shape[size]);
+            Assertions.assertArrayEquals(actual, new Shape[]{new Circle(3.0), new Circle(2.0), new Circle(1.0)});
+        }
+    }
 
     @Nested
     public class Add {
@@ -60,6 +150,42 @@ abstract public  class AbstractListTests {
             List list = of();
             list.add(null);
             Assertions.assertArrayEquals(new Object[]{null}, list.toArray());
+        }
+    }
+
+    @Nested
+    public class Contains {
+        @Test
+        public void shouldReturnTrueWhenListHaveElementFromSource() {
+            List firsList = of(1, "HI", null, 2, -1, 2.34);
+            List secondList = of(1, "HI", null, 2, -1, 2.34);
+            Assertions.assertTrue(firsList.contains("HI") && secondList.contains(2.34));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenListHaveNotElementFromSource() {
+            List firsList = of(1, "HI", null, 2, -1, 2.34);
+            List secondList = of(1, "HI", null, 2, -1, 2.34);
+            Assertions.assertFalse(firsList.contains(55) || secondList.contains(102));
+        }
+
+        @Test
+        public void shouldReturnTrueWhenListHaveElementFromSourceSecondOption() {
+            List firsList = of(1,"HI", null , 2,  -1, 2.34);
+            List secondList = of(1,"HI", null , 2,  -1, 2.34);
+            Assertions.assertTrue(firsList.contains(2) && secondList.contains(-1));
+        }
+
+        @Test
+        public void shouldReturnTrueWhenListHaveNullAndElementFromArgumentIsNull() {
+            List list = of(null, 3, 2);
+            Assertions.assertTrue(list.contains(null));
+        }
+
+        @Test
+        public void shouldReturnTrueWhenListHaveOnlyNullsAndElementFromArgumentIsNull() {
+            List list = of(null, null, null);
+            Assertions.assertTrue(list.contains(null));
         }
     }
 
@@ -125,11 +251,22 @@ abstract public  class AbstractListTests {
             List list = of();
             Assertions.assertEquals(0, list.size());
         }
+
+        @Test
+        public void shouldReturnSizeWhenListHaveNull() {
+            List list = of(null, null, null);
+            Assertions.assertEquals(3, list.size());
+        }
+
+        @Test
+        public void shouldReturnSizeWhenListHaveObjectsFromDifferentClasses() {
+            List list = of(null, 1, "null", 2.25, true);
+            Assertions.assertEquals(5, list.size());
+        }
     }
 
     @Nested
     public class ToArray {
-
         @Test
         public void shouldReturnArrayWhenListHaveSomeElementsFromDifferentTypes() {
             List list = of(1, null, "hi", true, 3.14);
@@ -155,9 +292,8 @@ abstract public  class AbstractListTests {
         }
     }
 
-
     @Nested
-    public class Remove {
+    public class RemoveByIndex {
         @Test
         public void shouldReturnElementByIndexWhenListHaveSomeElements() {
             List list = of (1, 2, 3, 4);
@@ -270,13 +406,6 @@ abstract public  class AbstractListTests {
         }
 
         @Test
-        public void shouldCompareWhenListHaveNotSameElements() {
-            List first = of("Hi", 2, 3.15, null);
-            List second = of ("Hi", 2, 3.15, 10);
-            Assertions.assertNotEquals(first, second);
-        }
-
-        @Test
         public void shouldCompareWhenOneListHaveNotElementsAndSecondHave() {
             List first = of();
             List second = of (100);
@@ -289,17 +418,406 @@ abstract public  class AbstractListTests {
             List second = of (2, 3, 3, 3, 3, 3);
             Assertions.assertNotEquals(first, second);
         }
+
+        @Test
+        public void shouldReturnFalseWhenCompareDifferentElementsFromObjectAndList() {
+            Assertions.assertFalse(of(1).equals("a"));
+        }
+    }
+
+    @Nested
+    public class IsEmpty {
+
+        @Test
+        public void shouldReturnFalseWhenListHaveSomeElements() {
+            List list = of (1, "A", null , 2.4);
+            Assertions.assertFalse(list.isEmpty());
+        }
+
+        @Test
+        public void shouldReturnTrueWhenListHaveNotAnyElements() {
+            List list = of ();
+            Assertions.assertTrue(list.isEmpty());
+        }
+
+        @Test
+        public void shouldReturnFalseWhenListHaveOneElement() {
+            List list = of ("Hi");
+            Assertions.assertFalse(list.isEmpty());
+        }
+    }
+
+    @Nested
+    public class AddAll {
+        @Test
+        public void shouldAddElementsFromWhenSourceHaveSomeElements() {
+            List firstList = of(1, 2, 3, 4);
+            List secondList = new LinkedList();
+            secondList.add(5);
+            secondList.add(5);
+            secondList.add(5);
+            List expectedResult = of (1, 2, 3, 4, 5, 5, 5);
+            firstList.addAll(secondList);
+            Assertions.assertEquals(firstList, expectedResult);
+        }
+        @Test
+        public void shouldAddAllElementsToListFromSourceWhenSourceIsDifferentClass() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of(5, 5, null);
+            firstList.addAll(secondList);
+            Assertions.assertEquals(firstList, LinkedList.of("Hi", true, 2, 2.34, 5, 5, null));
+        }
+
+        @Test
+        public void shouldAddAllElementsToListFromSourceWhenSourceIsSameClass() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of(5, 5, null);
+            firstList.addAll(secondList);
+            Assertions.assertEquals(firstList, ArrayList.of("Hi", true, 2, 2.34, 5, 5, null));
+        }
+
+        @Test
+        public void shouldAddAllElementsToListFromSourceWhenSourceAndDestinationAreLinkedList() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of(5, 5, null);
+            firstList.addAll(secondList);
+            Assertions.assertEquals(firstList, LinkedList.of("Hi", true, 2, 2.34, 5, 5, null));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenSourceHaveNotElements() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of();
+            Assertions.assertFalse(firstList.addAll(secondList));
+        }
+
+        @Test
+        public void shouldReturnTrueWhenSourceHaveSomeElements() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of(4.4, null, true, true);
+            Assertions.assertTrue(firstList.addAll(secondList));
+        }
+    }
+
+    @Nested
+    public class AddAllByIndex {
+        @Test
+        public void shouldAddAllElementsByIndexToListFromSourceWhenIndexIsTwo() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of(5, 5, null, 6, 8, "Hello");
+            firstList.addAll(2, secondList);
+            Assertions.assertEquals(firstList, of("Hi", true, 5, 5, null, 6, 8, "Hello", 2, 2.34));
+        }
+
+        @Test
+        public void shouldAddAllElementsByIndexToListFromSourceWhenSourceIsSameClass() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of(5, 5, null, 6, 8, "Hello");
+            firstList.addAll(0, secondList);
+            Assertions.assertEquals(firstList, of(5, 5, null, 6, 8, "Hello", "Hi", true, 2, 2.34));
+        }
+
+        @Test
+        public void shouldAddAllElementsByIndexToList() {
+            List firstList = of("Hi", true, 2, 2.34, 9, 9, 9, 9, 9, 9, 9);
+            List secondList = of(5, 5, null, 6, 8, "Hello");
+            firstList.addAll(4, secondList);
+            Assertions.assertEquals(firstList, of("Hi", true, 2, 2.34, 5, 5, null, 6, 8, "Hello", 9, 9, 9, 9, 9, 9, 9));
+        }
+
+        @Test
+        public void shouldReturnFalseWhenSourceHaveNotElements() {
+            List firstList = of("Hi", true, 2, 2.34);
+            List secondList = of();
+            firstList.addAll(0, secondList);
+            Assertions.assertFalse(firstList.addAll(0, secondList));
+        }
+
+        @Test
+        public void shouldReturnTrueWhenSourceHaveSomeElements() {
+            List  firstList =  of("Hi", true, 2, 2.34);
+            List  secondList = of(null, "B", 4, 4);
+            firstList.addAll(0, secondList);
+            Assertions.assertTrue(firstList.addAll(1, secondList));
+        }
+    }
+
+    @Nested
+    public class RemoveByElement {
+        @Test
+        public void shouldRemoveElementWhenElementIsRepeatedSeveralTimes() {
+            List list = of(1, 2, 8, 3, 4, 2, 5);
+            list.remove(new Integer(2));
+            Assertions.assertEquals(of(1, 8, 3, 4, 2, 5), list);
+        }
+
+        @Test
+        public void shouldRemoveElementWhenElementMeetsOnce() {
+            List list = of(1, 2, 2, 3, 4, 2, 5);
+            list.remove(new Integer(4));
+            Assertions.assertEquals(of(1, 2, 2, 3, 2, 5), list);
+        }
+
+        @Test
+        public void shouldNotRemoveElementWhenListHaveNotElementFromArgument() {
+            List list = of(1, 2, 2, 3, 4, 2, 5);
+            list.remove(new Integer(23));
+            Assertions.assertEquals(of(1, 2, 2, 3, 4, 2, 5), list);
+        }
+
+        @Test
+        public void shouldNotRemoveElementWhenListHaveNotElements() {
+            List list = of();
+            list.remove(new Integer(4));
+            Assertions.assertEquals(of(), list);
+        }
+
+        @Test
+        public void shouldRemoveWhenElementsAreDifferentTypes() {
+            List list = of(new Event(1, 2, 3, ""), "Hi", 2, 5.5, 2);
+            list.remove(new Integer(2));
+            Assertions.assertEquals(of(new Event(1, 2, 3, ""), "Hi", 5.5, 2), list);
+        }
+
+        @Test
+        public void shouldRemoveWhenElementsAreString() {
+            List list = of("Hi", "Go", "Harry", "When we will be rich" );
+            list.remove("Go");
+            Assertions.assertEquals(of("Hi", "Harry", "When we will be rich"), list);
+        }
+    }
+
+    @Nested
+    public class RemoveAll {
+        @Test
+        public void shouldRemoveWhenElementsAreDifferentTypes() {
+            List list = of(4, 3, "Hi", "Go", new Event(2, 2, 2022, "A"), 2.2);
+            Collections collection = new ArrayList();
+            collection.add(4);
+            collection.add(3);
+            collection.add(2.2);
+            list.removeAll(collection);
+            Assertions.assertEquals(of(  "Hi", "Go", new Event(2, 2, 2022, "A")), list);
+        }
+
+        @Test
+        public void shouldRemoveWhenCollectionContainOneElementThatIncludesInTheList() {
+            List list = of(4, 3, "Hi", "Go", new Event(2, 2, 2022, "A"), 2.2);
+            Collections collection = new ArrayList();
+            collection.add(4);
+            collection.add("KKK");
+            collection.add(100);
+            collection.add(5.5);
+            list.removeAll(collection);
+            Assertions.assertEquals(of( 3, "Hi", "Go", new Event(2, 2, 2022, "A"), 2.2), list);
+        }
+
+        @Test
+        public void shouldNotRemoveWhenCollectionDoesNotContainElementsFromTheList() {
+            List list = of(4, 3, "Hi", "Go", new Event(2, 2, 2022, "A"), 2.2);
+            Collections collection = new ArrayList();
+            collection.add(105);
+            collection.add("KKK");
+            collection.add(100);
+            collection.add(5.5);
+            list.removeAll(collection);
+            Assertions.assertEquals(of( 4, 3, "Hi", "Go", new Event(2, 2, 2022, "A"), 2.2), list);
+        }
+
+        @Test
+        public void shouldRemoveWhenListHaveOneElement() {
+            List list = of(4);
+            Collections collection = new ArrayList();
+            collection.add(105);
+            collection.add("KKK");
+            collection.add(4);
+            collection.add(5.5);
+            list.removeAll(collection);
+            Assertions.assertEquals(of(), list);
+        }
+
+        @Test
+        public void shouldRemoveWhenListHaveRepeatedElementsThatContainsInCollectionFromArgument() {
+            List<Integer> list = of(1, 1, 1, 1, 2, 3, 2, 5, 2, 4, 5, 5, 7);
+            Collections<Integer> collection = new ArrayList();
+            collection.add(1);
+            collection.add(2);
+            collection.add(5);
+            list.removeAll(collection);
+            Assertions.assertEquals(of(3, 4, 7), list);
+        }
+    }
+
+    @Nested
+    public class Next{
+        @Test
+        public void shouldReturnFirstElementWhenMethodWasCalleOnce() {
+            List list = of(4, 3, 2, 1, 1);
+            ListIterator  iterator = list.iterator();
+            Assertions.assertEquals(4, iterator.next());
+        }
+
+        @Test
+        public void shouldReturnThirdElementWhenMethodWasCalleThreeTimes() {
+            List list = of(4, 3, 2, 1, 1);
+            ListIterator  iterator = list.iterator();
+            iterator.next();
+            iterator.next();
+            Assertions.assertEquals(2, iterator.next());
+        }
+
+        @Test
+        public void shouldReturnLastElementWhenMethodWasCalledByTheNumberOfElements() {
+            List lists = of(4, 3, 2, 10, 1);
+            ListIterator  iterator = lists.iterator();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            Assertions.assertEquals(1, iterator.next());
+        }
+    }
+
+    @Nested
+    public class HasNext{
+        @Test
+        public void shouldReturnTrueWhenIteratorHaveElements() {
+            List list = of(1, 2, 3, 4);
+            ListIterator iterator = list.iterator();
+            iterator.next();
+            iterator.next();
+            Assertions.assertTrue(iterator.hasNext());
+        }
+
+        @Test
+        public void shouldReturnTrueWhenIteratorHaveNotElements() {
+            List list = of(1, 2, 3, 4);
+            ListIterator iterator = list.iterator();
+            Assertions.assertTrue(iterator.hasNext());
+        }
+    }
+
+    @Nested
+    public class SetIterator{
+        @Test
+        public void shouldSetElementToFirstPositionWhenNextWasCalledOnceFromTheIterator(){
+            List list = of(1, 2, 3, 4);
+            ListIterator iterator = list.iterator();
+            iterator.next();
+            iterator.set(100);
+            Assertions.assertEquals(of(100,2, 3, 4), list);
+        }
+
+        @Test
+        public void shouldSetElementToThePositionThatWasCalledFromTheIterator(){
+            List list = of(1, 2, 3, 4);
+            ListIterator iterator = list.iterator();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.set(100);
+            Assertions.assertEquals(of(1 ,2, 100, 4), list);
+        }
+
+        @Test
+        public void shouldSetElementToTheLastPositionWhenIteratorWasCalledLastPosition(){
+            List list = of(1, 2, 3, 4);
+            ListIterator iterator = list.iterator();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.set(100);
+            Assertions.assertEquals(of(1 ,2, 3, 100), list);
+        }
+    }
+
+    @Nested
+    public class InsertBefore {
+        @Test
+        public void shouldNotInsertElementToTheListFromIteratorWhenArrayListHaveNotElements() {
+            List<Integer> list = of();
+            ListIterator<Integer> iterator = list.iterator();
+            iterator.insertBefore(100);
+            Assertions.assertEquals(ArrayList.of(), list);
+        }
+
+
+        @Test
+        public void shouldInsertElementToTheListFromIteratorBeforeCurrentIndexWhenIndexIsPenultimate() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            ListIterator<Integer> iterator = list.iterator();
+            iterator.next();
+            iterator.next();
+            iterator.next();
+            iterator.insertBefore(100);
+            Assertions.assertEquals(of(1, 2, 100, 3, 4, 5), list);
+        }
+
+        @Test
+        public void shouldInsertElementToTheListFromIteratorBeforeCurrentIndexWhenIndexIsLast() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            ListIterator<Integer> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                iterator.next();
+            }
+            iterator.insertBefore(100);
+            Assertions.assertEquals(of(1, 2, 3, 4, 100, 5), list);
+        }
+    }
+
+    @Nested
+    public class AddForAbstractList {
+        @Test
+        public void shouldAddElementByIndexToTheListWhenIndexIsFirst(){
+            List<Integer> list = of(1, 2, 3, 4);
+            list.add(0,100);
+            Assertions.assertEquals(ArrayList.of(100, 1, 2, 3, 4), list);
+        }
+
+        @Test
+        public void shouldAddElementByIndexToTheListWhenIndexIsLast(){
+            List<Integer> list = of(1, 2, 3, 4);
+            list.add(3,100);
+            Assertions.assertEquals(ArrayList.of(1, 2, 3, 100, 4), list);
+        }
+
+        @Test
+        public void shouldAddElementByIndexToTheListWhenIndexInTheMiddle(){
+            List<Integer> list = of(1, 2, 3, 4);
+            list.add(2,100);
+            Assertions.assertEquals(ArrayList.of(1, 2, 100, 3, 4), list);
+        }
+
+        @Test
+        public void shouldReturnTrueWhenAddElementToTheArrayList(){
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            Assertions.assertTrue(list.add(3,100));
+        }
+
+        @Test
+        public void shouldNotAddElementToTheListWhenIndexIsOutOfRange() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            list.add(20,100);
+            Assertions.assertEquals(ArrayList.of(1, 2, 3, 4, 5), list);
+        }
+
+        @Test
+        public void shouldReturnFalseWhenElementWasNotAddedToTheList() {
+            List<Integer> list = of(1, 2, 3, 4, 5);
+            Assertions.assertFalse(list.add(18,100));
+        }
     }
 }
 
-class ArrayListTests extends AbstractListTests {
+class ArrayListTests  extends AbstractListTests  {
     @Override
     protected List of(final Object... elements) {
         return ArrayList.of(elements);
     }
 }
 
-class LinkedListTests extends AbstractListTests {
+class LinkedListTests  extends AbstractListTests  {
     @Override
     protected List of(final Object... elements) {
         return LinkedList.of(elements);

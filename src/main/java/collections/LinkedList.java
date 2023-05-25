@@ -1,17 +1,17 @@
 package collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.function.IntFunction;
+import java.util.function.Predicate;
 
-import utils.StringBuilder;
+public class LinkedList<T> extends AbstractList<T> implements Queue<T>, List<T> {
+    private Node<T> node;
+    private Node<T> lastNode;
 
-
-public class LinkedList implements List, Queue {
-    private Node node;
-    private Node lastNode;
-    private int size;
-
-    private static class Node {
-        private Object element;
-        private Node next;
-        private Node prev;
+    private static class Node<T> {
+        private T element;
+        private Node<T> next;
+        private Node<T> prev;
 
         /**
          * Custom constructor for Node
@@ -19,19 +19,10 @@ public class LinkedList implements List, Queue {
          * @ram O(1)
          * @return Node with custom values
          */
-        public Node(Object element, Node next, Node prev) {
+        public Node(T element, Node<T> next, Node<T> prev) {
             this.element = element;
             this.next = next;
             this.prev = prev;
-        }
-
-        /**
-         * Default constructor for Node
-         * @cpu O(1)
-         * @ram O(1)
-         * @return Node with default values
-         */
-        public Node() {
         }
 
         /**
@@ -40,7 +31,7 @@ public class LinkedList implements List, Queue {
          * @ram O(1)
          * @return element from Node
          */
-        public Object getElement() {
+        public  T getElement() {
             return element;
         }
 
@@ -51,7 +42,7 @@ public class LinkedList implements List, Queue {
          * @param element argument
          * @return element from Node
          */
-        public void setElement(Object element) {
+        public void  setElement(T element) {
             this.element = element;
         }
 
@@ -61,7 +52,7 @@ public class LinkedList implements List, Queue {
          * @ram O(1)
          * @return nextNode from Node
          */
-        public Node getNext() {
+        public Node<T> getNext() {
             return this.next;
         }
 
@@ -71,7 +62,7 @@ public class LinkedList implements List, Queue {
          * @ram O(1)
          * @return prevNode from Node
          */
-        public Node getPrev() {
+        public Node<T> getPrev() {
             return this.prev;
         }
 
@@ -81,7 +72,7 @@ public class LinkedList implements List, Queue {
          * @ram O(1)
          * @return nextNode to Node
          */
-        public void setNext(Node next) {
+        public void setNext(Node<T> next) {
             this.next = next;
         }
 
@@ -91,7 +82,7 @@ public class LinkedList implements List, Queue {
          * @ram O(1)
          * @return prevNode to Node
          */
-        public void setPrev(Node prev) {
+        public void setPrev(Node<T> prev) {
             this.prev = prev;
         }
     }
@@ -102,7 +93,7 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return LinkedList with custom value
      */
-    public LinkedList(Node node) {
+    public LinkedList(Node<T> node) {
         this.node = node;
     }
 
@@ -121,7 +112,7 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return Node from LinkedList
      */
-    public Node getNode() {
+    public  Node<T> getNode() {
         return this.node;
     }
 
@@ -131,18 +122,8 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return lastNode from LinkedList
      */
-    public Node getLastNode() {
+    public Node<T> getLastNode() {
         return this.lastNode;
-    }
-
-    /**
-     * Get size from LinkedList
-     * @cpu O(1)
-     * @ram O(1)
-     * @return size from LinkedList
-     */
-    public int size() {
-        return this.size;
     }
 
     /**
@@ -152,11 +133,11 @@ public class LinkedList implements List, Queue {
      * @param that LinkedList from argument
      * @return LinkedList with values from argument
      */
-    public LinkedList(LinkedList that) {
+    public LinkedList(LinkedList<T> that) {
         if (that == null) {
             return;
         }
-        Node link = that.node;
+        Node<T> link = that.node;
         while (link != null) {
             this.addLast(link.getElement());
             link = link.getNext();
@@ -170,12 +151,109 @@ public class LinkedList implements List, Queue {
      * @param elements array with numbers
      * @return LinkedList with values from argument
      */
-    public static LinkedList of(Object ... elements) {
+    public static<T> LinkedList of(T ... elements) {
         LinkedList list = new LinkedList();
         for (int i = 0; i < elements.length; i++) {
             list.addLast(elements[i]);
         }
         return list;
+    }
+
+    /**
+     *@cpu O(1)
+     *@ram O(1)
+     * @return size of the  LinkedList
+     */
+    @Override
+    public int size() {
+        return super.size();
+    }
+
+    /**
+     * Check have or not LinkedList any elements
+     * @cpu O(1)
+     * @ram O(1)
+     * @return true when LinkedList have not any elements and false in other cases
+     */
+    @Override
+    public boolean isEmpty() {
+        return super.isEmpty();
+    }
+
+    /**
+     * Add elements from collection to the current list
+     * @cpu O(n), n - collection.size;
+     * @ram O(1)
+     * @param collection argument
+     * @return true when elements was added and false when was not
+     */
+    @Override
+    public  boolean addAll(Collections<? extends T> collection) {
+        return super.addAll(collection);
+    }
+
+    /**
+     * Add Node to the LinkedList from the ListIterator
+     * @cpu O(n),  n - iterator.size
+     * @ram O(n),  n - iterator.size
+     * @param link argument
+     * @param iterator argument
+     */
+    private void addElement(Node<T> link, Iterator<T> iterator) {
+        while (iterator.hasNext()) {
+            if(link == this.node) {
+                this.addFirst(iterator.next());
+            } else {
+                size++;
+                Node<T> newNode = new Node<>(iterator.next(), link, link.getPrev());
+                link.getPrev().setNext(newNode);
+                link.setPrev(newNode);
+            }
+        }
+    }
+
+    /**
+     * Add all elements from the collection to the current LinkedList by the index
+     * @cpu O(n + m),  n- this.size(), m - collection.size()
+     * @ram O(m),  m - collection. size()
+     * @param index argument
+     * @param collection argument
+     * @return true when some elements was added, false when was not
+     */
+    public boolean addAll(int index, Collections<? extends T> collection) {
+        if (collection.size() == 0 || index > this.size() - 1) {
+            return false;
+        }
+        if (index == this.size - 1) {
+            for (T n : collection) {
+                this.addLast(n);
+            }
+            return true;
+        }
+        Node<T> link;
+        if (index <= this.size / 2) {
+            link = this.node;
+            for (int i = 0; i < index; i++) {
+                link = link.getNext();
+            }
+        } else {
+            link = getLastNode();
+            for (int i = 0; i < size - index - 1; i++) {
+                link = link.getPrev();
+            }
+        }
+        for (T n: collection) {
+            this.size++;
+            if (link.getPrev() == null) {
+                this.node = new Node(n, link, null);
+                link.setPrev(this.node);
+            } else {
+                Node<T> newNode = new Node(n, link, link.getPrev());
+                link.setPrev(newNode);
+                newNode.getPrev().setNext(newNode);
+            }
+        }
+        return true;
     }
 
     /**
@@ -185,13 +263,19 @@ public class LinkedList implements List, Queue {
      * @return array with numbers from LinkedList
      */
     public Object[] toArray(){
-        Object[] result = new Object[this.size];
-        Node link = this.node;
-        for (int i = 0; i < this.size; i++) {
-            result[i] = link.getElement();
-            link = link.getNext();
-        }
-        return result;
+        return super.toArray();
+    }
+
+    /**
+     * Converts the data from the list according to the requirements from the argument and passes
+     the data to the array
+     * @cpu O(n + m), n - super.size; m - asymptotic of the factory.apply() function
+     * @ram O(n), n - super.size
+     * @param factory argument
+     * @return array with  data that was converted with requirements from the argument
+     */
+    public  T[] toArray(IntFunction<T[]> factory){
+        return super.toArray(factory);
     }
 
     /**
@@ -201,16 +285,16 @@ public class LinkedList implements List, Queue {
      * @param index argument
      * @return number from LinkedList by index
      */
-    public Object get(int index) {
+    public T get(int index) {
         int size = this.size();
         if (index <= size / 2) {
-            Node link = this.getNode();
+            Node<T> link = this.getNode();
             for (int i = 0; i < index; i++) {
                 link = link.getNext();
             }
             return link.getElement();
         } else {
-            Node link = this.getLastNode();
+            Node<T> link = this.getLastNode();
             for (int i = 0; i < size - index - 1; i++) {
                 link = link.getPrev();
             }
@@ -224,9 +308,37 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @param element
      */
-    @Override
-    public void add(Object element) {
+    public boolean add(T element) {
         this.addLast(element);
+        return true;
+    }
+
+    /**
+     * Add one element to the LinkedList by the index
+     * @cpu O(n), n - index
+     * @ram O(1)
+     * @param index argument
+     * @param element argument
+     * @return true when element was added and false when was not
+     */
+    @Override
+    public boolean add(int index, T element) {
+        if (index < 0 || index > size - 1) {
+            return false;
+        }
+        if (index == 0) {
+            this.addFirst(element);
+            return true;
+        }
+        size++;
+        Node<T> link = this.getNode();
+        for (int i = 0; i < index; i++) {
+            link = link.getNext();
+        }
+        Node<T> newNode = new Node<>(element, link, link.getPrev());
+        link.getPrev().setNext(newNode);
+        link.setPrev(newNode);
+        return true;
     }
 
     /**
@@ -236,7 +348,7 @@ public class LinkedList implements List, Queue {
      * @param index argument
      * @param element argument
      */
-    public void set(int index, Object element) {
+    public  void set(int index, T element) {
         int size = this.size();
         if (index <= size / 2) {
             Node link = this.getNode();
@@ -254,56 +366,13 @@ public class LinkedList implements List, Queue {
     }
 
     /**
-     * Compare two objects
-     * @cpu O(n), n - size of LinkedList
-     * @ram O(1), n - size of LinkedList
-     * @param  obj argument
-     * @return true when elements and size from LinkedLists are same. In another way - false.
-     */
-    public boolean equals(Object obj) {
-        if (obj == null || obj.getClass() != LinkedList.class) {
-            return false;
-        }
-        LinkedList that = (LinkedList) obj;
-        if (this.size() != that.size()) {
-            return false;
-        }
-        Node firstLink = this.node;
-        Node secondLink = that.node;
-        for (int i = 0; i < this.size(); i++) {
-            if (firstLink.getElement() != null
-                    ? firstLink.getElement().equals(secondLink.getElement())
-                    : secondLink.getElement() == null) {
-            } else {
-                return false;
-            }
-            firstLink = firstLink.getNext();
-            secondLink = secondLink.getNext();
-        }
-        return true;
-    }
-
-    /**
-     * Check LinkedList is empty or isn't
-     * @cpu O(1)
-     * @ram O(1)
-     * @return true if LinkedList is empty, false if LinkedList have some elements
-     */
-    public boolean isEmpty() {
-        if (this.size() == 0) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Get element by the index and delete it
-     * @cpu O(n)
+     * @cpu O(n), n - index
      * @ram O(1)
      * @param index argument
-     * @return first element from LinkedList
+     * @return element by index from LinkedList
      */
-    public Object remove(int index) {
+    public T remove(int index) {
         if (index == 0) {
             return this.removeFirst();
         }
@@ -311,20 +380,46 @@ public class LinkedList implements List, Queue {
             return this.removeLast();
         }
         int size = this.size();
+        Node<T> link = this.getNode();;
         if (index <= size / 2) {
-            Node link = this.getNode();
             for (int i = 0; i < index; i++) {
                 link = link.getNext();
             }
-            this.size--;
-            return removeNode(link);
         } else {
-            Node link = this.getLastNode();
+            link = this.getLastNode();
             for (int i = 0; i < size - index - 1; i++) {
                 link = link.getPrev();
             }
-            this.size--;
-            return removeNode(link);
+        }
+        this.size--;
+        return removeNode(link);
+    }
+
+    /**
+     * Remove element from the list
+     * @cpu O(n * m) , n - this.size, asymptotic of the element.equals() function
+     * @ram O(1)
+     * @param element argument
+     * @return true when element was removed and false when was not
+     */
+    @Override
+    public boolean remove(Object element) {
+       return super.remove(element);
+    }
+
+    /**
+     * Remove element from the list
+     * @cpu O(n * m) , n - this.size, m - asymptotic of the element.equals() function
+     * @ram O(1)
+     * @param element argument
+     * @return true when element was removed and false when was not
+     */
+    protected void removeAll(Object element) {
+        Iterator iterator = this.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().equals(element)){
+                iterator.remove();
+            }
         }
     }
 
@@ -335,8 +430,8 @@ public class LinkedList implements List, Queue {
      * @param link by node
      * @return element from node
      */
-    private Object removeNode(Node link) {
-        Object result = link.getElement();
+    private T removeNode(Node<T> link) {
+        T result = link.getElement();
         link.getPrev().setNext(link.getNext());
         link.getNext().setPrev(link.getPrev());
         return result;
@@ -348,17 +443,16 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @param element argument
      */
-    public  void addFirst(Object element) {
+    public void addFirst(T element) {
         this.size++;
-        Node link = this.getNode();
+        Node<T> link = this.getNode();
         if (link == null) {
-            this.node = new Node(element, null,null);
+            this.node = new Node<T>(element, null,null);
             this.lastNode = this.node;
             return;
         }
-        this.node = new Node(element, link, null);
+        this.node = new Node<T>(element, link, null);
         link.setPrev(this.node);
-        return;
     }
 
     /**
@@ -367,7 +461,7 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @param element
      */
-    public void offer(Object element) {
+    public void offer(T element) {
         this.addLast(element);
     }
 
@@ -377,8 +471,19 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return first element from LinkedList
      */
-    public Object getFirst() {
+    public T getFirst() {
         return this.node.getElement();
+    }
+
+    /**
+     * Remove all elements from current collection that includes in collection from argument
+     * @cpu O(n * m * k) , n - this.size, m - collection.size, k -  asymptotic of the element.equals() function
+     * @ram O(1)
+     * @param collection argument
+     */
+    @Override
+    public void removeAll(Collections<?> collection) {
+        super.removeAll(collection);
     }
 
     /**
@@ -387,55 +492,16 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return first element from LinkedList
      */
-    public Object removeFirst() {
+    public T removeFirst() {
         this.size--;
-        Object result = this.getFirst();
-        Node link = this.node;
-        if (link.getNext() == null) {
-          this.node = null;
-          return result;
+        T result = this.getFirst();
+        if (this.node.getNext() == null) {
+            this.node = null;
+            return result;
         }
         this.node = this.node.getNext();
         this.node.setPrev(null);
         return result;
-    }
-
-    /**
-     * Return String with values of elements from LinkedList
-     * @cpu O(n), n - size of LinkedList
-     * @ram O(n), n - size of LinkedList
-     * @return String with values of elements from LinkedList
-     */
-    public String toString() {
-        Node link = this.node;
-        if (link == null) {
-            return "[]";
-        }
-        StringBuilder result = new StringBuilder();
-        result.append("[");
-        Object object;
-        while (link.getNext() != null) {
-            object = link.getElement();
-            if (object == null) {
-                result.append(null);
-                result.append(", ");
-                link = link.getNext();
-            } else {
-                result.append(object.toString());
-                result.append(", ");
-                link = link.getNext();
-            }
-
-        }
-        object = link.getElement();
-        if (object == null) {
-            result.append(null)
-                    .append("]");
-        } else {
-            result.append(object.toString());
-            result.append("]");
-        }
-        return result.toString();
     }
 
     /**
@@ -444,16 +510,89 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @param element
      */
-    public void addLast(Object element) {
+    public void addLast(T element) {
         this.size++;
-        Node link = this.getNode();
+        Node<T> link = this.getNode();
         if (link == null) {
-            this.node = new Node(element, null, null);
+            this.node = new Node<T>(element, null, null);
             this.lastNode = this.node;
             return;
         }
-        this.lastNode.setNext(new Node(element, null, this.lastNode));
+        this.lastNode.setNext(new Node<T>(element, null, this.lastNode));
         this.lastNode = this.lastNode.getNext();
+    }
+
+    /**
+     * Сhecks whether the current LinkedList contains an element from the argument
+     * @cpu O(n * m) , n - super.size, m - asymptotic of the element.equals() function
+     * @ram O(1)
+     * @param element argument
+     * @return true when LinkedList have element from argument and false when have not
+     */
+    @Override
+    public boolean contains(Object element) {
+        return super.contains(element);
+    }
+
+    /**
+     * Сhecks contains or not LinkedList all elements from the argument
+     * @cpu O(n * m * k) , n - super.size, m - collection.size, k - asymptotic of the T item.equals() function
+     * @ram O(1)
+     * @param collection argument
+     * @return true when LinkedList have all elements from the argument, false when have not
+     */
+    @Override
+    public boolean containsAll(Collections<?> collection) {
+        return super.containsAll(collection);
+    }
+
+    /**
+     * Sort elements in the list
+     * @cpu O(n * log(n)) , n - this.size
+     * @ram O(n), n - this.size
+     * @param comparator argument, this is condition by which the sorting
+     */
+    @Override
+    public void sort(Comparator<? super T> comparator) {
+        super.sort(comparator);
+    }
+
+    /**
+     * Return String with values of elements from List
+     * @cpu O(n), n - size of List
+     * @ram O(n), n - size of List
+     * @return String with values of elements from List
+     */
+    public String toString() {
+        return super.toString();
+    }
+
+    /**
+     * Compare current LinkedList with object from the argument
+     * @cpu O(n * m) , n - super.size; m - asymptotic of the object.equals() function
+     * @ram O(1)
+     * @param objects argument
+     * @return true when both objects are same( from the list class and have same elements), false
+    when are not
+     */
+    public boolean equals(Object objects) {
+        return super.equals(objects);
+    }
+
+    /**
+     * Remove element from the list when element meets the requirements of the argument
+     * @cpu O(n * m) , n - this.size, m - asymptotic of the predicate.test(item) function
+     * @ram O(1)
+     * @param predicate argument
+     */
+    @Override
+    public void removeIf(Predicate<? super T> predicate) {
+        ListIterator<T> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            if (predicate.test(iterator.next())) {
+                iterator.remove();
+            }
+        }
     }
 
     /**
@@ -462,7 +601,7 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return last element from LinkedList
      */
-    public Object getLast() {
+    public T getLast() {
         return this.lastNode.getElement();
     }
 
@@ -472,7 +611,7 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return first element from LinkedList
      */
-    public Object peek() {
+    public T peek() {
         return this.getFirst();
     }
 
@@ -482,17 +621,17 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return last element from LinkedList
      */
-    public Object removeLast(){
+    public T removeLast(){
         this.size--;
-       Object result = this.getLast();
-       if (this.getLastNode().getPrev() == null) {
-           this.node = null;
-           this.lastNode = null;
-           return result;
-       }
-       this.getLastNode().getPrev().setNext(null);
-       this.lastNode = this.lastNode.getPrev();
-       return result;
+        T result = this.getLast();
+        if (this.getLastNode().getPrev() == null) {
+            this.node = null;
+            this.lastNode = null;
+            return result;
+        }
+        this.getLastNode().getPrev().setNext(null);
+        this.lastNode = this.lastNode.getPrev();
+        return result;
     }
 
     /**
@@ -501,7 +640,112 @@ public class LinkedList implements List, Queue {
      * @ram O(1)
      * @return first element from LinkedList
      */
-    public Object poll() {
+    public T poll() {
         return this.removeFirst();
+    }
+    /**
+     * Create object from the ListIterator class
+     * @cpu O(1)
+     * @ram O(1)
+     * return object from the ListIterator class
+     */
+    public ListIterator<T> iterator() {
+        return new ListIterator<T>() {
+            private Node<T> currentNode;
+            private int  nextIndex;
+
+            /**
+             * Set element to the current position to the LinkedList that was called from ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @param  element argument
+             */
+            @Override
+            public void set(T element) {
+                currentNode.setElement(element);
+            }
+
+            /**
+             * Set element before the current position to the LinkedList that was called from ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @param  element argument
+             */
+            @Override
+            public void insertBefore(T element) {
+                if (size == 0) {
+                    return;
+                }
+                if (size == 1) {
+                    Node<T> newNode = new Node<>(element, node,null);
+                    node.setPrev(newNode);
+                    node = newNode;
+                    size++;
+                    return;
+                }
+                Node<T> newNode = new Node<>(element, currentNode, currentNode.getPrev());
+                Node<T> link = currentNode.getPrev();
+                currentNode.setPrev(newNode);
+                link.setNext(newNode);
+                size++;
+            }
+
+            /**
+             * Checks have  or not ListIterator one more element
+             * @cpu O(1)
+             * @ram O(1)
+             * @return true when ListIterator have one more element and false when have not
+             */
+            @Override
+            public boolean hasNext() {
+                return nextIndex < size;
+            }
+
+            /**
+             * Call next element from the ListIterator
+             * @cpu O(1)
+             * @ram O(1)
+             * @return next element from the ListIterator
+             */
+            @Override
+            public T next() {
+                if (nextIndex == 0) {
+                    currentNode = node;
+                    nextIndex++;
+                    return currentNode.getElement();
+                } else {
+                  currentNode = currentNode.getNext();
+                  nextIndex++;
+                  return currentNode.getElement();
+                }
+            }
+
+            /**
+             * Delete current Node from the iterator and Linked List
+             * @cpu O(1)
+             * @ram O(1)
+             */
+            public void remove() {
+                if (currentNode == null) {
+                    return;
+                }
+                if (size == 1) {
+                    node = null;
+                    lastNode = null;
+                } else if (currentNode.getPrev() == null) {
+                    node = node.getNext();
+                    node.setPrev(null);
+                    currentNode = node;
+                } else if (currentNode.getNext() == null) {
+                    lastNode = lastNode.getPrev();
+                    lastNode.setNext(null);
+                } else {
+                    currentNode.getPrev().setNext(currentNode.getNext());
+                    currentNode.getNext().setPrev(currentNode.getPrev());
+                }
+                size--;
+                nextIndex--;
+            }
+        };
     }
 }

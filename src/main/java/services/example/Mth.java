@@ -64,7 +64,7 @@ public enum Mth {
      * @ram O(1)
      * @param term1 argument
      * @param term2 argument
-     * @return  0
+     * @return  result of a mathematical operation that will be overrided
      */
     public abstract double calculate(double term1, double term2);
 }

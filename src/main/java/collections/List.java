@@ -1,54 +1,62 @@
 package collections;
 
-public interface List {
+import java.util.Comparator;
+
+public interface List<T> extends Collections<T> {
+    /**
+     * Set element in List by index
+     * @param index argument
+     * @param element argument
+     */
+    void set(int index, T element);
 
     /**
-     * Add one element to the end of the List
-     * @cpu O(1)
-     * @ram O(1)
-     * @param element
+     * Add element to the List by the index
+     *
+     * @param index   argument
+     * @param element argument
+     *                return true when element added to the List and false when didn't
      */
-    public void add(Object element);
+    boolean add(int index, T element);
+
 
     /**
-     * Set  element to the List by index
-     * @cpu O(1) for the ArrayList, @cpu O(n) for the LinkedList, n - size
-     * @ram O(1)
-     * @param index
-     * @param element
+     * Add elements from collection to the List since index
+     * @param index argument
+     * @param collection argument
+     * return true when elements added to the List and false when didn't
      */
-    public void set(int index, Object element);
+    boolean addAll(int index, Collections<? extends T> collection);
 
     /**
-     * Get  element from the List by index
-     * @cpu O(1) for the ArrayList, @cpu O(n) for the LinkedList, n - size of the LinkedList
-     * @ram O(1)
-     * @param index
-     * return element from List
+     * Get element from List by index
+     * @param index argument
+     * @return element from List by index
      */
-    public Object get(int index);
+    T get(int index);
 
     /**
-     * Get size of the List
-     * @cpu O(1)
-     * @ram O(1)
-     * return size of the List
+     * Get data to array from the list
+     * @return array with data from List
      */
-    public int size();
+    Object[] toArray();
+
+      /**
+       * Remove element from List by index and return this element
+       * @param index argument
+       * @return element from list by index
+       */
+    T remove(int index);
 
     /**
-     * Return array with elements from the List
-     * @cpu O(n) , n - size of the List
-     * @ram O(n), n - size of the List
-     * return array with elements from the List
+     * Create and return object by the ListIterator class
+     * @return  object by the ListIterator class
      */
-    public Object[] toArray();
+    ListIterator<T> iterator();
 
     /**
-     * Remove element from the List by index
-     * @cpu O(n) , n - size of the List
-     * @ram O(1)
-     * return array with elements from the List
+     * Method sort elements in the List use comparator
+     * @param comparator argument
      */
-    public Object remove(int index);
+     void sort(Comparator<? super T> comparator);
 }

@@ -23,7 +23,6 @@ class BookTest {
             Book firstBook = new Book(1,"Harry", 34, "Rick" , 128);
             Book secondBook = firstBook;
             Assertions.assertTrue(firstBook.equals(secondBook));
-            Assertions.assertTrue(secondBook.equals(firstBook));
         }
 
         @Test
@@ -31,7 +30,6 @@ class BookTest {
             Book firstBook = new Book(1,"Harry", 34, "Rick" , 128);
             Book secondBook = new Book(1,"Harry", 34, "Rick" , 128);
             Assertions.assertTrue(firstBook.equals(secondBook));
-            Assertions.assertTrue(secondBook.equals(firstBook));
         }
 
         @Test

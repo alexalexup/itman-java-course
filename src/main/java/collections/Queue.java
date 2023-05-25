@@ -1,54 +1,41 @@
 package collections;
 
-public interface Queue {
+public interface Queue<T> {
+    /**
+     * Add one element to the end of the Queue
+     * @param element
+     */
+    void offer(T element);
 
     /**
-     * Add one element to the queue
-     * @cpu O(1)
-     * @ram O(1)
-     * @param element argument
+     * Get first element from the Queue
+     * @return first element from the queue
      */
-    public void offer(Object element);
+    T peek();
 
     /**
-     * Get first element from the queue
-     * @cpu O(1)
-     * @ram O(1)
-     * return first element from the queue
+     * Get first element from the Queue and delete it
+     * @return first element from the Queue
      */
-    public Object peek();
+    T poll();
 
     /**
-     * Get and delete first element from the queue
-     * @cpu O(1)
-     * @ram O(1)
-     * return first element from the queue
+     * Return size of the Queue
+     * @return size of the Queue
      */
-    public Object poll();
+    int size();
 
     /**
-     * Return size of the queue
-     * @cpu O(1)
-     * @ram O(1)
-     * return size of the queue
+     * Check Do have Queue elements or not
+     * @return true if Queue have not elements, otherwise - false
      */
-    public int size();
+    boolean isEmpty();
 
     /**
-     * Check queue is empty or not
-     * @cpu O(1)
-     * @ram O(1)
-     * return true when queue is empty and false when queue have some elements
+     * Create and return array with elements from the Queue
+     * @return array with elements from the Queue
      */
-    public boolean isEmpty();
-
-    /**
-     * Return array with elements from the queue
-     * @cpu O(n), n - size of the queue
-     * @ram O(n), n - size of the queue
-     * return array with elements from the queue
-     */
-    public Object[] toArray();
+    Object[] toArray();
 }
 
 

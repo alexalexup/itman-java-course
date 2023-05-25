@@ -2,6 +2,10 @@ package utils;
 
 import collections.ArrayList;
 import entities.Event;
+import collections.IntArrayList;
+
+import java.util.Comparator;
+import java.util.function.ToIntFunction;
 
 
 public class ArrayUtils {
@@ -9,19 +13,20 @@ public class ArrayUtils {
      * Sort events in increasing order of date
      * @cpu O(n^2), n- events.length
      * @ram O(1)
-     * @param events array
+     * @param objects array
+     * @param comparator argument
      */
-    public static void bubbleSort(Event[] events) {
-        int n = events.length;
+    public static <T> void bubbleSort(T[] objects, Comparator<? super T> comparator) {
+        int n = objects.length;
         if (n < 1) {
            return;
         }
         for (int i = n; i > 1; i--) {
             for (int j = 1; j < i; j++) {
-                if (events[j-1].compareTo(events[j]) > 0) {
-                    Event t = events[j - 1];
-                    events[j - 1] = events[j];
-                    events[j] = t;
+                if (comparator.compare(objects[j-1], objects[j]) > 0) {
+                    T t = objects[j - 1];
+                    objects[j - 1] = objects[j];
+                    objects[j] = t;
                 }
             }
         }
@@ -207,12 +212,13 @@ public class ArrayUtils {
      * Sort events in order of increasing by date
      * @cpu O(n + m), n- events.length, m = (max - min)(events)
      * @ram O(n + m), n- events.length, m = (max - min)(events)
-     * @param events array with events
+     * @param objects array with elements
+     * @param function argument
      */
-    public static void countingSort(Event[] events) {
-        int[] keyArray = new int[events.length];
-        for (int i = 0; i < events.length; i ++) {
-            keyArray[i] = events[i].getDay() + events[i].getMonth() * 31 + events[i].getYear() * 12 * 31;
+    public static <T> void countingSort(T[] objects, ToIntFunction function) {
+        int[] keyArray = new int[objects.length];
+        for (int i = 0; i < objects.length; i ++) {
+            keyArray[i] = function.applyAsInt(objects[i]);
         }
         int maxDay  = findMax(keyArray);
         int minDay = findMin(keyArray);
@@ -222,11 +228,11 @@ public class ArrayUtils {
         }
         for (int i = 0; i < keyArray.length; i++) {
             int index = keyArray[i] - minDay;
-            sortDates[index].add(events[i]);
+            sortDates[index].add(objects[i]);
         }
         for (int i = 0, j = 0; i < sortDates.length; i++) {
             for (int k = 0; k < sortDates[i].size(); k++){
-                events[j] = (Event) sortDates[i].get(k);
+                objects[j] = (T) sortDates[i].get(k);
                 j++;
             }
         }
@@ -269,42 +275,6 @@ public class ArrayUtils {
     }
 
     /**
-     * Merge two arrays with events in increasing order of numbers
-     * @cpu O(n + m), n = aTo - aFrom, m = bTo - bFrom
-     * @ram O(1)
-     * @param a array with events
-     * @param aFrom argument
-     * @param aTo argument
-     * @param b array with events
-     * @param bFrom argument
-     * @param bTo argument
-     * @param r array with events
-     * @param rFrom argument
-     */
-    public static void merge(Event[] a, int aFrom, int aTo, Event[] b, int bFrom, int bTo, Event[] r, int rFrom) {
-        int length = rFrom + aTo - aFrom + bTo - bFrom;
-        for (int i = rFrom, j = aFrom, k = bFrom; i < length; i++) {
-            if (k < bTo  && (j >= aTo || a[j].compareTo(b[k]) > 0)) {
-                r[i] = b[k];
-                k++;
-            } else {
-                r[i] = a[j];
-                j++;
-            }
-        }
-    }
-
-    /**
-     * Sort Array with events use merge method
-     * @cpu O(n * logn), n - events.length
-     * @ram O(n), n- a.length
-     * @param events array with events
-     */
-    public static void mergeSort(Event[] events) {
-        mergeSort(events, 0, events.length);
-    }
-
-    /**
      * Sort part of array with numbers  use merge method
      * @cpu O(n * logn), n = toIndex - fromIndex
      * @ram O(n), n = toIndex - fromIndex
@@ -335,15 +305,26 @@ public class ArrayUtils {
     }
 
     /**
+     * Sort Array with events use merge method with comparator argument
+     * @cpu O(n * logn), n - events.length
+     * @ram O(n), n- a.length
+     * @param objects array with elements
+     * @param comparator argument
+     */
+    public static <T> void mergeSort(T[] objects, Comparator<? super T> comparator) {
+        mergeSort(objects, 0, objects.length, comparator);
+    }
+
+    /**
      * Sort part of array with events use merge method
      * @cpu O(n * logn), n = toIndex - fromIndex
      * @ram O(n), n = toIndex - fromIndex
-     * @param array array with numbers
+     * @param objects array with elements
      * @param fromIndex argument
      * @param toIndex argument
      */
-    public static void mergeSort(Event[] array, int fromIndex, int toIndex) {
-        Event[] bufferEvents = new Event[toIndex - fromIndex];
+    public static void mergeSort(Object[] objects, int fromIndex, int toIndex, Comparator comparator) {
+        Object[] bufferEvents =  new Object[toIndex - fromIndex];
         int size = 1;
         while (size < bufferEvents.length) {
             for (int i = fromIndex; i < toIndex; i = i + 2 * size) {
@@ -357,11 +338,49 @@ public class ArrayUtils {
                 if (bTo > toIndex) {
                     bTo = toIndex;
                 }
-                merge(array, aFrom, aTo, array, bFrom, bTo, bufferEvents, i - fromIndex);
+                merge(objects, aFrom, aTo, objects, bFrom, bTo, bufferEvents, i - fromIndex, comparator);
             }
             size = size * 2;
-            System.arraycopy(bufferEvents, 0, array, fromIndex, bufferEvents.length);
+            System.arraycopy(bufferEvents, 0, objects, fromIndex, bufferEvents.length);
         }
+    }
+
+    /**
+     * Merge two arrays with events in increasing order of numbers
+     * @cpu O(n + m), n = aTo - aFrom, m = bTo - bFrom
+     * @ram O(1)
+     * @param a array with elements
+     * @param aFrom argument
+     * @param aTo argument
+     * @param b array with elements
+     * @param bFrom argument
+     * @param bTo argument
+     * @param r array with elements
+     * @param rFrom argument
+     * @param comparator argument
+     */
+    public static<T> void merge(T[] a, int aFrom, int aTo, T[] b, int bFrom, int bTo, T[] r, int rFrom,
+                                Comparator<? super T> comparator) {
+        int length = rFrom + aTo - aFrom + bTo - bFrom;
+        for (int i = rFrom, j = aFrom, k = bFrom; i < length; i++) {
+            if (k < bTo  && (j >= aTo || comparator.compare(a[j], b[k]) > 0)) {
+                r[i] = b[k];
+                k++;
+            } else {
+                r[i] = a[j];
+                j++;
+            }
+        }
+    }
+
+    /**
+     * Sort Array with events use merge method
+     * @cpu O(n * logn), n - events.length
+     * @ram O(n), n- a.length
+     * @param objects array with elements
+     */
+    public static<T extends Comparable<T>> void mergeSort(T[] objects) {
+        mergeSort(objects, Comparable::compareTo);
     }
 }
 

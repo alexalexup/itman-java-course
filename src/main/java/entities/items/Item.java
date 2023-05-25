@@ -4,9 +4,9 @@ import utils.StringBuilder;
 import java.util.Objects;
 
 public class Item {
-   protected String title;
-   protected int price;
-   protected int id;
+    protected String title;
+    protected int price;
+    protected int id;
 
     /**
      * Get id from Item object

@@ -1,6 +1,9 @@
 package benchmarks;
 
+import java.util.Comparator;
 import java.util.Random;
+import java.util.function.ToIntFunction;
+
 import entities.Event;
 import utils.ArrayUtils;
 
@@ -100,6 +103,8 @@ public class SortBenchmark {
                 "mso4"
         };
         long[] time = new long[48];
+        Comparator<Event> comparator = Event::compareTo;
+        ToIntFunction<Event> function = a -> a.getDay() + a.getMonth() * 31 + a.getYear() * 12 * 31;
         int[] numbersArray = randomArray(10000, -10000, 10000);
         time[0] = System.currentTimeMillis();
         ArrayUtils.bubbleSort(numbersArray);
@@ -118,19 +123,19 @@ public class SortBenchmark {
         time[7] = System.currentTimeMillis();
         Event[] events = randomEvents(10000, 2000, 2021);
         time[8] = System.currentTimeMillis();
-        ArrayUtils.bubbleSort(events);
+        ArrayUtils.bubbleSort(events, comparator);
         time[9] = System.currentTimeMillis();
         events = randomEvents(10000, -1000000000, 1000000000);
         time[10] = System.currentTimeMillis();
-        ArrayUtils.bubbleSort(events);
+        ArrayUtils.bubbleSort(events, comparator);
         time[11] = System.currentTimeMillis();
         events = randomEvents(100000, 2000, 2021);
         time[12] = System.currentTimeMillis();
-        ArrayUtils.bubbleSort(events);
+        ArrayUtils.bubbleSort(events, comparator);
         time[13] = System.currentTimeMillis();
         events = randomEvents(100000, -1000000000, 1000000000);
         time[14] = System.currentTimeMillis();
-        ArrayUtils.bubbleSort(events);
+        ArrayUtils.bubbleSort(events, comparator);
         time[15] = System.currentTimeMillis();
         numbersArray = randomArray(10000, -10000, 10000);
         time[16] = System.currentTimeMillis();
@@ -150,19 +155,19 @@ public class SortBenchmark {
         time[23] = System.currentTimeMillis();
         events = randomEvents(10000, 2000, 2021);
         time[24] = System.currentTimeMillis();
-        ArrayUtils.countingSort(events);
+        ArrayUtils.countingSort(events, function);
         time[25] = System.currentTimeMillis();
         events = randomEvents(10000, -1000000000, 1000000000);
         time[26] = System.currentTimeMillis();
-        ArrayUtils.countingSort(events);
+        ArrayUtils.countingSort(events, function);
         time[27] = System.currentTimeMillis();
         events = randomEvents(100000, 2000, 2021);
         time[28] = System.currentTimeMillis();
-        ArrayUtils.countingSort(events);
+        ArrayUtils.countingSort(events, function);
         time[29] = System.currentTimeMillis();
         events = randomEvents(100000, -1000000000, 1000000000);
         time[30] = System.currentTimeMillis();
-        ArrayUtils.countingSort(events);
+        ArrayUtils.countingSort(events, function);
         time[31] = System.currentTimeMillis();
         numbersArray = randomArray(10000, -10000, 10000);
         time[32] = System.currentTimeMillis();
@@ -182,19 +187,19 @@ public class SortBenchmark {
         time[39] = System.currentTimeMillis();
         events = randomEvents(10000, 2000, 2021);
         time[40] = System.currentTimeMillis();
-        ArrayUtils.mergeSort(events);
+        ArrayUtils.mergeSort(events, comparator);
         time[41] = System.currentTimeMillis();
         events = randomEvents(10000, -1000000000, 1000000000);
         time[42] = System.currentTimeMillis();
-        ArrayUtils.mergeSort(events);
+        ArrayUtils.mergeSort(events, comparator);
         time[43] = System.currentTimeMillis();
         events = randomEvents(100000, 2000, 2021);
         time[44] = System.currentTimeMillis();
-        ArrayUtils.mergeSort(events);
+        ArrayUtils.mergeSort(events, comparator);
         time[45] = System.currentTimeMillis();
         events = randomEvents(100000, -1000000000, 1000000000);
         time[46] = System.currentTimeMillis();
-        ArrayUtils.mergeSort(events);
+        ArrayUtils.mergeSort(events, comparator);
         time[47] = System.currentTimeMillis();
         for (int i = 0, j = 0; i < time.length; i = i + 2) {
             long result = time[i + 1] - time[i];

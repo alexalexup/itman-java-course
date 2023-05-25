@@ -10,7 +10,6 @@ public class ListBenchmark {
     // LinkedList takes 0.86 sec
     // ArrayList 0.518 sec
     public static void main(String[] args) {
-
         long firstTime = System.currentTimeMillis();
         createIntArrayListWithCapacity(10000000);
         long secondTime = System.currentTimeMillis();
@@ -27,7 +26,8 @@ public class ListBenchmark {
     }
 
     /**
-     * Create IntArrayList with capacity from argument
+     * Creates IntArrayList with a capacity from the argument and
+     adds elements in an amount equal to the value of the argument
      * @cpu O(n), n - length
      * @ram O(n), n - length
      * @param length argument
@@ -42,7 +42,7 @@ public class ListBenchmark {
     }
 
     /**
-     * Create IntArrayList with default capacity
+     * Creates IntArrayList  and adds elements in an amount equal to the value of the argument
      * @cpu O(n), n - length
      * @ram O(n), n - length
      * @param length argument
@@ -57,7 +57,7 @@ public class ListBenchmark {
    }
 
     /**
-     * Create LinkedList with capacity from argument
+     * Creates LinkedList and adds elements in an amount equal to the value of the argument
      * @cpu O(n), n - length
      * @ram O(n), n - length
      * @param length argument
@@ -72,7 +72,7 @@ public class ListBenchmark {
    }
 
     /**
-     * Create ArrayList with default capacity
+     * Creates ArrayList and adds elements in an amount equal to the value of the argument
      * @cpu O(n), n - length
      * @ram O(n), n - length
      * @param length argument
